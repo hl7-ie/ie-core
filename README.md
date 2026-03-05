@@ -6,6 +6,8 @@
 **FHIR Version**: R4 (4.0.1)  
 **Status**: Draft (CI Build)
 
+[![Build IE Core FHIR IG](https://github.com/nithinmohantk/hl7-ie-fhir-draft-ig/actions/workflows/build-ig.yml/badge.svg)](https://github.com/nithinmohantk/hl7-ie-fhir-draft-ig/actions/workflows/build-ig.yml)
+
 ## Overview
 
 The IE Core Implementation Guide defines the minimum constraints on FHIR resources to create Irish healthcare interoperability profiles. It is developed in collaboration with the Health Service Executive (HSE), the Irish College of General Practitioners (ICGP), and the Department of Health.
