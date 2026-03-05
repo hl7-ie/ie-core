@@ -3,7 +3,7 @@
 // ╰──────────────────────────────────────────────────────────────────────╯
 
 Profile: IECoreLocation
-Parent: Location
+Parent: $EULocationCore
 Id: ie-core-location
 Title: "IE Core Location"
 Description: "The IE Core Location Profile is based upon the core FHIR Location Resource and defines the minimum set of data required to query and retrieve location information within the Irish healthcare system. It covers details such as the location name, type, address, and managing organization."

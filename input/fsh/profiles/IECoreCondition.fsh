@@ -17,7 +17,7 @@ Description: "The IE Core Condition Encounter Diagnosis profile sets minimum exp
 * category contains EncounterDiagnosis 1..1 MS
 * category[EncounterDiagnosis] = $CondCat#encounter-diagnosis "Encounter Diagnosis"
 * code 1..1 MS
-* code from $IEBase/ValueSet/ie-core-condition-code (extensible)
+* code from IECoreConditionCode (extensible)
 * subject 1..1 MS
 * subject only Reference(IECorePatient)
 * onset[x] MS
@@ -47,7 +47,7 @@ Description: "The IE Core Condition Problems and Health Concerns profile sets mi
 * category[ProblemListItem] = $CondCat#problem-list-item "Problem List Item"
 * category[HealthConcern] = $CondCat#health-concern "Health Concern"
 * code 1..1 MS
-* code from $IEBase/ValueSet/ie-core-condition-code (extensible)
+* code from IECoreConditionCode (extensible)
 * subject 1..1 MS
 * subject only Reference(IECorePatient)
 * onset[x] MS

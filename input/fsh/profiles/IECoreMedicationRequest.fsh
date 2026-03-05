@@ -12,7 +12,7 @@ Description: "The IE Core MedicationRequest profile sets minimum expectations fo
 * intent 1..1 MS
 * reported[x] MS
 * medication[x] 1..1 MS
-* medication[x] from $IEBase/ValueSet/ie-core-medication-codes (extensible)
+* medication[x] from IECoreMedicationCodes (extensible)
 * subject 1..1 MS
 * subject only Reference(IECorePatient)
 * encounter MS

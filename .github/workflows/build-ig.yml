@@ -1,0 +1,134 @@
+name: Build IE Core FHIR IG
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  sushi-validate:
+    name: SUSHI Compilation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install SUSHI
+        run: npm install -g fsh-sushi
+
+      - name: Run SUSHI
+        run: sushi .
+
+      - name: Upload SUSHI output
+        uses: actions/upload-artifact@v4
+        with:
+          name: fsh-generated
+          path: fsh-generated/
+          retention-days: 5
+
+  ig-publish:
+    name: Full IG Build & Validation
+    needs: sushi-validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Ruby and Jekyll
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+
+      - name: Install Jekyll
+        run: gem install jekyll
+
+      - name: Install SUSHI
+        run: npm install -g fsh-sushi
+
+      - name: Download IG Publisher
+        run: |
+          mkdir -p input-cache
+          curl -L https://github.com/HL7/fhir-ig-publisher/releases/latest/download/publisher.jar \
+            -o input-cache/publisher.jar
+
+      - name: Run IG Publisher
+        run: |
+          java -Dfile.encoding=UTF-8 \
+            -jar input-cache/publisher.jar \
+            -ig ig.ini
+
+      - name: Check QA Results
+        run: |
+          echo "=== QA Summary ==="
+          cat output/qa.json
+          echo ""
+          if [ -f output/qa.html ]; then
+            echo "QA report generated at output/qa.html"
+          fi
+
+      - name: Upload IG Output
+        uses: actions/upload-artifact@v4
+        with:
+          name: ig-output
+          path: output/
+          retention-days: 30
+
+      - name: Upload QA Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qa-report
+          path: |
+            output/qa.json
+            output/qa.html
+            output/qa-time-report.json
+          retention-days: 30
+
+  deploy-pages:
+    name: Deploy to GitHub Pages
+    needs: ig-publish
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Download IG Output
+        uses: actions/download-artifact@v4
+        with:
+          name: ig-output
+          path: output/
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: output/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

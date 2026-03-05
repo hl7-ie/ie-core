@@ -10,7 +10,7 @@ Description: "The IE Core Procedure profile sets minimum expectations for the Pr
 
 * status 1..1 MS
 * code 1..1 MS
-* code from $IEBase/ValueSet/ie-core-procedure-code (extensible)
+* code from IECoreProcedureCode (extensible)
 * subject 1..1 MS
 * subject only Reference(IECorePatient)
 * performed[x] 1..1 MS

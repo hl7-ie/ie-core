@@ -11,9 +11,9 @@ Description: "The IE Core DocumentReference profile sets minimum expectations fo
 * identifier MS
 * status 1..1 MS
 * type MS
-* type from $IEBase/ValueSet/ie-core-documentreference-type (extensible)
+* type from IECoreDocumentReferenceType (extensible)
 * category MS
-* category from $IEBase/ValueSet/ie-core-documentreference-category (extensible)
+* category from IECoreDocumentReferenceCategory (extensible)
 * subject MS
 * subject only Reference(IECorePatient)
 * date MS

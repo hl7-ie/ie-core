@@ -16,7 +16,7 @@ Description: "The IE Core DiagnosticReport for Laboratory Results profile sets m
 * category contains laboratory 1..1 MS
 * category[laboratory] = $DiagReportCat#LAB "Laboratory"
 * code 1..1 MS
-* code from $IEBase/ValueSet/ie-core-laboratory-test-codes (extensible)
+* code from IECoreLaboratoryTestCodes (extensible)
 * subject 1..1 MS
 * subject only Reference(IECorePatient)
 * encounter MS
@@ -24,7 +24,7 @@ Description: "The IE Core DiagnosticReport for Laboratory Results profile sets m
 * issued MS
 * performer MS
 * result MS
-* result only Reference(IECoreObservationLab)
+* result only Reference(IECoreLaboratoryResultObservation)
 
 
 Profile: IECoreDiagnosticReportNote
@@ -39,9 +39,9 @@ Description: "The IE Core DiagnosticReport for Report and Note Exchange profile 
 
 * status 1..1 MS
 * category 1..* MS
-* category from $IEBase/ValueSet/ie-core-diagnostic-report-category (extensible)
+* category from IECoreDiagnosticReportCategory (extensible)
 * code 1..1 MS
-* code from $IEBase/ValueSet/ie-core-non-laboratory-codes (extensible)
+* code from IECoreDiagnosticReportReportAndNoteCodes (extensible)
 * subject 1..1 MS
 * subject only Reference(IECorePatient)
 * encounter MS

@@ -13,6 +13,6 @@ Description: "The IE Core CareTeam profile sets minimum expectations for the Car
 * subject only Reference(IECorePatient)
 * participant MS
 * participant.role MS
-* participant.role from $IEBase/ValueSet/ie-core-careteam-member-function (extensible)
+* participant.role from IECoreCareTeamMemberFunction (extensible)
 * participant.member MS
 * participant.member only Reference(IECorePractitioner or IECorePractitionerRole or IECoreOrganization or IECoreCareTeam or IECorePatient or IECoreRelatedPerson)

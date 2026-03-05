@@ -96,7 +96,7 @@ Description: "Records a patient's sexual orientation in the Irish healthcare con
 * subject only Reference(Patient)
 * value[x] 1..1
 * value[x] only CodeableConcept
-* valueCodeableConcept from IECoreSexualOrientation (extensible)
+* valueCodeableConcept from IECoreSexualOrientationIncludingDataAbsentReason (extensible)
 
 // ----------------------------------------------------------------
 // 6. IE Core Observation Pregnancy Status
@@ -113,7 +113,7 @@ Description: "Records a patient's pregnancy status in the Irish healthcare conte
 * subject only Reference(Patient)
 * value[x] 1..1
 * value[x] only CodeableConcept
-* valueCodeableConcept from IECorePregnancyStatusCodes (extensible)
+* valueCodeableConcept from IECorePregnancyStatus (extensible)
 
 // ----------------------------------------------------------------
 // 7. IE Core Observation Pregnancy Intent
@@ -130,7 +130,7 @@ Description: "Records a patient's pregnancy intent in the Irish healthcare conte
 * subject only Reference(Patient)
 * value[x] 1..1
 * value[x] only CodeableConcept
-* valueCodeableConcept from IECorePregnancyIntentCodes (extensible)
+* valueCodeableConcept from IECorePregnancyIntent (extensible)
 
 // ----------------------------------------------------------------
 // 8. IE Core Observation Occupation

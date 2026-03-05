@@ -4,6 +4,12 @@ The IE Core Implementation Guide is developed and maintained in collaboration wi
 
 The IE Core Implementation Guide, based on [FHIR Version R4](http://hl7.org/fhir/R4/), defines the minimum constraints on FHIR resources to create the IE Core Profiles. It identifies necessary elements, extensions, vocabularies, and value sets, and details their usage. It also documents the minimum FHIR RESTful interactions required for each IE Core Profile to access patient data. Establishing this "floor" of standards promotes interoperability and adoption through common implementation, allowing for further standards development for specific use cases.
 
+### EU EHDS Alignment
+
+IE Core profiles are built on top of the [HL7 Europe Base and Core FHIR profiles](https://hl7.eu/fhir/base), ensuring conformance with the [European Health Data Space (EHDS)](https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space_en) regulation. This layered approach means that every IE Core resource instance automatically satisfies EU Core constraints and is interoperable with other EU Member State implementations. The profiles also align with the [International Patient Summary (IPS)](https://hl7.org/fhir/uv/ips/) standard for cross-border care scenarios via [MyHealth@EU](https://health.ec.europa.eu/ehealth-digital-health-and-care/electronic-cross-border-health-services_en).
+
+For full details, see the [EHDS & EU Conformance](ehds-conformance.html) page.
+
 There are two ways to implement IE Core:
 
 1. **Profile Only Support**: Systems may support *only* the IE Core Profiles to represent clinical information.

@@ -10,7 +10,7 @@ Description: "The IE Core Coverage profile sets minimum expectations for the Cov
 
 * status 1..1 MS
 * type 1..1 MS
-* type from $IEBase/ValueSet/ie-core-payer-type (extensible)
+* type from IECorePayerType (extensible)
 * subscriberId 1..1 MS
 * beneficiary 1..1 MS
 * beneficiary only Reference(IECorePatient)

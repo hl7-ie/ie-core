@@ -3,7 +3,7 @@
 // ╰──────────────────────────────────────────────────────────────────────╯
 
 Profile: IECoreOrganization
-Parent: Organization
+Parent: $EUOrganizationCore
 Id: ie-core-organization
 Title: "IE Core Organization"
 Description: "The IE Core Organization Profile is based upon the core FHIR Organization Resource and defines the minimum set of data required to query and retrieve organization information within the Irish healthcare system. It includes identifier slicing for the Company Registration Number (CRN) and Health Provider Index (HPI)."

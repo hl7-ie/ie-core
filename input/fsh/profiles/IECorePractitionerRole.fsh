@@ -3,7 +3,7 @@
 // ╰──────────────────────────────────────────────────────────────────────╯
 
 Profile: IECorePractitionerRole
-Parent: PractitionerRole
+Parent: $EUPractitionerRoleCore
 Id: ie-core-practitionerrole
 Title: "IE Core PractitionerRole"
 Description: "The IE Core PractitionerRole Profile is based upon the core FHIR PractitionerRole Resource and defines the minimum set of data required to query and retrieve practitioner role information within the Irish healthcare system. It constrains references to IE Core profiles and binds the role code to the IE Core Healthcare Provider Taxonomy."

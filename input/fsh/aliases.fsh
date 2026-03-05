@@ -50,3 +50,23 @@ Alias: $VitalSigns = vital-signs
 Alias: $Laboratory = laboratory
 Alias: $SocialHistory = social-history
 Alias: $Survey = survey
+
+// HL7 Europe Base & Core Profiles (EHDS-aligned)
+Alias: $EUPatientBase = http://hl7.eu/fhir/base/StructureDefinition/patient-eu
+Alias: $EUPatientCore = http://hl7.eu/fhir/base/StructureDefinition/patient-eu-core
+Alias: $EUPractitionerCore = http://hl7.eu/fhir/base/StructureDefinition/practitioner-eu-core
+Alias: $EUPractitionerRoleCore = http://hl7.eu/fhir/base/StructureDefinition/practitionerRole-eu-core
+Alias: $EUOrganizationCore = http://hl7.eu/fhir/base/StructureDefinition/organization-eu-core
+Alias: $EUAllergyIntoleranceCore = http://hl7.eu/fhir/base/StructureDefinition/allergyIntolerance-eu-core
+Alias: $EUConditionCore = http://hl7.eu/fhir/base/StructureDefinition/condition-eu-core
+Alias: $EUProcedureCore = http://hl7.eu/fhir/base/StructureDefinition/procedure-eu-core
+Alias: $EUImmunizationCore = http://hl7.eu/fhir/base/StructureDefinition/immunization-eu-core
+Alias: $EUMedicationCore = http://hl7.eu/fhir/base/StructureDefinition/medication-eu-core
+Alias: $EUMedicationRequestCore = http://hl7.eu/fhir/base/StructureDefinition/medicationRequest-eu-core
+Alias: $EUDiagnosticReportCore = http://hl7.eu/fhir/base/StructureDefinition/diagnosticReport-eu-core
+Alias: $EULocationCore = http://hl7.eu/fhir/base/StructureDefinition/location-eu-core
+Alias: $EUMedicalTestResultCore = http://hl7.eu/fhir/base/StructureDefinition/medicalTestResult-eu-core
+Alias: $EUAddressDataType = http://hl7.eu/fhir/base/StructureDefinition/Address-eu
+
+// International Patient Summary (IPS)
+Alias: $IPSPatient = http://hl7.org/fhir/uv/ips/StructureDefinition/Patient-uv-ips

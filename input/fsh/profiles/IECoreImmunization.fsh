@@ -11,7 +11,7 @@ Description: "The IE Core Immunization profile sets minimum expectations for the
 * status 1..1 MS
 * statusReason MS
 * vaccineCode 1..1 MS
-* vaccineCode from $IEBase/ValueSet/ie-core-vaccines (extensible)
+* vaccineCode from IECoreVaccines (extensible)
 * patient 1..1 MS
 * patient only Reference(IECorePatient)
 * occurrence[x] 1..1 MS

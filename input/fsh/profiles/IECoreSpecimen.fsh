@@ -10,7 +10,7 @@ Description: "The IE Core Specimen profile sets minimum expectations for the Spe
 
 * identifier MS
 * type MS
-* type from $IEBase/ValueSet/ie-core-specimen-type (extensible)
+* type from IECoreSpecimenType (extensible)
 * subject MS
 * subject only Reference(IECorePatient)
 * collection MS

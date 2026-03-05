@@ -12,7 +12,7 @@ Description: "The IE Core ServiceRequest profile sets minimum expectations for t
 * intent 1..1 MS
 * category MS
 * code 1..1 MS
-* code from $IEBase/ValueSet/ie-core-procedure-code (extensible)
+* code from IECoreProcedureCode (extensible)
 * subject 1..1 MS
 * subject only Reference(IECorePatient)
 * occurrence[x] MS

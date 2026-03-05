@@ -12,7 +12,7 @@ Description: "The IE Core AllergyIntolerance profile sets minimum expectations f
 * verificationStatus MS
 * category MS
 * code 1..1 MS
-* code from $IEBase/ValueSet/ie-core-allergy-intolerance-set (extensible)
+* code from IECoreAllergyIntoleranceSet (extensible)
 * patient 1..1 MS
 * patient only Reference(IECorePatient)
 * onset[x] MS

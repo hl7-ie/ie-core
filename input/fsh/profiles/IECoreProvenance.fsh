@@ -12,7 +12,7 @@ Description: "The IE Core Provenance profile sets minimum expectations for the P
 * recorded 1..1 MS
 * agent 1..* MS
 * agent.type MS
-* agent.type from $IEBase/ValueSet/ie-core-provenance-participant-type (extensible)
+* agent.type from IECoreProvenanceParticipantType (extensible)
 * agent.who MS
 * agent.who only Reference(IECorePractitioner or IECorePractitionerRole or IECoreOrganization or IECorePatient or Device or RelatedPerson)
 * agent.onBehalfOf MS

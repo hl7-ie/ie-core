@@ -13,16 +13,19 @@ The IE Core Implementation Guide is a living document that will continue to evol
 
 #### Medium Term (2026-2027)
 
-- **FHIR R5 Migration Path**: Planning for FHIR R5 adoption when appropriate
-- **International Patient Summary (IPS)**: Alignment with the EU IPS standard for cross-border care
+- **EU Core 2.0 Re-parenting**: Re-base AllergyIntolerance, Condition, Procedure, Immunization, Medication, MedicationRequest, and DiagnosticReport profiles on HL7 Europe Core profiles when `hl7.fhir.eu.base` v2.0.0 is published
+- **FHIR R5 Migration Path**: Planning for FHIR R5 adoption aligned with HL7 Europe's R5 timeline
+- **MyHealth@EU Integration**: Full cross-border patient summary exchange via MyHealth@EU infrastructure
 - **Genomics**: Profiles for genomic data exchange
 - **Terminology Services**: National terminology server for Irish healthcare terminologies
 
 #### Long Term (2027+)
 
+- **EHDS Implementing Acts**: Full conformance with the European Commission's Implementing Acts on the European Electronic Health Record Exchange Format (expected early 2027)
+- **EU Digital Identity Wallet**: Support for the EU Digital Identity framework for patient authentication
 - **AI/Clinical Decision Support**: FHIR-based CDS Hooks integration
 - **Population Health**: Aggregate data profiles for public health reporting
-- **Research Data Exchange**: Profiles for clinical research data sharing
+- **Research Data Exchange**: Profiles for clinical research data sharing, aligned with EHDS secondary use requirements
 
 ### How to Contribute
 

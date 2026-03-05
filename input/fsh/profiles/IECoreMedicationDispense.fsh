@@ -10,7 +10,7 @@ Description: "The IE Core MedicationDispense profile sets minimum expectations f
 
 * status 1..1 MS
 * medication[x] 1..1 MS
-* medication[x] from $IEBase/ValueSet/ie-core-medication-codes (extensible)
+* medication[x] from IECoreMedicationCodes (extensible)
 * subject 1..1 MS
 * subject only Reference(IECorePatient)
 * context MS

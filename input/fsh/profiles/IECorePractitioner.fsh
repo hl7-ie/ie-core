@@ -3,7 +3,7 @@
 // ╰──────────────────────────────────────────────────────────────────────╯
 
 Profile: IECorePractitioner
-Parent: Practitioner
+Parent: $EUPractitionerCore
 Id: ie-core-practitioner
 Title: "IE Core Practitioner"
 Description: "The IE Core Practitioner Profile is based upon the core FHIR Practitioner Resource and defines the minimum set of data required to query and retrieve practitioner demographic information within the Irish healthcare system. It includes identifier slicing for the Health Practitioner Index (HPI) and Irish Medical Council (IMC) registration numbers."

@@ -10,7 +10,7 @@ Description: "The IE Core Goal profile sets minimum expectations for the Goal re
 
 * lifecycleStatus 1..1 MS
 * description 1..1 MS
-* description from $IEBase/ValueSet/ie-core-goal-codes (extensible)
+* description from IECoreGoalCodes (extensible)
 * subject 1..1 MS
 * subject only Reference(IECorePatient)
 * target MS

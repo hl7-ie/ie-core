@@ -13,6 +13,9 @@ description: >-
   the minimum FHIR RESTful interactions for each IE Core Profile to access patient data.
   This IG is developed and maintained in collaboration with the Health Service Executive (HSE),
   the Irish College of General Practitioners (ICGP), and the Department of Health.
+  IE Core profiles derive from the HL7 Europe Base and Core profiles to ensure conformance
+  with the European Health Data Space (EHDS) and cross-border interoperability via the
+  International Patient Summary (IPS) standard.
 status: draft
 version: 0.1.0
 fhirVersion: 4.0.1
@@ -27,13 +30,20 @@ publisher:
 
 dependencies:
   hl7.fhir.uv.extensions.r4: 5.1.0
+  hl7.fhir.eu.base:
+    id: hl7fhireubase
+    uri: http://hl7.eu/fhir/base/ImplementationGuide/hl7.fhir.eu.base
+    version: 0.1.0
+  hl7.fhir.uv.ips:
+    id: hl7fhiruvips
+    uri: http://hl7.org/fhir/uv/ips/ImplementationGuide/hl7.fhir.uv.ips
+    version: 1.1.0
 
 parameters:
   show-hierarchical-table: true
   apply-jurisdiction: true
   apply-publisher: true
   jira-code: ie-core
-  path-expansion-params: ../../input/_resources/exp-params.json
   active-tables: false
   apply-contact: true
   apply-version: true
@@ -68,6 +78,8 @@ pages:
       title: Screening and Assessments
     future-of-ie-core.md:
       title: Future of IE Core
+  ehds-conformance.md:
+    title: EHDS & EU Conformance
   security.md:
     title: Security
   downloads.md:
@@ -97,6 +109,7 @@ menu:
     Operations: artifacts.html#behavior-operation-definitions
     Terminology: artifacts.html#terminology-value-sets
     Capability Statements: artifacts.html#behavior-capability-statements
+  EHDS & EU: ehds-conformance.html
   Security: security.html
   Downloads: downloads.html
   HL7 Registry Guide: hl7-registry-guidance.html
@@ -143,7 +156,7 @@ groups:
     resources:
       - StructureDefinition/ie-core-diagnosticreport-lab
       - StructureDefinition/ie-core-diagnosticreport-note
-      - StructureDefinition/ie-core-observation-lab
+      - StructureDefinition/ie-core-laboratory-result-observation
       - StructureDefinition/ie-core-observation-clinical-result
       - StructureDefinition/ie-core-simple-observation
       - StructureDefinition/ie-core-specimen

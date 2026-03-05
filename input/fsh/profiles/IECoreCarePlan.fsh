@@ -10,7 +10,7 @@ Description: "The IE Core CarePlan profile sets minimum expectations for the Car
 
 * text MS
 * text.status MS
-* text.status from $IEBase/ValueSet/ie-core-narrative-status (required)
+* text.status from IECoreNarrativeStatus (required)
 * status 1..1 MS
 * intent 1..1 MS
 * category 1..* MS
@@ -18,6 +18,6 @@ Description: "The IE Core CarePlan profile sets minimum expectations for the Car
 * category ^slicing.discriminator.path = "$this"
 * category ^slicing.rules = #open
 * category contains AssessPlan 1..1 MS
-* category[AssessPlan] = $IEBase/CodeSystem/ie-core-careplan-category#assess-plan "Assessment and Plan of Treatment"
+* category[AssessPlan] = http://hl7.hse.ie/fhir/ie/core/CodeSystem/ie-core-codesystem#assess-plan "Assessment and Plan of Treatment"
 * subject 1..1 MS
 * subject only Reference(IECorePatient)

@@ -9,6 +9,6 @@ Description: "The IE Core Medication profile sets minimum expectations for the M
 * ^status = #draft
 
 * code MS
-* code from $IEBase/ValueSet/ie-core-medication-codes (extensible)
+* code from IECoreMedicationCodes (extensible)
 * form MS
 * ingredient MS

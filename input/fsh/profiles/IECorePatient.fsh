@@ -3,7 +3,7 @@
 // ╰──────────────────────────────────────────────────────────────────────╯
 
 Profile: IECorePatient
-Parent: Patient
+Parent: $EUPatientCore
 Id: ie-core-patient
 Title: "IE Core Patient"
 Description: "The IE Core Patient Profile is based upon the core FHIR Patient Resource and defines the minimum set of data required to query and retrieve patient demographic information within the Irish healthcare system (HSE). It establishes constraints and extensions relevant to Ireland including identifier slicing for Irish health scheme numbers."
