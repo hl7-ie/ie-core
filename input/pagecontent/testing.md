@@ -73,6 +73,7 @@ Behaviour-Driven Development (BDD) tests using [Cucumber.js](https://cucumber.io
 | `terminology.feature` | ValueSet composition, CodeSystem concepts, county codes, draft status |
 | `invariants.feature` | IHI format, GMS format, Eircode format (valid and invalid scenarios) |
 | `ehds-profiles.feature` | All 5 EHDS priority category profiles existence and derivation |
+| `crossborder-eprescription.feature` | All 11 cross-border ePrescription scenarios — bundles, eDispensations, NePS inbound, eIDAS identifiers, drug code mapping, allergy propagation |
 
 #### R5 Feature Files (`r5/tests/features/`)
 

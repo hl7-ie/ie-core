@@ -1,0 +1,74 @@
+{
+  "resourceType": "Bundle",
+  "id": "lv-edispensation-response",
+  "type": "collection",
+  "timestamp": "2025-06-15T11:30:00+03:00",
+  "_comment": "Latvian eDispensation response: Mēs atdot Aptieka, Riga dispensed Metformins 500mg tabletes (ZRA-00098432) and Lizinoprils 10mg tabletes (ZRA-00102345) for Seán Murphy. Sent back to IE NCPeH via MyHealth@EU to mark Irish prescriptions as dispensed.",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:patient-sean-murphy-lv",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "patient-sean-murphy-lv",
+        "identifier": [
+          {"system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "value": "IE/LV/1234567T"},
+          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/ihi", "value": "210000000099887766"}
+        ],
+        "name": [{"use": "official", "family": "Murphy", "given": ["Seán", "Patrick"]}],
+        "gender": "male",
+        "birthDate": "1975-03-15"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:lv-dispense-metformin",
+      "resource": {
+        "resourceType": "MedicationDispense",
+        "id": "lv-dispense-metformin",
+        "identifier": [{"system": "http://www.zva.gov.lv/fhir/sid/dispensation", "value": "LV-DISP-2025-XB-001-MET"}],
+        "status": "completed",
+        "medicationCodeableConcept": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "372567009", "display": "Metformin"},
+            {"system": "http://www.zva.gov.lv/zalu-registrs", "code": "ZRA-00098432", "display": "Metformins 500mg tabletes"}
+          ],
+          "text": "Metformins 500mg tabletes (ZRA-00098432)"
+        },
+        "subject": {"reference": "urn:uuid:patient-sean-murphy-lv"},
+        "authorizingPrescription": [{"identifier": {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-LV-001"}}],
+        "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "DF", "display": "Daily Fill"}]},
+        "quantity": {"value": 60, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"},
+        "daysSupply": {"value": 30, "unit": "days", "system": "http://unitsofmeasure.org", "code": "d"},
+        "whenHandedOver": "2025-06-15T11:00:00+03:00",
+        "substitution": {
+          "wasSubstituted": true,
+          "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-substanceAdminSubstitution", "code": "G", "display": "Generic composition"}]}
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:lv-dispense-lisinopril",
+      "resource": {
+        "resourceType": "MedicationDispense",
+        "id": "lv-dispense-lisinopril",
+        "identifier": [{"system": "http://www.zva.gov.lv/fhir/sid/dispensation", "value": "LV-DISP-2025-XB-001-LIS"}],
+        "status": "completed",
+        "medicationCodeableConcept": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "386873009", "display": "Lisinopril"},
+            {"system": "http://www.zva.gov.lv/zalu-registrs", "code": "ZRA-00102345", "display": "Lizinoprils 10mg tabletes"}
+          ],
+          "text": "Lizinoprils 10mg tabletes (ZRA-00102345)"
+        },
+        "subject": {"reference": "urn:uuid:patient-sean-murphy-lv"},
+        "authorizingPrescription": [{"identifier": {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-LV-002"}}],
+        "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "DF", "display": "Daily Fill"}]},
+        "quantity": {"value": 28, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"},
+        "whenHandedOver": "2025-06-15T11:00:00+03:00",
+        "substitution": {
+          "wasSubstituted": true,
+          "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-substanceAdminSubstitution", "code": "G", "display": "Generic composition"}]}
+        }
+      }
+    }
+  ]
+}

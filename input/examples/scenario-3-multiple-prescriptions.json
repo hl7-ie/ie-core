@@ -1,0 +1,213 @@
+{
+  "resourceType": "Bundle",
+  "id": "ie-bundle-scenario3-multiple-prescriptions",
+  "meta": {
+    "profile": ["http://hl7.org/fhir/StructureDefinition/Bundle"]
+  },
+  "type": "collection",
+  "timestamp": "2024-06-20T16:15:00+01:00",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:patient-john-murphy",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "patient-john-murphy",
+        "meta": {
+          "profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-patient"]
+        },
+        "identifier": [
+          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/ihi", "value": "210000000012345678"},
+          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/gms", "value": "1234567A"}
+        ],
+        "active": true,
+        "name": [{"use": "official", "family": "Murphy", "given": ["John", "Patrick"], "prefix": ["Mr."]}],
+        "gender": "male",
+        "birthDate": "1978-05-15",
+        "address": [{"use": "home", "line": ["42 Pearse Street"], "city": "Dublin", "postalCode": "D02 XY12", "country": "IE"}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitioner-sarah-obrien",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "practitioner-sarah-obrien",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-practitioner"]},
+        "identifier": [{"system": "http://hl7.hse.ie/fhir/ie/core/sid/imc", "value": "IMC-12345"}],
+        "active": true,
+        "name": [{"use": "official", "family": "O'Brien", "given": ["Sarah"], "prefix": ["Dr."]}],
+        "gender": "female"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:pharmacist-niamh-brennan",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "pharmacist-niamh-brennan",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-practitioner"]},
+        "identifier": [{"system": "http://hl7.hse.ie/fhir/ie/core/sid/psi", "value": "PSI-54321"}],
+        "active": true,
+        "name": [{"use": "official", "family": "Brennan", "given": ["Niamh"], "prefix": ["Ms."]}],
+        "gender": "female"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:medication-metformin",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "medication-metformin",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"]},
+        "code": {"coding": [{"system": "http://snomed.info/sct", "code": "372567009", "display": "Metformin"}], "text": "Metformin 500mg tablets"},
+        "form": {"coding": [{"system": "http://snomed.info/sct", "code": "385055001", "display": "Tablet"}]},
+        "ingredient": [{"itemCodeableConcept": {"coding": [{"system": "http://snomed.info/sct", "code": "372567009"}]}, "isActive": true, "strength": {"numerator": {"value": 500, "unit": "mg", "system": "http://unitsofmeasure.org", "code": "mg"}, "denominator": {"value": 1, "unit": "tablet", "system": "http://unitsofmeasure.org", "code": "{tablet}"}}}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:medication-atorvastatin",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "medication-atorvastatin",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"]},
+        "code": {"coding": [{"system": "http://snomed.info/sct", "code": "373444002", "display": "Atorvastatin"}], "text": "Atorvastatin 20mg tablets"},
+        "form": {"coding": [{"system": "http://snomed.info/sct", "code": "385055001", "display": "Tablet"}]},
+        "ingredient": [{"itemCodeableConcept": {"coding": [{"system": "http://snomed.info/sct", "code": "373444002"}]}, "isActive": true, "strength": {"numerator": {"value": 20, "unit": "mg", "system": "http://unitsofmeasure.org", "code": "mg"}, "denominator": {"value": 1, "unit": "tablet", "system": "http://unitsofmeasure.org", "code": "{tablet}"}}}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:medication-ramipril",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "medication-ramipril",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"]},
+        "code": {"coding": [{"system": "http://snomed.info/sct", "code": "386872004", "display": "Ramipril"}], "text": "Ramipril 5mg capsules"},
+        "form": {"coding": [{"system": "http://snomed.info/sct", "code": "385049006", "display": "Capsule"}]},
+        "ingredient": [{"itemCodeableConcept": {"coding": [{"system": "http://snomed.info/sct", "code": "386872004"}]}, "isActive": true, "strength": {"numerator": {"value": 5, "unit": "mg", "system": "http://unitsofmeasure.org", "code": "mg"}, "denominator": {"value": 1, "unit": "capsule", "system": "http://unitsofmeasure.org", "code": "{capsule}"}}}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:prescription-multi-metformin",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "prescription-multi-metformin",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription"]},
+        "identifier": [{"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2024-003001"}],
+        "groupIdentifier": {"system": "http://hl7.hse.ie/fhir/ie/core/sid/prescription-group", "value": "IE-GP-RX-GROUP-20240620"},
+        "status": "active",
+        "intent": "order",
+        "category": [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category", "code": "community"}]}],
+        "medicationReference": {"reference": "urn:uuid:medication-metformin"},
+        "subject": {"reference": "urn:uuid:patient-john-murphy"},
+        "requester": {"reference": "urn:uuid:practitioner-sarah-obrien"},
+        "authoredOn": "2024-06-20",
+        "reasonCode": [{"coding": [{"system": "http://snomed.info/sct", "code": "44054006", "display": "Diabetes mellitus type 2"}]}],
+        "dosageInstruction": [{"text": "Take one 500mg tablet twice daily with meals", "timing": {"repeat": {"frequency": 2, "period": 1, "periodUnit": "d"}}, "route": {"coding": [{"system": "http://snomed.info/sct", "code": "26643006"}]}}],
+        "dispenseRequest": {"validityPeriod": {"start": "2024-06-20", "end": "2024-07-20"}, "numberOfRepeatsAllowed": 5, "quantity": {"value": 60, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"}, "expectedSupplyDuration": {"value": 30, "unit": "days", "system": "http://unitsofmeasure.org", "code": "d"}},
+        "substitution": {"allowedBoolean": true}
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:prescription-multi-atorvastatin",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "prescription-multi-atorvastatin",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription"]},
+        "identifier": [{"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2024-003002"}],
+        "groupIdentifier": {"system": "http://hl7.hse.ie/fhir/ie/core/sid/prescription-group", "value": "IE-GP-RX-GROUP-20240620"},
+        "status": "active",
+        "intent": "order",
+        "category": [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category", "code": "community"}]}],
+        "medicationReference": {"reference": "urn:uuid:medication-atorvastatin"},
+        "subject": {"reference": "urn:uuid:patient-john-murphy"},
+        "requester": {"reference": "urn:uuid:practitioner-sarah-obrien"},
+        "authoredOn": "2024-06-20",
+        "reasonCode": [{"coding": [{"system": "http://snomed.info/sct", "code": "55822004", "display": "Hyperlipidemia"}]}],
+        "dosageInstruction": [{"text": "Take one 20mg tablet once daily at night", "timing": {"repeat": {"frequency": 1, "period": 1, "periodUnit": "d", "when": ["CV"]}}, "route": {"coding": [{"system": "http://snomed.info/sct", "code": "26643006"}]}}],
+        "dispenseRequest": {"validityPeriod": {"start": "2024-06-20", "end": "2024-09-20"}, "numberOfRepeatsAllowed": 2, "quantity": {"value": 30, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"}, "expectedSupplyDuration": {"value": 30, "unit": "days", "system": "http://unitsofmeasure.org", "code": "d"}},
+        "substitution": {"allowedBoolean": true}
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:prescription-multi-ramipril",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "prescription-multi-ramipril",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription"]},
+        "identifier": [{"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2024-003003"}],
+        "groupIdentifier": {"system": "http://hl7.hse.ie/fhir/ie/core/sid/prescription-group", "value": "IE-GP-RX-GROUP-20240620"},
+        "status": "active",
+        "intent": "order",
+        "category": [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category", "code": "community"}]}],
+        "medicationReference": {"reference": "urn:uuid:medication-ramipril"},
+        "subject": {"reference": "urn:uuid:patient-john-murphy"},
+        "requester": {"reference": "urn:uuid:practitioner-sarah-obrien"},
+        "authoredOn": "2024-06-20",
+        "reasonCode": [{"coding": [{"system": "http://snomed.info/sct", "code": "38341003", "display": "Hypertensive disorder"}]}],
+        "dosageInstruction": [{"text": "Take one 5mg capsule once daily in the morning", "timing": {"repeat": {"frequency": 1, "period": 1, "periodUnit": "d", "when": ["MORN"]}}, "route": {"coding": [{"system": "http://snomed.info/sct", "code": "26643006"}]}}],
+        "dispenseRequest": {"validityPeriod": {"start": "2024-06-20", "end": "2024-07-20"}, "numberOfRepeatsAllowed": 5, "quantity": {"value": 28, "unit": "capsules", "system": "http://unitsofmeasure.org", "code": "{capsule}"}, "expectedSupplyDuration": {"value": 28, "unit": "days", "system": "http://unitsofmeasure.org", "code": "d"}},
+        "substitution": {"allowedBoolean": true}
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:dispense-multi-metformin",
+      "resource": {
+        "resourceType": "MedicationDispense",
+        "id": "dispense-multi-metformin",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationdispense-edispensation"]},
+        "identifier": [{"system": "http://hl7.hse.ie/fhir/ie/core/sid/dispense-id", "value": "DISP-IE-2024-003001"}],
+        "status": "completed",
+        "medicationReference": {"reference": "urn:uuid:medication-metformin"},
+        "subject": {"reference": "urn:uuid:patient-john-murphy"},
+        "performer": [{"actor": {"reference": "urn:uuid:pharmacist-niamh-brennan"}}],
+        "authorizingPrescription": [{"reference": "urn:uuid:prescription-multi-metformin"}],
+        "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "DF", "display": "Daily Fill"}]},
+        "quantity": {"value": 60, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"},
+        "daysSupply": {"value": 30, "unit": "days", "system": "http://unitsofmeasure.org", "code": "d"},
+        "whenPrepared": "2024-06-20T16:00:00+01:00",
+        "whenHandedOver": "2024-06-20T16:15:00+01:00",
+        "dosageInstruction": [{"text": "Take one 500mg tablet twice daily with meals"}],
+        "substitution": {"wasSubstituted": false}
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:dispense-multi-atorvastatin",
+      "resource": {
+        "resourceType": "MedicationDispense",
+        "id": "dispense-multi-atorvastatin",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationdispense-edispensation"]},
+        "identifier": [{"system": "http://hl7.hse.ie/fhir/ie/core/sid/dispense-id", "value": "DISP-IE-2024-003002"}],
+        "status": "completed",
+        "medicationReference": {"reference": "urn:uuid:medication-atorvastatin"},
+        "subject": {"reference": "urn:uuid:patient-john-murphy"},
+        "performer": [{"actor": {"reference": "urn:uuid:pharmacist-niamh-brennan"}}],
+        "authorizingPrescription": [{"reference": "urn:uuid:prescription-multi-atorvastatin"}],
+        "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "DF", "display": "Daily Fill"}]},
+        "quantity": {"value": 30, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"},
+        "daysSupply": {"value": 30, "unit": "days", "system": "http://unitsofmeasure.org", "code": "d"},
+        "whenPrepared": "2024-06-20T16:00:00+01:00",
+        "whenHandedOver": "2024-06-20T16:15:00+01:00",
+        "dosageInstruction": [{"text": "Take one 20mg tablet once daily at night"}],
+        "substitution": {"wasSubstituted": false}
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:dispense-multi-ramipril",
+      "resource": {
+        "resourceType": "MedicationDispense",
+        "id": "dispense-multi-ramipril",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationdispense-edispensation"]},
+        "identifier": [{"system": "http://hl7.hse.ie/fhir/ie/core/sid/dispense-id", "value": "DISP-IE-2024-003003"}],
+        "status": "completed",
+        "medicationReference": {"reference": "urn:uuid:medication-ramipril"},
+        "subject": {"reference": "urn:uuid:patient-john-murphy"},
+        "performer": [{"actor": {"reference": "urn:uuid:pharmacist-niamh-brennan"}}],
+        "authorizingPrescription": [{"reference": "urn:uuid:prescription-multi-ramipril"}],
+        "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "DF", "display": "Daily Fill"}]},
+        "quantity": {"value": 28, "unit": "capsules", "system": "http://unitsofmeasure.org", "code": "{capsule}"},
+        "daysSupply": {"value": 28, "unit": "days", "system": "http://unitsofmeasure.org", "code": "d"},
+        "whenPrepared": "2024-06-20T16:00:00+01:00",
+        "whenHandedOver": "2024-06-20T16:15:00+01:00",
+        "dosageInstruction": [{"text": "Take one 5mg capsule once daily in the morning"}],
+        "substitution": {"wasSubstituted": false}
+      }
+    }
+  ]
+}

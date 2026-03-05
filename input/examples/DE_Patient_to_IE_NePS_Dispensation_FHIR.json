@@ -1,0 +1,106 @@
+{
+  "resourceType": "Bundle",
+  "id": "de-patient-to-ie-neps",
+  "type": "collection",
+  "timestamp": "2025-08-10T10:00:00+01:00",
+  "_comment": "Inbound: German patient Klaus Weber visits Dublin for a conference. His German prescription for Ramipril 10mg (PZN 06581334) is routed through NePS and dispensed at Boots Pharmacy, Grafton Street. German PZN code mapped to Irish HPRA product.",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:patient-klaus-weber",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "patient-klaus-weber",
+        "identifier": [
+          {"system": "http://fhir.de/sid/gkv/kvid-10", "value": "DE-K123456789"},
+          {"system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "value": "DE/IE/K123456789"}
+        ],
+        "active": true,
+        "name": [{"use": "official", "family": "Weber", "given": ["Klaus", "Heinrich"]}],
+        "gender": "male",
+        "birthDate": "1965-09-12",
+        "address": [{"use": "home", "city": "Munich", "postalCode": "80331", "country": "DE"}],
+        "communication": [{"language": {"coding": [{"system": "urn:ietf:bcp:47", "code": "de", "display": "German"}]}, "preferred": true}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de-prescriber",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "de-prescriber",
+        "identifier": [{"system": "http://fhir.de/NamingSystem/bundesaerztekammer/efn", "value": "DE-ARZT-0012345"}],
+        "active": true,
+        "name": [{"use": "official", "family": "Müller", "given": ["Hans"], "prefix": ["Dr."]}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:org-ie-boots-grafton",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "org-ie-boots-grafton",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-organization"]},
+        "identifier": [{"system": "http://hl7.hse.ie/fhir/ie/core/sid/crn", "value": "IE-PHARM-BOOTS-GST-001"}],
+        "active": true,
+        "name": "Boots Pharmacy",
+        "address": [{"use": "work", "line": ["Grafton Street"], "city": "Dublin 2", "postalCode": "D02 HH24", "country": "IE"}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de-original-rx-ramipril",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "de-original-rx-ramipril",
+        "identifier": [
+          {"system": "http://fhir.de/sid/kbv/kbv-pr-erp-prescription", "value": "DE-RX-2025-NEPS-001"},
+          {"system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "value": "DE/IE/K123456789"}
+        ],
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "386872004", "display": "Ramipril"},
+            {"system": "http://fhir.de/CodeSystem/ifa/pzn", "code": "06581334", "display": "Ramipril 10mg Kapseln"},
+            {"system": "https://www.hpra.ie/drug-catalogue", "code": "IE-HPRA-RAM10", "display": "Ramipril 10mg capsules (HPRA — mapped from German PZN 06581334 via NePS)"}
+          ],
+          "text": "Ramipril 10mg Kapseln (PZN: 06581334) → IE: HPRA-RAM10"
+        },
+        "subject": {"reference": "urn:uuid:patient-klaus-weber", "display": "Klaus Weber"},
+        "requester": {"reference": "urn:uuid:de-prescriber", "display": "Dr. Hans Müller"},
+        "authoredOn": "2025-08-01",
+        "dosageInstruction": [{"text": "Nehmen Sie täglich eine Kapsel 10mg morgens (Take one 10mg capsule once daily in the morning)"}],
+        "dispenseRequest": {
+          "validityPeriod": {"start": "2025-08-01", "end": "2025-10-31"},
+          "quantity": {"value": 28, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"}
+        },
+        "substitution": {"allowedBoolean": false}
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ie-dispense-de-rx",
+      "resource": {
+        "resourceType": "MedicationDispense",
+        "id": "ie-dispense-de-rx",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationdispense-edispensation"]},
+        "identifier": [
+          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/dispense-id", "value": "DISP-IE-NEPS-2025-DE-001"},
+          {"system": "http://fhir.de/sid/kbv/kbv-pr-erp-prescription", "value": "DE-RX-2025-NEPS-001"}
+        ],
+        "status": "completed",
+        "medicationCodeableConcept": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "386872004", "display": "Ramipril"},
+            {"system": "https://www.hpra.ie/drug-catalogue", "code": "IE-HPRA-RAM10", "display": "Ramipril 10mg capsules (HPRA)"}
+          ],
+          "text": "Ramipril 10mg capsules (HPRA: IE-HPRA-RAM10)"
+        },
+        "subject": {"reference": "urn:uuid:patient-klaus-weber", "display": "Klaus Weber"},
+        "performer": [{"actor": {"reference": "urn:uuid:org-ie-boots-grafton", "display": "Boots Pharmacy Grafton Street"}}],
+        "authorizingPrescription": [{"reference": "urn:uuid:de-original-rx-ramipril"}],
+        "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "DF", "display": "Daily Fill"}]},
+        "quantity": {"value": 28, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"},
+        "whenHandedOver": "2025-08-10T10:00:00+01:00",
+        "dosageInstruction": [{"text": "Take one 10mg capsule once daily in the morning"}],
+        "substitution": {"wasSubstituted": false}
+      }
+    }
+  ]
+}

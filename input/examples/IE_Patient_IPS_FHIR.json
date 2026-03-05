@@ -1,0 +1,238 @@
+{
+  "resourceType": "Bundle",
+  "id": "ie-patient-ips-sean-murphy",
+  "meta": {
+    "profile": ["http://hl7.org/fhir/uv/ips/StructureDefinition/Bundle-uv-ips"]
+  },
+  "identifier": {
+    "system": "http://hl7.hse.ie/fhir/ie/core/sid/ips-document-id",
+    "value": "IE-IPS-2025-SEAN-MURPHY-001"
+  },
+  "type": "document",
+  "timestamp": "2025-01-14T09:00:00+00:00",
+  "_comment": "International Patient Summary (IPS) for Seán Patrick Murphy — used in cross-border ePrescription exchange via MyHealth@EU. Contains patient demographics, active conditions (T2DM, Hypertension, Hypercholesterolaemia), critical allergy (Penicillin/Amoxicillin — ANAPHYLAXIS), and current medication summary.",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:composition-ips-sean-murphy",
+      "resource": {
+        "resourceType": "Composition",
+        "id": "composition-ips-sean-murphy",
+        "meta": {"profile": ["http://hl7.org/fhir/uv/ips/StructureDefinition/Composition-uv-ips"]},
+        "status": "final",
+        "type": {
+          "coding": [{"system": "http://loinc.org", "code": "60591-5", "display": "Patient summary Document"}]
+        },
+        "subject": {"reference": "urn:uuid:patient-sean-murphy"},
+        "date": "2025-01-14T09:00:00+00:00",
+        "author": [{"reference": "urn:uuid:practitioner-aoife-obrien", "display": "Dr. Aoife O'Brien"}],
+        "title": "International Patient Summary – Seán Patrick Murphy",
+        "confidentiality": "N",
+        "attester": [
+          {
+            "mode": "professional",
+            "time": "2025-01-14T09:00:00+00:00",
+            "party": {"reference": "urn:uuid:practitioner-aoife-obrien"}
+          }
+        ],
+        "custodian": {"reference": "urn:uuid:org-grafton-medical"},
+        "section": [
+          {
+            "title": "Allergies and Intolerances",
+            "code": {"coding": [{"system": "http://loinc.org", "code": "48765-2", "display": "Allergies and adverse reactions Document"}]},
+            "entry": [{"reference": "urn:uuid:allergy-penicillin"}],
+            "text": {"status": "generated", "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>⚠️ CRITICAL ALLERGY:</b> Penicillin / Amoxicillin — ANAPHYLAXIS (Severe). Documented 1995. Do NOT dispense penicillin-class antibiotics.</p></div>"}
+          },
+          {
+            "title": "Problem List",
+            "code": {"coding": [{"system": "http://loinc.org", "code": "11450-4", "display": "Problem list - Reported"}]},
+            "entry": [
+              {"reference": "urn:uuid:condition-t2dm"},
+              {"reference": "urn:uuid:condition-hypertension"},
+              {"reference": "urn:uuid:condition-hypercholesterolaemia"}
+            ]
+          },
+          {
+            "title": "Medication Summary",
+            "code": {"coding": [{"system": "http://loinc.org", "code": "10160-0", "display": "History of Medication use Narrative"}]},
+            "entry": [
+              {"reference": "urn:uuid:medstmt-metformin"},
+              {"reference": "urn:uuid:medstmt-lisinopril"},
+              {"reference": "urn:uuid:medstmt-atorvastatin"}
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:patient-sean-murphy",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "patient-sean-murphy",
+        "meta": {"profile": ["http://hl7.org/fhir/uv/ips/StructureDefinition/Patient-uv-ips"]},
+        "identifier": [
+          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/ihi", "value": "210000000099887766"},
+          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pps", "value": "1234567T"},
+          {"system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "value": "IE/EU/1234567T"}
+        ],
+        "active": true,
+        "name": [{"use": "official", "family": "Murphy", "given": ["Seán", "Patrick"], "prefix": ["Mr."]}],
+        "gender": "male",
+        "birthDate": "1975-03-15",
+        "address": [{"use": "home", "line": ["14 Grafton Street"], "city": "Dublin 2", "postalCode": "D02 XY45", "country": "IE"}],
+        "telecom": [{"system": "phone", "value": "+353 87 900 1234", "use": "mobile"}],
+        "communication": [{"language": {"coding": [{"system": "urn:ietf:bcp:47", "code": "en", "display": "English"}]}, "preferred": true}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitioner-aoife-obrien",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "practitioner-aoife-obrien",
+        "identifier": [{"system": "http://hl7.hse.ie/fhir/ie/core/sid/imc", "value": "GP-IE-12345"}],
+        "active": true,
+        "name": [{"use": "official", "family": "O'Brien", "given": ["Aoife"], "prefix": ["Dr."]}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:org-grafton-medical",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "org-grafton-medical",
+        "identifier": [{"system": "http://hl7.hse.ie/fhir/ie/core/sid/crn", "value": "IE-GP-GSMP-001"}],
+        "active": true,
+        "name": "Grafton Street Medical Practice",
+        "address": [{"line": ["14 Grafton Street"], "city": "Dublin 2", "postalCode": "D02 XY45", "country": "IE"}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:allergy-penicillin",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "allergy-penicillin",
+        "meta": {"profile": ["http://hl7.org/fhir/uv/ips/StructureDefinition/AllergyIntolerance-uv-ips"]},
+        "clinicalStatus": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical", "code": "active"}]},
+        "verificationStatus": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification", "code": "confirmed"}]},
+        "type": "allergy",
+        "category": ["medication"],
+        "criticality": "high",
+        "code": {
+          "coding": [{"system": "http://snomed.info/sct", "code": "372687004", "display": "Amoxicillin"}],
+          "text": "Penicillin / Amoxicillin (ALL penicillin-class antibiotics)"
+        },
+        "patient": {"reference": "urn:uuid:patient-sean-murphy"},
+        "onsetDateTime": "1995-01-01",
+        "reaction": [{"manifestation": [{"coding": [{"system": "http://snomed.info/sct", "code": "39579001", "display": "Anaphylaxis"}]}], "severity": "severe"}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:condition-t2dm",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "condition-t2dm",
+        "meta": {"profile": ["http://hl7.org/fhir/uv/ips/StructureDefinition/Condition-uv-ips"]},
+        "clinicalStatus": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/condition-clinical", "code": "active"}]},
+        "code": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "44054006", "display": "Diabetes mellitus type 2"},
+            {"system": "http://hl7.org/fhir/sid/icd-10", "code": "E11", "display": "Type 2 diabetes mellitus"}
+          ],
+          "text": "Type 2 Diabetes Mellitus"
+        },
+        "subject": {"reference": "urn:uuid:patient-sean-murphy"},
+        "onsetDateTime": "2018-03-10"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:condition-hypertension",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "condition-hypertension",
+        "clinicalStatus": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/condition-clinical", "code": "active"}]},
+        "code": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "38341003", "display": "Hypertensive disorder"},
+            {"system": "http://hl7.org/fhir/sid/icd-10", "code": "I10", "display": "Essential hypertension"}
+          ],
+          "text": "Essential Hypertension"
+        },
+        "subject": {"reference": "urn:uuid:patient-sean-murphy"},
+        "onsetDateTime": "2019-05-22"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:condition-hypercholesterolaemia",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "condition-hypercholesterolaemia",
+        "clinicalStatus": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/condition-clinical", "code": "active"}]},
+        "code": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "13644009", "display": "Hypercholesterolemia"},
+            {"system": "http://hl7.org/fhir/sid/icd-10", "code": "E78.5", "display": "Hypercholesterolaemia"}
+          ],
+          "text": "Hypercholesterolaemia"
+        },
+        "subject": {"reference": "urn:uuid:patient-sean-murphy"},
+        "onsetDateTime": "2020-01-15"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:medstmt-metformin",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "medstmt-metformin",
+        "meta": {"profile": ["http://hl7.org/fhir/uv/ips/StructureDefinition/MedicationStatement-uv-ips"]},
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "372567009", "display": "Metformin"},
+            {"system": "http://www.whocc.no/atc", "code": "A10BA02", "display": "Metformin"}
+          ],
+          "text": "Metformin 500mg tablets"
+        },
+        "subject": {"reference": "urn:uuid:patient-sean-murphy"},
+        "effectivePeriod": {"start": "2018-04-01"},
+        "dosage": [{"text": "500mg twice daily with meals"}],
+        "reasonCode": [{"coding": [{"system": "http://snomed.info/sct", "code": "44054006", "display": "Type 2 diabetes mellitus"}]}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:medstmt-lisinopril",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "medstmt-lisinopril",
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "386873009", "display": "Lisinopril"},
+            {"system": "http://www.whocc.no/atc", "code": "C09AA03", "display": "Lisinopril"}
+          ],
+          "text": "Lisinopril 10mg tablets"
+        },
+        "subject": {"reference": "urn:uuid:patient-sean-murphy"},
+        "effectivePeriod": {"start": "2019-06-01"},
+        "dosage": [{"text": "10mg once daily in the morning"}],
+        "reasonCode": [{"coding": [{"system": "http://snomed.info/sct", "code": "38341003", "display": "Hypertensive disorder"}]}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:medstmt-atorvastatin",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "medstmt-atorvastatin",
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "373444002", "display": "Atorvastatin"},
+            {"system": "http://www.whocc.no/atc", "code": "C10AA05", "display": "Atorvastatin"}
+          ],
+          "text": "Atorvastatin 20mg tablets"
+        },
+        "subject": {"reference": "urn:uuid:patient-sean-murphy"},
+        "effectivePeriod": {"start": "2020-02-01"},
+        "dosage": [{"text": "20mg once daily at night"}],
+        "reasonCode": [{"coding": [{"system": "http://snomed.info/sct", "code": "13644009", "display": "Hypercholesterolemia"}]}]
+      }
+    }
+  ]
+}

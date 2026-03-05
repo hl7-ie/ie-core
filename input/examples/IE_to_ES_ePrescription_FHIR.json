@@ -1,0 +1,170 @@
+{
+  "resourceType": "Bundle",
+  "id": "ie-bundle-to-es-eprescription",
+  "type": "collection",
+  "timestamp": "2025-02-10T09:00:00+01:00",
+  "_comment": "Scenario 2: Seán Murphy visits Barcelona. Dr. Aoife O'Brien's ePrescription for Metformin 500mg + Lisinopril 10mg + Atorvastatin 20mg transmitted via MyHealth@EU (IE NCPeH → ES NCPeH). Dispensed at Farmàcia Central, Passeig de Gràcia 45, Barcelona on 10 Feb 2025 with CIMA product mappings.",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:patient-sean-murphy",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "patient-sean-murphy",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-patient"]},
+        "identifier": [
+          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/ihi", "value": "210000000099887766"},
+          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pps", "value": "1234567T"},
+          {"system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "value": "IE/ES/1234567T"}
+        ],
+        "active": true,
+        "name": [{"use": "official", "family": "Murphy", "given": ["Seán", "Patrick"], "prefix": ["Mr."]}],
+        "gender": "male",
+        "birthDate": "1975-03-15",
+        "address": [{"use": "home", "line": ["14 Grafton Street"], "city": "Dublin 2", "postalCode": "D02 XY45", "country": "IE"}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitioner-aoife-obrien",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "practitioner-aoife-obrien",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-practitioner"]},
+        "identifier": [{"system": "http://hl7.hse.ie/fhir/ie/core/sid/imc", "value": "GP-IE-12345"}],
+        "active": true,
+        "name": [{"use": "official", "family": "O'Brien", "given": ["Aoife"], "prefix": ["Dr."]}],
+        "gender": "female"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:allergy-penicillin",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "allergy-penicillin",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-allergy-intolerance"]},
+        "clinicalStatus": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical", "code": "active"}]},
+        "verificationStatus": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification", "code": "confirmed"}]},
+        "type": "allergy",
+        "category": ["medication"],
+        "criticality": "high",
+        "code": {"coding": [{"system": "http://snomed.info/sct", "code": "372687004", "display": "Amoxicillin"}], "text": "Penicillin / Amoxicillin — ALL penicillin-class antibiotics"},
+        "patient": {"reference": "urn:uuid:patient-sean-murphy"},
+        "reaction": [{"manifestation": [{"coding": [{"system": "http://snomed.info/sct", "code": "39579001", "display": "Anaphylaxis"}]}], "severity": "severe"}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:org-es-farmacia-central-barcelona",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "org-es-farmacia-central-barcelona",
+        "identifier": [{"system": "http://www.mscbs.gob.es/fhir/sid/oficinaDeFarmacia", "value": "ES-OF-08-001234"}],
+        "active": true,
+        "name": "Farmàcia Central",
+        "address": [{"line": ["Passeig de Gràcia 45"], "city": "Barcelona", "postalCode": "08007", "country": "ES"}],
+        "telecom": [{"system": "phone", "value": "+34 93 215 1234"}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:rx-ie-es-metformin",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "rx-ie-es-metformin",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription"]},
+        "identifier": [
+          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-ES-001"},
+          {"system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "value": "IE/ES/1234567T"}
+        ],
+        "groupIdentifier": {"system": "http://hl7.hse.ie/fhir/ie/core/sid/prescription-group", "value": "IE-GP-RX-GROUP-20250210-ES"},
+        "status": "active",
+        "intent": "order",
+        "category": [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category", "code": "community"}]}],
+        "medicationCodeableConcept": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "372567009", "display": "Metformin"},
+            {"system": "http://www.whocc.no/atc", "code": "A10BA02", "display": "Metformin"},
+            {"system": "http://vocabularies.cesec.org/public-api/v1/codes/cima", "code": "60918", "display": "Metformina Cinfa 500mg comprimidos"}
+          ],
+          "text": "Metformin 500mg tablets → ES: Metformina Cinfa 500mg comprimidos (CIMA: 60918)"
+        },
+        "subject": {"reference": "urn:uuid:patient-sean-murphy", "display": "Seán Murphy"},
+        "requester": {"reference": "urn:uuid:practitioner-aoife-obrien", "display": "Dr. Aoife O'Brien"},
+        "authoredOn": "2025-02-05",
+        "reasonCode": [{"coding": [{"system": "http://snomed.info/sct", "code": "44054006", "display": "Diabetes mellitus type 2"}]}],
+        "dosageInstruction": [{"text": "Take one 500mg tablet twice daily with meals", "timing": {"repeat": {"frequency": 2, "period": 1, "periodUnit": "d"}}}],
+        "dispenseRequest": {
+          "validityPeriod": {"start": "2025-02-05", "end": "2025-05-05"},
+          "quantity": {"value": 60, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"}
+        },
+        "substitution": {"allowedBoolean": true},
+        "note": [{"text": "Cross-border ePrescription via MyHealth@EU. Valid 90 days (Real Decreto 1718/2010)."}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:rx-ie-es-lisinopril",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "rx-ie-es-lisinopril",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription"]},
+        "identifier": [
+          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-ES-002"},
+          {"system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "value": "IE/ES/1234567T"}
+        ],
+        "groupIdentifier": {"system": "http://hl7.hse.ie/fhir/ie/core/sid/prescription-group", "value": "IE-GP-RX-GROUP-20250210-ES"},
+        "status": "active",
+        "intent": "order",
+        "category": [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category", "code": "community"}]}],
+        "medicationCodeableConcept": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "386873009", "display": "Lisinopril"},
+            {"system": "http://www.whocc.no/atc", "code": "C09AA03", "display": "Lisinopril"},
+            {"system": "http://vocabularies.cesec.org/public-api/v1/codes/cima", "code": "57552", "display": "Lisinopril Kern Pharma 10mg comprimidos"}
+          ],
+          "text": "Lisinopril 10mg tablets → ES: Lisinopril Kern Pharma 10mg comprimidos (CIMA: 57552)"
+        },
+        "subject": {"reference": "urn:uuid:patient-sean-murphy", "display": "Seán Murphy"},
+        "requester": {"reference": "urn:uuid:practitioner-aoife-obrien", "display": "Dr. Aoife O'Brien"},
+        "authoredOn": "2025-02-05",
+        "reasonCode": [{"coding": [{"system": "http://snomed.info/sct", "code": "38341003", "display": "Hypertensive disorder"}]}],
+        "dosageInstruction": [{"text": "Take one 10mg tablet once daily in the morning"}],
+        "dispenseRequest": {
+          "validityPeriod": {"start": "2025-02-05", "end": "2025-05-05"},
+          "quantity": {"value": 28, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"}
+        },
+        "substitution": {"allowedBoolean": true}
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:rx-ie-es-atorvastatin",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "rx-ie-es-atorvastatin",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription"]},
+        "identifier": [
+          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-ES-003"},
+          {"system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "value": "IE/ES/1234567T"}
+        ],
+        "groupIdentifier": {"system": "http://hl7.hse.ie/fhir/ie/core/sid/prescription-group", "value": "IE-GP-RX-GROUP-20250210-ES"},
+        "status": "active",
+        "intent": "order",
+        "category": [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category", "code": "community"}]}],
+        "medicationCodeableConcept": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "373444002", "display": "Atorvastatin"},
+            {"system": "http://www.whocc.no/atc", "code": "C10AA05", "display": "Atorvastatin"},
+            {"system": "http://vocabularies.cesec.org/public-api/v1/codes/cima", "code": "72242", "display": "Atorvastatina Cinfa 20mg comprimidos"}
+          ],
+          "text": "Atorvastatin 20mg tablets → ES: Atorvastatina Cinfa 20mg comprimidos (CIMA: 72242)"
+        },
+        "subject": {"reference": "urn:uuid:patient-sean-murphy", "display": "Seán Murphy"},
+        "requester": {"reference": "urn:uuid:practitioner-aoife-obrien", "display": "Dr. Aoife O'Brien"},
+        "authoredOn": "2025-02-05",
+        "reasonCode": [{"coding": [{"system": "http://snomed.info/sct", "code": "13644009", "display": "Hypercholesterolemia"}]}],
+        "dosageInstruction": [{"text": "Take one 20mg tablet once daily at night"}],
+        "dispenseRequest": {
+          "validityPeriod": {"start": "2025-02-05", "end": "2025-05-05"},
+          "quantity": {"value": 28, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"}
+        },
+        "substitution": {"allowedBoolean": true}
+      }
+    }
+  ]
+}

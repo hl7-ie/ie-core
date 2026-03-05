@@ -1,0 +1,113 @@
+{
+  "resourceType": "Bundle",
+  "id": "ie-bundle-de-edispensation-response",
+  "type": "collection",
+  "timestamp": "2025-01-20T10:20:00+01:00",
+  "_comment": "German pharmacy eDispensation response: Apotheke am Brandenburger Tor dispensed Metformin (PZN 04823246, Ratiopharm) and Lisinopril (PZN 03990693, Hexal) for Seán Murphy with generic substitution. This document is returned to IE NCPeH marking the Irish prescriptions as dispensed.",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:patient-sean-murphy-de-view",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "patient-sean-murphy-de-view",
+        "identifier": [
+          {
+            "system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier",
+            "value": "IE/DE/1234567T"
+          },
+          {
+            "system": "http://hl7.hse.ie/fhir/ie/core/sid/ihi",
+            "value": "210000000099887766"
+          }
+        ],
+        "name": [{"use": "official", "family": "Murphy", "given": ["Seán", "Patrick"]}],
+        "gender": "male",
+        "birthDate": "1975-03-15"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:org-de-apotheke-brandenburger-resp",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "org-de-apotheke-brandenburger-resp",
+        "identifier": [{"system": "http://fhir.de/sid/apothekenVerzeichnis", "value": "DE-APO-10117-001"}],
+        "active": true,
+        "name": "Apotheke am Brandenburger Tor",
+        "address": [{"line": ["Pariser Platz 1"], "city": "Berlin", "postalCode": "10117", "country": "DE"}],
+        "telecom": [{"system": "phone", "value": "+49 30 202 64 14"}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de-dispense-metformin",
+      "resource": {
+        "resourceType": "MedicationDispense",
+        "id": "de-dispense-metformin",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationdispense-edispensation"]},
+        "identifier": [
+          {"system": "http://fhir.de/sid/apothekenVerzeichnis", "value": "DE-DISP-2025-XB-001-MET"},
+          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-DE-001"}
+        ],
+        "status": "completed",
+        "medicationCodeableConcept": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "372567009", "display": "Metformin"},
+            {"system": "http://fhir.de/CodeSystem/ifa/pzn", "code": "04823246", "display": "Metformin 500mg Filmtabletten (Ratiopharm)"}
+          ],
+          "text": "Metformin 500mg Filmtabletten (Ratiopharm)"
+        },
+        "subject": {"reference": "urn:uuid:patient-sean-murphy-de-view", "display": "Seán Murphy"},
+        "performer": [{"actor": {"reference": "urn:uuid:org-de-apotheke-brandenburger-resp", "display": "Apotheke am Brandenburger Tor"}}],
+        "authorizingPrescription": [
+          {"identifier": {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-DE-001"}}
+        ],
+        "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "DF", "display": "Daily Fill"}]},
+        "quantity": {"value": 60, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"},
+        "daysSupply": {"value": 30, "unit": "days", "system": "http://unitsofmeasure.org", "code": "d"},
+        "whenPrepared": "2025-01-20T10:00:00+01:00",
+        "whenHandedOver": "2025-01-20T10:15:00+01:00",
+        "dosageInstruction": [{"text": "Zweimal täglich 1 Tablette zu den Mahlzeiten einnehmen (Take one 500mg tablet twice daily with meals)"}],
+        "substitution": {
+          "wasSubstituted": true,
+          "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-substanceAdminSubstitution", "code": "G", "display": "Generic composition"}]},
+          "reason": [{"coding": [{"system": "http://snomed.info/sct", "code": "373873005", "display": "Pharmaceutical / biologic product"}]}]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de-dispense-lisinopril",
+      "resource": {
+        "resourceType": "MedicationDispense",
+        "id": "de-dispense-lisinopril",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationdispense-edispensation"]},
+        "identifier": [
+          {"system": "http://fhir.de/sid/apothekenVerzeichnis", "value": "DE-DISP-2025-XB-001-LIS"},
+          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-DE-002"}
+        ],
+        "status": "completed",
+        "medicationCodeableConcept": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "386873009", "display": "Lisinopril"},
+            {"system": "http://fhir.de/CodeSystem/ifa/pzn", "code": "03990693", "display": "Lisinopril 10mg Tabletten (Hexal)"}
+          ],
+          "text": "Lisinopril 10mg Tabletten (Hexal)"
+        },
+        "subject": {"reference": "urn:uuid:patient-sean-murphy-de-view", "display": "Seán Murphy"},
+        "performer": [{"actor": {"reference": "urn:uuid:org-de-apotheke-brandenburger-resp", "display": "Apotheke am Brandenburger Tor"}}],
+        "authorizingPrescription": [
+          {"identifier": {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-DE-002"}}
+        ],
+        "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "DF", "display": "Daily Fill"}]},
+        "quantity": {"value": 28, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"},
+        "daysSupply": {"value": 28, "unit": "days", "system": "http://unitsofmeasure.org", "code": "d"},
+        "whenPrepared": "2025-01-20T10:00:00+01:00",
+        "whenHandedOver": "2025-01-20T10:15:00+01:00",
+        "dosageInstruction": [{"text": "Einmal täglich 1 Tablette morgens (Take one 10mg tablet once daily in the morning)"}],
+        "substitution": {
+          "wasSubstituted": true,
+          "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-substanceAdminSubstitution", "code": "G", "display": "Generic composition"}]},
+          "reason": [{"coding": [{"system": "http://snomed.info/sct", "code": "373873005", "display": "Pharmaceutical / biologic product"}]}]
+        }
+      }
+    }
+  ]
+}

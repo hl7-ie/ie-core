@@ -1,0 +1,70 @@
+{
+  "resourceType": "Bundle",
+  "id": "pt-edispensation-response",
+  "type": "collection",
+  "timestamp": "2025-06-20T11:00:00+01:00",
+  "_comment": "Portuguese eDispensation response: Farmácia Central, Lisbon dispensed Sertralina 50mg Comprimidos (INF-00012345) and Omeprazol 20mg Cápsulas (INF-00056789) for Seán Murphy. Sertraline dispensed without substitution (no generic substitution for psychiatric medications under Portuguese law).",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:patient-sean-murphy-pt",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "patient-sean-murphy-pt",
+        "identifier": [
+          {"system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "value": "IE/PT/1234567T"},
+          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/ihi", "value": "210000000099887766"}
+        ],
+        "name": [{"use": "official", "family": "Murphy", "given": ["Seán", "Patrick"]}],
+        "gender": "male",
+        "birthDate": "1975-03-15"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:pt-dispense-sertraline",
+      "resource": {
+        "resourceType": "MedicationDispense",
+        "id": "pt-dispense-sertraline",
+        "identifier": [{"system": "http://www.infarmed.pt/fhir/sid/dispensacao", "value": "PT-DISP-2025-XB-001-SER"}],
+        "status": "completed",
+        "medicationCodeableConcept": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "372594008", "display": "Sertraline"},
+            {"system": "http://www.infarmed.pt", "code": "INF-00012345", "display": "Sertralina 50mg Comprimidos"}
+          ],
+          "text": "Sertralina 50mg Comprimidos (INFARMED: INF-00012345)"
+        },
+        "subject": {"reference": "urn:uuid:patient-sean-murphy-pt"},
+        "authorizingPrescription": [{"identifier": {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-PT-001"}}],
+        "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "DF", "display": "Daily Fill"}]},
+        "quantity": {"value": 28, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"},
+        "whenHandedOver": "2025-06-20T10:30:00+01:00",
+        "substitution": {"wasSubstituted": false}
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:pt-dispense-omeprazole",
+      "resource": {
+        "resourceType": "MedicationDispense",
+        "id": "pt-dispense-omeprazole",
+        "identifier": [{"system": "http://www.infarmed.pt/fhir/sid/dispensacao", "value": "PT-DISP-2025-XB-001-OME"}],
+        "status": "completed",
+        "medicationCodeableConcept": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "372718005", "display": "Omeprazole"},
+            {"system": "http://www.infarmed.pt", "code": "INF-00056789", "display": "Omeprazol 20mg Cápsulas"}
+          ],
+          "text": "Omeprazol 20mg Cápsulas (INFARMED: INF-00056789)"
+        },
+        "subject": {"reference": "urn:uuid:patient-sean-murphy-pt"},
+        "authorizingPrescription": [{"identifier": {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-PT-002"}}],
+        "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "DF", "display": "Daily Fill"}]},
+        "quantity": {"value": 28, "unit": "capsules", "system": "http://unitsofmeasure.org", "code": "{capsule}"},
+        "whenHandedOver": "2025-06-20T10:30:00+01:00",
+        "substitution": {
+          "wasSubstituted": true,
+          "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-substanceAdminSubstitution", "code": "G", "display": "Generic composition"}]}
+        }
+      }
+    }
+  ]
+}
