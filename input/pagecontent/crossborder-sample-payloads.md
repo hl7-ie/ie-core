@@ -6,6 +6,63 @@ All FHIR examples are valid FHIR R4 Bundle resources that can be validated again
 
 ---
 
+### FHIR ePrescription Bundle Composition
+
+Each outbound ePrescription Bundle contains the following FHIR resources. The `AllergyIntolerance` resource for the Penicillin allergy is always included so the dispensing pharmacy can perform automatic safety checks.
+
+```mermaid
+classDiagram
+    class Bundle {
+        resourceType: Bundle
+        type: collection
+        identifier: UUID
+    }
+    class Patient {
+        identifier: PPS + IHI + eIDAS
+        name: Seán Patrick Murphy
+        birthDate: 1975-03-15
+        address: Dublin, Ireland
+    }
+    class Practitioner {
+        identifier: GP-IE-12345
+        name: Dr. Aoife O'Brien
+    }
+    class Organization {
+        name: Grafton Street Medical Practice
+        address: Dublin 2
+    }
+    class AllergyIntolerance {
+        code: Penicillin / Amoxicillin
+        criticality: high
+        type: allergy
+        severity: severe
+        note: Do NOT dispense penicillin-class
+    }
+    class Medication {
+        code: ATC + destination country code
+        form: tablet / injection / capsule
+    }
+    class MedicationRequest {
+        status: active
+        intent: order
+        authoredOn: prescription date
+        dosageInstruction: dose + frequency
+        substitution: allowed or not-allowed
+        groupIdentifier: shared Rx group UUID
+    }
+
+    Bundle "1" --> "1" Patient : subject
+    Bundle "1" --> "1" Practitioner : requester
+    Bundle "1" --> "1" Organization : performer
+    Bundle "1" --> "1" AllergyIntolerance : safety alert
+    Bundle "1" --> "1..*" Medication : prescribed drug
+    Bundle "1" --> "1..*" MedicationRequest : prescription item
+    MedicationRequest --> Patient : for patient
+    MedicationRequest --> Practitioner : prescribed by
+    MedicationRequest --> Medication : prescribed drug
+    Patient --> AllergyIntolerance : has critical allergy
+```
+
 ### FHIR Bundles — Outbound ePrescriptions (Ireland → EU)
 
 These bundles represent Irish ePrescriptions transmitted via MyHealth@EU to foreign pharmacies. Each bundle includes the Patient, Practitioner, Organization, AllergyIntolerance, Medication, and MedicationRequest resources.

@@ -51,6 +51,22 @@ See examples:
 | Atorvastatin 20mg | 20mg | Once daily (night) | Hypercholesterolaemia | C10AA05 |
 
 Medication resources: [Lisinopril 10mg](Medication-ie-medication-lisinopril-10.html)
+#### Prescription Lifecycle
+
+```mermaid
+stateDiagram-v2
+    direction LR
+    [*] --> Issued : GP issues ePrescription
+    Issued --> Transmitted : NCPeH IE signs & transmits
+    Transmitted --> Retrieved : EU pharmacy retrieves via MyHealth@EU
+    Retrieved --> Verified : Pharmacy verifies & checks allergies
+    Verified --> Dispensed : Medication dispensed
+    Dispensed --> Confirmed : eDispensation sent to NCPeH IE
+    Confirmed --> [*] : Prescription marked as used
+
+    Verified --> Rejected : Allergy conflict / invalid prescription
+    Rejected --> [*]
+```
 
 ---
 
@@ -58,8 +74,24 @@ Medication resources: [Lisinopril 10mg](Medication-ie-medication-lisinopril-10.h
 
 Cross-border patient identification follows the [eIDAS Regulation](https://digital-strategy.ec.europa.eu/en/policies/eidas-regulation) format:
 
-```
-[CountryOfOrigin] / [CountryOfDestination] / [NationalIdentifier]
+```mermaid
+flowchart LR
+    PID["eIDAS Cross-Border Patient ID<br/><b>Origin / Destination / NationalID</b>"]
+    PID --> A["**Country of Origin**<br/>ISO 3166-1 alpha-2<br/><i>e.g. IE, FI, BE</i>"]
+    PID --> B["**Country of Destination**<br/>ISO 3166-1 alpha-2<br/><i>e.g. DE, ES, FR</i>"]
+    PID --> C["**National Identifier**<br/>Home country ID<br/><i>e.g. PPSN: 1234567T</i>"]
+
+    A --> O1["IE/DE/1234567T<br/>Irish patient in Germany"]
+    A --> O2["IE/ES/1234567T<br/>Irish patient in Spain"]
+    A --> O3["IE/AT/1234567T<br/>Irish patient in Austria"]
+    A --> I1["FI/IE/123456-7890<br/>Finnish patient in Ireland"]
+    A --> I2["BE/IE/12345678901<br/>Belgian patient in Ireland"]
+
+    style O1 fill:#e8f5e9,stroke:#4caf50
+    style O2 fill:#e8f5e9,stroke:#4caf50
+    style O3 fill:#e8f5e9,stroke:#4caf50
+    style I1 fill:#e3f2fd,stroke:#2196f3
+    style I2 fill:#e3f2fd,stroke:#2196f3
 ```
 
 | Cross-Border Route | eIDAS Identifier |
@@ -289,7 +321,36 @@ FHIR Example: [IE→AT ePrescription Bundle](Bundle-ie-bundle-to-at-eprescriptio
 
 ---
 
-#### Inbound: EU Patient → Ireland (via NePS)
+#### Inbound Workflow: EU Patient → Ireland (via NePS)
+
+The following sequence diagram shows how a foreign EU prescription is dispensed at an Irish pharmacy using the National ePrescription Service (NePS).
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Patient as 👤 EU Patient<br/>(EUDI Wallet / eIDAS)
+    participant Pharmacy as 🏥 Irish Pharmacy<br/>(NePS-connected)
+    participant NePS as 🇮🇪 NePS<br/>(National ePrescription Service)
+    participant NCPeH_IE as NCPeH Ireland<br/>(HSE)
+    participant Hub as 🌐 MyHealth@EU Hub
+    participant NCPeH_EU as 🇪🇺 Home Country<br/>NCPeH
+
+    Patient->>Pharmacy: Present with eIDAS digital ID
+    Pharmacy->>NePS: Query foreign prescription<br/>(cross-border PID)
+    NePS->>NCPeH_IE: Forward patient discovery request
+    NCPeH_IE->>Hub: XCPD patient discovery<br/>(cross-border PID lookup)
+    Hub->>NCPeH_EU: Query home country NCPeH
+    NCPeH_EU-->>Hub: Return prescription documents
+    Hub-->>NCPeH_IE: Deliver foreign ePrescription
+    NCPeH_IE-->>NePS: Prescription + foreign drug codes
+    NePS->>NePS: Map foreign codes → Irish HPRA codes
+    NePS-->>Pharmacy: Provide mapped prescription
+    Pharmacy->>Patient: Dispense medication<br/>(Irish HPRA product codes)
+    Pharmacy->>NePS: Record eDispensation
+    NePS->>NCPeH_IE: Confirm dispensation
+    NCPeH_IE->>Hub: Send eDispensation back
+    Hub->>NCPeH_EU: Prescription marked as used
+```
 
 ---
 

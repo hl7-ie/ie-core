@@ -48,33 +48,72 @@ EU citizens visiting Ireland can have their foreign prescriptions dispensed at I
 
 ### Technical Infrastructure
 
-```
-  Ireland (Prescribing Country)                 EU Member State (Dispensing Country)
-  ══════════════════════════════                ══════════════════════════════════════
+The following sequence diagram shows the full cross-border ePrescription workflow from prescription creation in Ireland through dispensation in an EU member state and return of the eDispensation record.
 
-  1. GP issues ePrescription                    5. Patient presents at pharmacy
-     (HSE eHealth system)                          with eIDAS digital ID
-           │                                                  │
-           ▼                                                  ▼
-  2. NCPeH Ireland (HSE)                        6. Foreign NCPeH queries
-     - Validates prescription                      MyHealth@EU Central Hub
-     - Signs with qualified e-sig                           │
-           │                                               ▼
-           ▼                                    7. IE NCPeH returns ePrescription
-  3. MyHealth@EU Central Hub                       document to foreign NCPeH
-     - Routes request                                        │
-     - Audit logging (IHE ATNA)                              ▼
-     - Patient consent check                    8. Foreign pharmacy:
-           │                                       - Verifies prescription
-           ▼                                       - Checks allergy alerts
-  4. eIDAS Patient Authentication                 - Performs substitution
-     - EUDI Wallet / national eID                 - Dispenses medication
-     - Level of Assurance: High                   - Creates eDispensation
-     - Cross-border PID: IE/[CC]/PPSN                        │
-                                                              ▼
-                                                  9. eDispensation returned
-                                                     to NCPeH Ireland
-                                                     (prescription marked used)
+```mermaid
+sequenceDiagram
+    autonumber
+    participant GP as 🏥 Irish GP<br/>(HSE eHealth)
+    participant NCPeH_IE as 🇮🇪 NCPeH Ireland<br/>(HSE)
+    participant Hub as 🌐 MyHealth@EU<br/>Central Hub
+    participant NCPeH_EU as 🇪�� EU NCPeH<br/>(Dispensing Country)
+    participant Pharmacy as 🏪 EU Pharmacy
+    participant Patient as 👤 Patient<br/>(EUDI Wallet)
+
+    GP->>NCPeH_IE: Issue ePrescription<br/>(FHIR MedicationRequest Bundle)
+    NCPeH_IE->>NCPeH_IE: Validate & sign<br/>(qualified e-signature, IHE ATNA audit)
+    NCPeH_IE-->>Hub: Register prescription availability<br/>(XCA)
+
+    Patient->>Pharmacy: Present with eIDAS digital ID<br/>(EUDI Wallet, LoA: High)
+    Pharmacy->>NCPeH_EU: Request patient ePrescription<br/>(XCPD patient discovery)
+    NCPeH_EU->>Hub: Forward request<br/>(cross-border PID: IE/CC/1234567T)
+    Hub->>NCPeH_IE: Query prescription<br/>(XCA document retrieve, SOAP/HTTPS)
+    NCPeH_IE-->>Hub: Return signed ePrescription Bundle
+    Hub-->>NCPeH_EU: Deliver ePrescription<br/>(audit logged, consent verified)
+    NCPeH_EU-->>Pharmacy: Provide ePrescription<br/>(translated to local format)
+
+    Pharmacy->>Pharmacy: Verify prescription<br/>Check allergy alerts<br/>Apply generic substitution
+    Pharmacy->>Patient: Dispense medication
+
+    Pharmacy->>NCPeH_EU: Create eDispensation<br/>(FHIR MedicationDispense)
+    NCPeH_EU->>Hub: Forward eDispensation
+    Hub->>NCPeH_IE: Return eDispensation<br/>(prescription marked as used)
+```
+
+#### Cross-Border Routing Overview
+
+The diagram below shows how Ireland routes outbound ePrescriptions to nine EU destination countries through the MyHealth@EU Central Hub, each using the destination country's national drug code system.
+
+```mermaid
+flowchart LR
+    IE["🇮🇪 **Ireland**
+NCPeH IE / HSE"]
+    Hub(["🌐 MyHealth@EU
+Central Hub"])
+
+    IE --> Hub
+
+    Hub --> DE["🇩🇪 **Germany**
+PZN codes"]
+    Hub --> ES["🇪🇸 **Spain**
+CIMA codes"]
+    Hub --> FR["🇫🇷 **France**
+CIP codes"]
+    Hub --> NL["🇳🇱 **Netherlands**
+G-Standaard GNK"]
+    Hub --> LV["🇱🇻 **Latvia**
+ZRA codes"]
+    Hub --> PT["🇵🇹 **Portugal**
+INFARMED codes"]
+    Hub --> DK["🇩🇰 **Denmark**
+DKMA/VNR codes"]
+    Hub --> SE["🇸🇪 **Sweden**
+LMV codes"]
+    Hub --> AT["🇦🇹 **Austria**
+BASG codes"]
+
+    style IE fill:#169b62,color:#fff,stroke:#169b62
+    style Hub fill:#003399,color:#fff,stroke:#003399
 ```
 
 ### IHE Profiles Used
