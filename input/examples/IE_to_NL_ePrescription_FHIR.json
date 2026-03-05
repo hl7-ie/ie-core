@@ -1,0 +1,161 @@
+{
+  "resourceType": "Bundle",
+  "id": "ie-bundle-to-nl-eprescription",
+  "type": "collection",
+  "timestamp": "2025-04-01T09:00:00+02:00",
+  "_comment": "Scenario 4: Seán Murphy visits Amsterdam. ePrescription for Metformin 500mg + Lisinopril 10mg + Atorvastatin 20mg transmitted via MyHealth@EU. Dispensed at Apotheek Dam, Damrak 1, Amsterdam on 1 April 2025 with Dutch G-Standaard GNK product codes.",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:patient-sean-murphy",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "patient-sean-murphy",
+        "identifier": [
+          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/ihi", "value": "210000000099887766"},
+          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pps", "value": "1234567T"},
+          {"system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "value": "IE/NL/1234567T"}
+        ],
+        "active": true,
+        "name": [{"use": "official", "family": "Murphy", "given": ["Seán", "Patrick"], "prefix": ["Mr."]}],
+        "gender": "male",
+        "birthDate": "1975-03-15",
+        "address": [{"use": "home", "line": ["14 Grafton Street"], "city": "Dublin 2", "postalCode": "D02 XY45", "country": "IE"}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitioner-aoife-obrien",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "practitioner-aoife-obrien",
+        "identifier": [{"system": "http://hl7.hse.ie/fhir/ie/core/sid/imc", "value": "GP-IE-12345"}],
+        "active": true,
+        "name": [{"use": "official", "family": "O'Brien", "given": ["Aoife"], "prefix": ["Dr."]}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:allergy-penicillin",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "allergy-penicillin",
+        "clinicalStatus": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical", "code": "active"}]},
+        "verificationStatus": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification", "code": "confirmed"}]},
+        "type": "allergy",
+        "category": ["medication"],
+        "criticality": "high",
+        "code": {"coding": [{"system": "http://snomed.info/sct", "code": "372687004", "display": "Amoxicillin"}], "text": "Penicillin / Amoxicillin — ALL penicillin-class antibiotics"},
+        "patient": {"reference": "urn:uuid:patient-sean-murphy"},
+        "reaction": [{"manifestation": [{"coding": [{"system": "http://snomed.info/sct", "code": "39579001", "display": "Anaphylaxis"}]}], "severity": "severe"}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:org-nl-apotheek-dam",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "org-nl-apotheek-dam",
+        "identifier": [{"system": "http://www.gipdatabank.nl/fhir/sid/apotheek", "value": "NL-APO-1012LG-001"}],
+        "active": true,
+        "name": "Apotheek Dam",
+        "address": [{"line": ["Damrak 1"], "city": "Amsterdam", "postalCode": "1012 LG", "country": "NL"}],
+        "telecom": [{"system": "phone", "value": "+31 20 624 1234"}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:rx-ie-nl-metformin",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "rx-ie-nl-metformin",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription"]},
+        "identifier": [
+          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-NL-001"},
+          {"system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "value": "IE/NL/1234567T"}
+        ],
+        "groupIdentifier": {"system": "http://hl7.hse.ie/fhir/ie/core/sid/prescription-group", "value": "IE-GP-RX-GROUP-20250401-NL"},
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "372567009", "display": "Metformin"},
+            {"system": "http://www.whocc.no/atc", "code": "A10BA02", "display": "Metformin"},
+            {"system": "http://www.gipdatabank.nl/farmaca", "code": "1701410", "display": "Metformine HCl 500mg tabletten"}
+          ],
+          "text": "Metformin 500mg tablets → NL: Metformine HCl 500mg tabletten (GNK: 1701410)"
+        },
+        "subject": {"reference": "urn:uuid:patient-sean-murphy", "display": "Seán Murphy"},
+        "requester": {"reference": "urn:uuid:practitioner-aoife-obrien", "display": "Dr. Aoife O'Brien"},
+        "authoredOn": "2025-03-28",
+        "reasonCode": [{"coding": [{"system": "http://snomed.info/sct", "code": "44054006", "display": "Diabetes mellitus type 2"}]}],
+        "dosageInstruction": [{"text": "Tweemaal daags 1 tablet bij de maaltijden innemen (Take one 500mg tablet twice daily with meals)"}],
+        "dispenseRequest": {
+          "validityPeriod": {"start": "2025-03-28", "end": "2025-06-28"},
+          "quantity": {"value": 60, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"}
+        },
+        "substitution": {"allowedBoolean": true},
+        "note": [{"text": "Cross-border ePrescription via MyHealth@EU. Valid 3 months (Geneesmiddelenwet)."}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:rx-ie-nl-lisinopril",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "rx-ie-nl-lisinopril",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription"]},
+        "identifier": [
+          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-NL-002"},
+          {"system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "value": "IE/NL/1234567T"}
+        ],
+        "groupIdentifier": {"system": "http://hl7.hse.ie/fhir/ie/core/sid/prescription-group", "value": "IE-GP-RX-GROUP-20250401-NL"},
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "386873009", "display": "Lisinopril"},
+            {"system": "http://www.gipdatabank.nl/farmaca", "code": "1701420", "display": "Lisinopril 10mg tabletten"}
+          ],
+          "text": "Lisinopril 10mg tablets → NL: Lisinopril 10mg tabletten (GNK: 1701420)"
+        },
+        "subject": {"reference": "urn:uuid:patient-sean-murphy", "display": "Seán Murphy"},
+        "requester": {"reference": "urn:uuid:practitioner-aoife-obrien", "display": "Dr. Aoife O'Brien"},
+        "authoredOn": "2025-03-28",
+        "reasonCode": [{"coding": [{"system": "http://snomed.info/sct", "code": "38341003", "display": "Hypertensive disorder"}]}],
+        "dosageInstruction": [{"text": "Eenmaal daags 1 tablet 's ochtends (Take one 10mg tablet once daily in the morning)"}],
+        "dispenseRequest": {
+          "validityPeriod": {"start": "2025-03-28", "end": "2025-06-28"},
+          "quantity": {"value": 28, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"}
+        },
+        "substitution": {"allowedBoolean": true}
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:rx-ie-nl-atorvastatin",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "rx-ie-nl-atorvastatin",
+        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription"]},
+        "identifier": [
+          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-NL-003"},
+          {"system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "value": "IE/NL/1234567T"}
+        ],
+        "groupIdentifier": {"system": "http://hl7.hse.ie/fhir/ie/core/sid/prescription-group", "value": "IE-GP-RX-GROUP-20250401-NL"},
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {"system": "http://snomed.info/sct", "code": "373444002", "display": "Atorvastatin"},
+            {"system": "http://www.gipdatabank.nl/farmaca", "code": "1701430", "display": "Atorvastatine 20mg tabletten"}
+          ],
+          "text": "Atorvastatin 20mg tablets → NL: Atorvastatine 20mg tabletten (GNK: 1701430)"
+        },
+        "subject": {"reference": "urn:uuid:patient-sean-murphy", "display": "Seán Murphy"},
+        "requester": {"reference": "urn:uuid:practitioner-aoife-obrien", "display": "Dr. Aoife O'Brien"},
+        "authoredOn": "2025-03-28",
+        "reasonCode": [{"coding": [{"system": "http://snomed.info/sct", "code": "13644009", "display": "Hypercholesterolemia"}]}],
+        "dosageInstruction": [{"text": "Eenmaal daags 1 tablet 's avonds (Take one 20mg tablet once daily at night)"}],
+        "dispenseRequest": {
+          "validityPeriod": {"start": "2025-03-28", "end": "2025-06-28"},
+          "quantity": {"value": 28, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"}
+        },
+        "substitution": {"allowedBoolean": true}
+      }
+    }
+  ]
+}
