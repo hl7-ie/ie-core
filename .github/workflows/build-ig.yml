@@ -184,6 +184,7 @@ jobs:
     name: FHIR Validator
     needs: sushi-r4
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -213,6 +214,8 @@ jobs:
       - name: Run FHIR Validator tests
         run: npm run test:validate
         working-directory: tests
+        env:
+          NODE_OPTIONS: '--max-old-space-size=4096'
 
       - name: Validation Step Summary
         if: always()
@@ -428,6 +431,7 @@ jobs:
     name: FHIR Validator (R5)
     needs: sushi-r5
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -457,6 +461,8 @@ jobs:
       - name: Run R5 FHIR Validator tests
         run: npm run test:validate
         working-directory: r5/tests
+        env:
+          NODE_OPTIONS: '--max-old-space-size=4096'
 
       - name: R5 Validation Step Summary
         if: always()

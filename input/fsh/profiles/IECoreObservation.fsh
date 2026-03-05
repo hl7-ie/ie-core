@@ -9,15 +9,13 @@ Profile: IECoreObservationClinicalResult
 Parent: Observation
 Id: ie-core-observation-clinical-result
 Title: "IE Core Observation Clinical Result"
-Description: "Constrains the Observation resource to represent clinical test results for the Irish healthcare context."
+Description: "Constrains the Observation resource to represent clinical test results for the Irish healthcare context. Child profiles add specific category slices (e.g., laboratory)."
 * ^status = #draft
 * status MS
 * category MS
 * category ^slicing.discriminator.type = #pattern
 * category ^slicing.discriminator.path = "$this"
 * category ^slicing.rules = #open
-* category contains ie-clinical-result 1..1 MS
-* category[ie-clinical-result] = $ObsCat#clinical-result
 * code MS
 * subject 1..1 MS
 * subject only Reference(Patient)

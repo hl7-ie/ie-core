@@ -374,7 +374,7 @@ Title: "IE Core Laboratory Observation Example"
 Description: "An example IE Core Laboratory Observation representing an HbA1c test result of 7.2%, which is above the normal reference range."
 
 * status = #final
-* category[0] = $ObsCat#laboratory "Laboratory"
+* category[ie-laboratory] = $ObsCat#laboratory "Laboratory"
 
 * code = $LOINC#4548-4 "Hemoglobin A1c/Hemoglobin.total in Blood"
 * code.text = "HbA1c"

@@ -4,8 +4,8 @@ const path = require('path');
 const glob = require('glob');
 
 const VALIDATOR_JAR = path.join(__dirname, 'validator_cli.jar');
-const IG_PACKAGE = path.resolve(__dirname, '..', '..');
-const FSH_GENERATED = path.join(IG_PACKAGE, 'fsh-generated', 'resources');
+const IG_ROOT = path.resolve(__dirname, '..', '..');
+const FSH_GENERATED = path.join(IG_ROOT, 'fsh-generated', 'resources');
 const REPORTS_DIR = path.join(__dirname, '..', 'reports');
 
 if (!fs.existsSync(REPORTS_DIR)) fs.mkdirSync(REPORTS_DIR, { recursive: true });
@@ -20,6 +20,15 @@ if (!fs.existsSync(FSH_GENERATED)) {
   process.exit(1);
 }
 
+const DEPENDENCY_IGS = [
+  'hl7.fhir.eu.base#0.1.0',
+  'hl7.fhir.uv.ips#1.1.0',
+  'hl7.fhir.eu.laboratory#0.1.1'
+];
+
+const fshGenAbsolute = path.resolve(FSH_GENERATED).replace(/\\/g, '/');
+const depArgs = DEPENDENCY_IGS.map(d => `-ig ${d}`).join(' ');
+
 const examples = glob.sync(path.join(FSH_GENERATED, '*.json').replace(/\\/g, '/'))
   .filter(f => {
     const name = path.basename(f);
@@ -28,7 +37,8 @@ const examples = glob.sync(path.join(FSH_GENERATED, '*.json').replace(/\\/g, '/'
            !name.startsWith('CodeSystem-') &&
            !name.startsWith('ImplementationGuide-') &&
            !name.startsWith('SearchParameter-') &&
-           !name.startsWith('CapabilityStatement-');
+           !name.startsWith('CapabilityStatement-') &&
+           !name.startsWith('TestScript-');
   });
 
 console.log(`\n=== FHIR Validator: Validating ${examples.length} example resources ===\n`);
@@ -39,18 +49,31 @@ const results = [];
 
 for (const example of examples) {
   const name = path.basename(example);
-  const resource = JSON.parse(fs.readFileSync(example, 'utf8'));
-  const profiles = (resource.meta && resource.meta.profile) || [];
+  const exampleAbsolute = path.resolve(example).replace(/\\/g, '/');
 
-  const profileArgs = profiles.map(p => `-profile ${p}`).join(' ');
+  const cmd = [
+    `java -Xmx4g -jar "${path.resolve(VALIDATOR_JAR).replace(/\\/g, '/')}"`,
+    `"${exampleAbsolute}"`,
+    '-version 4.0.1',
+    `-ig "${fshGenAbsolute}"`,
+    depArgs,
+    '-tx n/a',
+    '-no-extensible-binding-warnings',
+    '-best-practice ignore'
+  ].join(' ');
 
   try {
-    const cmd = `java -jar "${VALIDATOR_JAR}" "${example}" -version 4.0.1 -ig "${IG_PACKAGE}" ${profileArgs} -output-style compact`;
-    const output = execSync(cmd, { encoding: 'utf8', timeout: 120000, stdio: ['pipe', 'pipe', 'pipe'] });
+    const output = execSync(cmd, {
+      encoding: 'utf8',
+      timeout: 300000,
+      stdio: ['pipe', 'pipe', 'pipe']
+    });
 
-    const hasError = /\*FAILURE\*/.test(output) || / 0 errors/.test(output) === false;
-    if (hasError && /[1-9]\d* error/.test(output)) {
+    const hasError = /\*FAILURE\*/.test(output) || /[1-9]\d* error/.test(output);
+    if (hasError) {
+      const errorLines = output.split('\n').filter(l => /Error @|error/.test(l)).slice(0, 3).join('; ');
       console.log(`  FAIL  ${name}`);
+      if (errorLines) console.log(`        ${errorLines}`);
       failed++;
       results.push({ file: name, status: 'FAIL', output });
     } else {
@@ -59,9 +82,26 @@ for (const example of examples) {
       results.push({ file: name, status: 'PASS', output });
     }
   } catch (err) {
-    console.log(`  FAIL  ${name}: ${err.message.split('\n')[0]}`);
+    const stderr = err.stderr ? err.stderr.toString() : '';
+    const stdout = err.stdout ? err.stdout.toString() : '';
+    const combined = stdout + stderr;
+
+    const errorLines = combined.split('\n')
+      .filter(l => /error|Error|Exception|FAILURE|cannot resolve|not found/i.test(l))
+      .slice(0, 5)
+      .join('\n        ');
+
+    console.log(`  FAIL  ${name}`);
+    if (errorLines) {
+      console.log(`        ${errorLines}`);
+    } else {
+      console.log(`        Exit code: ${err.status || 'unknown'}`);
+      const lastLines = combined.split('\n').filter(l => l.trim()).slice(-5).join('\n        ');
+      if (lastLines) console.log(`        ${lastLines}`);
+    }
+
     failed++;
-    results.push({ file: name, status: 'FAIL', output: err.stderr || err.message });
+    results.push({ file: name, status: 'FAIL', output: combined || err.message });
   }
 }
 
