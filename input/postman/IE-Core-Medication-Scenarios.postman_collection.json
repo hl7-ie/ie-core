@@ -1,0 +1,765 @@
+{
+  "info": {
+    "name": "IE Core – Medication Request & Dispensing Scenarios",
+    "_postman_id": "ie-core-medication-scenarios-v1",
+    "description": "A comprehensive Postman collection for testing IE Core FHIR medication request and dispensing scenarios against a FHIR R4 server. Covers:\n\n**Scenario 1** – Local IE: Full Dispensing of a Single Prescription (Metformin 500mg)\n**Scenario 2** – Local IE: Partial Dispensing over 3 months (Atorvastatin 20mg)\n**Scenario 3** – Multiple Prescriptions in a Single Bundle (Metformin + Atorvastatin + Ramipril)\n**Scenario 4** – Cross-border IE→ES: Irish patient's prescription dispensed in Spain via MyHealth@EU\n**Scenario 5** – Cross-border ES→IE: Spanish patient's prescription dispensed in Ireland via MyHealth@EU\n**Scenario 6** – Repeat Prescription: 6-month GMS repeat with monthly dispensations\n\n**Prerequisites:**\n- Set the `baseUrl` environment variable to your FHIR server base URL (e.g. `http://hapi.fhir.org/baseR4` or `https://your-fhir-server/fhir`)\n- The server must support FHIR R4\n\n**Aligned with:** HL7 Ireland IE Core IG (http://hl7.hse.ie/fhir/ie/core), HL7 Europe MPD IG, MyHealth@EU / eHDSI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://hapi.fhir.org/baseR4",
+      "description": "FHIR server base URL. Change to your target server."
+    },
+    {
+      "key": "patientId",
+      "value": "",
+      "description": "Populated automatically after patient creation."
+    },
+    {
+      "key": "prescriptionId",
+      "value": "",
+      "description": "Populated automatically after prescription creation."
+    },
+    {
+      "key": "dispenseId",
+      "value": "",
+      "description": "Populated automatically after dispense creation."
+    }
+  ],
+  "item": [
+    {
+      "name": "0 – Server Capability",
+      "item": [
+        {
+          "name": "GET – CapabilityStatement",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Accept", "value": "application/fhir+json"}],
+            "url": {
+              "raw": "{{baseUrl}}/metadata",
+              "host": ["{{baseUrl}}"],
+              "path": ["metadata"]
+            },
+            "description": "Retrieve the server CapabilityStatement to verify the server supports MedicationRequest and MedicationDispense resources."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is a CapabilityStatement', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.resourceType).to.eql('CapabilityStatement');",
+                  "});",
+                  "pm.test('Server supports MedicationRequest', () => {",
+                  "  const body = pm.response.json();",
+                  "  const resources = body.rest?.[0]?.resource?.map(r => r.type) || [];",
+                  "  pm.expect(resources).to.include('MedicationRequest');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "1 – Scenario 1: Full Dispensing (Local IE)",
+      "description": "Irish patient John Murphy receives a Metformin 500mg prescription from Dr. Sarah O'Brien (GP, St. James's Hospital) and collects the full 60 tablets at Boots Pharmacy, Dublin on the same day.",
+      "item": [
+        {
+          "name": "POST – Create Patient (John Murphy)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/fhir+json"},
+              {"key": "Accept", "value": "application/fhir+json"}
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/Patient",
+              "host": ["{{baseUrl}}"],
+              "path": ["Patient"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"Patient\",\n  \"meta\": {\n    \"profile\": [\"http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-patient\"]\n  },\n  \"identifier\": [\n    {\n      \"system\": \"http://hl7.hse.ie/fhir/ie/core/sid/ihi\",\n      \"type\": {\"coding\": [{\"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\", \"code\": \"NI\"}]},\n      \"value\": \"210000000012345678\"\n    },\n    {\n      \"system\": \"http://hl7.hse.ie/fhir/ie/core/sid/gms\",\n      \"type\": {\"coding\": [{\"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\", \"code\": \"MC\"}]},\n      \"value\": \"1234567A\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [{\"use\": \"official\", \"family\": \"Murphy\", \"given\": [\"John\", \"Patrick\"], \"prefix\": [\"Mr.\"]}],\n  \"gender\": \"male\",\n  \"birthDate\": \"1978-05-15\",\n  \"address\": [{\"use\": \"home\", \"line\": [\"42 Pearse Street\"], \"city\": \"Dublin\", \"postalCode\": \"D02 XY12\", \"country\": \"IE\"}]\n}"
+            },
+            "description": "Create the Irish patient John Murphy with IHI and GMS identifiers."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201 Created', () => pm.response.to.have.status(201));",
+                  "pm.test('Response is a Patient', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.resourceType).to.eql('Patient');",
+                  "  pm.collectionVariables.set('patientId', body.id);",
+                  "  console.log('Patient ID:', body.id);",
+                  "});",
+                  "pm.test('Patient has IHI identifier', () => {",
+                  "  const body = pm.response.json();",
+                  "  const ihi = body.identifier?.find(id => id.system === 'http://hl7.hse.ie/fhir/ie/core/sid/ihi');",
+                  "  pm.expect(ihi).to.exist;",
+                  "  pm.expect(ihi.value).to.match(/^[0-9]{18}$/);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST – Create Medication (Metformin 500mg)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/fhir+json"},
+              {"key": "Accept", "value": "application/fhir+json"}
+            ],
+            "url": {"raw": "{{baseUrl}}/Medication", "host": ["{{baseUrl}}"], "path": ["Medication"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"Medication\",\n  \"meta\": {\"profile\": [\"http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription\"]},\n  \"code\": {\n    \"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"372567009\", \"display\": \"Metformin\"}],\n    \"text\": \"Metformin 500mg tablets\"\n  },\n  \"form\": {\"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"385055001\", \"display\": \"Tablet\"}]},\n  \"ingredient\": [{\n    \"itemCodeableConcept\": {\"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"372567009\"}]},\n    \"isActive\": true,\n    \"strength\": {\n      \"numerator\": {\"value\": 500, \"unit\": \"mg\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"mg\"},\n      \"denominator\": {\"value\": 1, \"unit\": \"tablet\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"{tablet}\"}\n    }\n  }]\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Medication created', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.resourceType).to.eql('Medication');",
+                  "  pm.collectionVariables.set('medicationId', body.id);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST – Create MedicationRequest (Prescription Scenario 1)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/fhir+json"},
+              {"key": "Accept", "value": "application/fhir+json"}
+            ],
+            "url": {"raw": "{{baseUrl}}/MedicationRequest", "host": ["{{baseUrl}}"], "path": ["MedicationRequest"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"MedicationRequest\",\n  \"meta\": {\"profile\": [\"http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription\"]},\n  \"identifier\": [{\"system\": \"http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx\", \"value\": \"PCRS-RX-2024-001001\"}],\n  \"status\": \"active\",\n  \"intent\": \"order\",\n  \"category\": [{\"coding\": [{\"system\": \"http://terminology.hl7.org/CodeSystem/medicationrequest-category\", \"code\": \"community\", \"display\": \"Community\"}]}],\n  \"medicationReference\": {\"reference\": \"Medication/{{medicationId}}\"},\n  \"subject\": {\"reference\": \"Patient/{{patientId}}\", \"display\": \"John Murphy\"},\n  \"authoredOn\": \"2024-06-15\",\n  \"requester\": {\"display\": \"Dr. Sarah O'Brien\"},\n  \"reasonCode\": [{\"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"44054006\", \"display\": \"Diabetes mellitus type 2\"}]}],\n  \"dosageInstruction\": [{\n    \"sequence\": 1,\n    \"text\": \"Take one 500mg tablet twice daily with meals\",\n    \"timing\": {\"repeat\": {\"frequency\": 2, \"period\": 1, \"periodUnit\": \"d\"}},\n    \"route\": {\"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"26643006\", \"display\": \"Oral route\"}]},\n    \"doseAndRate\": [{\"doseQuantity\": {\"value\": 500, \"unit\": \"mg\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"mg\"}}]\n  }],\n  \"dispenseRequest\": {\n    \"validityPeriod\": {\"start\": \"2024-06-15\", \"end\": \"2024-07-15\"},\n    \"numberOfRepeatsAllowed\": 0,\n    \"quantity\": {\"value\": 60, \"unit\": \"tablets\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"{tablet}\"},\n    \"expectedSupplyDuration\": {\"value\": 30, \"unit\": \"days\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"d\"}\n  },\n  \"substitution\": {\"allowedBoolean\": true}\n}"
+            },
+            "description": "Create the ePrescription for Metformin 500mg (60 tablets, 30-day supply)."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                  "pm.test('MedicationRequest created', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.resourceType).to.eql('MedicationRequest');",
+                  "  pm.expect(body.status).to.eql('active');",
+                  "  pm.expect(body.intent).to.eql('order');",
+                  "  pm.collectionVariables.set('prescriptionId', body.id);",
+                  "});",
+                  "pm.test('Prescription has PCRS identifier', () => {",
+                  "  const body = pm.response.json();",
+                  "  const pcrs = body.identifier?.find(id => id.system === 'http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx');",
+                  "  pm.expect(pcrs).to.exist;",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST – Create MedicationDispense (Full Dispense)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/fhir+json"},
+              {"key": "Accept", "value": "application/fhir+json"}
+            ],
+            "url": {"raw": "{{baseUrl}}/MedicationDispense", "host": ["{{baseUrl}}"], "path": ["MedicationDispense"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"MedicationDispense\",\n  \"meta\": {\"profile\": [\"http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationdispense-edispensation\"]},\n  \"identifier\": [{\"system\": \"http://hl7.hse.ie/fhir/ie/core/sid/dispense-id\", \"value\": \"DISP-IE-2024-001001\"}],\n  \"status\": \"completed\",\n  \"medicationReference\": {\"reference\": \"Medication/{{medicationId}}\"},\n  \"subject\": {\"reference\": \"Patient/{{patientId}}\", \"display\": \"John Murphy\"},\n  \"performer\": [{\"actor\": {\"display\": \"Niamh Brennan (Pharmacist)\"}}],\n  \"authorizingPrescription\": [{\"reference\": \"MedicationRequest/{{prescriptionId}}\"}],\n  \"type\": {\"coding\": [{\"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\", \"code\": \"DF\", \"display\": \"Daily Fill\"}]},\n  \"quantity\": {\"value\": 60, \"unit\": \"tablets\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"{tablet}\"},\n  \"daysSupply\": {\"value\": 30, \"unit\": \"days\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"d\"},\n  \"whenPrepared\": \"2024-06-15T14:00:00+01:00\",\n  \"whenHandedOver\": \"2024-06-15T14:15:00+01:00\",\n  \"dosageInstruction\": [{\"text\": \"Take one 500mg tablet twice daily with meals\"}],\n  \"substitution\": {\"wasSubstituted\": false}\n}"
+            },
+            "description": "Record the full dispensation of 60 Metformin tablets."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                  "pm.test('MedicationDispense created with completed status', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.resourceType).to.eql('MedicationDispense');",
+                  "  pm.expect(body.status).to.eql('completed');",
+                  "  pm.collectionVariables.set('dispenseId', body.id);",
+                  "});",
+                  "pm.test('Full quantity dispensed', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.quantity.value).to.eql(60);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET – Search Dispenses for Patient (Scenario 1)",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Accept", "value": "application/fhir+json"}],
+            "url": {
+              "raw": "{{baseUrl}}/MedicationDispense?patient={{patientId}}&status=completed",
+              "host": ["{{baseUrl}}"],
+              "path": ["MedicationDispense"],
+              "query": [
+                {"key": "patient", "value": "{{patientId}}"},
+                {"key": "status", "value": "completed"}
+              ]
+            },
+            "description": "Search for completed dispenses for John Murphy."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is a Bundle', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.resourceType).to.eql('Bundle');",
+                  "  pm.expect(body.total).to.be.at.least(1);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2 – Scenario 2: Partial Dispensing",
+      "description": "Atorvastatin 20mg prescription dispensed in 3 partial fills of 30 tablets each across 3 months.",
+      "item": [
+        {
+          "name": "POST – Create Partial Dispense 1 of 3 (June)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/fhir+json"},
+              {"key": "Accept", "value": "application/fhir+json"}
+            ],
+            "url": {"raw": "{{baseUrl}}/MedicationDispense", "host": ["{{baseUrl}}"], "path": ["MedicationDispense"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"MedicationDispense\",\n  \"meta\": {\"profile\": [\"http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationdispense-edispensation\"]},\n  \"identifier\": [{\"system\": \"http://hl7.hse.ie/fhir/ie/core/sid/dispense-id\", \"value\": \"DISP-IE-2024-002001-1\"}],\n  \"status\": \"completed\",\n  \"medicationCodeableConcept\": {\n    \"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"373444002\", \"display\": \"Atorvastatin\"}],\n    \"text\": \"Atorvastatin 20mg tablets\"\n  },\n  \"subject\": {\"reference\": \"Patient/{{patientId}}\", \"display\": \"John Murphy\"},\n  \"performer\": [{\"actor\": {\"display\": \"Niamh Brennan (Pharmacist)\"}}],\n  \"type\": {\"coding\": [{\"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\", \"code\": \"PF\", \"display\": \"Partial Fill\"}]},\n  \"quantity\": {\"value\": 30, \"unit\": \"tablets\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"{tablet}\"},\n  \"daysSupply\": {\"value\": 30, \"unit\": \"days\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"d\"},\n  \"whenHandedOver\": \"2024-06-15T14:45:00+01:00\",\n  \"dosageInstruction\": [{\"text\": \"Take one 20mg tablet once daily at night\"}],\n  \"substitution\": {\"wasSubstituted\": false}\n}"
+            },
+            "description": "First partial dispensation: 30 of 90 tablets."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Partial fill type recorded', () => {",
+                  "  const body = pm.response.json();",
+                  "  const type = body.type?.coding?.find(c => c.code === 'PF');",
+                  "  pm.expect(type).to.exist;",
+                  "});",
+                  "pm.test('Quantity is 30 tablets', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.quantity.value).to.eql(30);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST – Create Partial Dispense 2 of 3 (July)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/fhir+json"}, {"key": "Accept", "value": "application/fhir+json"}],
+            "url": {"raw": "{{baseUrl}}/MedicationDispense", "host": ["{{baseUrl}}"], "path": ["MedicationDispense"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"MedicationDispense\",\n  \"meta\": {\"profile\": [\"http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationdispense-edispensation\"]},\n  \"identifier\": [{\"system\": \"http://hl7.hse.ie/fhir/ie/core/sid/dispense-id\", \"value\": \"DISP-IE-2024-002001-2\"}],\n  \"status\": \"completed\",\n  \"medicationCodeableConcept\": {\"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"373444002\", \"display\": \"Atorvastatin\"}], \"text\": \"Atorvastatin 20mg tablets\"},\n  \"subject\": {\"reference\": \"Patient/{{patientId}}\"},\n  \"performer\": [{\"actor\": {\"display\": \"Niamh Brennan (Pharmacist)\"}}],\n  \"type\": {\"coding\": [{\"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\", \"code\": \"PF\", \"display\": \"Partial Fill\"}]},\n  \"quantity\": {\"value\": 30, \"unit\": \"tablets\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"{tablet}\"},\n  \"daysSupply\": {\"value\": 30, \"unit\": \"days\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"d\"},\n  \"whenHandedOver\": \"2024-07-15T10:10:00+01:00\",\n  \"dosageInstruction\": [{\"text\": \"Take one 20mg tablet once daily at night\"}],\n  \"substitution\": {\"wasSubstituted\": false}\n}"
+            }
+          },
+          "event": [
+            {"listen": "test", "script": {"type": "text/javascript", "exec": ["pm.test('Status is 201', () => pm.response.to.have.status(201));"]}}
+          ]
+        },
+        {
+          "name": "POST – Create Partial Dispense 3 of 3 (August – Final)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/fhir+json"}, {"key": "Accept", "value": "application/fhir+json"}],
+            "url": {"raw": "{{baseUrl}}/MedicationDispense", "host": ["{{baseUrl}}"], "path": ["MedicationDispense"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"MedicationDispense\",\n  \"meta\": {\"profile\": [\"http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationdispense-edispensation\"]},\n  \"identifier\": [{\"system\": \"http://hl7.hse.ie/fhir/ie/core/sid/dispense-id\", \"value\": \"DISP-IE-2024-002001-3\"}],\n  \"status\": \"completed\",\n  \"medicationCodeableConcept\": {\"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"373444002\"}], \"text\": \"Atorvastatin 20mg tablets\"},\n  \"subject\": {\"reference\": \"Patient/{{patientId}}\"},\n  \"performer\": [{\"actor\": {\"display\": \"Niamh Brennan (Pharmacist)\"}}],\n  \"type\": {\"coding\": [{\"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\", \"code\": \"FF\", \"display\": \"First Fill\"}]},\n  \"quantity\": {\"value\": 30, \"unit\": \"tablets\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"{tablet}\"},\n  \"daysSupply\": {\"value\": 30, \"unit\": \"days\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"d\"},\n  \"whenHandedOver\": \"2024-08-15T11:10:00+01:00\",\n  \"dosageInstruction\": [{\"text\": \"Take one 20mg tablet once daily at night\"}],\n  \"substitution\": {\"wasSubstituted\": false}\n}"
+            }
+          },
+          "event": [
+            {"listen": "test", "script": {"type": "text/javascript", "exec": ["pm.test('Status is 201', () => pm.response.to.have.status(201));"]}}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "3 – Scenario 3: Multiple Prescriptions Bundle",
+      "description": "POST a full Bundle containing 3 prescriptions (Metformin, Atorvastatin, Ramipril) and their dispenses for John Murphy in a single transaction.",
+      "item": [
+        {
+          "name": "POST – Transaction Bundle (3 Prescriptions + 3 Dispenses)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/fhir+json"},
+              {"key": "Accept", "value": "application/fhir+json"}
+            ],
+            "url": {"raw": "{{baseUrl}}", "host": ["{{baseUrl}}"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"Bundle\",\n  \"type\": \"transaction\",\n  \"entry\": [\n    {\n      \"fullUrl\": \"urn:uuid:rx-metformin\",\n      \"resource\": {\n        \"resourceType\": \"MedicationRequest\",\n        \"meta\": {\"profile\": [\"http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription\"]},\n        \"identifier\": [{\"system\": \"http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx\", \"value\": \"PCRS-RX-2024-003001\"}],\n        \"groupIdentifier\": {\"system\": \"http://hl7.hse.ie/fhir/ie/core/sid/prescription-group\", \"value\": \"IE-GP-RX-GROUP-20240620\"},\n        \"status\": \"active\", \"intent\": \"order\",\n        \"medicationCodeableConcept\": {\"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"372567009\", \"display\": \"Metformin\"}], \"text\": \"Metformin 500mg tablets\"},\n        \"subject\": {\"reference\": \"Patient/{{patientId}}\"},\n        \"authoredOn\": \"2024-06-20\",\n        \"requester\": {\"display\": \"Dr. Sarah O'Brien\"},\n        \"dosageInstruction\": [{\"text\": \"Take one 500mg tablet twice daily with meals\"}],\n        \"dispenseRequest\": {\"numberOfRepeatsAllowed\": 5, \"quantity\": {\"value\": 60, \"unit\": \"tablets\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"{tablet}\"}}\n      },\n      \"request\": {\"method\": \"POST\", \"url\": \"MedicationRequest\"}\n    },\n    {\n      \"fullUrl\": \"urn:uuid:rx-atorvastatin\",\n      \"resource\": {\n        \"resourceType\": \"MedicationRequest\",\n        \"meta\": {\"profile\": [\"http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription\"]},\n        \"identifier\": [{\"system\": \"http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx\", \"value\": \"PCRS-RX-2024-003002\"}],\n        \"groupIdentifier\": {\"system\": \"http://hl7.hse.ie/fhir/ie/core/sid/prescription-group\", \"value\": \"IE-GP-RX-GROUP-20240620\"},\n        \"status\": \"active\", \"intent\": \"order\",\n        \"medicationCodeableConcept\": {\"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"373444002\", \"display\": \"Atorvastatin\"}], \"text\": \"Atorvastatin 20mg tablets\"},\n        \"subject\": {\"reference\": \"Patient/{{patientId}}\"},\n        \"authoredOn\": \"2024-06-20\",\n        \"requester\": {\"display\": \"Dr. Sarah O'Brien\"},\n        \"dosageInstruction\": [{\"text\": \"Take one 20mg tablet once daily at night\"}],\n        \"dispenseRequest\": {\"numberOfRepeatsAllowed\": 2, \"quantity\": {\"value\": 30, \"unit\": \"tablets\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"{tablet}\"}}\n      },\n      \"request\": {\"method\": \"POST\", \"url\": \"MedicationRequest\"}\n    },\n    {\n      \"fullUrl\": \"urn:uuid:rx-ramipril\",\n      \"resource\": {\n        \"resourceType\": \"MedicationRequest\",\n        \"meta\": {\"profile\": [\"http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription\"]},\n        \"identifier\": [{\"system\": \"http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx\", \"value\": \"PCRS-RX-2024-003003\"}],\n        \"groupIdentifier\": {\"system\": \"http://hl7.hse.ie/fhir/ie/core/sid/prescription-group\", \"value\": \"IE-GP-RX-GROUP-20240620\"},\n        \"status\": \"active\", \"intent\": \"order\",\n        \"medicationCodeableConcept\": {\"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"386872004\", \"display\": \"Ramipril\"}], \"text\": \"Ramipril 5mg capsules\"},\n        \"subject\": {\"reference\": \"Patient/{{patientId}}\"},\n        \"authoredOn\": \"2024-06-20\",\n        \"requester\": {\"display\": \"Dr. Sarah O'Brien\"},\n        \"dosageInstruction\": [{\"text\": \"Take one 5mg capsule once daily in the morning\"}],\n        \"dispenseRequest\": {\"numberOfRepeatsAllowed\": 5, \"quantity\": {\"value\": 28, \"unit\": \"capsules\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"{capsule}\"}}\n      },\n      \"request\": {\"method\": \"POST\", \"url\": \"MedicationRequest\"}\n    }\n  ]\n}"
+            },
+            "description": "POST a FHIR transaction bundle containing 3 prescriptions (Metformin, Atorvastatin, Ramipril) in a single request. All prescriptions share the same groupIdentifier."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200 (transaction)', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is a transaction-response Bundle', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.resourceType).to.eql('Bundle');",
+                  "  pm.expect(body.type).to.eql('transaction-response');",
+                  "});",
+                  "pm.test('All 3 entries processed', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.entry).to.have.length(3);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET – Search Prescriptions by Group Identifier",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Accept", "value": "application/fhir+json"}],
+            "url": {
+              "raw": "{{baseUrl}}/MedicationRequest?group-identifier=http://hl7.hse.ie/fhir/ie/core/sid/prescription-group|IE-GP-RX-GROUP-20240620",
+              "host": ["{{baseUrl}}"],
+              "path": ["MedicationRequest"],
+              "query": [{"key": "group-identifier", "value": "http://hl7.hse.ie/fhir/ie/core/sid/prescription-group|IE-GP-RX-GROUP-20240620"}]
+            },
+            "description": "Search all prescriptions belonging to the same GP prescription group (issued together in one consultation)."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Returns multiple prescriptions', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.resourceType).to.eql('Bundle');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "4 – Scenario 4: Cross-border IE → ES",
+      "description": "Irish patient Ciarán Walsh travels to Spain. His Irish GP's Amlodipine repeat prescription is transmitted to a Spanish pharmacy via MyHealth@EU.",
+      "item": [
+        {
+          "name": "POST – Create Cross-border Prescription (IE→ES)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/fhir+json"}, {"key": "Accept", "value": "application/fhir+json"}],
+            "url": {"raw": "{{baseUrl}}/MedicationRequest", "host": ["{{baseUrl}}"], "path": ["MedicationRequest"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"MedicationRequest\",\n  \"meta\": {\"profile\": [\"http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription\"]},\n  \"identifier\": [\n    {\"system\": \"http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx\", \"value\": \"PCRS-RX-2024-004001\"},\n    {\"system\": \"urn:oid:2.16.840.1.113883.2.16.1.4.1\", \"value\": \"IE-EHIC-XB-2024-004001\"}\n  ],\n  \"status\": \"active\",\n  \"intent\": \"order\",\n  \"category\": [{\"coding\": [{\"system\": \"http://terminology.hl7.org/CodeSystem/medicationrequest-category\", \"code\": \"community\"}]}],\n  \"medicationCodeableConcept\": {\n    \"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"386864001\", \"display\": \"Amlodipine\"}],\n    \"text\": \"Amlodipine 5mg tablets\"\n  },\n  \"subject\": {\"display\": \"Ciarán Walsh (IHI: 210000000055667788)\"},\n  \"authoredOn\": \"2024-07-10\",\n  \"requester\": {\"display\": \"Dr. Sarah O'Brien, St. James's Hospital, Dublin IE\"},\n  \"reasonCode\": [{\"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"38341003\", \"display\": \"Hypertensive disorder\"}]}],\n  \"dosageInstruction\": [{\n    \"text\": \"Take one 5mg tablet once daily\",\n    \"timing\": {\"repeat\": {\"frequency\": 1, \"period\": 1, \"periodUnit\": \"d\"}},\n    \"route\": {\"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"26643006\", \"display\": \"Oral route\"}]}\n  }],\n  \"dispenseRequest\": {\n    \"validityPeriod\": {\"start\": \"2024-07-10\", \"end\": \"2024-10-10\"},\n    \"numberOfRepeatsAllowed\": 2,\n    \"quantity\": {\"value\": 30, \"unit\": \"tablets\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"{tablet}\"},\n    \"expectedSupplyDuration\": {\"value\": 30, \"unit\": \"days\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"d\"}\n  },\n  \"substitution\": {\"allowedBoolean\": true}\n}"
+            },
+            "description": "Create the Irish cross-border ePrescription (includes MyHealth@EU cross-border identifier)."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Cross-border identifier present', () => {",
+                  "  const body = pm.response.json();",
+                  "  const xbId = body.identifier?.find(id => id.system === 'urn:oid:2.16.840.1.113883.2.16.1.4.1');",
+                  "  pm.expect(xbId).to.exist;",
+                  "  pm.collectionVariables.set('crossborderPrescriptionId', body.id);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST – Record Spanish Dispensation (Generic Substitution)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/fhir+json"}, {"key": "Accept", "value": "application/fhir+json"}],
+            "url": {"raw": "{{baseUrl}}/MedicationDispense", "host": ["{{baseUrl}}"], "path": ["MedicationDispense"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"MedicationDispense\",\n  \"meta\": {\"profile\": [\"http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationdispense-edispensation\"]},\n  \"identifier\": [{\"system\": \"http://www.mscbs.gob.es/fhir/sid/dispensacion\", \"value\": \"ES-DISP-2024-XB-004001\"}],\n  \"status\": \"completed\",\n  \"medicationCodeableConcept\": {\n    \"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"386864001\", \"display\": \"Amlodipine\"}],\n    \"text\": \"Amlodipine 5mg tablets (ES generic)\"\n  },\n  \"subject\": {\"display\": \"Ciarán Walsh (Irish patient, visiting Spain)\"},\n  \"performer\": [{\"actor\": {\"display\": \"Dra. Carmen Vega Soto, Farmacia Avenida de América, Madrid ES\"}}],\n  \"authorizingPrescription\": [{\"reference\": \"MedicationRequest/{{crossborderPrescriptionId}}\", \"display\": \"PCRS-RX-2024-004001 (IE→ES cross-border)\"}],\n  \"type\": {\"coding\": [{\"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\", \"code\": \"DF\", \"display\": \"Daily Fill\"}]},\n  \"quantity\": {\"value\": 30, \"unit\": \"tablets\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"{tablet}\"},\n  \"daysSupply\": {\"value\": 30, \"unit\": \"days\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"d\"},\n  \"whenHandedOver\": \"2024-07-28T11:45:00+02:00\",\n  \"dosageInstruction\": [{\"text\": \"Tomar un comprimido de 5mg una vez al día (Take one 5mg tablet once daily)\"}],\n  \"substitution\": {\n    \"wasSubstituted\": true,\n    \"type\": {\"coding\": [{\"system\": \"http://terminology.hl7.org/CodeSystem/v3-substanceAdminSubstitution\", \"code\": \"G\", \"display\": \"Generic composition\"}]},\n    \"reason\": [{\"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"373873005\", \"display\": \"Pharmaceutical / biologic product\"}]}]\n  }\n}"
+            },
+            "description": "Record the Spanish pharmacy dispensation. The Spanish pharmacist dispensed a locally available generic equivalent (wasSubstituted=true, type=G)."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Substitution recorded as true', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.substitution.wasSubstituted).to.be.true;",
+                  "  pm.expect(body.substitution.type.coding[0].code).to.eql('G');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "5 – Scenario 5: Cross-border ES → IE",
+      "description": "Spanish patient María García López visits Ireland and presents her Spanish prescription for Amlodipine 5mg at Boots Pharmacy Dublin.",
+      "item": [
+        {
+          "name": "POST – Create Spanish Patient (visiting Ireland)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/fhir+json"}, {"key": "Accept", "value": "application/fhir+json"}],
+            "url": {"raw": "{{baseUrl}}/Patient", "host": ["{{baseUrl}}"], "path": ["Patient"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"Patient\",\n  \"meta\": {\"profile\": [\"http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-patient\"]},\n  \"identifier\": [\n    {\"system\": \"http://www.mscbs.gob.es/fhir/sid/cip\", \"type\": {\"coding\": [{\"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\", \"code\": \"NI\"}]}, \"value\": \"ES280000000000000012\"},\n    {\"system\": \"urn:oid:1.3.6.1.4.1.36764\", \"type\": {\"coding\": [{\"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\", \"code\": \"PN\"}]}, \"value\": \"ES-28-12345678X\"}\n  ],\n  \"active\": true,\n  \"name\": [{\"use\": \"official\", \"family\": \"García López\", \"given\": [\"María\", \"Concepción\"], \"prefix\": [\"Sra.\"]}],\n  \"gender\": \"female\",\n  \"birthDate\": \"1975-08-22\",\n  \"address\": [{\"use\": \"home\", \"line\": [\"Calle Gran Vía 45, 2º A\"], \"city\": \"Madrid\", \"postalCode\": \"28013\", \"country\": \"ES\"}],\n  \"communication\": [{\"language\": {\"coding\": [{\"system\": \"urn:ietf:bcp:47\", \"code\": \"es\"}]}, \"preferred\": true}]\n}"
+            },
+            "description": "Create the Spanish patient record in the Irish FHIR server (as received via MyHealth@EU)."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Spanish patient created', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.resourceType).to.eql('Patient');",
+                  "  const cip = body.identifier?.find(id => id.system === 'http://www.mscbs.gob.es/fhir/sid/cip');",
+                  "  pm.expect(cip).to.exist;",
+                  "  pm.collectionVariables.set('esPatientId', body.id);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST – Create Spanish Prescription (ES→IE cross-border)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/fhir+json"}, {"key": "Accept", "value": "application/fhir+json"}],
+            "url": {"raw": "{{baseUrl}}/MedicationRequest", "host": ["{{baseUrl}}"], "path": ["MedicationRequest"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"MedicationRequest\",\n  \"meta\": {\"profile\": [\"http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription\"]},\n  \"identifier\": [\n    {\"system\": \"http://www.mscbs.gob.es/fhir/sid/recetaElectronica\", \"value\": \"ES-RX-2024-28-987654321\"},\n    {\"system\": \"urn:oid:2.16.840.1.113883.2.16.1.4.1\", \"value\": \"ES-EHIC-XB-2024-005001\"}\n  ],\n  \"status\": \"active\",\n  \"intent\": \"order\",\n  \"medicationCodeableConcept\": {\"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"386864001\", \"display\": \"Amlodipine\"}], \"text\": \"Amlodipine 5mg tablets\"},\n  \"subject\": {\"reference\": \"Patient/{{esPatientId}}\", \"display\": \"María García López\"},\n  \"authoredOn\": \"2024-08-01\",\n  \"requester\": {\"display\": \"Dr. Alejandro Martínez Ruiz, Centro de Salud Las Águilas, Madrid ES\"},\n  \"reasonCode\": [{\"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"38341003\", \"display\": \"Hypertensive disorder\"}]}],\n  \"dosageInstruction\": [{\"text\": \"Take one 5mg tablet once daily (Tomar un comprimido de 5mg una vez al día)\"}],\n  \"dispenseRequest\": {\n    \"validityPeriod\": {\"start\": \"2024-08-01\", \"end\": \"2024-11-01\"},\n    \"numberOfRepeatsAllowed\": 2,\n    \"quantity\": {\"value\": 30, \"unit\": \"tablets\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"{tablet}\"}\n  },\n  \"substitution\": {\"allowedBoolean\": true}\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Spanish prescription identifier present', () => {",
+                  "  const body = pm.response.json();",
+                  "  const esId = body.identifier?.find(id => id.system === 'http://www.mscbs.gob.es/fhir/sid/recetaElectronica');",
+                  "  pm.expect(esId).to.exist;",
+                  "  pm.collectionVariables.set('esPrescriptionId', body.id);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST – Record Irish Dispensation of Spanish Prescription",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/fhir+json"}, {"key": "Accept", "value": "application/fhir+json"}],
+            "url": {"raw": "{{baseUrl}}/MedicationDispense", "host": ["{{baseUrl}}"], "path": ["MedicationDispense"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"MedicationDispense\",\n  \"meta\": {\"profile\": [\"http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationdispense-edispensation\"]},\n  \"identifier\": [{\"system\": \"http://hl7.hse.ie/fhir/ie/core/sid/dispense-id\", \"value\": \"DISP-IE-2024-XB-005001\"}],\n  \"status\": \"completed\",\n  \"medicationCodeableConcept\": {\"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"386864001\"}], \"text\": \"Amlodipine 5mg tablets\"},\n  \"subject\": {\"reference\": \"Patient/{{esPatientId}}\", \"display\": \"María García López\"},\n  \"performer\": [{\"actor\": {\"display\": \"Niamh Brennan, Boots Pharmacy Dublin IE\"}}],\n  \"authorizingPrescription\": [{\"reference\": \"MedicationRequest/{{esPrescriptionId}}\", \"display\": \"ES-RX-2024-28-987654321 (ES→IE cross-border)\"}],\n  \"type\": {\"coding\": [{\"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\", \"code\": \"DF\", \"display\": \"Daily Fill\"}]},\n  \"quantity\": {\"value\": 30, \"unit\": \"tablets\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"{tablet}\"},\n  \"daysSupply\": {\"value\": 30, \"unit\": \"days\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"d\"},\n  \"whenHandedOver\": \"2024-08-12T14:15:00+01:00\",\n  \"dosageInstruction\": [{\"text\": \"Take one 5mg tablet once daily\"}],\n  \"substitution\": {\"wasSubstituted\": false}\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Irish dispense ID present', () => {",
+                  "  const body = pm.response.json();",
+                  "  const ieId = body.identifier?.find(id => id.system === 'http://hl7.hse.ie/fhir/ie/core/sid/dispense-id');",
+                  "  pm.expect(ieId).to.exist;",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "6 – Scenario 6: Repeat Prescription (6-month GMS)",
+      "description": "6-month GMS repeat prescription for Metformin 500mg with monthly dispensations.",
+      "item": [
+        {
+          "name": "POST – Create 6-Month Repeat Prescription",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/fhir+json"}, {"key": "Accept", "value": "application/fhir+json"}],
+            "url": {"raw": "{{baseUrl}}/MedicationRequest", "host": ["{{baseUrl}}"], "path": ["MedicationRequest"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"MedicationRequest\",\n  \"meta\": {\"profile\": [\"http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription\"]},\n  \"identifier\": [{\"system\": \"http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx\", \"value\": \"PCRS-RX-2024-006001\"}],\n  \"status\": \"active\",\n  \"intent\": \"order\",\n  \"category\": [{\"coding\": [{\"system\": \"http://terminology.hl7.org/CodeSystem/medicationrequest-category\", \"code\": \"community\"}]}],\n  \"medicationCodeableConcept\": {\"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"372567009\", \"display\": \"Metformin\"}], \"text\": \"Metformin 500mg tablets\"},\n  \"subject\": {\"reference\": \"Patient/{{patientId}}\"},\n  \"authoredOn\": \"2024-01-10\",\n  \"requester\": {\"display\": \"Dr. Sarah O'Brien\"},\n  \"reasonCode\": [{\"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"44054006\", \"display\": \"Diabetes mellitus type 2\"}]}],\n  \"dosageInstruction\": [{\"text\": \"Take one 500mg tablet twice daily with meals\"}],\n  \"dispenseRequest\": {\n    \"validityPeriod\": {\"start\": \"2024-01-10\", \"end\": \"2024-07-10\"},\n    \"numberOfRepeatsAllowed\": 5,\n    \"quantity\": {\"value\": 60, \"unit\": \"tablets\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"{tablet}\"},\n    \"expectedSupplyDuration\": {\"value\": 30, \"unit\": \"days\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"d\"}\n  },\n  \"substitution\": {\"allowedBoolean\": true}\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                  "pm.test('6 repeats allowed', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.dispenseRequest.numberOfRepeatsAllowed).to.eql(5);",
+                  "  pm.expect(body.dispenseRequest.validityPeriod.start).to.eql('2024-01-10');",
+                  "  pm.expect(body.dispenseRequest.validityPeriod.end).to.eql('2024-07-10');",
+                  "  pm.collectionVariables.set('repeatPrescriptionId', body.id);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST – Repeat Dispense Month 1 (First Fill)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/fhir+json"}, {"key": "Accept", "value": "application/fhir+json"}],
+            "url": {"raw": "{{baseUrl}}/MedicationDispense", "host": ["{{baseUrl}}"], "path": ["MedicationDispense"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"MedicationDispense\",\n  \"meta\": {\"profile\": [\"http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationdispense-edispensation\"]},\n  \"identifier\": [{\"system\": \"http://hl7.hse.ie/fhir/ie/core/sid/dispense-id\", \"value\": \"DISP-IE-2024-006001-M1\"}],\n  \"status\": \"completed\",\n  \"medicationCodeableConcept\": {\"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"372567009\"}], \"text\": \"Metformin 500mg tablets\"},\n  \"subject\": {\"reference\": \"Patient/{{patientId}}\"},\n  \"performer\": [{\"actor\": {\"display\": \"Niamh Brennan\"}}],\n  \"authorizingPrescription\": [{\"reference\": \"MedicationRequest/{{repeatPrescriptionId}}\"}],\n  \"type\": {\"coding\": [{\"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\", \"code\": \"FF\", \"display\": \"First Fill\"}]},\n  \"quantity\": {\"value\": 60, \"unit\": \"tablets\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"{tablet}\"},\n  \"daysSupply\": {\"value\": 30, \"unit\": \"days\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"d\"},\n  \"whenHandedOver\": \"2024-01-10T10:00:00+00:00\",\n  \"dosageInstruction\": [{\"text\": \"Take one 500mg tablet twice daily with meals\"}],\n  \"substitution\": {\"wasSubstituted\": false}\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                  "pm.test('First fill type', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.type.coding[0].code).to.eql('FF');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST – Repeat Dispense Month 2 (Refill)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/fhir+json"}, {"key": "Accept", "value": "application/fhir+json"}],
+            "url": {"raw": "{{baseUrl}}/MedicationDispense", "host": ["{{baseUrl}}"], "path": ["MedicationDispense"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"MedicationDispense\",\n  \"meta\": {\"profile\": [\"http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationdispense-edispensation\"]},\n  \"identifier\": [{\"system\": \"http://hl7.hse.ie/fhir/ie/core/sid/dispense-id\", \"value\": \"DISP-IE-2024-006001-M2\"}],\n  \"status\": \"completed\",\n  \"medicationCodeableConcept\": {\"coding\": [{\"system\": \"http://snomed.info/sct\", \"code\": \"372567009\"}]},\n  \"subject\": {\"reference\": \"Patient/{{patientId}}\"},\n  \"performer\": [{\"actor\": {\"display\": \"Niamh Brennan\"}}],\n  \"authorizingPrescription\": [{\"reference\": \"MedicationRequest/{{repeatPrescriptionId}}\"}],\n  \"type\": {\"coding\": [{\"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\", \"code\": \"RF\", \"display\": \"Refill\"}]},\n  \"quantity\": {\"value\": 60, \"unit\": \"tablets\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"{tablet}\"},\n  \"daysSupply\": {\"value\": 30, \"unit\": \"days\", \"system\": \"http://unitsofmeasure.org\", \"code\": \"d\"},\n  \"whenHandedOver\": \"2024-02-10T10:30:00+00:00\",\n  \"dosageInstruction\": [{\"text\": \"Take one 500mg tablet twice daily with meals\"}],\n  \"substitution\": {\"wasSubstituted\": false}\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Refill type', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.type.coding[0].code).to.eql('RF');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET – Dispense History for Repeat Prescription",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Accept", "value": "application/fhir+json"}],
+            "url": {
+              "raw": "{{baseUrl}}/MedicationDispense?prescription={{repeatPrescriptionId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["MedicationDispense"],
+              "query": [{"key": "prescription", "value": "{{repeatPrescriptionId}}"}]
+            },
+            "description": "Retrieve all dispenses linked to the repeat prescription to see the complete dispensing history."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Returns dispense history', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.resourceType).to.eql('Bundle');",
+                  "  pm.expect(body.total).to.be.at.least(2);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "7 – Validation Queries",
+      "description": "General validation queries for medication resources.",
+      "item": [
+        {
+          "name": "GET – All MedicationRequests for Patient",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Accept", "value": "application/fhir+json"}],
+            "url": {
+              "raw": "{{baseUrl}}/MedicationRequest?patient={{patientId}}&_count=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["MedicationRequest"],
+              "query": [{"key": "patient", "value": "{{patientId}}"}, {"key": "_count", "value": "20"}]
+            }
+          },
+          "event": [
+            {"listen": "test", "script": {"type": "text/javascript", "exec": ["pm.test('Status is 200', () => pm.response.to.have.status(200));"]}}
+          ]
+        },
+        {
+          "name": "GET – MedicationDispense by Status (completed)",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Accept", "value": "application/fhir+json"}],
+            "url": {
+              "raw": "{{baseUrl}}/MedicationDispense?patient={{patientId}}&status=completed",
+              "host": ["{{baseUrl}}"],
+              "path": ["MedicationDispense"],
+              "query": [{"key": "patient", "value": "{{patientId}}"}, {"key": "status", "value": "completed"}]
+            }
+          },
+          "event": [
+            {"listen": "test", "script": {"type": "text/javascript", "exec": ["pm.test('Status is 200', () => pm.response.to.have.status(200));"]}}
+          ]
+        },
+        {
+          "name": "GET – MedicationRequest by PCRS Identifier",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Accept", "value": "application/fhir+json"}],
+            "url": {
+              "raw": "{{baseUrl}}/MedicationRequest?identifier=http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx|PCRS-RX-2024-001001",
+              "host": ["{{baseUrl}}"],
+              "path": ["MedicationRequest"],
+              "query": [{"key": "identifier", "value": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx|PCRS-RX-2024-001001"}]
+            },
+            "description": "Search for a specific prescription by its PCRS identifier."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Prescription found', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.total).to.be.at.least(1);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET – Active MedicationRequests (chronic meds)",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Accept", "value": "application/fhir+json"}],
+            "url": {
+              "raw": "{{baseUrl}}/MedicationRequest?patient={{patientId}}&status=active&category=community",
+              "host": ["{{baseUrl}}"],
+              "path": ["MedicationRequest"],
+              "query": [{"key": "patient", "value": "{{patientId}}"}, {"key": "status", "value": "active"}, {"key": "category", "value": "community"}]
+            }
+          },
+          "event": [
+            {"listen": "test", "script": {"type": "text/javascript", "exec": ["pm.test('Status is 200', () => pm.response.to.have.status(200));"]}}
+          ]
+        }
+      ]
+    }
+  ]
+}
