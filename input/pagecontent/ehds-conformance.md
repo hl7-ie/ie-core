@@ -224,6 +224,8 @@ Ireland participates in the [MyHealth@EU](https://health.ec.europa.eu/ehealth-di
   └─────────────────┘                    └─────────────────────────┘
 ```
 
+For detailed worked examples covering 9 outbound destinations (Germany, Spain, France, Netherlands, Latvia, Portugal, Denmark, Sweden, Austria) and 2 inbound NePS scenarios (Finland → Ireland, Belgium → Ireland), see the [Cross-Border ePrescription](crossborder-eprescription.html) section. All FHIR bundles, CDA documents, and IPS samples are available on the [Sample Payloads & Downloads](crossborder-sample-payloads.html) page.
+
 ### EHDS Regulation Alignment
 
 #### Primary Use (Care Delivery)

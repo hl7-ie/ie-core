@@ -639,7 +639,7 @@ Description: "Latvian pharmacy dispensation of Metformins 500mg tabletes (ZRA co
 * medicationCodeableConcept.text = "Metformins 500mg tabletes"
 
 * subject = Reference(ie-core-patient-sean-murphy) "Seán Murphy"
-* performer[0].actor = Reference(ie-org-lv-mēs-aptieka) "Mēs atdot Aptieka"
+* performer[0].actor = Reference(ie-org-lv-mes-aptieka) "Mēs atdot Aptieka"
 * authorizingPrescription = Reference(ie-rx-sean-lv-metformin) "PCRS-RX-2025-IE-LV-001"
 * type = http://terminology.hl7.org/CodeSystem/v3-ActCode#DF "Daily Fill"
 * quantity = 60 '{tablet}' "tablets"

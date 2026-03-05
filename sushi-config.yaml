@@ -84,6 +84,12 @@ pages:
       title: Future of IE Core
   ehds-conformance.md:
     title: EHDS & EU Conformance
+  crossborder-eprescription.md:
+    title: Cross-Border ePrescription
+    crossborder-patient-profile.md:
+      title: Patient Profile & Scenarios
+    crossborder-sample-payloads.md:
+      title: Sample Payloads & Downloads
   testing.md:
     title: Testing & Validation
   security.md:
@@ -116,6 +122,10 @@ menu:
     Terminology: artifacts.html#terminology-value-sets
     Capability Statements: artifacts.html#behavior-capability-statements
   EHDS & EU: ehds-conformance.html
+  Cross-Border ePrescription:
+    Overview: crossborder-eprescription.html
+    Patient Profile & Scenarios: crossborder-patient-profile.html
+    Sample Payloads & Downloads: crossborder-sample-payloads.html
   Testing: testing.html
   Security: security.html
   Downloads: downloads.html

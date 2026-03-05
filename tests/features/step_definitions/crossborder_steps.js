@@ -6,10 +6,12 @@ const { expect } = require('chai');
 // ──────────────────────────────────────────────────────────────────────
 
 Then('the resource should have a criticality of {string}', function (criticality) {
+  expect(this.resource, 'Resource was not loaded by a prior step').to.exist;
   expect(this.resource.criticality).to.equal(criticality);
 });
 
 Then('the resource should have a verificationStatus of {string}', function (status) {
+  expect(this.resource, 'Resource was not loaded by a prior step').to.exist;
   expect(this.resource.verificationStatus).to.exist;
   const coding = this.resource.verificationStatus.coding;
   expect(coding).to.be.an('array').with.length.greaterThan(0);
@@ -18,11 +20,13 @@ Then('the resource should have a verificationStatus of {string}', function (stat
 });
 
 Then('the resource should have at least {int} reaction', function (n) {
+  expect(this.resource, 'Resource was not loaded by a prior step').to.exist;
   expect(this.resource.reaction).to.be.an('array');
   expect(this.resource.reaction.length).to.be.at.least(n);
 });
 
 Then('the resource should have at least {int} coding', function (n) {
+  expect(this.resource, 'Resource was not loaded by a prior step').to.exist;
   // Works for any resource with code.coding or direct coding array
   const codings = this.resource.code
     ? this.resource.code.coding
@@ -32,6 +36,7 @@ Then('the resource should have at least {int} coding', function (n) {
 });
 
 Then('one coding should have code {string}', function (code) {
+  expect(this.resource, 'Resource was not loaded by a prior step').to.exist;
   // Search in code.coding, coding, or medicationCodeableConcept.coding
   let codings = [];
   if (this.resource.code && this.resource.code.coding) {
