@@ -1,0 +1,23 @@
+{
+  "name": "ie-core-fhir-tests",
+  "version": "0.1.0",
+  "description": "Test suite for IE Core FHIR Implementation Guide",
+  "private": true,
+  "scripts": {
+    "test": "npm run test:validate && npm run test:bdd",
+    "test:validate": "node validator/run-validation.js",
+    "test:bdd": "cucumber-js --config cucumber.mjs",
+    "test:quality": "node quality/quality-checks.js",
+    "test:all": "npm run test:validate && npm run test:bdd && npm run test:quality",
+    "download:validator": "node validator/download-validator.js"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^11.0.0",
+    "chai": "^4.4.1",
+    "glob": "^10.3.10",
+    "ajv": "^8.12.0"
+  },
+  "devDependencies": {
+    "chai-as-promised": "^7.1.1"
+  }
+}

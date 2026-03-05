@@ -1,0 +1,54 @@
+# IE (Ireland) Core Implementation Guide — FHIR R5 Edition
+id: hl7.fhir.ie.core.r5
+canonical: http://hl7.hse.ie/fhir/ie/core-r5
+name: IECoreR5
+title: "IE (Ireland) Core Implementation Guide — FHIR R5"
+description: >-
+  FHIR R5 edition of the IE Core Implementation Guide. This IG mirrors the R4
+  edition and will progressively diverge as R5-specific features (subscriptions,
+  SubscriptionTopic, new resource types) are adopted. It derives from the HL7
+  Europe Base and Core R5 profiles for EHDS conformance.
+status: draft
+version: 0.1.0
+fhirVersion: 5.0.0
+copyrightYear: 2025+
+releaseLabel: ci-build
+license: CC-BY-4.0
+jurisdiction: urn:iso:std:iso:3166#IE "Ireland"
+publisher:
+  name: HL7 Ireland / HSE FHIR Working Group
+  url: http://hl7.hse.ie
+  email: fhir@hse.ie
+
+dependencies:
+  hl7.fhir.eu.base-r5:
+    id: hl7fhireubase5
+    uri: http://hl7.eu/fhir/base-r5/ImplementationGuide/hl7.fhir.eu.base-r5
+    version: 0.1.0
+
+parameters:
+  show-hierarchical-table: true
+  apply-jurisdiction: true
+  apply-publisher: true
+  active-tables: false
+  apply-contact: true
+  apply-version: true
+  usage-stats-opt-out: true
+  excludexml: false
+  excludejson: false
+  excludettl: true
+  excludemap: true
+
+pages:
+  index.md:
+    title: Home
+  r5-notes.md:
+    title: R5 Migration Notes
+
+menu:
+  Home: index.html
+  R5 Notes: r5-notes.html
+  FHIR Artifacts:
+    Profiles: artifacts.html#structures-resource-profiles
+    Extensions: artifacts.html#structures-extension-definitions
+    Terminology: artifacts.html#terminology-value-sets

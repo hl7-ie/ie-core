@@ -49,3 +49,23 @@ Ireland has two official languages: English (en) and Irish/Gaeilge (ga). IE Core
 All datetime values in IE Core **SHOULD** include timezone information. Ireland observes:
 - Greenwich Mean Time (GMT/UTC+0) during standard time
 - Irish Standard Time (IST/UTC+1) during summer time
+
+### Clinical Terminology Standards (HIQA)
+
+In accordance with [HIQA's Guidance on Terminology Standards for Ireland](https://www.hiqa.ie/sites/default/files/2017-07/Guidance-on-terminology-standards-for-Ireland.pdf), IE Core adopts the following terminology standards:
+
+| Domain | Primary Standard | Secondary / Supplementary |
+|--------|-----------------|--------------------------|
+| **Clinical terms (diagnoses, procedures, findings)** | SNOMED CT | ICD-10-AM/ACHI (aggregation) |
+| **Medications** | SNOMED CT (pharmaceutical products) | ATC (WHO international classification) |
+| **Laboratory observations** | LOINC | SNOMED CT (for result values) |
+| **Allergies & adverse reactions** | SNOMED CT | — |
+| **Immunizations** | SNOMED CT, CVX | ATC (J07 vaccines) |
+
+**SNOMED CT** is Ireland's nationally adopted reference terminology, maintained through the [SNOMED CT Irish Extension](https://www.ehealthireland.ie/technology-and-transformation-functions/chief-data-and-analytics-office-cdao/standards-and-terminologies/snomed-ct/) by eHealth Ireland's National Release Centre. Ireland is a member of [SNOMED International](https://www.snomed.org/).
+
+**LOINC** is the recommended standard for laboratory observation identifiers, in line with international best practice and EU cross-border laboratory result exchange.
+
+**ATC (WHO)** is used as a supplementary classification for medications, particularly for EU cross-border interoperability under EHDS and MyHealth@EU.
+
+See the [Medication List](medication-list.html) page for detailed medication terminology guidance.

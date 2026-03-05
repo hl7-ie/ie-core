@@ -38,6 +38,10 @@ dependencies:
     id: hl7fhiruvips
     uri: http://hl7.org/fhir/uv/ips/ImplementationGuide/hl7.fhir.uv.ips
     version: 1.1.0
+  hl7.fhir.eu.laboratory:
+    id: hl7fhireulab
+    uri: http://hl7.eu/fhir/laboratory/ImplementationGuide/hl7.fhir.eu.laboratory
+    version: 0.1.1
 
 parameters:
   show-hierarchical-table: true
@@ -80,6 +84,8 @@ pages:
       title: Future of IE Core
   ehds-conformance.md:
     title: EHDS & EU Conformance
+  testing.md:
+    title: Testing & Validation
   security.md:
     title: Security
   downloads.md:
@@ -110,6 +116,7 @@ menu:
     Terminology: artifacts.html#terminology-value-sets
     Capability Statements: artifacts.html#behavior-capability-statements
   EHDS & EU: ehds-conformance.html
+  Testing: testing.html
   Security: security.html
   Downloads: downloads.html
   HL7 Registry Guide: hl7-registry-guidance.html
@@ -150,6 +157,13 @@ groups:
       - StructureDefinition/ie-core-medicationrequest
       - StructureDefinition/ie-core-medicationdispense
       - StructureDefinition/ie-core-immunization
+  EPrescriptionProfiles:
+    name: ePrescription & eDispensation (EHDS)
+    description: Profiles for cross-border ePrescription and eDispensation, aligned with HL7 Europe MPD IG and Xt-EHR
+    resources:
+      - StructureDefinition/ie-core-medication-eprescription
+      - StructureDefinition/ie-core-medicationrequest-eprescription
+      - StructureDefinition/ie-core-medicationdispense-edispensation
   DiagnosticProfiles:
     name: Diagnostics
     description: Diagnostic reporting profiles
@@ -178,6 +192,17 @@ groups:
       - StructureDefinition/ie-core-pediatric-bmi-for-age
       - StructureDefinition/ie-core-pediatric-weight-for-height
       - StructureDefinition/ie-core-head-occipital-frontal-circumference-percentile
+  LaboratoryProfiles:
+    name: Laboratory (EHDS)
+    description: Laboratory report profile aligned with HL7 Europe Laboratory IG and Xt-EHR
+    resources:
+      - StructureDefinition/ie-core-laboratory-report
+  EHDSDocumentProfiles:
+    name: EHDS Document Profiles
+    description: Patient Summary and Hospital Discharge Report profiles aligned with Xt-EHR
+    resources:
+      - StructureDefinition/ie-core-composition-patient-summary
+      - StructureDefinition/ie-core-composition-discharge-report
   DocumentProfiles:
     name: Document & Provenance
     description: Document reference and provenance profiles

@@ -6,3 +6,15 @@ input-cache/
 *.tgz
 .DS_Store
 Thumbs.db
+
+# R5 build output
+r5/fsh-generated/
+r5/output/
+r5/temp/
+r5/template/
+r5/input-cache/
+
+# Test artifacts
+tests/node_modules/
+tests/reports/
+tests/validator/validator_cli.jar

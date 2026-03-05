@@ -188,9 +188,9 @@ Description: "Discharge disposition codes indicating patient destination upon di
 ValueSet: IECoreMedicationCodes
 Id: ie-core-medication-codes
 Title: "IE Core Medication Codes"
-Description: "Medication codes from RxNorm and WHO ATC classification."
+Description: "Medication codes for the Irish healthcare system. SNOMED CT is the primary clinical terminology as recommended by HIQA and adopted by eHealth Ireland. ATC (WHO) codes are included for international classification and EU cross-border interoperability (EHDS/MyHealth@EU)."
 * ^experimental = false
-* include codes from system $RXNORM
+* include codes from system $SCT where concept descendent-of #373873005 "Pharmaceutical / biologic product (product)"
 * include codes from system $ATC
 
 // ============================================================================

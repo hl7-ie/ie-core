@@ -5,11 +5,14 @@ on:
     branches: [main, develop]
     paths:
       - 'input/fsh/**'
+      - 'r5/input/fsh/**'
       - 'sushi-config.yaml'
+      - 'r5/sushi-config.yaml'
       - 'ig.ini'
+      - 'tests/**'
 
 jobs:
-  quick-check:
+  sushi-check:
     name: Quick FSH Validation
     runs-on: ubuntu-latest
     steps:
@@ -22,14 +25,15 @@ jobs:
       - name: Install SUSHI
         run: npm install -g fsh-sushi
 
-      - name: Run SUSHI
-        run: |
-          sushi .
-          echo "SUSHI compilation: $?"
+      - name: Run SUSHI (R4)
+        run: sushi .
+
+      - name: Run SUSHI (R5)
+        run: sushi r5/
 
       - name: Summary
         run: |
-          echo "## SUSHI Results" >> $GITHUB_STEP_SUMMARY
+          echo "## SUSHI Results (R4)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           PROFILES=$(find fsh-generated/resources -name "StructureDefinition-*.json" | wc -l)
           VALUESETS=$(find fsh-generated/resources -name "ValueSet-*.json" | wc -l)
@@ -44,3 +48,58 @@ jobs:
           echo "| ValueSets | $VALUESETS |" >> $GITHUB_STEP_SUMMARY
           echo "| CodeSystems | $CODESYSTEMS |" >> $GITHUB_STEP_SUMMARY
           echo "| Examples/Instances | $EXAMPLES |" >> $GITHUB_STEP_SUMMARY
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## SUSHI Results (R5)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -d "r5/fsh-generated/resources" ]; then
+            R5PROFILES=$(find r5/fsh-generated/resources -name "StructureDefinition-*.json" | wc -l)
+            echo "| Artifact | Count |" >> $GITHUB_STEP_SUMMARY
+            echo "|----------|-------|" >> $GITHUB_STEP_SUMMARY
+            echo "| R5 Profiles | $R5PROFILES |" >> $GITHUB_STEP_SUMMARY
+          fi
+
+  bdd-quick:
+    name: BDD Quick Check
+    needs: sushi-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install SUSHI and compile
+        run: |
+          npm install -g fsh-sushi
+          sushi .
+
+      - name: Install test dependencies
+        run: npm ci
+        working-directory: tests
+
+      - name: Run BDD tests
+        run: npm run test:bdd
+        working-directory: tests
+
+      - name: Run quality checks
+        run: npm run test:quality
+        working-directory: tests
+
+      - name: Test Summary
+        if: always()
+        run: |
+          echo "## Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f tests/reports/quality-results.json ]; then
+            echo "### Quality Checks" >> $GITHUB_STEP_SUMMARY
+            cat tests/reports/quality-results.json | python3 -c "
+          import sys, json
+          data = json.load(sys.stdin)
+          s = data.get('summary', {})
+          print(f\"- Passed: {s.get('passed', 0)}\")
+          print(f\"- Issues: {s.get('issues', 0)}\")
+          print(f\"- Total: {s.get('total', 0)}\")
+          " >> $GITHUB_STEP_SUMMARY 2>/dev/null || echo "Could not parse quality results" >> $GITHUB_STEP_SUMMARY
+          fi
