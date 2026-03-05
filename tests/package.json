@@ -9,7 +9,9 @@
     "test:bdd": "cucumber-js --config cucumber.mjs",
     "test:quality": "node quality/quality-checks.js",
     "test:all": "npm run test:validate && npm run test:bdd && npm run test:quality",
-    "download:validator": "node validator/download-validator.js"
+    "download:validator": "node validator/download-validator.js",
+    "report:dashboard": "node reports/generate-dashboard.js",
+    "report:summary": "node reports/generate-summary.js"
   },
   "dependencies": {
     "@cucumber/cucumber": "^11.0.0",

@@ -88,6 +88,34 @@ jobs:
         run: npm run test:bdd
         working-directory: tests
 
+      - name: BDD Step Summary
+        if: always()
+        run: |
+          if [ -f tests/reports/cucumber-report.json ]; then
+            python3 << 'PYEOF'
+          import json, os
+          with open("tests/reports/cucumber-report.json") as f:
+              data = json.load(f)
+          md = "## R4 BDD Test Results\n\n"
+          passed = failed = 0
+          rows = []
+          for feat in data:
+              for elem in feat.get("elements", []):
+                  if elem.get("type") != "scenario": continue
+                  has_fail = any(s.get("result",{}).get("status") == "failed" for s in elem.get("steps",[]))
+                  if has_fail: failed += 1
+                  else: passed += 1
+                  icon = ":x:" if has_fail else ":white_check_mark:"
+                  rows.append(f"| {icon} | {feat['name']} | {elem['name']} |")
+          total = passed + failed
+          md += f"**{passed}/{total} scenarios passed**\n\n"
+          md += "| Status | Feature | Scenario |\n|--------|---------|----------|\n"
+          md += "\n".join(rows) + "\n"
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
+              f.write(md)
+          PYEOF
+          fi
+
       - name: Upload BDD report
         uses: actions/upload-artifact@v4
         if: always()
@@ -120,6 +148,29 @@ jobs:
       - name: Run quality checks
         run: npm run test:quality
         working-directory: tests
+
+      - name: Quality Step Summary
+        if: always()
+        run: |
+          if [ -f tests/reports/quality-results.json ]; then
+            python3 << 'PYEOF'
+          import json, os
+          with open("tests/reports/quality-results.json") as f:
+              data = json.load(f)
+          s = data.get("summary", {})
+          md = "## R4 Quality Control Results\n\n"
+          md += f"**{s.get('passed',0)}/{s.get('total',0)} checks passed**\n\n"
+          issues = data.get("details", [])
+          if issues:
+              md += "### Issues\n\n| Check | Detail |\n|-------|--------|\n"
+              for i in issues:
+                  md += f"| :x: {i['check']} | {i['detail']} |\n"
+          else:
+              md += ":white_check_mark: All quality checks passed\n"
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
+              f.write(md)
+          PYEOF
+          fi
 
       - name: Upload quality report
         uses: actions/upload-artifact@v4
@@ -163,6 +214,28 @@ jobs:
         run: npm run test:validate
         working-directory: tests
 
+      - name: Validation Step Summary
+        if: always()
+        run: |
+          if [ -f tests/reports/validation-results.json ]; then
+            python3 << 'PYEOF'
+          import json, os
+          with open("tests/reports/validation-results.json") as f:
+              data = json.load(f)
+          s = data.get("summary", {})
+          md = "## R4 FHIR Validator Results\n\n"
+          md += f"**{s.get('passed',0)}/{s.get('total',0)} examples validated**\n\n"
+          results = data.get("results", [])
+          if results:
+              md += "| Status | Resource |\n|--------|----------|\n"
+              for r in results:
+                  icon = ":white_check_mark:" if r["status"] == "PASS" else ":x:"
+                  md += f"| {icon} | `{r['file']}` |\n"
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
+              f.write(md)
+          PYEOF
+          fi
+
       - name: Upload validation report
         uses: actions/upload-artifact@v4
         if: always()
@@ -171,8 +244,8 @@ jobs:
           path: tests/reports/validation-results.json
           retention-days: 30
 
-  ig-publish:
-    name: Full IG Build
+  ig-publish-r4:
+    name: Full IG Build (R4)
     needs: [sushi-r4, bdd-tests, quality-checks]
     runs-on: ubuntu-latest
     steps:
@@ -204,7 +277,7 @@ jobs:
           curl -L https://github.com/HL7/fhir-ig-publisher/releases/latest/download/publisher.jar \
             -o input-cache/publisher.jar
 
-      - name: Run IG Publisher
+      - name: Run IG Publisher (R4)
         run: |
           java -Dfile.encoding=UTF-8 \
             -jar input-cache/publisher.jar \
@@ -212,45 +285,407 @@ jobs:
 
       - name: Check QA Results
         run: |
-          echo "=== QA Summary ==="
-          cat output/qa.json
+          echo "=== R4 QA Summary ==="
+          cat output/qa.json || true
           echo ""
-          if [ -f output/qa.html ]; then
-            echo "QA report generated at output/qa.html"
-          fi
 
-      - name: Upload IG Output
+      - name: Upload R4 IG Output
         uses: actions/upload-artifact@v4
         with:
-          name: ig-output
+          name: ig-output-r4
           path: output/
           retention-days: 30
 
-      - name: Upload QA Report
+      - name: Upload R4 QA Report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: qa-report
+          name: qa-report-r4
           path: |
             output/qa.json
             output/qa.html
             output/qa-time-report.json
           retention-days: 30
 
+  bdd-tests-r5:
+    name: BDD / Cucumber Tests (R5)
+    needs: sushi-r5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Download R5 SUSHI output
+        uses: actions/download-artifact@v4
+        with:
+          name: fsh-generated-r5
+          path: r5/fsh-generated/
+
+      - name: Install R5 test dependencies
+        run: npm ci
+        working-directory: r5/tests
+
+      - name: Run R5 BDD tests
+        run: npm run test:bdd
+        working-directory: r5/tests
+
+      - name: R5 BDD Step Summary
+        if: always()
+        run: |
+          if [ -f r5/tests/reports/cucumber-report.json ]; then
+            python3 << 'PYEOF'
+          import json, os
+          with open("r5/tests/reports/cucumber-report.json") as f:
+              data = json.load(f)
+          md = "## R5 BDD Test Results\n\n"
+          passed = failed = 0
+          rows = []
+          for feat in data:
+              for elem in feat.get("elements", []):
+                  if elem.get("type") != "scenario": continue
+                  has_fail = any(s.get("result",{}).get("status") == "failed" for s in elem.get("steps",[]))
+                  if has_fail: failed += 1
+                  else: passed += 1
+                  icon = ":x:" if has_fail else ":white_check_mark:"
+                  rows.append(f"| {icon} | {feat['name']} | {elem['name']} |")
+          total = passed + failed
+          md += f"**{passed}/{total} scenarios passed**\n\n"
+          md += "| Status | Feature | Scenario |\n|--------|---------|----------|\n"
+          md += "\n".join(rows) + "\n"
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
+              f.write(md)
+          PYEOF
+          fi
+
+      - name: Upload R5 BDD report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bdd-report-r5
+          path: r5/tests/reports/
+          retention-days: 30
+
+  quality-checks-r5:
+    name: Quality Control (R5)
+    needs: sushi-r5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Download R5 SUSHI output
+        uses: actions/download-artifact@v4
+        with:
+          name: fsh-generated-r5
+          path: r5/fsh-generated/
+
+      - name: Install R5 test dependencies
+        run: npm ci
+        working-directory: r5/tests
+
+      - name: Run R5 quality checks
+        run: npm run test:quality
+        working-directory: r5/tests
+
+      - name: R5 Quality Step Summary
+        if: always()
+        run: |
+          if [ -f r5/tests/reports/quality-results.json ]; then
+            python3 << 'PYEOF'
+          import json, os
+          with open("r5/tests/reports/quality-results.json") as f:
+              data = json.load(f)
+          s = data.get("summary", {})
+          md = "## R5 Quality Control Results\n\n"
+          md += f"**{s.get('passed',0)}/{s.get('total',0)} checks passed**\n\n"
+          issues = data.get("details", [])
+          if issues:
+              md += "### Issues\n\n| Check | Detail |\n|-------|--------|\n"
+              for i in issues:
+                  md += f"| :x: {i['check']} | {i['detail']} |\n"
+          else:
+              md += ":white_check_mark: All R5 quality checks passed\n"
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
+              f.write(md)
+          PYEOF
+          fi
+
+      - name: Upload R5 quality report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: quality-report-r5
+          path: r5/tests/reports/quality-results.json
+          retention-days: 30
+
+  fhir-validation-r5:
+    name: FHIR Validator (R5)
+    needs: sushi-r5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Download R5 SUSHI output
+        uses: actions/download-artifact@v4
+        with:
+          name: fsh-generated-r5
+          path: r5/fsh-generated/
+
+      - name: Install R5 test dependencies
+        run: npm ci
+        working-directory: r5/tests
+
+      - name: Download FHIR Validator
+        run: npm run download:validator
+        working-directory: r5/tests
+
+      - name: Run R5 FHIR Validator tests
+        run: npm run test:validate
+        working-directory: r5/tests
+
+      - name: R5 Validation Step Summary
+        if: always()
+        run: |
+          if [ -f r5/tests/reports/validation-results.json ]; then
+            python3 << 'PYEOF'
+          import json, os
+          with open("r5/tests/reports/validation-results.json") as f:
+              data = json.load(f)
+          s = data.get("summary", {})
+          md = "## R5 FHIR Validator Results\n\n"
+          md += f"**{s.get('passed',0)}/{s.get('total',0)} examples validated**\n\n"
+          results = data.get("results", [])
+          if results:
+              md += "| Status | Resource |\n|--------|----------|\n"
+              for r in results:
+                  icon = ":white_check_mark:" if r["status"] == "PASS" else ":x:"
+                  md += f"| {icon} | `{r['file']}` |\n"
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
+              f.write(md)
+          PYEOF
+          fi
+
+      - name: Upload R5 validation report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: validation-report-r5
+          path: r5/tests/reports/validation-results.json
+          retention-days: 30
+
+  ig-publish-r5:
+    name: Full IG Build (R5)
+    needs: [sushi-r5, bdd-tests-r5, quality-checks-r5]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Ruby and Jekyll
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+
+      - name: Install Jekyll
+        run: gem install jekyll
+
+      - name: Install SUSHI
+        run: npm install -g fsh-sushi
+
+      - name: Download IG Publisher
+        run: |
+          mkdir -p r5/input-cache
+          curl -L https://github.com/HL7/fhir-ig-publisher/releases/latest/download/publisher.jar \
+            -o r5/input-cache/publisher.jar
+
+      - name: Run IG Publisher (R5)
+        run: |
+          cd r5
+          java -Dfile.encoding=UTF-8 \
+            -jar input-cache/publisher.jar \
+            -ig ig.ini
+
+      - name: Check R5 QA Results
+        run: |
+          echo "=== R5 QA Summary ==="
+          cat r5/output/qa.json || true
+          echo ""
+
+      - name: Upload R5 IG Output
+        uses: actions/upload-artifact@v4
+        with:
+          name: ig-output-r5
+          path: r5/output/
+          retention-days: 30
+
+      - name: Upload R5 QA Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qa-report-r5
+          path: |
+            r5/output/qa.json
+            r5/output/qa.html
+            r5/output/qa-time-report.json
+          retention-days: 30
+
   deploy-pages:
     name: Deploy to GitHub Pages
-    needs: ig-publish
+    needs: [ig-publish-r4, ig-publish-r5, bdd-tests, quality-checks, fhir-validation, bdd-tests-r5, quality-checks-r5, fhir-validation-r5]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Download IG Output
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Download R4 IG Output
         uses: actions/download-artifact@v4
         with:
-          name: ig-output
-          path: output/
+          name: ig-output-r4
+          path: site/
+
+      - name: Download R5 IG Output
+        uses: actions/download-artifact@v4
+        with:
+          name: ig-output-r5
+          path: site/R5/
+
+      - name: Download R4 test reports
+        uses: actions/download-artifact@v4
+        with:
+          name: bdd-report
+          path: tests/reports/
+        continue-on-error: true
+
+      - name: Download R4 quality report
+        uses: actions/download-artifact@v4
+        with:
+          name: quality-report
+          path: tests/reports/
+        continue-on-error: true
+
+      - name: Download R4 validation report
+        uses: actions/download-artifact@v4
+        with:
+          name: validation-report
+          path: tests/reports/
+        continue-on-error: true
+
+      - name: Download R5 BDD report
+        uses: actions/download-artifact@v4
+        with:
+          name: bdd-report-r5
+          path: r5/tests/reports/
+        continue-on-error: true
+
+      - name: Download R5 quality report
+        uses: actions/download-artifact@v4
+        with:
+          name: quality-report-r5
+          path: r5/tests/reports/
+        continue-on-error: true
+
+      - name: Download R5 validation report
+        uses: actions/download-artifact@v4
+        with:
+          name: validation-report-r5
+          path: r5/tests/reports/
+        continue-on-error: true
+
+      - name: Generate Test Dashboard
+        run: node tests/reports/generate-dashboard.js
+
+      - name: Copy dashboard to site
+        run: |
+          mkdir -p site/test-reports
+          cp tests/reports/html/index.html site/test-reports/index.html
+          cp tests/reports/cucumber-report.html site/test-reports/r4-bdd.html 2>/dev/null || true
+          cp r5/tests/reports/cucumber-report.html site/test-reports/r5-bdd.html 2>/dev/null || true
+
+      - name: Create version index page
+        run: |
+          cat > site/versions.html << 'HTMLEOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <title>IE Core FHIR IG — Version Index</title>
+            <style>
+              body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; color: #333; }
+              h1 { color: #005eb8; }
+              table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+              th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+              th { background-color: #005eb8; color: white; }
+              a { color: #005eb8; }
+              .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; font-weight: bold; }
+              .primary { background-color: #28a745; color: white; }
+              .early { background-color: #ffc107; color: #333; }
+            </style>
+          </head>
+          <body>
+            <h1>IE (Ireland) Core FHIR Implementation Guide</h1>
+            <p>Published by HL7 Ireland / HSE FHIR Working Group</p>
+            <table>
+              <tr>
+                <th>Edition</th>
+                <th>FHIR Version</th>
+                <th>Package</th>
+                <th>Status</th>
+                <th>Link</th>
+              </tr>
+              <tr>
+                <td><strong>R4</strong></td>
+                <td>4.0.1</td>
+                <td><code>hl7.fhir.ie.core</code></td>
+                <td><span class="badge primary">Primary</span></td>
+                <td><a href="index.html">View R4 IG</a></td>
+              </tr>
+              <tr>
+                <td><strong>R5</strong></td>
+                <td>5.0.0</td>
+                <td><code>hl7.fhir.ie.core.r5</code></td>
+                <td><span class="badge early">Early Access</span></td>
+                <td><a href="R5/index.html">View R5 IG</a></td>
+              </tr>
+            </table>
+            <h2>Reports</h2>
+            <p><a href="test-reports/index.html">View Test Report Dashboard</a> — Combined BDD, quality, and validation results for R4 and R5.</p>
+            <h2>About</h2>
+            <p>The R4 edition is the <strong>primary, production-ready</strong> specification.
+               The R5 edition is published for early adopters and to track the HL7 Europe R5 roadmap.</p>
+            <p>Both editions derive from HL7 Europe Base and Core profiles for EHDS conformance.</p>
+          </body>
+          </html>
+          HTMLEOF
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -258,7 +693,7 @@ jobs:
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: output/
+          path: site/
 
       - name: Deploy to GitHub Pages
         id: deployment
