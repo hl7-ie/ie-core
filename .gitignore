@@ -1,0 +1,8 @@
+fsh-generated/
+output/
+temp/
+template/
+input-cache/
+*.tgz
+.DS_Store
+Thumbs.db

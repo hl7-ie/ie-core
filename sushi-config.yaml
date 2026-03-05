@@ -1,0 +1,181 @@
+# ╭──────────────────────────────────────ImplementationGuide───────────────────────────────────────╮
+# │  Ireland (IE) Core FHIR Implementation Guide                                                  │
+# │  Based on FHIR R4 (4.0.1)                                                                     │
+# │  Canonical URL: http://hl7.hse.ie/fhir/ie/core                                               │
+# ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+id: hl7.fhir.ie.core
+canonical: http://hl7.hse.ie/fhir/ie/core
+name: IECore
+title: "IE (Ireland) Core Implementation Guide"
+description: >-
+  The IE Core Implementation Guide is based on FHIR Version R4 and defines the minimum
+  constraints on the FHIR resources to create the IE Core Profiles. It also documents
+  the minimum FHIR RESTful interactions for each IE Core Profile to access patient data.
+  This IG is developed and maintained in collaboration with the Health Service Executive (HSE),
+  the Irish College of General Practitioners (ICGP), and the Department of Health.
+status: draft
+version: 0.1.0
+fhirVersion: 4.0.1
+copyrightYear: 2025+
+releaseLabel: ci-build
+license: CC-BY-4.0
+jurisdiction: urn:iso:std:iso:3166#IE "Ireland"
+publisher:
+  name: HL7 Ireland / HSE FHIR Working Group
+  url: http://hl7.hse.ie
+  email: fhir@hse.ie
+
+dependencies:
+  hl7.fhir.uv.extensions.r4: 5.1.0
+
+parameters:
+  show-hierarchical-table: true
+  apply-jurisdiction: true
+  apply-publisher: true
+  jira-code: ie-core
+  path-expansion-params: ../../input/_resources/exp-params.json
+  active-tables: false
+  apply-contact: true
+  apply-version: true
+  usage-stats-opt-out: true
+  excludexml: false
+  excludejson: false
+  excludettl: true
+  excludemap: true
+
+pages:
+  index.md:
+    title: Home
+  conformance.md:
+    title: Conformance
+    general-requirements.md:
+      title: General Requirements
+    must-support.md:
+      title: Must Support
+    smart-on-fhir.md:
+      title: SMART on FHIR Obligations and Capabilities
+  guidance.md:
+    title: Guidance
+    general-guidance.md:
+      title: General Guidance
+    clinical-notes.md:
+      title: Clinical Notes
+    medication-list.md:
+      title: Medication List
+    basic-provenance.md:
+      title: Basic Provenance
+    screening-and-assessments.md:
+      title: Screening and Assessments
+    future-of-ie-core.md:
+      title: Future of IE Core
+  security.md:
+    title: Security
+  downloads.md:
+    title: Downloads
+  hl7-registry-guidance.md:
+    title: HL7 Registry & Publication Guidance
+  changes.md:
+    title: Change Log
+
+menu:
+  Home: index.html
+  Conformance:
+    General Requirements: general-requirements.html
+    Must Support: must-support.html
+    SMART on FHIR: smart-on-fhir.html
+  Guidance:
+    General Guidance: general-guidance.html
+    Clinical Notes: clinical-notes.html
+    Medication List: medication-list.html
+    Basic Provenance: basic-provenance.html
+    Screening and Assessments: screening-and-assessments.html
+    Future of IE Core: future-of-ie-core.html
+  FHIR Artifacts:
+    Profiles: artifacts.html#structures-resource-profiles
+    Extensions: artifacts.html#structures-extension-definitions
+    Search Parameters: artifacts.html#behavior-search-parameters
+    Operations: artifacts.html#behavior-operation-definitions
+    Terminology: artifacts.html#terminology-value-sets
+    Capability Statements: artifacts.html#behavior-capability-statements
+  Security: security.html
+  Downloads: downloads.html
+  HL7 Registry Guide: hl7-registry-guidance.html
+
+groups:
+  PatientProfiles:
+    name: Patient Demographics
+    description: Profiles related to patient demographics and identification
+    resources:
+      - StructureDefinition/ie-core-patient
+      - StructureDefinition/ie-core-relatedperson
+  ProviderProfiles:
+    name: Provider & Organization
+    description: Profiles for healthcare providers and organizations
+    resources:
+      - StructureDefinition/ie-core-practitioner
+      - StructureDefinition/ie-core-practitionerrole
+      - StructureDefinition/ie-core-organization
+      - StructureDefinition/ie-core-location
+  ClinicalProfiles:
+    name: Clinical
+    description: Core clinical profiles
+    resources:
+      - StructureDefinition/ie-core-allergyintolerance
+      - StructureDefinition/ie-core-condition-encounter-diagnosis
+      - StructureDefinition/ie-core-condition-problems-health-concerns
+      - StructureDefinition/ie-core-procedure
+      - StructureDefinition/ie-core-careplan
+      - StructureDefinition/ie-core-careteam
+      - StructureDefinition/ie-core-goal
+      - StructureDefinition/ie-core-servicerequest
+      - StructureDefinition/ie-core-encounter
+  MedicationProfiles:
+    name: Medication
+    description: Medication-related profiles
+    resources:
+      - StructureDefinition/ie-core-medication
+      - StructureDefinition/ie-core-medicationrequest
+      - StructureDefinition/ie-core-medicationdispense
+      - StructureDefinition/ie-core-immunization
+  DiagnosticProfiles:
+    name: Diagnostics
+    description: Diagnostic reporting profiles
+    resources:
+      - StructureDefinition/ie-core-diagnosticreport-lab
+      - StructureDefinition/ie-core-diagnosticreport-note
+      - StructureDefinition/ie-core-observation-lab
+      - StructureDefinition/ie-core-observation-clinical-result
+      - StructureDefinition/ie-core-simple-observation
+      - StructureDefinition/ie-core-specimen
+  VitalSignsProfiles:
+    name: Vital Signs
+    description: Vital signs observation profiles
+    resources:
+      - StructureDefinition/ie-core-vital-signs
+      - StructureDefinition/ie-core-blood-pressure
+      - StructureDefinition/ie-core-bmi
+      - StructureDefinition/ie-core-body-height
+      - StructureDefinition/ie-core-body-weight
+      - StructureDefinition/ie-core-body-temperature
+      - StructureDefinition/ie-core-head-circumference
+      - StructureDefinition/ie-core-heart-rate
+      - StructureDefinition/ie-core-respiratory-rate
+      - StructureDefinition/ie-core-pulse-oximetry
+      - StructureDefinition/ie-core-average-blood-pressure
+      - StructureDefinition/ie-core-pediatric-bmi-for-age
+      - StructureDefinition/ie-core-pediatric-weight-for-height
+      - StructureDefinition/ie-core-head-occipital-frontal-circumference-percentile
+  DocumentProfiles:
+    name: Document & Provenance
+    description: Document reference and provenance profiles
+    resources:
+      - StructureDefinition/ie-core-documentreference
+      - StructureDefinition/ie-core-adi-documentreference
+      - StructureDefinition/ie-core-provenance
+      - StructureDefinition/ie-core-questionnaireresponse
+  FinancialProfiles:
+    name: Financial
+    description: Coverage and financial profiles
+    resources:
+      - StructureDefinition/ie-core-coverage
+      - StructureDefinition/ie-core-implantable-device
