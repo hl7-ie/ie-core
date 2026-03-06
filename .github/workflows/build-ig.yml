@@ -181,10 +181,14 @@ jobs:
           retention-days: 30
 
   fhir-validation:
-    name: FHIR Validator
+    name: FHIR Validator (${{ matrix.domain }})
     needs: sushi-r4
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        domain: [persons, organizations, clinical, medication, prescription, dispense]
     steps:
       - uses: actions/checkout@v4
 
@@ -211,37 +215,95 @@ jobs:
         run: npm run download:validator
         working-directory: tests
 
-      - name: Run FHIR Validator tests
-        run: npm run test:validate
+      - name: Run FHIR Validator (${{ matrix.domain }})
+        run: npm run test:validate -- --domain ${{ matrix.domain }}
         working-directory: tests
         env:
           NODE_OPTIONS: '--max-old-space-size=4096'
 
-      - name: Validation Step Summary
+      - name: Validation Step Summary (${{ matrix.domain }})
         if: always()
+        env:
+          DOMAIN: ${{ matrix.domain }}
         run: |
-          if [ -f tests/reports/validation-results.json ]; then
-            python3 << 'PYEOF'
+          python3 << 'PYEOF'
           import json, os
-          with open("tests/reports/validation-results.json") as f:
-              data = json.load(f)
-          s = data.get("summary", {})
-          md = "## R4 FHIR Validator Results\n\n"
-          md += f"**{s.get('passed',0)}/{s.get('total',0)} examples validated**\n\n"
-          results = data.get("results", [])
-          if results:
-              md += "| Status | Resource |\n|--------|----------|\n"
-              for r in results:
-                  icon = ":white_check_mark:" if r["status"] == "PASS" else ":x:"
-                  md += f"| {icon} | `{r['file']}` |\n"
-          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
-              f.write(md)
+          domain = os.environ.get('DOMAIN', '')
+          report = f"tests/reports/validation-results-{domain}.json"
+          if not os.path.exists(report):
+              print(f"No report found: {report}")
+          else:
+              with open(report) as f:
+                  data = json.load(f)
+              s = data.get("summary", {})
+              md = f"## R4 FHIR Validator [{domain}] Results\n\n"
+              md += f"**{s.get('passed',0)}/{s.get('total',0)} examples validated**\n\n"
+              results = data.get("results", [])
+              if results:
+                  md += "| Status | Resource |\n|--------|----------|\n"
+                  for r in results:
+                      icon = ":white_check_mark:" if r["status"] == "PASS" else ":x:"
+                      md += f"| {icon} | `{r['file']}` |\n"
+              with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
+                  f.write(md)
           PYEOF
-          fi
 
-      - name: Upload validation report
+      - name: Upload validation report (${{ matrix.domain }})
         uses: actions/upload-artifact@v4
         if: always()
+        with:
+          name: validation-report-${{ matrix.domain }}
+          path: tests/reports/validation-results-${{ matrix.domain }}.json
+          retention-days: 30
+
+  fhir-validation-collect:
+    name: FHIR Validation (Collect All Domains)
+    needs: fhir-validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all domain validation reports
+        uses: actions/download-artifact@v4
+        with:
+          pattern: validation-report-*
+          merge-multiple: true
+          path: tests/reports/
+
+      - name: Merge domain reports and summarise
+        run: |
+          python3 << 'PYEOF'
+          import json, os, glob
+
+          results = []
+          for f in sorted(glob.glob('tests/reports/validation-results-*.json')):
+              with open(f) as fh:
+                  data = json.load(fh)
+              results.extend(data.get('results', []))
+
+          passed = sum(1 for r in results if r['status'] == 'PASS')
+          failed = sum(1 for r in results if r['status'] == 'FAIL')
+          total = len(results)
+
+          merged = {
+              'summary': {'passed': passed, 'failed': failed, 'total': total},
+              'results': sorted(results, key=lambda r: r['file'])
+          }
+          os.makedirs('tests/reports', exist_ok=True)
+          with open('tests/reports/validation-results.json', 'w') as f:
+              json.dump(merged, f, indent=2)
+
+          md = "## R4 FHIR Validator — All Domains\n\n"
+          md += f"**{passed}/{total} examples validated across all domains**\n\n"
+          if failed > 0:
+              md += f"> :x: **{failed} failure(s)** — see individual domain jobs for details\n\n"
+          else:
+              md += "> :white_check_mark: All examples passed\n\n"
+          with open(os.environ.get('GITHUB_STEP_SUMMARY', '/dev/null'), 'a') as f:
+              f.write(md)
+          print(f"Merged {total} results ({passed} passed, {failed} failed)")
+          PYEOF
+
+      - name: Upload merged validation report
+        uses: actions/upload-artifact@v4
         with:
           name: validation-report
           path: tests/reports/validation-results.json
@@ -560,7 +622,7 @@ jobs:
 
   deploy-pages:
     name: Deploy to GitHub Pages
-    needs: [ig-publish-r4, ig-publish-r5, bdd-tests, quality-checks, fhir-validation, bdd-tests-r5, quality-checks-r5, fhir-validation-r5]
+    needs: [ig-publish-r4, ig-publish-r5, bdd-tests, quality-checks, fhir-validation-collect, bdd-tests-r5, quality-checks-r5, fhir-validation-r5]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     environment:
