@@ -436,7 +436,7 @@ Description: "First partial dispensation of 30 Atorvastatin 20mg tablets (of 90 
 
 * authorizingPrescription = Reference(ie-prescription-scenario2-partial) "PCRS-RX-2024-002001"
 
-* type = http://terminology.hl7.org/CodeSystem/v3-ActCode#PF "Partial Fill"
+* type = http://terminology.hl7.org/CodeSystem/v3-ActCode#FFP "First Fill - Part Fill"
 * quantity = 30 '{tablet}' "tablets"
 * daysSupply = 30 'd' "days"
 
@@ -464,7 +464,7 @@ Description: "Second partial dispensation of 30 Atorvastatin 20mg tablets on 15 
 
 * authorizingPrescription = Reference(ie-prescription-scenario2-partial) "PCRS-RX-2024-002001"
 
-* type = http://terminology.hl7.org/CodeSystem/v3-ActCode#PF "Partial Fill"
+* type = http://terminology.hl7.org/CodeSystem/v3-ActCode#FFP "First Fill - Part Fill"
 * quantity = 30 '{tablet}' "tablets"
 * daysSupply = 30 'd' "days"
 
@@ -492,7 +492,7 @@ Description: "Third and final partial dispensation of 30 Atorvastatin 20mg table
 
 * authorizingPrescription = Reference(ie-prescription-scenario2-partial) "PCRS-RX-2024-002001"
 
-* type = http://terminology.hl7.org/CodeSystem/v3-ActCode#PF "Partial Fill"
+* type = http://terminology.hl7.org/CodeSystem/v3-ActCode#FFP "First Fill - Part Fill"
 * quantity = 30 '{tablet}' "tablets"
 * daysSupply = 30 'd' "days"
 
