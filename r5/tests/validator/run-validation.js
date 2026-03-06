@@ -1,4 +1,4 @@
-const { execSync } = require('child_process');
+const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
@@ -50,73 +50,82 @@ if (examples.length === 0) {
   process.exit(0);
 }
 
-let passed = 0;
-let failed = 0;
-const results = [];
+const CONCURRENCY = 4;
 
-for (const example of examples) {
-  const name = path.basename(example);
-  const exampleAbsolute = path.resolve(example).replace(/\\/g, '/');
+console.log(`Running with concurrency: ${CONCURRENCY}\n`);
 
-  const cmd = [
-    `java -Xmx4g -jar "${path.resolve(VALIDATOR_JAR).replace(/\\/g, '/')}"`,
-    `"${exampleAbsolute}"`,
-    '-version 5.0.0',
-    `-ig "${fshGenAbsolute}"`,
-    depArgs,
-    '-tx n/a',
-    '-no-extensible-binding-warnings',
-    '-best-practice ignore'
-  ].join(' ');
+function validateExample(example) {
+  return new Promise((resolve) => {
+    const name = path.basename(example);
+    const exampleAbsolute = path.resolve(example).replace(/\\/g, '/');
 
-  try {
-    const output = execSync(cmd, {
-      encoding: 'utf8',
-      timeout: 300000,
-      stdio: ['pipe', 'pipe', 'pipe']
+    const cmd = [
+      `java -Xmx1500m -jar "${path.resolve(VALIDATOR_JAR).replace(/\\/g, '/')}"`,
+      `"${exampleAbsolute}"`,
+      '-version 5.0.0',
+      `-ig "${fshGenAbsolute}"`,
+      depArgs,
+      '-tx n/a',
+      '-no-extensible-binding-warnings',
+      '-best-practice ignore'
+    ].join(' ');
+
+    exec(cmd, { encoding: 'utf8', timeout: 180000, maxBuffer: 10 * 1024 * 1024 }, (err, stdout, stderr) => {
+      if (err) {
+        const combined = (stdout || '') + (stderr || '');
+        const errorLines = combined.split('\n')
+          .filter(l => /error|Error|Exception|FAILURE|cannot resolve|not found/i.test(l))
+          .slice(0, 5)
+          .join('\n        ');
+
+        console.log(`  FAIL  ${name}`);
+        if (errorLines) {
+          console.log(`        ${errorLines}`);
+        } else {
+          console.log(`        Exit code: ${err.code || 'unknown'}`);
+          const lastLines = combined.split('\n').filter(l => l.trim()).slice(-5).join('\n        ');
+          if (lastLines) console.log(`        ${lastLines}`);
+        }
+
+        resolve({ file: name, status: 'FAIL', output: combined || err.message });
+      } else {
+        const hasError = /\*FAILURE\*/.test(stdout) || /[1-9]\d* error/.test(stdout);
+        if (hasError) {
+          const errorLines = stdout.split('\n').filter(l => /Error @|error/.test(l)).slice(0, 3).join('; ');
+          console.log(`  FAIL  ${name}`);
+          if (errorLines) console.log(`        ${errorLines}`);
+          resolve({ file: name, status: 'FAIL', output: stdout });
+        } else {
+          console.log(`  PASS  ${name}`);
+          resolve({ file: name, status: 'PASS', output: stdout });
+        }
+      }
     });
-
-    const hasError = /\*FAILURE\*/.test(output) || /[1-9]\d* error/.test(output);
-    if (hasError) {
-      const errorLines = output.split('\n').filter(l => /Error @|error/.test(l)).slice(0, 3).join('; ');
-      console.log(`  FAIL  ${name}`);
-      if (errorLines) console.log(`        ${errorLines}`);
-      failed++;
-      results.push({ file: name, status: 'FAIL', output });
-    } else {
-      console.log(`  PASS  ${name}`);
-      passed++;
-      results.push({ file: name, status: 'PASS', output });
-    }
-  } catch (err) {
-    const stderr = err.stderr ? err.stderr.toString() : '';
-    const stdout = err.stdout ? err.stdout.toString() : '';
-    const combined = stdout + stderr;
-
-    const errorLines = combined.split('\n')
-      .filter(l => /error|Error|Exception|FAILURE|cannot resolve|not found/i.test(l))
-      .slice(0, 5)
-      .join('\n        ');
-
-    console.log(`  FAIL  ${name}`);
-    if (errorLines) {
-      console.log(`        ${errorLines}`);
-    } else {
-      console.log(`        Exit code: ${err.status || 'unknown'}`);
-      const lastLines = combined.split('\n').filter(l => l.trim()).slice(-5).join('\n        ');
-      if (lastLines) console.log(`        ${lastLines}`);
-    }
-
-    failed++;
-    results.push({ file: name, status: 'FAIL', output: combined || err.message });
-  }
+  });
 }
 
-console.log(`\n=== R5 Results: ${passed} passed, ${failed} failed out of ${examples.length} ===\n`);
+async function runWithConcurrency(items, limit, fn) {
+  const results = [];
+  for (let i = 0; i < items.length; i += limit) {
+    const batch = items.slice(i, i + limit);
+    const batchResults = await Promise.all(batch.map(fn));
+    results.push(...batchResults);
+  }
+  return results;
+}
 
-fs.writeFileSync(
-  path.join(REPORTS_DIR, 'validation-results.json'),
-  JSON.stringify({ summary: { passed, failed, total: examples.length }, results }, null, 2)
-);
+(async () => {
+  const results = await runWithConcurrency(examples, CONCURRENCY, validateExample);
 
-if (failed > 0) process.exit(1);
+  const passed = results.filter(r => r.status === 'PASS').length;
+  const failed = results.filter(r => r.status === 'FAIL').length;
+
+  console.log(`\n=== R5 Results: ${passed} passed, ${failed} failed out of ${examples.length} ===\n`);
+
+  fs.writeFileSync(
+    path.join(REPORTS_DIR, 'validation-results.json'),
+    JSON.stringify({ summary: { passed, failed, total: examples.length }, results }, null, 2)
+  );
+
+  if (failed > 0) process.exit(1);
+})();
