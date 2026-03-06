@@ -17,13 +17,13 @@ Usage: #example
 Title: "Patient – Seán Patrick Murphy (Irish, cross-border scenarios)"
 Description: "Seán Patrick Murphy, an Irish patient with Type 2 Diabetes, Essential Hypertension, and Hypercholesterolaemia. Carries an Irish PPS number, IHI, GMS number and eIDAS identity used in cross-border ePrescription exchange via MyHealth@EU."
 
-* identifier[IHI].system = $IHI
-* identifier[IHI].type = $V2-0203#NI "National unique individual identifier"
-* identifier[IHI].value = "210000000099887766"
+* identifier[0].system = $IHI
+* identifier[=].type = $V2-0203#NI "National unique individual identifier"
+* identifier[=].value = "210000000099887766"
 
-* identifier[GMS].system = $GMS
-* identifier[GMS].type = $V2-0203#MC "Patient's Medicare number"
-* identifier[GMS].value = "1234567T"
+* identifier[+].system = $GMS
+* identifier[=].type = $V2-0203#MC "Patient's Medicare number"
+* identifier[=].value = "1234567T"
 
 * identifier[+].system = $PPS
 * identifier[=].type = $V2-0203#JHN "Jurisdictional health number"
@@ -176,7 +176,9 @@ Description: "Type 2 Diabetes Mellitus (ICD-10: E11 / SNOMED: 44054006). Active 
 * verificationStatus = http://terminology.hl7.org/CodeSystem/condition-ver-status#confirmed
 * category = http://terminology.hl7.org/CodeSystem/condition-category#problem-list-item
 * severity = $SCT#6736007 "Moderate"
-* code = $SCT#44054006 "Diabetes mellitus type 2"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #44054006
+* code.coding[=].display = "Diabetes mellitus type 2"
 * code.coding[+].system = "http://hl7.org/fhir/sid/icd-10"
 * code.coding[=].code = #E11
 * code.coding[=].display = "Type 2 diabetes mellitus"
@@ -195,7 +197,9 @@ Description: "Essential Hypertension (ICD-10: I10 / SNOMED: 38341003). Active si
 * clinicalStatus = http://terminology.hl7.org/CodeSystem/condition-clinical#active
 * verificationStatus = http://terminology.hl7.org/CodeSystem/condition-ver-status#confirmed
 * category = http://terminology.hl7.org/CodeSystem/condition-category#problem-list-item
-* code = $SCT#38341003 "Hypertensive disorder"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #38341003
+* code.coding[=].display = "Hypertensive disorder"
 * code.coding[+].system = "http://hl7.org/fhir/sid/icd-10"
 * code.coding[=].code = #I10
 * code.coding[=].display = "Essential (primary) hypertension"
@@ -214,7 +218,9 @@ Description: "Hypercholesterolaemia (ICD-10: E78.5 / SNOMED: 13644009). Active s
 * clinicalStatus = http://terminology.hl7.org/CodeSystem/condition-clinical#active
 * verificationStatus = http://terminology.hl7.org/CodeSystem/condition-ver-status#confirmed
 * category = http://terminology.hl7.org/CodeSystem/condition-category#problem-list-item
-* code = $SCT#13644009 "Hypercholesterolemia"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #13644009
+* code.coding[=].display = "Hypercholesterolemia"
 * code.coding[+].system = "http://hl7.org/fhir/sid/icd-10"
 * code.coding[=].code = #E78.5
 * code.coding[=].display = "Hypercholesterolaemia"
@@ -234,7 +240,9 @@ Usage: #example
 Title: "Medication – Lisinopril 10mg Tablets (ATC: C09AA03)"
 Description: "Lisinopril 10mg tablets, ACE inhibitor for hypertension. ATC code C09AA03."
 
-* code = $SCT#386873009 "Lisinopril"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #386873009
+* code.coding[=].display = "Lisinopril"
 * code.coding[+].system = $ATC
 * code.coding[=].code = #C09AA03
 * code.coding[=].display = "Lisinopril"
@@ -254,7 +262,9 @@ Usage: #example
 Title: "Medication – Warfarin 5mg Tablets (ATC: B01AA03)"
 Description: "Warfarin sodium 5mg tablets, anticoagulant. ATC code B01AA03. Requires INR monitoring."
 
-* code = $SCT#372756006 "Warfarin"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #372756006
+* code.coding[=].display = "Warfarin"
 * code.coding[+].system = $ATC
 * code.coding[=].code = #B01AA03
 * code.coding[=].display = "Warfarin"
@@ -274,7 +284,9 @@ Usage: #example
 Title: "Medication – Insulin Glargine 100u/ml Injection (ATC: A10AE04)"
 Description: "Insulin glargine 100 units/ml solution for injection, long-acting basal insulin. ATC code A10AE04."
 
-* code = $SCT#411529005 "Insulin glargine"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #411529005
+* code.coding[=].display = "Insulin glargine"
 * code.coding[+].system = $ATC
 * code.coding[=].code = #A10AE04
 * code.coding[=].display = "Insulin glargine"
@@ -294,7 +306,9 @@ Usage: #example
 Title: "Medication – Insulin Aspart 100u/ml Injection (ATC: A10AB05)"
 Description: "Insulin aspart 100 units/ml solution for injection, rapid-acting insulin. ATC code A10AB05."
 
-* code = $SCT#325072002 "Insulin aspart"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #325072002
+* code.coding[=].display = "Insulin aspart"
 * code.coding[+].system = $ATC
 * code.coding[=].code = #A10AB05
 * code.coding[=].display = "Insulin aspart"
@@ -314,7 +328,9 @@ Usage: #example
 Title: "Medication – Sertraline 50mg Tablets (ATC: N06AB06)"
 Description: "Sertraline hydrochloride 50mg tablets, SSRI antidepressant. ATC code N06AB06."
 
-* code = $SCT#372594008 "Sertraline"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #372594008
+* code.coding[=].display = "Sertraline"
 * code.coding[+].system = $ATC
 * code.coding[=].code = #N06AB06
 * code.coding[=].display = "Sertraline"
@@ -334,7 +350,9 @@ Usage: #example
 Title: "Medication – Omeprazole 20mg Capsules (ATC: A02BC01)"
 Description: "Omeprazole 20mg gastro-resistant capsules, proton pump inhibitor. ATC code A02BC01."
 
-* code = $SCT#372718005 "Omeprazole"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #372718005
+* code.coding[=].display = "Omeprazole"
 * code.coding[+].system = $ATC
 * code.coding[=].code = #A02BC01
 * code.coding[=].display = "Omeprazole"
@@ -354,7 +372,9 @@ Usage: #example
 Title: "Medication – Atorvastatin 80mg Tablets (ATC: C10AA05)"
 Description: "Atorvastatin 80mg film-coated tablets (high-intensity statin). ATC code C10AA05."
 
-* code = $SCT#373444002 "Atorvastatin"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #373444002
+* code.coding[=].display = "Atorvastatin"
 * code.coding[+].system = $ATC
 * code.coding[=].code = #C10AA05
 * code.coding[=].display = "Atorvastatin"
@@ -374,7 +394,9 @@ Usage: #example
 Title: "Medication – Ramipril 10mg Capsules (ATC: C09AA05)"
 Description: "Ramipril 10mg capsules, ACE inhibitor. ATC code C09AA05."
 
-* code = $SCT#386872004 "Ramipril"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #386872004
+* code.coding[=].display = "Ramipril"
 * code.coding[+].system = $ATC
 * code.coding[=].code = #C09AA05
 * code.coding[=].display = "Ramipril"
