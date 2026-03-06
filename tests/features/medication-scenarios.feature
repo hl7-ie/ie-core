@@ -45,10 +45,10 @@ Feature: IE Core Medication Request and Dispensing Scenarios
     And the resource should have a dispenseRequest quantity of 90
 
   @medication @partial-dispense
-  Scenario: First partial dispense uses type PF (Partial Fill)
+  Scenario: First partial dispense uses type FFP (First Fill - Part Fill)
     Given I have the example resource "MedicationDispense-ie-dispense-scenario2-partial-1.json"
     Then the resource should have resourceType "MedicationDispense"
-    And the resource should have a dispense type code of "PF"
+    And the resource should have a dispense type code of "FFP"
     And the resource should have a quantity value of 30
 
   @medication @partial-dispense
@@ -62,7 +62,7 @@ Feature: IE Core Medication Request and Dispensing Scenarios
     Given I have the example resource "MedicationDispense-ie-dispense-scenario2-partial-3.json"
     Then the resource should have resourceType "MedicationDispense"
     And the resource should have a status value of "completed"
-    And the resource should have a dispense type code of "PF"
+    And the resource should have a dispense type code of "FFP"
 
   # ──────────────────────────────────────────────
   # Scenario 3: Multiple Prescriptions Bundle
