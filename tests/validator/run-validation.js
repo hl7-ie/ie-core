@@ -106,7 +106,22 @@ async function runWithConcurrency(items, limit, fn) {
 }
 
 (async () => {
-  const results = await runWithConcurrency(examples, CONCURRENCY, validateExample);
+  if (examples.length === 0) {
+    console.log('No example resources found to validate. Skipping.');
+    fs.writeFileSync(
+      path.join(REPORTS_DIR, 'validation-results.json'),
+      JSON.stringify({ summary: { passed: 0, failed: 0, total: 0 }, results: [] }, null, 2)
+    );
+    process.exit(0);
+  }
+
+  // Run the first example sequentially so the FHIR validator can download and
+  // lock the package cache without contention, then run the rest in parallel.
+  console.log('Warming up FHIR package cache (1 sequential run)...\n');
+  const warmupResult = await validateExample(examples[0]);
+  const remaining = examples.slice(1);
+  const concurrentResults = await runWithConcurrency(remaining, CONCURRENCY, validateExample);
+  const results = [warmupResult, ...concurrentResults];
 
   const passed = results.filter(r => r.status === 'PASS').length;
   const failed = results.filter(r => r.status === 'FAIL').length;
