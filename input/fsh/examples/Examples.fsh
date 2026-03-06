@@ -348,7 +348,7 @@ Title: "IE Core Blood Pressure Observation Example"
 Description: "An example IE Core Blood Pressure Observation with systolic 120 mmHg and diastolic 80 mmHg."
 
 * status = #final
-* category = $ObsCat#vital-signs "Vital Signs"
+* category[VSCat] = $ObsCat#vital-signs "Vital Signs"
 * code = $LOINC#85354-9 "Blood pressure panel with all children optional"
 * code.text = "Blood Pressure"
 

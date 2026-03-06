@@ -17,13 +17,13 @@ Usage: #example
 Title: "Patient – Seán Patrick Murphy (Irish, cross-border scenarios)"
 Description: "Seán Patrick Murphy, an Irish patient with Type 2 Diabetes, Essential Hypertension, and Hypercholesterolaemia. Carries an Irish PPS number, IHI, GMS number and eIDAS identity used in cross-border ePrescription exchange via MyHealth@EU."
 
-* identifier[IHI].system = $IHI
-* identifier[IHI].type = $V2-0203#NI "National unique individual identifier"
-* identifier[IHI].value = "210000000099887766"
+* identifier[0].system = $IHI
+* identifier[=].type = $V2-0203#NI "National unique individual identifier"
+* identifier[=].value = "210000000099887766"
 
-* identifier[GMS].system = $GMS
-* identifier[GMS].type = $V2-0203#MC "Patient's Medicare number"
-* identifier[GMS].value = "1234567T"
+* identifier[+].system = $GMS
+* identifier[=].type = $V2-0203#MC "Patient's Medicare number"
+* identifier[=].value = "1234567T"
 
 * identifier[+].system = $PPS
 * identifier[=].type = $V2-0203#JHN "Jurisdictional health number"
@@ -176,9 +176,11 @@ Description: "Type 2 Diabetes Mellitus (ICD-10: E11 / SNOMED: 44054006). Active 
 * verificationStatus = http://terminology.hl7.org/CodeSystem/condition-ver-status#confirmed
 * category = http://terminology.hl7.org/CodeSystem/condition-category#problem-list-item
 * severity = $SCT#6736007 "Moderate"
-* code = $SCT#44054006 "Diabetes mellitus type 2"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #44054006
+* code.coding[=].display = "Diabetes mellitus type 2"
 * code.coding[+].system = "http://hl7.org/fhir/sid/icd-10"
-* code.coding[=].code = "E11"
+* code.coding[=].code = #E11
 * code.coding[=].display = "Type 2 diabetes mellitus"
 * code.text = "Type 2 Diabetes Mellitus"
 * subject = Reference(ie-core-patient-sean-murphy) "Seán Murphy"
@@ -195,9 +197,11 @@ Description: "Essential Hypertension (ICD-10: I10 / SNOMED: 38341003). Active si
 * clinicalStatus = http://terminology.hl7.org/CodeSystem/condition-clinical#active
 * verificationStatus = http://terminology.hl7.org/CodeSystem/condition-ver-status#confirmed
 * category = http://terminology.hl7.org/CodeSystem/condition-category#problem-list-item
-* code = $SCT#38341003 "Hypertensive disorder"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #38341003
+* code.coding[=].display = "Hypertensive disorder"
 * code.coding[+].system = "http://hl7.org/fhir/sid/icd-10"
-* code.coding[=].code = "I10"
+* code.coding[=].code = #I10
 * code.coding[=].display = "Essential (primary) hypertension"
 * code.text = "Essential Hypertension"
 * subject = Reference(ie-core-patient-sean-murphy) "Seán Murphy"
@@ -214,9 +218,11 @@ Description: "Hypercholesterolaemia (ICD-10: E78.5 / SNOMED: 13644009). Active s
 * clinicalStatus = http://terminology.hl7.org/CodeSystem/condition-clinical#active
 * verificationStatus = http://terminology.hl7.org/CodeSystem/condition-ver-status#confirmed
 * category = http://terminology.hl7.org/CodeSystem/condition-category#problem-list-item
-* code = $SCT#13644009 "Hypercholesterolemia"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #13644009
+* code.coding[=].display = "Hypercholesterolemia"
 * code.coding[+].system = "http://hl7.org/fhir/sid/icd-10"
-* code.coding[=].code = "E78.5"
+* code.coding[=].code = #E78.5
 * code.coding[=].display = "Hypercholesterolaemia"
 * code.text = "Hypercholesterolaemia"
 * subject = Reference(ie-core-patient-sean-murphy) "Seán Murphy"
@@ -234,9 +240,11 @@ Usage: #example
 Title: "Medication – Lisinopril 10mg Tablets (ATC: C09AA03)"
 Description: "Lisinopril 10mg tablets, ACE inhibitor for hypertension. ATC code C09AA03."
 
-* code = $SCT#386873009 "Lisinopril"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #386873009
+* code.coding[=].display = "Lisinopril"
 * code.coding[+].system = $ATC
-* code.coding[=].code = "C09AA03"
+* code.coding[=].code = #C09AA03
 * code.coding[=].display = "Lisinopril"
 * code.text = "Lisinopril 10mg tablets"
 * form = $SCT#385055001 "Tablet"
@@ -254,9 +262,11 @@ Usage: #example
 Title: "Medication – Warfarin 5mg Tablets (ATC: B01AA03)"
 Description: "Warfarin sodium 5mg tablets, anticoagulant. ATC code B01AA03. Requires INR monitoring."
 
-* code = $SCT#372756006 "Warfarin"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #372756006
+* code.coding[=].display = "Warfarin"
 * code.coding[+].system = $ATC
-* code.coding[=].code = "B01AA03"
+* code.coding[=].code = #B01AA03
 * code.coding[=].display = "Warfarin"
 * code.text = "Warfarin 5mg tablets"
 * form = $SCT#385055001 "Tablet"
@@ -274,9 +284,11 @@ Usage: #example
 Title: "Medication – Insulin Glargine 100u/ml Injection (ATC: A10AE04)"
 Description: "Insulin glargine 100 units/ml solution for injection, long-acting basal insulin. ATC code A10AE04."
 
-* code = $SCT#411529005 "Insulin glargine"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #411529005
+* code.coding[=].display = "Insulin glargine"
 * code.coding[+].system = $ATC
-* code.coding[=].code = "A10AE04"
+* code.coding[=].code = #A10AE04
 * code.coding[=].display = "Insulin glargine"
 * code.text = "Insulin Glargine 100u/ml solution for injection"
 * form = $SCT#385219001 "Solution for injection"
@@ -294,9 +306,11 @@ Usage: #example
 Title: "Medication – Insulin Aspart 100u/ml Injection (ATC: A10AB05)"
 Description: "Insulin aspart 100 units/ml solution for injection, rapid-acting insulin. ATC code A10AB05."
 
-* code = $SCT#325072002 "Insulin aspart"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #325072002
+* code.coding[=].display = "Insulin aspart"
 * code.coding[+].system = $ATC
-* code.coding[=].code = "A10AB05"
+* code.coding[=].code = #A10AB05
 * code.coding[=].display = "Insulin aspart"
 * code.text = "Insulin Aspart 100u/ml solution for injection"
 * form = $SCT#385219001 "Solution for injection"
@@ -314,9 +328,11 @@ Usage: #example
 Title: "Medication – Sertraline 50mg Tablets (ATC: N06AB06)"
 Description: "Sertraline hydrochloride 50mg tablets, SSRI antidepressant. ATC code N06AB06."
 
-* code = $SCT#372594008 "Sertraline"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #372594008
+* code.coding[=].display = "Sertraline"
 * code.coding[+].system = $ATC
-* code.coding[=].code = "N06AB06"
+* code.coding[=].code = #N06AB06
 * code.coding[=].display = "Sertraline"
 * code.text = "Sertraline 50mg tablets"
 * form = $SCT#385055001 "Tablet"
@@ -334,9 +350,11 @@ Usage: #example
 Title: "Medication – Omeprazole 20mg Capsules (ATC: A02BC01)"
 Description: "Omeprazole 20mg gastro-resistant capsules, proton pump inhibitor. ATC code A02BC01."
 
-* code = $SCT#372718005 "Omeprazole"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #372718005
+* code.coding[=].display = "Omeprazole"
 * code.coding[+].system = $ATC
-* code.coding[=].code = "A02BC01"
+* code.coding[=].code = #A02BC01
 * code.coding[=].display = "Omeprazole"
 * code.text = "Omeprazole 20mg gastro-resistant capsules"
 * form = $SCT#385049006 "Capsule"
@@ -354,9 +372,11 @@ Usage: #example
 Title: "Medication – Atorvastatin 80mg Tablets (ATC: C10AA05)"
 Description: "Atorvastatin 80mg film-coated tablets (high-intensity statin). ATC code C10AA05."
 
-* code = $SCT#373444002 "Atorvastatin"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #373444002
+* code.coding[=].display = "Atorvastatin"
 * code.coding[+].system = $ATC
-* code.coding[=].code = "C10AA05"
+* code.coding[=].code = #C10AA05
 * code.coding[=].display = "Atorvastatin"
 * code.text = "Atorvastatin 80mg tablets"
 * form = $SCT#385055001 "Tablet"
@@ -374,9 +394,11 @@ Usage: #example
 Title: "Medication – Ramipril 10mg Capsules (ATC: C09AA05)"
 Description: "Ramipril 10mg capsules, ACE inhibitor. ATC code C09AA05."
 
-* code = $SCT#386872004 "Ramipril"
+* code.coding[0].system = $SCT
+* code.coding[=].code = #386872004
+* code.coding[=].display = "Ramipril"
 * code.coding[+].system = $ATC
-* code.coding[=].code = "C09AA05"
+* code.coding[=].code = #C09AA05
 * code.coding[=].display = "Ramipril"
 * code.text = "Ramipril 10mg capsules"
 * form = $SCT#385049006 "Capsule"
@@ -439,7 +461,7 @@ Description: "Irish ePrescription for Metformin 500mg for Seán Murphy, transmit
 
 * reasonCode = $SCT#44054006 "Diabetes mellitus type 2"
 * reasonCode.coding[+].system = $ATC
-* reasonCode.coding[=].code = "A10BA02"
+* reasonCode.coding[=].code = #A10BA02
 * reasonCode.coding[=].display = "Metformin"
 
 * dosageInstruction[0].text = "Take one 500mg tablet twice daily with meals"
@@ -483,7 +505,7 @@ Description: "Irish ePrescription for Lisinopril 10mg for Seán Murphy, transmit
 
 * reasonCode = $SCT#38341003 "Hypertensive disorder"
 * reasonCode.coding[+].system = $ATC
-* reasonCode.coding[=].code = "C09AA03"
+* reasonCode.coding[=].code = #C09AA03
 * reasonCode.coding[=].display = "Lisinopril"
 
 * dosageInstruction[0].text = "Take one 10mg tablet once daily in the morning"
@@ -515,7 +537,7 @@ Description: "German pharmacy dispensation of Metformin 500mg Filmtabletten (Rat
 
 * medicationCodeableConcept = $SCT#372567009 "Metformin"
 * medicationCodeableConcept.coding[+].system = "http://fhir.de/CodeSystem/ifa/pzn"
-* medicationCodeableConcept.coding[=].code = "04823246"
+* medicationCodeableConcept.coding[=].code = #04823246
 * medicationCodeableConcept.coding[=].display = "Metformin 500mg Filmtabletten (Ratiopharm)"
 * medicationCodeableConcept.text = "Metformin 500mg Filmtabletten (Ratiopharm)"
 
@@ -549,7 +571,7 @@ Description: "German pharmacy dispensation of Lisinopril 10mg Tabletten (Hexal, 
 
 * medicationCodeableConcept = $SCT#386873009 "Lisinopril"
 * medicationCodeableConcept.coding[+].system = "http://fhir.de/CodeSystem/ifa/pzn"
-* medicationCodeableConcept.coding[=].code = "03990693"
+* medicationCodeableConcept.coding[=].code = #03990693
 * medicationCodeableConcept.coding[=].display = "Lisinopril 10mg Tabletten (Hexal)"
 * medicationCodeableConcept.text = "Lisinopril 10mg Tabletten (Hexal)"
 
@@ -634,7 +656,7 @@ Description: "Latvian pharmacy dispensation of Metformins 500mg tabletes (ZRA co
 
 * medicationCodeableConcept = $SCT#372567009 "Metformin"
 * medicationCodeableConcept.coding[+].system = "http://www.zva.gov.lv/zalu-registrs"
-* medicationCodeableConcept.coding[=].code = "ZRA-00098432"
+* medicationCodeableConcept.coding[=].code = #ZRA-00098432
 * medicationCodeableConcept.coding[=].display = "Metformins 500mg tabletes"
 * medicationCodeableConcept.text = "Metformins 500mg tabletes"
 
@@ -715,7 +737,7 @@ Description: "Portuguese pharmacy dispensation of Sertralina 50mg Comprimidos (I
 * status = #completed
 * medicationCodeableConcept = $SCT#372594008 "Sertraline"
 * medicationCodeableConcept.coding[+].system = "http://www.infarmed.pt"
-* medicationCodeableConcept.coding[=].code = "INF-00012345"
+* medicationCodeableConcept.coding[=].code = #INF-00012345
 * medicationCodeableConcept.coding[=].display = "Sertralina 50mg Comprimidos"
 * medicationCodeableConcept.text = "Sertralina 50mg Comprimidos"
 * subject = Reference(ie-core-patient-sean-murphy) "Seán Murphy"
@@ -938,6 +960,34 @@ Description: "Irish community pharmacy dispensing a Finnish cross-border prescri
 * address[=].country = "IE"
 
 
+Instance: ie-rx-fi-metformin-neps
+InstanceOf: IECoreMedicationRequestEPrescription
+Usage: #example
+Title: "Scenario 10 (FI→IE via NePS) – Finnish Prescription: Metformin 500mg"
+Description: "Finnish ePrescription for Metformin 500mg for Mikko Korhonen, received via NePS for cross-border dispensation in Ireland."
+
+* identifier[0].system = "http://www.kela.fi/fhir/sid/prescription"
+* identifier[=].value = "FI-RX-2025-NEPS-001"
+* status = #active
+* intent = #order
+* category = http://terminology.hl7.org/CodeSystem/medicationrequest-category#community "Community"
+* medicationCodeableConcept = $SCT#372567009 "Metformin"
+* subject = Reference(ie-patient-fi-mikko-korhonen) "Mikko Korhonen"
+* requester = Reference(ie-core-practitioner-aoife-obrien) "Dr. Aoife O'Brien"
+* authoredOn = "2025-07-20"
+* reasonCode = $SCT#44054006 "Diabetes mellitus type 2"
+* dosageInstruction[0].text = "Take one 500mg tablet twice daily with meals"
+* dosageInstruction[=].timing.repeat.frequency = 2
+* dosageInstruction[=].timing.repeat.period = 1
+* dosageInstruction[=].timing.repeat.periodUnit = #d
+* dosageInstruction[=].route = $SCT#26643006 "Oral route"
+* dosageInstruction[=].doseAndRate[0].doseQuantity = 500 'mg' "mg"
+* dispenseRequest.validityPeriod.start = "2025-07-20"
+* dispenseRequest.validityPeriod.end = "2025-10-20"
+* dispenseRequest.quantity = 60 '{tablet}' "tablets"
+* substitution.allowedBoolean = true
+
+
 Instance: ie-dispense-fi-to-ie-neps
 InstanceOf: IECoreMedicationDispenseEDispensation
 Usage: #example
@@ -952,12 +1002,13 @@ Description: "Hickey's Pharmacy, Dublin dispenses Metformin 500mg for Finnish pa
 
 * medicationCodeableConcept = $SCT#372567009 "Metformin"
 * medicationCodeableConcept.coding[+].system = "https://www.hpra.ie/drug-catalogue"
-* medicationCodeableConcept.coding[=].code = "IE-HPRA-MET500"
+* medicationCodeableConcept.coding[=].code = #IE-HPRA-MET500
 * medicationCodeableConcept.coding[=].display = "Metformin 500mg tablets (HPRA)"
 * medicationCodeableConcept.text = "Metformin 500mg tablets"
 
 * subject = Reference(ie-patient-fi-mikko-korhonen) "Mikko Korhonen"
 * performer[0].actor = Reference(ie-org-ie-hickeys-pharmacy) "Hickey's Pharmacy"
+* authorizingPrescription = Reference(ie-rx-fi-metformin-neps) "FI-RX-2025-NEPS-001"
 
 * type = http://terminology.hl7.org/CodeSystem/v3-ActCode#DF "Daily Fill"
 * quantity = 60 '{tablet}' "tablets"
@@ -1015,6 +1066,35 @@ Description: "Irish community pharmacy dispensing a Belgian cross-border prescri
 * address[=].country = "IE"
 
 
+Instance: ie-rx-be-atorvastatin-neps
+InstanceOf: IECoreMedicationRequestEPrescription
+Usage: #example
+Title: "Scenario 11 (BE→IE via NePS) – Belgian Prescription: Atorvastatin 40mg"
+Description: "Belgian ePrescription for Atorvastatin 40mg for Lars Janssen, received via NePS for cross-border dispensation in Ireland."
+
+* identifier[0].system = "http://www.cnpv.be/fhir/sid/prescription"
+* identifier[=].value = "BE-RX-2025-NEPS-001"
+* status = #active
+* intent = #order
+* category = http://terminology.hl7.org/CodeSystem/medicationrequest-category#community "Community"
+* medicationCodeableConcept = $SCT#373444002 "Atorvastatin"
+* subject = Reference(ie-patient-be-lars-janssen) "Lars Janssen"
+* requester = Reference(ie-core-practitioner-aoife-obrien) "Dr. Aoife O'Brien"
+* authoredOn = "2025-07-25"
+* reasonCode = $SCT#13644009 "Hypercholesterolemia"
+* dosageInstruction[0].text = "Take one 40mg tablet once daily at night"
+* dosageInstruction[=].timing.repeat.frequency = 1
+* dosageInstruction[=].timing.repeat.period = 1
+* dosageInstruction[=].timing.repeat.periodUnit = #d
+* dosageInstruction[=].timing.repeat.when = #CV
+* dosageInstruction[=].route = $SCT#26643006 "Oral route"
+* dosageInstruction[=].doseAndRate[0].doseQuantity = 40 'mg' "mg"
+* dispenseRequest.validityPeriod.start = "2025-07-25"
+* dispenseRequest.validityPeriod.end = "2025-10-25"
+* dispenseRequest.quantity = 28 '{tablet}' "tablets"
+* substitution.allowedBoolean = true
+
+
 Instance: ie-dispense-be-to-ie-neps
 InstanceOf: IECoreMedicationDispenseEDispensation
 Usage: #example
@@ -1029,12 +1109,13 @@ Description: "McCauley's Pharmacy, Dublin dispenses Atorvastatin 40mg for Belgia
 
 * medicationCodeableConcept = $SCT#373444002 "Atorvastatin"
 * medicationCodeableConcept.coding[+].system = "https://www.hpra.ie/drug-catalogue"
-* medicationCodeableConcept.coding[=].code = "IE-HPRA-ATV40"
+* medicationCodeableConcept.coding[=].code = #IE-HPRA-ATV40
 * medicationCodeableConcept.coding[=].display = "Atorvastatin 40mg tablets (HPRA)"
 * medicationCodeableConcept.text = "Atorvastatin 40mg tablets"
 
 * subject = Reference(ie-patient-be-lars-janssen) "Lars Janssen"
 * performer[0].actor = Reference(ie-org-ie-mccauleys-pharmacy) "McCauley's Pharmacy"
+* authorizingPrescription = Reference(ie-rx-be-atorvastatin-neps) "BE-RX-2025-NEPS-001"
 
 * type = http://terminology.hl7.org/CodeSystem/v3-ActCode#DF "Daily Fill"
 * quantity = 28 '{tablet}' "tablets"
