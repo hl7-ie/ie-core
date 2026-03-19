@@ -57,12 +57,14 @@ In accordance with [HIQA's Guidance on Terminology Standards for Ireland](https:
 | Domain | Primary Standard | Secondary / Supplementary |
 |--------|-----------------|--------------------------|
 | **Clinical terms (diagnoses, procedures, findings)** | SNOMED CT | ICD-10-AM/ACHI (aggregation) |
-| **Medications** | SNOMED CT (pharmaceutical products) | ATC (WHO international classification) |
+| **Medications** | NMPC | SNOMED CT Irish Edition, ATC (WHO international classification) |
 | **Laboratory observations** | LOINC | SNOMED CT (for result values) |
 | **Allergies & adverse reactions** | SNOMED CT | — |
 | **Immunizations** | SNOMED CT, CVX | ATC (J07 vaccines) |
 
 **SNOMED CT** is Ireland's nationally adopted reference terminology, maintained through the [SNOMED CT Irish Extension](https://www.ehealthireland.ie/technology-and-transformation-functions/chief-data-and-analytics-office-cdao/standards-and-terminologies/snomed-ct/) by eHealth Ireland's National Release Centre. Ireland is a member of [SNOMED International](https://www.snomed.org/).
+
+For medications, IE Core adopts the National Medicinal Product Catalogue (NMPC) as the preferred primary code wherever available. SNOMED CT Irish Edition SHOULD be carried as a secondary coding wherever available to support clinical interoperability, terminology services, and cross-border mapping.
 
 **LOINC** is the recommended standard for laboratory observation identifiers, in line with international best practice and EU cross-border laboratory result exchange.
 

@@ -95,7 +95,7 @@ These bundles represent dispensation confirmation records returned from EU pharm
 
 ### FHIR Bundles — Inbound Dispensations (EU Patient → Ireland via NePS)
 
-These bundles represent foreign prescriptions dispensed at Irish pharmacies via the National ePrescription Service (NePS). Foreign drug codes are mapped to Irish HPRA product codes at the point of dispensation.
+These bundles represent foreign prescriptions dispensed at Irish pharmacies via the National ePrescription Service (NePS). Foreign drug codes are mapped to Irish NMPC codes at the point of dispensation, with SNOMED CT Irish Edition carried as secondary coding where available.
 
 | File | Patient | Origin | Irish Pharmacy |
 |------|---------|--------|----------------|

@@ -10,6 +10,7 @@ Description: "The IE Core MedicationDispense profile sets minimum expectations f
 
 * status 1..1 MS
 * medication[x] 1..1 MS
+* medication[x] ^short = "Medication dispensed. Use NMPC as the primary coding where available, with SNOMED CT Irish Edition as a secondary coding where available."
 * medication[x] from IECoreMedicationCodes (extensible)
 * subject 1..1 MS
 * subject only Reference(IECorePatient)

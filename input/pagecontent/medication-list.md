@@ -21,25 +21,33 @@ GET [base]/MedicationRequest?patient=[id]&status=active
 
 ### Medication Terminology Standards (HIQA)
 
-In accordance with [HIQA's Guidance on Terminology Standards for Ireland](https://www.hiqa.ie/sites/default/files/2017-07/Guidance-on-terminology-standards-for-Ireland.pdf), **SNOMED CT is the primary clinical terminology** for medications in the Irish healthcare system. This aligns with Ireland's membership in [SNOMED International](https://www.snomed.org/) and the work of the [Irish National Release Centre](https://www.ehealthireland.ie/technology-and-transformation-functions/chief-data-and-analytics-office-cdao/standards-and-terminologies/snomed-ct/) within eHealth Ireland.
+In IE Core medication resources, the **National Medicinal Product Catalogue (NMPC)** is the preferred primary medication code wherever available. **SNOMED CT Irish Edition** is the preferred secondary medication coding wherever available, supporting semantic interoperability and cross-border exchange. This aligns the IG with Irish medicines standardisation efforts while continuing to use [SNOMED International](https://www.snomed.org/) and the [Irish National Release Centre](https://www.ehealthireland.ie/technology-and-transformation-functions/chief-data-and-analytics-office-cdao/standards-and-terminologies/snomed-ct/) for secondary clinical terminology.
 
 #### Required and Recommended Code Systems
 
 | Code System | Status | Use | Notes |
 |-------------|--------|-----|-------|
-| **SNOMED CT** | **Required** | Primary clinical drug terminology | HIQA-recommended. Use the `373873005 \| Pharmaceutical / biologic product` hierarchy for medications. Irish Extension reference sets maintained by eHealth Ireland. |
-| **ATC (WHO)** | Recommended | International classification of drugs | Required for EU cross-border exchange (EHDS/MyHealth@EU). Used alongside SNOMED CT for anatomical-therapeutic-chemical classification. |
+| **NMPC** | **Preferred primary** | Primary Irish medicinal product code | Use as the first coding in `Medication.code` or `medicationCodeableConcept` wherever an NMPC code exists for the product. Supports national medicines management and ePrescribing workflows. |
+| **SNOMED CT Irish Edition** | **Preferred secondary** | Secondary clinical drug terminology | Carry as an additional coding wherever available. Use concepts under the `373873005 \| Pharmaceutical / biologic product` hierarchy for medication semantics and mapping support. |
+| **ATC (WHO)** | Recommended | International classification of drugs | Use alongside NMPC/SNOMED where needed for international classification and EU cross-border interoperability (EHDS/MyHealth@EU). |
 | **LOINC** | Recommended | Laboratory-related medication observations | Used for observation codes related to medication monitoring. |
 | **ICD-10** | Optional | Indication coding | May be used for diagnosis/indication alongside SNOMED CT. |
+
+#### Preferred Coding Pattern
+
+Use the following coding order wherever possible:
+
+1. NMPC as the primary coding in the medication codeable concept
+2. SNOMED CT Irish Edition as a secondary coding where available
+3. ATC as an additional coding where needed for classification or EU exchange
 
 #### SNOMED CT for Medications
 
 SNOMED CT provides a comprehensive and semantically rich vocabulary for clinical drugs. Key aspects for Irish implementations:
 
 - **Product hierarchy**: Use concepts under `373873005 | Pharmaceutical / biologic product (product)` for medication coding
-- **Irish Extension**: The SNOMED CT Irish Extension, maintained by eHealth Ireland, includes Ireland-specific reference sets for clinical domains including medications
-- **Release cadence**: Irish Extension releases occur semi-annually (April and October), aligned with SNOMED International release schedules
-- **Cross-mapping**: SNOMED CT concepts can be mapped to ATC codes for EU cross-border interoperability
+- **Irish Edition**: The SNOMED CT Irish Edition, maintained by eHealth Ireland, should be carried as a secondary medication coding where available
+- **Cross-mapping**: SNOMED CT concepts can support mapping to ATC and other exchange terminologies
 
 #### Why Not RxNorm?
 
@@ -75,8 +83,9 @@ The [IE Core Medication Adherence Extension](StructureDefinition-ie-core-medicat
 
 For cross-border prescription exchange via MyHealth@EU, the ePrescription profiles use:
 
-- **SNOMED CT** as the primary medication code
-- **ATC** for anatomical-therapeutic-chemical classification (required by MyHealth@EU)
+- **NMPC** as the primary Irish medication code wherever available
+- **SNOMED CT Irish Edition** as the preferred secondary medication code wherever available
+- **ATC** for anatomical-therapeutic-chemical classification where required by cross-border workflows
 - **Substitution** information per Irish pharmacy regulations
 - **groupIdentifier** for multi-item prescriptions
 

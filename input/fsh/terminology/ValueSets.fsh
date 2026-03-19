@@ -11,6 +11,7 @@ Alias: $LOINC = http://loinc.org
 Alias: $RXNORM = http://www.nlm.nih.gov/research/umls/rxnorm
 Alias: $CVX = http://hl7.org/fhir/sid/cvx
 Alias: $ATC = http://www.whocc.no/atc
+Alias: $NMPC = http://hl7.hse.ie/fhir/ie/core/sid/nmpc
 Alias: $ICD10PCS = http://www.cms.gov/Medicare/Coding/ICD10
 Alias: $V2-0074 = http://terminology.hl7.org/CodeSystem/v2-0074
 Alias: $V2-0136 = http://terminology.hl7.org/CodeSystem/v2-0136
@@ -188,8 +189,9 @@ Description: "Discharge disposition codes indicating patient destination upon di
 ValueSet: IECoreMedicationCodes
 Id: ie-core-medication-codes
 Title: "IE Core Medication Codes"
-Description: "Medication codes for the Irish healthcare system. SNOMED CT is the primary clinical terminology as recommended by HIQA and adopted by eHealth Ireland. ATC (WHO) codes are included for international classification and EU cross-border interoperability (EHDS/MyHealth@EU)."
+Description: "Medication codes for the Irish healthcare system. NMPC is the preferred primary medication code wherever available. SNOMED CT Irish Edition is the preferred secondary clinical terminology wherever available, and ATC (WHO) codes are included for international classification and EU cross-border interoperability (EHDS/MyHealth@EU)."
 * ^experimental = false
+* include codes from system $NMPC
 * include codes from system $SCT where concept descendent-of #373873005 "Pharmaceutical / biologic product (product)"
 * include codes from system $ATC
 

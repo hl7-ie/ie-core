@@ -9,6 +9,7 @@ Description: "The IE Core Medication profile sets minimum expectations for the M
 * ^status = #draft
 
 * code MS
+* code ^short = "Medication code. Use NMPC as the primary coding where available, with SNOMED CT Irish Edition as a secondary coding where available."
 * code from IECoreMedicationCodes (extensible)
 * form MS
 * ingredient MS

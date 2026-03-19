@@ -238,9 +238,12 @@ Instance: ie-medication-lisinopril-10
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Lisinopril 10mg Tablets (ATC: C09AA03)"
-Description: "Lisinopril 10mg tablets, ACE inhibitor for hypertension. ATC code C09AA03."
+Description: "Lisinopril 10mg tablets, ACE inhibitor for hypertension. NMPC is primary, SNOMED CT is secondary, and ATC code C09AA03 is included for classification."
 
-* code.coding[0].system = $SCT
+* code.coding[0].system = $NMPC
+* code.coding[=].code = #NMPC-LIS10TAB
+* code.coding[=].display = "Lisinopril 10mg tablets"
+* code.coding[+].system = $SCT
 * code.coding[=].code = #386873009
 * code.coding[=].display = "Lisinopril"
 * code.coding[+].system = $ATC
@@ -260,9 +263,12 @@ Instance: ie-medication-warfarin-5
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Warfarin 5mg Tablets (ATC: B01AA03)"
-Description: "Warfarin sodium 5mg tablets, anticoagulant. ATC code B01AA03. Requires INR monitoring."
+Description: "Warfarin sodium 5mg tablets, anticoagulant. NMPC is primary, SNOMED CT is secondary, and ATC code B01AA03 is included for classification. Requires INR monitoring."
 
-* code.coding[0].system = $SCT
+* code.coding[0].system = $NMPC
+* code.coding[=].code = #NMPC-WAR5TAB
+* code.coding[=].display = "Warfarin 5mg tablets"
+* code.coding[+].system = $SCT
 * code.coding[=].code = #372756006
 * code.coding[=].display = "Warfarin"
 * code.coding[+].system = $ATC
@@ -282,9 +288,12 @@ Instance: ie-medication-insulin-glargine
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Insulin Glargine 100u/ml Injection (ATC: A10AE04)"
-Description: "Insulin glargine 100 units/ml solution for injection, long-acting basal insulin. ATC code A10AE04."
+Description: "Insulin glargine 100 units/ml solution for injection, long-acting basal insulin. NMPC is primary, SNOMED CT is secondary, and ATC code A10AE04 is included for classification."
 
-* code.coding[0].system = $SCT
+* code.coding[0].system = $NMPC
+* code.coding[=].code = #NMPC-INSGLAR100
+* code.coding[=].display = "Insulin glargine 100 units/ml solution for injection"
+* code.coding[+].system = $SCT
 * code.coding[=].code = #411529005
 * code.coding[=].display = "Insulin glargine"
 * code.coding[+].system = $ATC
@@ -304,9 +313,12 @@ Instance: ie-medication-insulin-aspart
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Insulin Aspart 100u/ml Injection (ATC: A10AB05)"
-Description: "Insulin aspart 100 units/ml solution for injection, rapid-acting insulin. ATC code A10AB05."
+Description: "Insulin aspart 100 units/ml solution for injection, rapid-acting insulin. NMPC is primary, SNOMED CT is secondary, and ATC code A10AB05 is included for classification."
 
-* code.coding[0].system = $SCT
+* code.coding[0].system = $NMPC
+* code.coding[=].code = #NMPC-INSASP100
+* code.coding[=].display = "Insulin aspart 100 units/ml solution for injection"
+* code.coding[+].system = $SCT
 * code.coding[=].code = #325072002
 * code.coding[=].display = "Insulin aspart"
 * code.coding[+].system = $ATC
@@ -326,9 +338,12 @@ Instance: ie-medication-sertraline-50
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Sertraline 50mg Tablets (ATC: N06AB06)"
-Description: "Sertraline hydrochloride 50mg tablets, SSRI antidepressant. ATC code N06AB06."
+Description: "Sertraline hydrochloride 50mg tablets, SSRI antidepressant. NMPC is primary, SNOMED CT is secondary, and ATC code N06AB06 is included for classification."
 
-* code.coding[0].system = $SCT
+* code.coding[0].system = $NMPC
+* code.coding[=].code = #NMPC-SER50TAB
+* code.coding[=].display = "Sertraline 50mg tablets"
+* code.coding[+].system = $SCT
 * code.coding[=].code = #372594008
 * code.coding[=].display = "Sertraline"
 * code.coding[+].system = $ATC
@@ -348,9 +363,12 @@ Instance: ie-medication-omeprazole-20
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Omeprazole 20mg Capsules (ATC: A02BC01)"
-Description: "Omeprazole 20mg gastro-resistant capsules, proton pump inhibitor. ATC code A02BC01."
+Description: "Omeprazole 20mg gastro-resistant capsules, proton pump inhibitor. NMPC is primary, SNOMED CT is secondary, and ATC code A02BC01 is included for classification."
 
-* code.coding[0].system = $SCT
+* code.coding[0].system = $NMPC
+* code.coding[=].code = #NMPC-OME20CAP
+* code.coding[=].display = "Omeprazole 20mg gastro-resistant capsules"
+* code.coding[+].system = $SCT
 * code.coding[=].code = #372718005
 * code.coding[=].display = "Omeprazole"
 * code.coding[+].system = $ATC
@@ -370,9 +388,12 @@ Instance: ie-medication-atorvastatin-80
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Atorvastatin 80mg Tablets (ATC: C10AA05)"
-Description: "Atorvastatin 80mg film-coated tablets (high-intensity statin). ATC code C10AA05."
+Description: "Atorvastatin 80mg film-coated tablets (high-intensity statin). NMPC is primary, SNOMED CT is secondary, and ATC code C10AA05 is included for classification."
 
-* code.coding[0].system = $SCT
+* code.coding[0].system = $NMPC
+* code.coding[=].code = #NMPC-ATV80TAB
+* code.coding[=].display = "Atorvastatin 80mg tablets"
+* code.coding[+].system = $SCT
 * code.coding[=].code = #373444002
 * code.coding[=].display = "Atorvastatin"
 * code.coding[+].system = $ATC
@@ -392,9 +413,12 @@ Instance: ie-medication-ramipril-10
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Ramipril 10mg Capsules (ATC: C09AA05)"
-Description: "Ramipril 10mg capsules, ACE inhibitor. ATC code C09AA05."
+Description: "Ramipril 10mg capsules, ACE inhibitor. NMPC is primary, SNOMED CT is secondary, and ATC code C09AA05 is included for classification."
 
-* code.coding[0].system = $SCT
+* code.coding[0].system = $NMPC
+* code.coding[=].code = #NMPC-RAM10CAP
+* code.coding[=].display = "Ramipril 10mg capsules"
+* code.coding[+].system = $SCT
 * code.coding[=].code = #386872004
 * code.coding[=].display = "Ramipril"
 * code.coding[+].system = $ATC
@@ -535,7 +559,8 @@ Description: "German pharmacy dispensation of Metformin 500mg Filmtabletten (Rat
 * identifier[=].value = "DE-DISP-2025-XB-001-MET"
 * status = #completed
 
-* medicationCodeableConcept = $SCT#372567009 "Metformin"
+* medicationCodeableConcept = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
+* medicationCodeableConcept.coding[+] = $SCT#372567009 "Metformin"
 * medicationCodeableConcept.coding[+].system = "http://fhir.de/CodeSystem/ifa/pzn"
 * medicationCodeableConcept.coding[=].code = #04823246
 * medicationCodeableConcept.coding[=].display = "Metformin 500mg Filmtabletten (Ratiopharm)"
@@ -569,7 +594,8 @@ Description: "German pharmacy dispensation of Lisinopril 10mg Tabletten (Hexal, 
 * identifier[=].value = "DE-DISP-2025-XB-001-LIS"
 * status = #completed
 
-* medicationCodeableConcept = $SCT#386873009 "Lisinopril"
+* medicationCodeableConcept = $NMPC#NMPC-LIS10TAB "Lisinopril 10mg tablets"
+* medicationCodeableConcept.coding[+] = $SCT#386873009 "Lisinopril"
 * medicationCodeableConcept.coding[+].system = "http://fhir.de/CodeSystem/ifa/pzn"
 * medicationCodeableConcept.coding[=].code = #03990693
 * medicationCodeableConcept.coding[=].display = "Lisinopril 10mg Tabletten (Hexal)"
@@ -654,7 +680,8 @@ Description: "Latvian pharmacy dispensation of Metformins 500mg tabletes (ZRA co
 * identifier[=].value = "LV-DISP-2025-XB-001"
 * status = #completed
 
-* medicationCodeableConcept = $SCT#372567009 "Metformin"
+* medicationCodeableConcept = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
+* medicationCodeableConcept.coding[+] = $SCT#372567009 "Metformin"
 * medicationCodeableConcept.coding[+].system = "http://www.zva.gov.lv/zalu-registrs"
 * medicationCodeableConcept.coding[=].code = #ZRA-00098432
 * medicationCodeableConcept.coding[=].display = "Metformins 500mg tabletes"
@@ -735,7 +762,8 @@ Description: "Portuguese pharmacy dispensation of Sertralina 50mg Comprimidos (I
 * identifier[0].system = "http://www.infarmed.pt/fhir/sid/dispensacao"
 * identifier[=].value = "PT-DISP-2025-XB-001"
 * status = #completed
-* medicationCodeableConcept = $SCT#372594008 "Sertraline"
+* medicationCodeableConcept = $NMPC#NMPC-SER50TAB "Sertraline 50mg tablets"
+* medicationCodeableConcept.coding[+] = $SCT#372594008 "Sertraline"
 * medicationCodeableConcept.coding[+].system = "http://www.infarmed.pt"
 * medicationCodeableConcept.coding[=].code = #INF-00012345
 * medicationCodeableConcept.coding[=].display = "Sertralina 50mg Comprimidos"
@@ -971,7 +999,8 @@ Description: "Finnish ePrescription for Metformin 500mg for Mikko Korhonen, rece
 * status = #active
 * intent = #order
 * category = http://terminology.hl7.org/CodeSystem/medicationrequest-category#community "Community"
-* medicationCodeableConcept = $SCT#372567009 "Metformin"
+* medicationCodeableConcept = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
+* medicationCodeableConcept.coding[+] = $SCT#372567009 "Metformin"
 * subject = Reference(ie-patient-fi-mikko-korhonen) "Mikko Korhonen"
 * requester = Reference(ie-core-practitioner-aoife-obrien) "Dr. Aoife O'Brien"
 * authoredOn = "2025-07-20"
@@ -992,7 +1021,7 @@ Instance: ie-dispense-fi-to-ie-neps
 InstanceOf: IECoreMedicationDispenseEDispensation
 Usage: #example
 Title: "Scenario 10 (FI→IE via NePS) – Irish Dispensation for Finnish Patient"
-Description: "Hickey's Pharmacy, Dublin dispenses Metformin 500mg for Finnish patient Mikko Korhonen against a Finnish prescription received via NePS. The Finnish medication code (Kela/FIN) is mapped to an HPRA product code."
+Description: "Hickey's Pharmacy, Dublin dispenses Metformin 500mg for Finnish patient Mikko Korhonen against a Finnish prescription received via NePS. The Finnish medication code (Kela/FIN) is mapped to an Irish NMPC code."
 
 * identifier[0].system = "http://hl7.hse.ie/fhir/ie/core/sid/dispense-id"
 * identifier[=].value = "DISP-IE-NEPS-2025-FI-001"
@@ -1000,10 +1029,11 @@ Description: "Hickey's Pharmacy, Dublin dispenses Metformin 500mg for Finnish pa
 * identifier[=].value = "FI-RX-2025-NEPS-001"
 * status = #completed
 
-* medicationCodeableConcept = $SCT#372567009 "Metformin"
-* medicationCodeableConcept.coding[+].system = "https://www.hpra.ie/drug-catalogue"
-* medicationCodeableConcept.coding[=].code = #IE-HPRA-MET500
-* medicationCodeableConcept.coding[=].display = "Metformin 500mg tablets (HPRA)"
+* medicationCodeableConcept = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
+* medicationCodeableConcept.coding[+] = $SCT#372567009 "Metformin"
+* medicationCodeableConcept.coding[+].system = "http://www.kela.fi"
+* medicationCodeableConcept.coding[=].code = #FIN-XXXX
+* medicationCodeableConcept.coding[=].display = "Metformin 500mg tablets (Kela/FIN)"
 * medicationCodeableConcept.text = "Metformin 500mg tablets"
 
 * subject = Reference(ie-patient-fi-mikko-korhonen) "Mikko Korhonen"
@@ -1077,7 +1107,8 @@ Description: "Belgian ePrescription for Atorvastatin 40mg for Lars Janssen, rece
 * status = #active
 * intent = #order
 * category = http://terminology.hl7.org/CodeSystem/medicationrequest-category#community "Community"
-* medicationCodeableConcept = $SCT#373444002 "Atorvastatin"
+* medicationCodeableConcept = $NMPC#NMPC-ATV40TAB "Atorvastatin 40mg tablets"
+* medicationCodeableConcept.coding[+] = $SCT#373444002 "Atorvastatin"
 * subject = Reference(ie-patient-be-lars-janssen) "Lars Janssen"
 * requester = Reference(ie-core-practitioner-aoife-obrien) "Dr. Aoife O'Brien"
 * authoredOn = "2025-07-25"
@@ -1099,7 +1130,7 @@ Instance: ie-dispense-be-to-ie-neps
 InstanceOf: IECoreMedicationDispenseEDispensation
 Usage: #example
 Title: "Scenario 11 (BE→IE via NePS) – Irish Dispensation for Belgian Patient"
-Description: "McCauley's Pharmacy, Dublin dispenses Atorvastatin 40mg for Belgian patient Lars Janssen against a Belgian prescription received via NePS. Belgian CNPV medication code mapped to Irish HPRA code."
+Description: "McCauley's Pharmacy, Dublin dispenses Atorvastatin 40mg for Belgian patient Lars Janssen against a Belgian prescription received via NePS. Belgian CNPV medication code is mapped to an Irish NMPC code."
 
 * identifier[0].system = "http://hl7.hse.ie/fhir/ie/core/sid/dispense-id"
 * identifier[=].value = "DISP-IE-NEPS-2025-BE-001"
@@ -1107,10 +1138,11 @@ Description: "McCauley's Pharmacy, Dublin dispenses Atorvastatin 40mg for Belgia
 * identifier[=].value = "BE-RX-2025-NEPS-001"
 * status = #completed
 
-* medicationCodeableConcept = $SCT#373444002 "Atorvastatin"
-* medicationCodeableConcept.coding[+].system = "https://www.hpra.ie/drug-catalogue"
-* medicationCodeableConcept.coding[=].code = #IE-HPRA-ATV40
-* medicationCodeableConcept.coding[=].display = "Atorvastatin 40mg tablets (HPRA)"
+* medicationCodeableConcept = $NMPC#NMPC-ATV40TAB "Atorvastatin 40mg tablets"
+* medicationCodeableConcept.coding[+] = $SCT#373444002 "Atorvastatin"
+* medicationCodeableConcept.coding[+].system = "http://www.cnpv.be"
+* medicationCodeableConcept.coding[=].code = #BE-CNPV-XXXX
+* medicationCodeableConcept.coding[=].display = "Atorvastatin 40mg tablets (CNPV)"
 * medicationCodeableConcept.text = "Atorvastatin 40mg tablets"
 
 * subject = Reference(ie-patient-be-lars-janssen) "Lars Janssen"

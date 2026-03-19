@@ -37,7 +37,7 @@ Nine destination countries are illustrated in this guide:
 
 #### Inbound (EU → Ireland via NePS)
 
-EU citizens visiting Ireland can have their foreign prescriptions dispensed at Irish pharmacies through the National ePrescription Service (NePS). Foreign drug codes are mapped to Irish HPRA product codes.
+EU citizens visiting Ireland can have their foreign prescriptions dispensed at Irish pharmacies through the National ePrescription Service (NePS). Foreign drug codes are mapped to Irish NMPC codes, with SNOMED CT Irish Edition carried as secondary coding where available.
 
 | # | Origin | Patient | Irish Pharmacy |
 |---|--------|---------|----------------|

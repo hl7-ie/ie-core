@@ -13,9 +13,10 @@ Instance: ie-core-medication-metformin-500
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Metformin 500mg Tablets"
-Description: "Metformin hydrochloride 500mg film-coated tablets (generic), coded with SNOMED CT and ATC."
+Description: "Metformin hydrochloride 500mg film-coated tablets (generic), coded with NMPC as the primary code and SNOMED CT as a secondary code."
 
-* code = $SCT#372567009 "Metformin"
+* code = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
+* code.coding[+] = $SCT#372567009 "Metformin"
 * code.text = "Metformin 500mg tablets"
 * form = $SCT#385055001 "Tablet"
 * amount.numerator = 60 '{tablet}' "tablets"
@@ -30,9 +31,10 @@ Instance: ie-core-medication-atorvastatin-20
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Atorvastatin 20mg Tablets"
-Description: "Atorvastatin 20mg film-coated tablets (generic), coded with SNOMED CT."
+Description: "Atorvastatin 20mg film-coated tablets (generic), coded with NMPC as the primary code and SNOMED CT as a secondary code."
 
-* code = $SCT#373444002 "Atorvastatin"
+* code = $NMPC#NMPC-ATV20TAB "Atorvastatin 20mg film-coated tablets"
+* code.coding[+] = $SCT#373444002 "Atorvastatin"
 * code.text = "Atorvastatin 20mg tablets"
 * form = $SCT#385055001 "Tablet"
 * amount.numerator = 30 '{tablet}' "tablets"
@@ -47,9 +49,10 @@ Instance: ie-core-medication-ramipril-5
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Ramipril 5mg Capsules"
-Description: "Ramipril 5mg capsules (generic), coded with SNOMED CT."
+Description: "Ramipril 5mg capsules (generic), coded with NMPC as the primary code and SNOMED CT as a secondary code."
 
-* code = $SCT#386872004 "Ramipril"
+* code = $NMPC#NMPC-RAM5CAP "Ramipril 5mg capsules"
+* code.coding[+] = $SCT#386872004 "Ramipril"
 * code.text = "Ramipril 5mg capsules"
 * form = $SCT#385049006 "Capsule"
 * amount.numerator = 28 '{capsule}' "capsules"
@@ -64,9 +67,10 @@ Instance: ie-core-medication-amlodipine-5
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Amlodipine 5mg Tablets"
-Description: "Amlodipine 5mg tablets (generic), coded with SNOMED CT. Used in cross-border dispensing scenario."
+Description: "Amlodipine 5mg tablets (generic), coded with NMPC as the primary code and SNOMED CT as a secondary code. Used in cross-border dispensing scenario."
 
-* code = $SCT#386864001 "Amlodipine"
+* code = $NMPC#NMPC-AML5TAB "Amlodipine 5mg tablets"
+* code.coding[+] = $SCT#386864001 "Amlodipine"
 * code.text = "Amlodipine 5mg tablets"
 * form = $SCT#385055001 "Tablet"
 * amount.numerator = 30 '{tablet}' "tablets"

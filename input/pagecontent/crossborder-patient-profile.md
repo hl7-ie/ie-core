@@ -343,9 +343,9 @@ sequenceDiagram
     NCPeH_EU-->>Hub: Return prescription documents
     Hub-->>NCPeH_IE: Deliver foreign ePrescription
     NCPeH_IE-->>NePS: Prescription + foreign drug codes
-    NePS->>NePS: Map foreign codes → Irish HPRA codes
+    NePS->>NePS: Map foreign codes → Irish NMPC codes
     NePS-->>Pharmacy: Provide mapped prescription
-    Pharmacy->>Patient: Dispense medication<br/>(Irish HPRA product codes)
+    Pharmacy->>Patient: Dispense medication<br/>(Irish NMPC product codes)
     Pharmacy->>NePS: Record eDispensation
     NePS->>NCPeH_IE: Confirm dispensation
     NCPeH_IE->>Hub: Send eDispensation back
@@ -364,7 +364,7 @@ sequenceDiagram
 | **Medications dispensed** | Metformin 500mg |
 | **Format** | FHIR (MPD via NePS) |
 | **Status** | ✅ Finnish prescription mapped through NePS |
-| **Code mapping** | Finnish Kela code → Irish HPRA code (`IE-HPRA-MET500`) |
+| **Code mapping** | Finnish Kela code → Irish NMPC code (`NMPC-MET500TAB`) |
 
 FHIR Example: [FI→IE Dispensation via NePS](Bundle-fi-to-ie-neps-dispensation.html)
 
@@ -380,7 +380,7 @@ FHIR Example: [FI→IE Dispensation via NePS](Bundle-fi-to-ie-neps-dispensation.
 | **Medications dispensed** | Atorvastatin 40mg |
 | **Format** | FHIR (MPD via NePS) |
 | **Status** | ✅ Belgian prescription mapped through NePS |
-| **Code mapping** | Belgian CNPV code → Irish HPRA code (`IE-HPRA-ATV40`) |
+| **Code mapping** | Belgian CNPV code → Irish NMPC code (`NMPC-ATV40TAB`) |
 
 FHIR Example: [BE→IE Dispensation via NePS](Bundle-be-to-ie-neps-dispensation.html)
 
@@ -390,7 +390,7 @@ FHIR Example: [BE→IE Dispensation via NePS](Bundle-be-to-ie-neps-dispensation.
 
 | Country | System | System URI | Example Code |
 |---------|--------|------------|-------------|
-| 🇮🇪 Ireland | ATC + HPRA | `https://www.hpra.ie/drug-catalogue` | IE-HPRA-MET500 |
+| 🇮🇪 Ireland | NMPC + SNOMED CT Irish Edition + ATC | `http://hl7.hse.ie/fhir/ie/core/sid/nmpc` | NMPC-MET500TAB |
 | 🇩🇪 Germany | PZN | `http://fhir.de/CodeSystem/ifa/pzn` | 04823246 |
 | 🇪🇸 Spain | CIMA | `http://vocabularies.cesec.org/public-api/v1/codes/cima` | 60918 |
 | 🇫🇷 France | CIP | `http://idref.fr/CIP` | 3402895 |

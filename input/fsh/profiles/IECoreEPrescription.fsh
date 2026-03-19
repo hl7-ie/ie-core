@@ -112,7 +112,7 @@ Description: "Medication profile for use in ePrescription and eDispensation, ali
 * ^status = #draft
 
 * code 1..1 MS
-* code ^short = "Medication code — SNOMED CT, ATC, or Irish product code"
+* code ^short = "Medication code. Use NMPC as the primary coding where available, with SNOMED CT Irish Edition as a secondary coding where available. ATC may be carried for cross-border classification."
 
 * form MS
 * form ^short = "Dose form (e.g. tablet, capsule, solution)"

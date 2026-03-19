@@ -8,6 +8,7 @@ Alias: $CPT = http://www.ama-assn.org/go/cpt
 Alias: $RxNorm = http://www.nlm.nih.gov/research/umls/rxnorm
 Alias: $CVX = http://hl7.org/fhir/sid/cvx
 Alias: $ATC = http://www.whocc.no/atc
+Alias: $NMPC = http://hl7.hse.ie/fhir/ie/core/sid/nmpc
 Alias: $V2-0203 = http://terminology.hl7.org/CodeSystem/v2-0203
 Alias: $V3-NullFlavor = http://terminology.hl7.org/CodeSystem/v3-NullFlavor
 Alias: $V3-ActCode = http://terminology.hl7.org/CodeSystem/v3-ActCode

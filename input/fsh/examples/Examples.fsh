@@ -435,7 +435,8 @@ Description: "An example IE Core MedicationRequest representing a prescription f
 * status = #active
 * intent = #order
 
-* medicationCodeableConcept = $SCT#372567009 "Metformin"
+* medicationCodeableConcept = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
+* medicationCodeableConcept.coding[+] = $SCT#372567009 "Metformin"
 * medicationCodeableConcept.text = "Metformin 500mg tablets"
 
 * subject = Reference(ie-core-patient-example) "John Murphy"
