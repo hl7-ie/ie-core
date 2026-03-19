@@ -18,6 +18,15 @@ function formatTimestamp() {
   return new Date().toISOString().replace('T', ' ').replace(/\.\d+Z$/, ' UTC');
 }
 
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 function scenarioRows(cucumberJson) {
   if (!cucumberJson || !Array.isArray(cucumberJson)) return '';
   const rows = [];
@@ -26,12 +35,17 @@ function scenarioRows(cucumberJson) {
     for (const scenario of (feature.elements || [])) {
       if (scenario.type !== 'scenario') continue;
       const steps = scenario.steps || [];
-      const failed = steps.some(s => s.result && s.result.status === 'failed');
-      const skipped = steps.some(s => s.result && s.result.status === 'skipped');
-      const status = failed ? 'FAIL' : skipped ? 'SKIP' : 'PASS';
-      const icon = failed ? '&#10060;' : skipped ? '&#9888;' : '&#9989;';
+      const statuses = steps
+        .map(s => s.result && s.result.status)
+        .filter(Boolean);
+      const failed = statuses.some(status => ['failed', 'ambiguous'].includes(status));
+      const passed = statuses.length > 0 && statuses.every(status => status === 'passed');
+      const status = passed ? 'PASS' : failed ? 'FAIL' : 'SKIP';
       const durationMs = steps.reduce((sum, s) => sum + ((s.result && s.result.duration) || 0), 0) / 1e6;
-      rows.push(`<tr class="${status.toLowerCase()}"><td>${icon}</td><td>${featureName}</td><td>${scenario.name}</td><td>${status}</td><td>${durationMs.toFixed(1)}ms</td></tr>`);
+      const safeFeatureName = escapeHtml(featureName);
+      const safeScenarioName = escapeHtml(scenario.name || 'Unnamed scenario');
+      const iconForStatus = status === 'PASS' ? '&#9989;' : status === 'FAIL' ? '&#10060;' : '&#9888;';
+      rows.push(`<tr class="${status.toLowerCase()}"><td>${iconForStatus}</td><td>${safeFeatureName}</td><td>${safeScenarioName}</td><td>${status}</td><td>${durationMs.toFixed(1)}ms</td></tr>`);
     }
   }
   return rows.join('\n');
@@ -45,7 +59,7 @@ function qualityRows(qualityJson) {
   if (s.issues > 0) {
     rows.push(`<tr class="fail"><td>&#10060;</td><td colspan="3">Issues</td><td><strong>${s.issues}</strong></td></tr>`);
     for (const d of (qualityJson.details || [])) {
-      rows.push(`<tr class="fail"><td></td><td colspan="3">${d.check}</td><td>${d.detail}</td></tr>`);
+      rows.push(`<tr class="fail"><td></td><td colspan="3">${escapeHtml(d.check)}</td><td>${escapeHtml(d.detail)}</td></tr>`);
     }
   }
   return rows.join('\n');
@@ -56,7 +70,7 @@ function validationRows(valJson) {
   const rows = [];
   for (const r of (valJson.results || [])) {
     const icon = r.status === 'PASS' ? '&#9989;' : '&#10060;';
-    rows.push(`<tr class="${r.status.toLowerCase()}"><td>${icon}</td><td colspan="3">${r.file}</td><td>${r.status}</td></tr>`);
+    rows.push(`<tr class="${r.status.toLowerCase()}"><td>${icon}</td><td colspan="3">${escapeHtml(r.file)}</td><td>${escapeHtml(r.status)}</td></tr>`);
   }
   return rows.join('\n');
 }
@@ -75,16 +89,24 @@ const r5Quality = loadJson(path.join(R5_REPORTS_DIR, 'quality-results.json'));
 const r5Validation = loadJson(path.join(R5_REPORTS_DIR, 'validation-results.json'));
 
 function cucumberSummary(cj) {
-  if (!cj || !Array.isArray(cj)) return { passed: 0, failed: 0, total: 0 };
-  let passed = 0, failed = 0;
+  if (!cj || !Array.isArray(cj)) return { passed: 0, failed: 0, skipped: 0, total: 0 };
+  let passed = 0, failed = 0, skipped = 0;
   for (const f of cj) {
     for (const s of (f.elements || [])) {
       if (s.type !== 'scenario') continue;
-      const hasFail = (s.steps || []).some(st => st.result && st.result.status === 'failed');
-      hasFail ? failed++ : passed++;
+      const statuses = (s.steps || [])
+        .map(st => st.result && st.result.status)
+        .filter(Boolean);
+      if (statuses.length > 0 && statuses.every(status => status === 'passed')) {
+        passed++;
+      } else if (statuses.some(status => ['failed', 'ambiguous'].includes(status))) {
+        failed++;
+      } else {
+        skipped++;
+      }
     }
   }
-  return { passed, failed, total: passed + failed };
+  return { passed, failed, skipped, total: passed + failed + skipped };
 }
 
 const r4Bdd = cucumberSummary(r4Cucumber);
@@ -158,13 +180,13 @@ const html = `<!DOCTYPE html>
 <div class="section">
   <h2>Overview</h2>
   <table>
-    <tr><th>Suite</th><th>Edition</th><th>Passed</th><th>Failed/Issues</th><th>Total</th></tr>
-    <tr><td>BDD / Cucumber</td><td>R4</td><td>${r4Bdd.passed}</td><td>${r4Bdd.failed}</td><td>${r4Bdd.total}</td></tr>
-    <tr><td>Quality Control</td><td>R4</td><td>${r4Qs.passed}</td><td>${r4Qs.issues}</td><td>${r4Qs.total}</td></tr>
-    <tr><td>FHIR Validator</td><td>R4</td><td>${r4Vs.passed}</td><td>${r4Vs.failed}</td><td>${r4Vs.total}</td></tr>
-    <tr><td>BDD / Cucumber</td><td>R5</td><td>${r5Bdd.passed}</td><td>${r5Bdd.failed}</td><td>${r5Bdd.total}</td></tr>
-    <tr><td>Quality Control</td><td>R5</td><td>${r5Qs.passed}</td><td>${r5Qs.issues}</td><td>${r5Qs.total}</td></tr>
-    <tr><td>FHIR Validator</td><td>R5</td><td>${r5Vs.passed}</td><td>${r5Vs.failed}</td><td>${r5Vs.total}</td></tr>
+    <tr><th>Suite</th><th>Edition</th><th>Passed</th><th>Failed/Issues</th><th>Skipped</th><th>Total</th></tr>
+    <tr><td>BDD / Cucumber</td><td>R4</td><td>${r4Bdd.passed}</td><td>${r4Bdd.failed}</td><td>${r4Bdd.skipped}</td><td>${r4Bdd.total}</td></tr>
+    <tr><td>Quality Control</td><td>R4</td><td>${r4Qs.passed}</td><td>${r4Qs.issues}</td><td>0</td><td>${r4Qs.total}</td></tr>
+    <tr><td>FHIR Validator</td><td>R4</td><td>${r4Vs.passed}</td><td>${r4Vs.failed}</td><td>0</td><td>${r4Vs.total}</td></tr>
+    <tr><td>BDD / Cucumber</td><td>R5</td><td>${r5Bdd.passed}</td><td>${r5Bdd.failed}</td><td>${r5Bdd.skipped}</td><td>${r5Bdd.total}</td></tr>
+    <tr><td>Quality Control</td><td>R5</td><td>${r5Qs.passed}</td><td>${r5Qs.issues}</td><td>0</td><td>${r5Qs.total}</td></tr>
+    <tr><td>FHIR Validator</td><td>R5</td><td>${r5Vs.passed}</td><td>${r5Vs.failed}</td><td>0</td><td>${r5Vs.total}</td></tr>
   </table>
 </div>
 

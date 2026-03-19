@@ -12,19 +12,39 @@ function loadJson(filePath) {
   return null;
 }
 
+function escapeMarkdownCell(value) {
+  return String(value ?? '').replace(/\|/g, '\\|').replace(/\r?\n/g, ' ');
+}
+
 function cucumberSummary(cj) {
-  if (!cj || !Array.isArray(cj)) return { passed: 0, failed: 0, total: 0, scenarios: [] };
-  let passed = 0, failed = 0;
+  if (!cj || !Array.isArray(cj)) {
+    return { passed: 0, failed: 0, skipped: 0, total: 0, scenarios: [] };
+  }
+  let passed = 0, failed = 0, skipped = 0;
   const scenarios = [];
   for (const f of cj) {
     for (const s of (f.elements || [])) {
       if (s.type !== 'scenario') continue;
-      const hasFail = (s.steps || []).some(st => st.result && st.result.status === 'failed');
-      hasFail ? failed++ : passed++;
-      scenarios.push({ feature: f.name, name: s.name, status: hasFail ? 'FAIL' : 'PASS' });
+      const steps = s.steps || [];
+      const statuses = steps
+        .map(st => st.result && st.result.status)
+        .filter(Boolean);
+
+      let status = 'SKIP';
+      if (statuses.length > 0 && statuses.every(st => st === 'passed')) {
+        status = 'PASS';
+        passed++;
+      } else if (statuses.some(st => ['failed', 'ambiguous'].includes(st))) {
+        status = 'FAIL';
+        failed++;
+      } else {
+        skipped++;
+      }
+
+      scenarios.push({ feature: f.name, name: s.name, status });
     }
   }
-  return { passed, failed, total: passed + failed, scenarios };
+  return { passed, failed, skipped, total: passed + failed + skipped, scenarios };
 }
 
 function badge(label, passed, total) {
@@ -58,22 +78,22 @@ md += `${badge('R5 Quality', r5Qs.passed, r5Qs.total)} `;
 md += `${badge('R5 Validator', r5Vs.passed, r5Vs.total)}\n\n`;
 
 md += `### Summary\n\n`;
-md += `| Suite | Edition | Passed | Failed | Total |\n`;
-md += `|-------|---------|-------:|-------:|------:|\n`;
-md += `| BDD / Cucumber | R4 | ${r4Bdd.passed} | ${r4Bdd.failed} | ${r4Bdd.total} |\n`;
-md += `| Quality Control | R4 | ${r4Qs.passed} | ${r4Qs.issues} | ${r4Qs.total} |\n`;
-md += `| FHIR Validator | R4 | ${r4Vs.passed} | ${r4Vs.failed} | ${r4Vs.total} |\n`;
-md += `| BDD / Cucumber | R5 | ${r5Bdd.passed} | ${r5Bdd.failed} | ${r5Bdd.total} |\n`;
-md += `| Quality Control | R5 | ${r5Qs.passed} | ${r5Qs.issues} | ${r5Qs.total} |\n`;
-md += `| FHIR Validator | R5 | ${r5Vs.passed} | ${r5Vs.failed} | ${r5Vs.total} |\n\n`;
+md += `| Suite | Edition | Passed | Failed/Issues | Skipped | Total |\n`;
+md += `|-------|---------|-------:|--------------:|--------:|------:|\n`;
+md += `| BDD / Cucumber | R4 | ${r4Bdd.passed} | ${r4Bdd.failed} | ${r4Bdd.skipped} | ${r4Bdd.total} |\n`;
+md += `| Quality Control | R4 | ${r4Qs.passed} | ${r4Qs.issues} | 0 | ${r4Qs.total} |\n`;
+md += `| FHIR Validator | R4 | ${r4Vs.passed} | ${r4Vs.failed} | 0 | ${r4Vs.total} |\n`;
+md += `| BDD / Cucumber | R5 | ${r5Bdd.passed} | ${r5Bdd.failed} | ${r5Bdd.skipped} | ${r5Bdd.total} |\n`;
+md += `| Quality Control | R5 | ${r5Qs.passed} | ${r5Qs.issues} | 0 | ${r5Qs.total} |\n`;
+md += `| FHIR Validator | R5 | ${r5Vs.passed} | ${r5Vs.failed} | 0 | ${r5Vs.total} |\n\n`;
 
 if (r4Bdd.scenarios.length > 0) {
   md += `<details><summary><strong>R4 BDD Scenarios (${r4Bdd.passed}/${r4Bdd.total})</strong></summary>\n\n`;
   md += `| Status | Feature | Scenario |\n`;
   md += `|--------|---------|----------|\n`;
   for (const s of r4Bdd.scenarios) {
-    const icon = s.status === 'PASS' ? ':white_check_mark:' : ':x:';
-    md += `| ${icon} | ${s.feature} | ${s.name} |\n`;
+    const icon = s.status === 'PASS' ? ':white_check_mark:' : s.status === 'FAIL' ? ':x:' : ':warning:';
+    md += `| ${icon} ${s.status} | ${escapeMarkdownCell(s.feature)} | ${escapeMarkdownCell(s.name)} |\n`;
   }
   md += `\n</details>\n\n`;
 }
@@ -83,8 +103,8 @@ if (r5Bdd.scenarios.length > 0) {
   md += `| Status | Feature | Scenario |\n`;
   md += `|--------|---------|----------|\n`;
   for (const s of r5Bdd.scenarios) {
-    const icon = s.status === 'PASS' ? ':white_check_mark:' : ':x:';
-    md += `| ${icon} | ${s.feature} | ${s.name} |\n`;
+    const icon = s.status === 'PASS' ? ':white_check_mark:' : s.status === 'FAIL' ? ':x:' : ':warning:';
+    md += `| ${icon} ${s.status} | ${escapeMarkdownCell(s.feature)} | ${escapeMarkdownCell(s.name)} |\n`;
   }
   md += `\n</details>\n\n`;
 }
@@ -95,7 +115,7 @@ if (r4Validation && r4Validation.results && r4Validation.results.length > 0) {
   md += `|--------|----------|\n`;
   for (const r of r4Validation.results) {
     const icon = r.status === 'PASS' ? ':white_check_mark:' : ':x:';
-    md += `| ${icon} | ${r.file} |\n`;
+    md += `| ${icon} ${r.status} | ${escapeMarkdownCell(r.file)} |\n`;
   }
   md += `\n</details>\n\n`;
 }
@@ -105,7 +125,7 @@ if (r4Quality && r4Quality.details && r4Quality.details.length > 0) {
   md += `| Check | Detail |\n`;
   md += `|-------|--------|\n`;
   for (const d of r4Quality.details) {
-    md += `| ${d.check} | ${d.detail} |\n`;
+    md += `| ${escapeMarkdownCell(d.check)} | ${escapeMarkdownCell(d.detail)} |\n`;
   }
   md += `\n</details>\n\n`;
 }
@@ -115,7 +135,7 @@ if (r5Quality && r5Quality.details && r5Quality.details.length > 0) {
   md += `| Check | Detail |\n`;
   md += `|-------|--------|\n`;
   for (const d of r5Quality.details) {
-    md += `| ${d.check} | ${d.detail} |\n`;
+    md += `| ${escapeMarkdownCell(d.check)} | ${escapeMarkdownCell(d.detail)} |\n`;
   }
   md += `\n</details>\n\n`;
 }

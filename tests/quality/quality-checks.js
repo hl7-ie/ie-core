@@ -9,6 +9,11 @@ const REPORTS_DIR = path.join(__dirname, '..', 'reports');
 
 if (!fs.existsSync(REPORTS_DIR)) fs.mkdirSync(REPORTS_DIR, { recursive: true });
 
+if (!fs.existsSync(FSH_GENERATED)) {
+  console.error('fsh-generated not found. Run sushi first: sushi .');
+  process.exit(1);
+}
+
 let issues = [];
 let passed = 0;
 
