@@ -10,7 +10,8 @@ services:
       - start-dev
       - --import-realm
     environment:
-      # Bootstrap admin credentials (temporary – change after first login)
+      # Bootstrap admin credentials – FOR LOCAL DEVELOPMENT ONLY.
+      # MUST be changed before deploying to any non-local environment.
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       # Database (dev mode uses embedded H2 – swap for Postgres in production)
@@ -45,7 +46,7 @@ services:
   # HAPI FHIR Server R4 – NePS FHIR endpoint
   # ──────────────────────────────────────────────────────────
   fhir-server:
-    image: hapiproject/hapi:latest
+    image: hapiproject/hapi:v7.4.0
     container_name: neps-fhir-server
     environment:
       hapi.fhir.fhir_version: R4
