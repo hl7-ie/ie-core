@@ -95,6 +95,8 @@ pages:
       title: Clinical Notes
     medication-list.md:
       title: Medication List
+    terminology-services.md:
+      title: Terminology Services (CTS & NMPC)
     basic-provenance.md:
       title: Basic Provenance
     screening-and-assessments.md:
@@ -130,6 +132,7 @@ menu:
     General Guidance: general-guidance.html
     Clinical Notes: clinical-notes.html
     Medication List: medication-list.html
+    Terminology Services: terminology-services.html
     Basic Provenance: basic-provenance.html
     Screening and Assessments: screening-and-assessments.html
     Future of IE Core: future-of-ie-core.html

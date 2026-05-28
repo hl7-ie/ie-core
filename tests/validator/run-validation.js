@@ -23,7 +23,10 @@ if (!fs.existsSync(FSH_GENERATED)) {
 const DEPENDENCY_IGS = [
   'hl7.fhir.eu.base#0.1.0',
   'hl7.fhir.uv.ips#1.1.0',
-  'hl7.fhir.eu.laboratory#0.1.1'
+  'hl7.fhir.eu.laboratory#0.1.1',
+  'hl7.fhir.eu.extensions#1.2.0',
+  'hl7.fhir.eu.mpd#0.1.0-ballot',
+  'hl7.fhir.eu.hdr#0.1.0-ballot'
 ];
 
 // Domain filtering: pass --domain <name> to validate only a subset of resources.
