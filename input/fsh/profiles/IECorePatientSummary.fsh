@@ -134,7 +134,7 @@ Description: "Profile for the Irish Patient Summary document, aligned with the I
 * section[alerts].code = $LOINC#104605-1 "Alerts"
 * section[alerts].text MS
 * section[alerts].entry MS
-* section[alerts].entry only Reference(IECoreFlag)
+* section[alerts].entry only Reference(IECoreFlag or IECoreAllergyIntolerance)
 * section[alerts] ^short = "Alerts — substantial medical alerts or warnings (EHDSAlert)"
 * section[alerts] ^definition = "Substantial alerts or warnings that health professionals should be aware of. Added in Xt-EHR EHDSPatientSummary v1.0.0. Maps to the FHIR Flag resource via IECoreFlag."
 

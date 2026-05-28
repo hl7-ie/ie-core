@@ -77,8 +77,8 @@ Description: "Profile for electronic prescriptions in the Irish healthcare syste
 // the FHIR R4 extension mechanism as there is no native R4 element.
 // When the EU MPD IG is published as STU, this should derive from
 // MedicationRequest-eu-mpd which may carry a formal offLabel extension.
-* extension contains IECoreOffLabelUse named offLabel 0..1 MS
-* extension[offLabel] ^short = "Off-label use indicator — prescriber has knowingly prescribed outside approved indications (EHDSMedicationPrescription.prescriptionItem.offLabel)"
+* extension contains IECoreOffLabelUse named offLabelUse 0..1 MS
+* extension[offLabelUse] ^short = "Off-label use indicator — prescriber has knowingly prescribed outside approved indications (EHDSMedicationPrescription.prescriptionItem.offLabel)"
 
 // ── Note ───────────────────────────────────────────────────────────────────
 * note MS
