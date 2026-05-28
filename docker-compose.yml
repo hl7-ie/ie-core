@@ -1,0 +1,67 @@
+services:
+
+  # ──────────────────────────────────────────────────────────
+  # Keycloak 26 – Identity & Access Management for NePS
+  # ──────────────────────────────────────────────────────────
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.2
+    container_name: neps-keycloak
+    command:
+      - start-dev
+      - --import-realm
+    environment:
+      # Bootstrap admin credentials (temporary – change after first login)
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      # Database (dev mode uses embedded H2 – swap for Postgres in production)
+      KC_DB: dev-file
+      # HTTP settings
+      KC_HTTP_PORT: "8080"
+      KC_HOSTNAME_STRICT: "false"
+      KC_HOSTNAME_STRICT_HTTPS: "false"
+      KC_HTTP_ENABLED: "true"
+      # Logging
+      KC_LOG_LEVEL: INFO
+      # Health & metrics endpoints
+      KC_HEALTH_ENABLED: "true"
+      KC_METRICS_ENABLED: "true"
+    ports:
+      - "8080:8080"
+    volumes:
+      # Auto-import the NePS realm on first start
+      - ./keycloak/neps-realm.json:/opt/keycloak/data/import/neps-realm.json:ro
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - |
+          curl -sf http://localhost:8080/health/ready || exit 1
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+
+  # ──────────────────────────────────────────────────────────
+  # HAPI FHIR Server R4 – NePS FHIR endpoint
+  # ──────────────────────────────────────────────────────────
+  fhir-server:
+    image: hapiproject/hapi:latest
+    container_name: neps-fhir-server
+    environment:
+      hapi.fhir.fhir_version: R4
+      hapi.fhir.server_address: http://localhost:8090/fhir
+      hapi.fhir.default_encoding: JSON
+      hapi.fhir.allow_multiple_delete: "true"
+      hapi.fhir.reuse_cached_search_results_millis: "-1"
+      # SMART on FHIR / OAuth2 metadata
+      hapi.fhir.cors.allow_Credentials: "true"
+      hapi.fhir.cors.allowed_origin:
+        - "*"
+    ports:
+      - "8090:8080"
+    depends_on:
+      keycloak:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes: {}
