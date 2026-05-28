@@ -57,7 +57,7 @@ Description: "Profile for hospital discharge reports in the Irish healthcare sys
 
 // ── Course of encounter (mandatory, diagnoses + procedures + pharmacotherapy + test results)
 // Per Xt-EHR v1.0.0 this section is the primary clinical narrative of the admission.
-* section[courseOfEncounter].code = $LOINC#11535-2 "Hospital discharge Dx Narrative"
+* section[courseOfEncounter].code = $LOINC#8648-8 "Hospital course"
 * section[courseOfEncounter].text MS
 * section[courseOfEncounter].entry MS
 * section[courseOfEncounter] ^short = "Course of encounter — diagnoses, procedures, medications, and key results (mandatory)"
