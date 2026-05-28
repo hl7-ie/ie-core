@@ -159,6 +159,7 @@ groups:
       - StructureDefinition/ie-core-goal
       - StructureDefinition/ie-core-servicerequest
       - StructureDefinition/ie-core-encounter
+      - StructureDefinition/ie-core-flag
   MedicationProfiles:
     name: Medication
     description: Medication-related profiles
@@ -166,6 +167,7 @@ groups:
       - StructureDefinition/ie-core-medication
       - StructureDefinition/ie-core-medicationrequest
       - StructureDefinition/ie-core-medicationdispense
+      - StructureDefinition/ie-core-medicationstatement
       - StructureDefinition/ie-core-immunization
   EPrescriptionProfiles:
     name: ePrescription & eDispensation (EHDS)
@@ -174,6 +176,7 @@ groups:
       - StructureDefinition/ie-core-medication-eprescription
       - StructureDefinition/ie-core-medicationrequest-eprescription
       - StructureDefinition/ie-core-medicationdispense-edispensation
+      - StructureDefinition/ie-core-off-label-use
   DiagnosticProfiles:
     name: Diagnostics
     description: Diagnostic reporting profiles

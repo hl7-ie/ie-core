@@ -8,7 +8,7 @@ The IE Core Implementation Guide, based on [FHIR Version R4](http://hl7.org/fhir
 
 IE Core profiles are built on top of the [HL7 Europe Base and Core FHIR profiles](https://hl7.eu/fhir/base), ensuring conformance with the [European Health Data Space (EHDS)](https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space_en) regulation. This layered approach means that every IE Core resource instance automatically satisfies EU Core constraints and is interoperable with other EU Member State implementations. The profiles also align with the [International Patient Summary (IPS)](https://hl7.org/fhir/uv/ips/) standard for cross-border care scenarios via [MyHealth@EU](https://health.ec.europa.eu/ehealth-digital-health-and-care/electronic-cross-border-health-services_en).
 
-For full details, see the [EHDS & EU Conformance](ehds-conformance.html) page.
+IE Core v0.1.1 is aligned with the **XT-EHR logical model v1.0.0**, which introduced a formal Obligations Framework, new base models (`EHDSDocument`, `EHDSDataSet`), mandatory section updates to the Patient Summary and Hospital Discharge Report, and additional ePrescription elements. See the [EHDS & EU Conformance](ehds-conformance.html) page for the full alignment matrix and FHIR R4/R5 compatibility analysis.
 
 There are two ways to implement IE Core:
 
@@ -62,6 +62,7 @@ Below is the list of IE Core Profiles. Each profile identifies which core elemen
 | [IE Core Goal](StructureDefinition-ie-core-goal.html) | Clinical goals for patients |
 | [IE Core ServiceRequest](StructureDefinition-ie-core-servicerequest.html) | Requests for clinical services |
 | [IE Core Encounter](StructureDefinition-ie-core-encounter.html) | Healthcare encounters and visits |
+| [IE Core Flag (Alert)](StructureDefinition-ie-core-flag.html) | Substantial medical alerts — maps to EHDSAlert (XT-EHR 1.0.0) *(Draft)* |
 
 #### Medication
 
@@ -70,6 +71,7 @@ Below is the list of IE Core Profiles. Each profile identifies which core elemen
 | [IE Core Medication](StructureDefinition-ie-core-medication.html) | Medication definitions |
 | [IE Core MedicationRequest](StructureDefinition-ie-core-medicationrequest.html) | Prescriptions and medication orders |
 | [IE Core MedicationDispense](StructureDefinition-ie-core-medicationdispense.html) | Medication dispensing records |
+| [IE Core MedicationStatement](StructureDefinition-ie-core-medicationstatement.html) | Medication use statements — maps to EHDSMedicationUse (XT-EHR 1.0.0) *(Draft)* |
 | [IE Core Immunization](StructureDefinition-ie-core-immunization.html) | Immunization administration records |
 
 #### Diagnostics & Observations
