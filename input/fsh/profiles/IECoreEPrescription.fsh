@@ -1,13 +1,15 @@
 // ╭──────────────────────────────────────────────────────────────────────╮
 // │  IE Core ePrescription Profiles                                    │
 // │  Aligned with: HL7 Europe MPD IG, Xt-EHR EHDSMedicationPrescription│
+// │  Updated to Xt-EHR v1.0.0: offLabel, statusReason,                │
+// │  minimumDispenseInterval, intendedUseType                          │
 // ╰──────────────────────────────────────────────────────────────────────╯
 
 Profile: IECoreMedicationRequestEPrescription
 Parent: IECoreMedicationRequest
 Id: ie-core-medicationrequest-eprescription
 Title: "IE Core MedicationRequest (ePrescription)"
-Description: "Profile for electronic prescriptions in the Irish healthcare system, aligned with the HL7 Europe Medication Prescription and Dispense (MPD) IG and the Xt-EHR EHDSMedicationPrescription logical model. This profile extends the base IE Core MedicationRequest with constraints required for cross-border ePrescription exchange via MyHealth@EU."
+Description: "Profile for electronic prescriptions in the Irish healthcare system, aligned with the HL7 Europe Medication Prescription and Dispense (MPD) IG and the Xt-EHR EHDSMedicationPrescription logical model v1.0.0. This profile extends the base IE Core MedicationRequest with constraints required for cross-border ePrescription exchange via MyHealth@EU. Additions in v1.0.0 alignment: offLabel block, statusReason, dispenseRequest.dispenseInterval (minimumDispenseInterval), and category for intendedUseType."
 
 * ^status = #draft
 
@@ -19,8 +21,14 @@ Description: "Profile for electronic prescriptions in the Irish healthcare syste
 * intent MS
 * intent = #order
 
+// statusReason — added in Xt-EHR EHDSMedicationPrescription v1.0.0
+// Reason why the prescription has the current status (e.g. why it was cancelled or put on hold)
+* statusReason MS
+* statusReason ^short = "Reason for the current prescription status (EHDSMedicationPrescription.header.statusReason)"
+
 * category 0..* MS
-* category ^short = "Prescription category (e.g. community, hospital, controlled drug)"
+* category ^short = "Prescription category — includes intendedUseType (e.g. prophylaxis, treatment, anaesthesia)"
+* category ^definition = "Categorisation of the prescription intent per Xt-EHR EHDSMedicationPrescription.prescriptionItem.intendedUseType (v1.0.0)."
 
 * priority MS
 
@@ -35,7 +43,7 @@ Description: "Profile for electronic prescriptions in the Irish healthcare syste
 * authoredOn ^short = "Date the prescription was written"
 
 * reasonCode MS
-* reasonCode ^short = "Clinical reason for the prescription"
+* reasonCode ^short = "Clinical reason/indication for the prescription (ICD-10, SNOMED CT, Orphacode)"
 
 * dosageInstruction 1..* MS
 * dosageInstruction.text 1..1 MS
@@ -46,25 +54,42 @@ Description: "Profile for electronic prescriptions in the Irish healthcare syste
 
 * dispenseRequest MS
 * dispenseRequest.validityPeriod MS
-* dispenseRequest.validityPeriod ^short = "Period during which the prescription can be dispensed"
+* dispenseRequest.validityPeriod ^short = "Period during which the prescription can be dispensed (EHDSMedicationPrescription.prescriptionItem.validityPeriod)"
 * dispenseRequest.numberOfRepeatsAllowed MS
-* dispenseRequest.numberOfRepeatsAllowed ^short = "Number of refills allowed"
+* dispenseRequest.numberOfRepeatsAllowed ^short = "Number of refills allowed beyond the initial dispense (EHDSMedicationPrescription.prescriptionItem.numberOfRepeats)"
 * dispenseRequest.quantity MS
 * dispenseRequest.expectedSupplyDuration MS
+// dispenseRequest.dispenseInterval maps to EHDSMedicationPrescription.prescriptionItem.minimumDispenseInterval (v1.0.0)
+* dispenseRequest.dispenseInterval MS
+* dispenseRequest.dispenseInterval ^short = "Minimum interval between dispensations for a repeating prescription (EHDSMedicationPrescription.prescriptionItem.minimumDispenseInterval)"
 
 * substitution MS
 * substitution.allowed[x] MS
 * substitution.allowed[x] ^short = "Whether substitution is allowed under Irish pharmacy regulations"
+* substitution.reason MS
+* substitution.reason ^short = "Reason for the substitution requirement (e.g. biological product, patient allergy to excipient)"
 
 * groupIdentifier MS
 * groupIdentifier ^short = "Links multiple prescription items on the same prescription"
+
+// ── Off-label use (new in Xt-EHR EHDSMedicationPrescription v1.0.0) ───────
+// EHDSMedicationPrescription.prescriptionItem.offLabel is modelled here using
+// the FHIR R4 extension mechanism as there is no native R4 element.
+// When the EU MPD IG is published as STU, this should derive from
+// MedicationRequest-eu-mpd which may carry a formal offLabel extension.
+* extension contains IECoreOffLabelUse named offLabel 0..1 MS
+* extension[offLabel] ^short = "Off-label use indicator — prescriber has knowingly prescribed outside approved indications (EHDSMedicationPrescription.prescriptionItem.offLabel)"
+
+// ── Note ───────────────────────────────────────────────────────────────────
+* note MS
+* note ^short = "Additional information or message to the dispenser"
 
 
 Profile: IECoreMedicationDispenseEDispensation
 Parent: IECoreMedicationDispense
 Id: ie-core-medicationdispense-edispensation
 Title: "IE Core MedicationDispense (eDispensation)"
-Description: "Profile for electronic dispensation records in the Irish healthcare system, aligned with the HL7 Europe MPD IG and the Xt-EHR EHDSMedicationDispense logical model. This profile extends the base IE Core MedicationDispense with constraints for cross-border eDispensation exchange."
+Description: "Profile for electronic dispensation records in the Irish healthcare system, aligned with the HL7 Europe MPD IG and the Xt-EHR EHDSMedicationDispense logical model v1.0.0. This profile extends the base IE Core MedicationDispense with constraints for cross-border eDispensation exchange."
 
 * ^status = #draft
 
@@ -72,6 +97,10 @@ Description: "Profile for electronic dispensation records in the Irish healthcar
 * identifier ^short = "Dispensation record identifier"
 
 * status MS
+
+// statusReason — added in Xt-EHR v1.0.0 alignment
+* statusReasonCodeableConcept MS
+* statusReasonCodeableConcept ^short = "Reason for the current dispense status"
 
 * medication[x] 1..1 MS
 * subject 1..1 MS
@@ -107,7 +136,7 @@ Profile: IECoreMedicationEPrescription
 Parent: IECoreMedication
 Id: ie-core-medication-eprescription
 Title: "IE Core Medication (ePrescription/eDispensation)"
-Description: "Medication profile for use in ePrescription and eDispensation, aligned with the HL7 Europe MPD Medication profile and the Xt-EHR EHDSMedication logical model. Supports both generic/virtual products and branded/packaged products as required by Irish pharmacy practice and EU cross-border exchange."
+Description: "Medication profile for use in ePrescription and eDispensation, aligned with the HL7 Europe MPD Medication profile and the Xt-EHR EHDSMedication logical model v1.0.0. Supports both generic/virtual products and branded/packaged products as required by Irish pharmacy practice and EU cross-border exchange."
 
 * ^status = #draft
 
@@ -115,7 +144,7 @@ Description: "Medication profile for use in ePrescription and eDispensation, ali
 * code ^short = "Medication code. Use NMPC as the primary coding where available, with SNOMED CT Irish Edition as a secondary coding where available. ATC may be carried for cross-border classification."
 
 * form MS
-* form ^short = "Dose form (e.g. tablet, capsule, solution)"
+* form ^short = "Dose form (e.g. tablet, capsule, solution) — EDQM Standard Terms preferred"
 
 * amount MS
 * amount ^short = "Package size / amount of drug in package"
@@ -129,3 +158,24 @@ Description: "Medication profile for use in ePrescription and eDispensation, ali
 * batch MS
 * batch.lotNumber MS
 * batch.expirationDate MS
+
+
+// ── Off-label extension definition ────────────────────────────────────────
+Extension: IECoreOffLabelUse
+Id: ie-core-off-label-use
+Title: "IE Core Off-Label Use"
+Description: "Indicates that the prescriber has knowingly prescribed the medication for an indication, age group, dosage, or route of administration that is not approved by the regulatory agencies. Corresponds to EHDSMedicationPrescription.prescriptionItem.offLabel in Xt-EHR v1.0.0."
+
+* ^status = #draft
+* ^context[+].type = #element
+* ^context[=].expression = "MedicationRequest"
+
+* extension contains
+    isOffLabelUse 1..1 and
+    reason 0..*
+
+* extension[isOffLabelUse].value[x] only boolean
+* extension[isOffLabelUse] ^short = "True when the prescriber knowingly uses the medication off-label"
+
+* extension[reason].value[x] only CodeableConcept or string
+* extension[reason] ^short = "Reason or clarification for the off-label use"

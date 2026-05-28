@@ -71,3 +71,30 @@ For medications, IE Core adopts the National Medicinal Product Catalogue (NMPC) 
 **ATC (WHO)** is used as a supplementary classification for medications, particularly for EU cross-border interoperability under EHDS and MyHealth@EU.
 
 See the [Medication List](medication-list.html) page for detailed medication terminology guidance.
+
+### XT-EHR Obligations Framework
+
+XT-EHR v1.0.0 introduced a formal **Obligations Framework** as a new layer on top of the EHDS logical models. This framework is separate from and additive to the logical model definitions, and defines normative obligations (SHALL/SHOULD/MAY) for each actor type — **Creator**, **Repository**, and **Consumer** — for each element in each model.
+
+#### What this means for IE Core implementers
+
+| Actor | Obligations |
+|-------|-------------|
+| **Creator** (system that creates the document/resource) | SHALL populate all elements marked as SHALL for Creator in the XT-EHR Obligations model. IE Core MS flags identify these elements. |
+| **Repository** (system that stores and retrieves the document/resource) | SHALL store and return all elements received; SHALL NOT remove or modify mandatory elements |
+| **Consumer** (system that receives and displays/processes the document/resource) | SHALL process (display or use) all elements marked as SHALL for Consumer; SHOULD render human narrative where available |
+
+#### IE Core Must Support and Obligations
+
+In IE Core, elements marked as **Must Support (MS)** correspond to elements that carry a SHALL obligation in the XT-EHR Obligations model for at least one actor. Where an element is present in XT-EHR with a SHOULD obligation, IE Core typically marks it as MS but does not add minimum cardinality.
+
+Implementers building systems for cross-border exchange via MyHealth@EU SHOULD consult the [XT-EHR Obligations models](https://www.xt-ehr.eu/fhir/models/en/index.html) to verify that their system satisfies all obligations for the relevant actor type.
+
+#### Obligations coverage in IE Core v0.1.1
+
+- **Patient Summary** (EHDSPatientSummaryObligations): Full coverage — all mandatory sections implemented
+- **Discharge Report** (EHDSDischargeReportObligations): Full coverage — all mandatory sections implemented
+- **ePrescription** (EHDSMedicationPrescriptionObligations): Full coverage — all required elements present
+- **MedicationStatement** (EHDSMedicationUseObligations): Partial — `adherence` element obligation deferred (FHIR R4 limitation)
+- **Flag/Alert** (EHDSAlertObligations): Partial — `alertType` binding to be finalised
+- **DeviceUseStatement** (EHDSDeviceUseObligations): Not yet covered — profile planned

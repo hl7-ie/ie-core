@@ -116,6 +116,21 @@ BASG codes"]
     style Hub fill:#003399,color:#fff,stroke:#003399
 ```
 
+### XT-EHR 1.0.0 ePrescription Model Changes
+
+The XT-EHR **EHDSMedicationPrescription** logical model was updated in v1.0.0 with the following additions. IE Core ePrescription profiles have been updated to reflect these changes.
+
+| XT-EHR 1.0.0 Addition | IE Core Element | Notes |
+|-----------------------|-----------------|-------|
+| `prescriptionItem.offLabel` | `MedicationRequest.extension[IECoreOffLabelUse]` | Boolean + optional reason; prescriber has knowingly prescribed outside approved indications |
+| `prescriptionItem.statusReason` | `MedicationRequest.statusReason` | Reason for current prescription status (e.g., why cancelled or on hold) |
+| `prescriptionItem.minimumDispenseInterval` | `MedicationRequest.dispenseRequest.dispenseInterval` | Minimum interval between dispensations for repeating prescriptions |
+| `prescriptionItem.intendedUseType` | `MedicationRequest.category` | Categorisation of prescription intent (prophylaxis, treatment, anaesthesia, etc.) |
+
+> **Off-label prescribing note**: The `IECoreOffLabelUse` extension is added at the `MedicationRequest` level. When the EU MPD IG (`hl7.fhir.eu.mpd`) is published as STU, the formal EU extension will be adopted and this IE Core extension will be deprecated. The extension contains two sub-extensions: `isOffLabelUse` (boolean, 1..1) and `reason` (CodeableConcept or string, 0..*).
+
+> **R4/R5 note**: The XT-EHR logical models are authored in FHIR R5. In FHIR R4, `MedicationRequest.statusReason` and `dispenseRequest.dispenseInterval` are both available and map directly to the XT-EHR elements.
+
 ### IHE Profiles Used
 
 | IHE Profile | Purpose | Protocol |
