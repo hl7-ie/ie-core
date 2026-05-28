@@ -189,10 +189,10 @@ Description: "Discharge disposition codes indicating patient destination upon di
 ValueSet: IECoreMedicationCodes
 Id: ie-core-medication-codes
 Title: "IE Core Medication Codes"
-Description: "Medication codes for the Irish healthcare system. NMPC is the preferred primary medication code wherever available. SNOMED CT Irish Edition is the preferred secondary clinical terminology wherever available, and ATC (WHO) codes are included for international classification and EU cross-border interoperability (EHDS/MyHealth@EU)."
+Description: "Medication codes for the Irish healthcare system. NMPC (via the SNOMED CT Irish Edition hosted on the HSE Central Terminology Server) is the preferred primary medication code wherever available. SNOMED CT Irish Edition is the preferred secondary clinical terminology wherever available, and ATC (WHO) codes are included for international classification and EU cross-border interoperability (EHDS/MyHealth@EU). Use $SCT_IE with the NMPC supplement (useSupplement: $NMPC_SUPPLEMENT) when querying the CTS for real medication codes."
 * ^experimental = false
+* include codes from system $SCT_IE where concept is-a #373873005 "Pharmaceutical / biologic product (product)"
 * include codes from system $NMPC
-* include codes from system $SCT where concept descendent-of #373873005 "Pharmaceutical / biologic product (product)"
 * include codes from system $ATC
 
 // ============================================================================
@@ -757,3 +757,55 @@ Description: "Extended HL7 v2 identifier type codes including Ireland-specific i
 * $V2-0203#DR "Donor Registration Number"
 * $V2-0203#EN "Employer number"
 * $V2-0203#MD "Medical License number"
+
+// ============================================================================
+// NMPC Product Hierarchy ValueSets (HSE Central Terminology Server)
+// All codes are SNOMED CT concepts within the Irish Extension (module 1601000220105).
+// Query via the CTS at https://nmpc.hse.ie/production1/fhir using:
+//   $expand?url=<ValueSet URL>&useSupplement=https://nmpc.hse.ie/CodeSystem/nmpc-supplement
+// See: https://github.com/hsenmpc/nmpc-api-examples
+// ============================================================================
+
+// ============================================================================
+// NMPC – Actual Medicinal Product Pack (AMPP) — dispensable unit
+// SNOMED refset: 660401000220107
+// ============================================================================
+ValueSet: IECoreNMPCActualMedicinalProductPack
+Id: ie-core-nmpc-ampp
+Title: "IE Core NMPC Actual Medicinal Product Pack (AMPP)"
+Description: "Actual Medicinal Product Pack (AMPP) concepts from the SNOMED CT Irish Edition (NMPC). These represent the dispensable, authorised, branded pack-level products as listed by the HPRA and catalogued in the NMPC. Query the HSE Central Terminology Server (CTS) at https://nmpc.hse.ie/production1/fhir using the NMPC supplement (useSupplement: https://nmpc.hse.ie/CodeSystem/nmpc-supplement) to access current membership. SNOMED CT refset ID: 660401000220107."
+* ^experimental = false
+* include codes from system $SCT_IE where concept in "^660401000220107"
+
+// ============================================================================
+// NMPC – Actual Medicinal Product (AMP) — product without pack size
+// SNOMED refset: 660381000220107
+// ============================================================================
+ValueSet: IECoreNMPCActualMedicinalProduct
+Id: ie-core-nmpc-amp
+Title: "IE Core NMPC Actual Medicinal Product (AMP)"
+Description: "Actual Medicinal Product (AMP) concepts from the SNOMED CT Irish Edition (NMPC). AMPs represent authorised, branded medicinal products at the product level (without specific pack size). SNOMED CT refset ID: 660381000220107."
+* ^experimental = false
+* include codes from system $SCT_IE where concept in "^660381000220107"
+
+// ============================================================================
+// NMPC – Virtual Medicinal Product Pack (VMPP)
+// SNOMED refset: 660391000220105
+// ============================================================================
+ValueSet: IECoreNMPCVirtualMedicinalProductPack
+Id: ie-core-nmpc-vmpp
+Title: "IE Core NMPC Virtual Medicinal Product Pack (VMPP)"
+Description: "Virtual Medicinal Product Pack (VMPP) concepts from the SNOMED CT Irish Edition (NMPC). VMPPs represent generic (non-branded) pack-level products. SNOMED CT refset ID: 660391000220105."
+* ^experimental = false
+* include codes from system $SCT_IE where concept in "^660391000220105"
+
+// ============================================================================
+// NMPC – Virtual Medicinal Product (VMP)
+// SNOMED refset: 660371000220109
+// ============================================================================
+ValueSet: IECoreNMPCVirtualMedicinalProduct
+Id: ie-core-nmpc-vmp
+Title: "IE Core NMPC Virtual Medicinal Product (VMP)"
+Description: "Virtual Medicinal Product (VMP) concepts from the SNOMED CT Irish Edition (NMPC). VMPs represent generic, non-branded medicinal products at the product level. Use VMP codes for generic prescribing. SNOMED CT refset ID: 660371000220109."
+* ^experimental = false
+* include codes from system $SCT_IE where concept in "^660371000220109"
