@@ -26,7 +26,7 @@ Description: "Seán Patrick Murphy, an Irish patient with Type 2 Diabetes, Essen
 * identifier[=].value = "1234567T"
 
 * identifier[+].system = $PPS
-* identifier[=].type = $V2-0203#JHN "Jurisdictional health number"
+* identifier[=].type = $V2-0203#JHN "Jurisdictional health number (Canada)"
 * identifier[=].value = "1234567T"
 
 // eIDAS cross-border identifiers (one per destination country)

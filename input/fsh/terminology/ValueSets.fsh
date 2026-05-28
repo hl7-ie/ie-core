@@ -45,7 +45,7 @@ Alias: $IE-IHI-RECORD = http://hl7.hse.ie/fhir/ie/core/CodeSystem/ie-core-ihi-re
 // 1. Ireland Counties
 // ============================================================================
 ValueSet: IECoreCounties
-Id: ie-core-counties
+Id: ie-core-county
 Title: "Ireland Counties"
 Description: "The 26 counties of the Republic of Ireland."
 * ^experimental = false

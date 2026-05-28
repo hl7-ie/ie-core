@@ -63,7 +63,7 @@ Description: "The IE Core Patient Profile is based upon the core FHIR Patient Re
 * identifier[DPS] ^definition = "The Drugs Payment Scheme number. Format follows the PPS Number pattern: 7 digits followed by 1-2 alphabetic characters."
 * identifier[DPS].system 1..1 MS
 * identifier[DPS].system = $DPS
-* identifier[DPS].type = $V2-0203#JHN "Jurisdictional health number"
+* identifier[DPS].type = $V2-0203#JHN "Jurisdictional health number (Canada)"
 * identifier[DPS].value 1..1 MS
 * identifier[DPS].value ^short = "DPS number"
 * identifier[DPS] obeys ie-pat-3
@@ -73,7 +73,7 @@ Description: "The IE Core Patient Profile is based upon the core FHIR Patient Re
 * identifier[LTI] ^definition = "The Long Term Illness scheme number. Format follows the PPS Number pattern: 7 digits followed by 1-2 alphabetic characters."
 * identifier[LTI].system 1..1 MS
 * identifier[LTI].system = $LTI
-* identifier[LTI].type = $V2-0203#JHN "Jurisdictional health number"
+* identifier[LTI].type = $V2-0203#JHN "Jurisdictional health number (Canada)"
 * identifier[LTI].value 1..1 MS
 * identifier[LTI].value ^short = "LTI number"
 * identifier[LTI] obeys ie-pat-4
