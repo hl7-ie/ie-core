@@ -30,9 +30,10 @@ Description: "Profile for substantial medical alerts or warnings in the Irish he
 
 // ── Code ───────────────────────────────────────────────────────────────────
 // EHDSAlert: description of the alert in textual/coded format
+// No terminology binding is applied here because EHDSAlert covers a broad
+// range of alert/warning types beyond the clinical-findings value set.
 * code 1..1 MS
 * code ^short = "Coded or textual description of the alert (SNOMED CT preferred)"
-* code from http://hl7.org/fhir/ValueSet/clinical-findings (preferred)
 
 // ── Subject ────────────────────────────────────────────────────────────────
 * subject 1..1 MS
