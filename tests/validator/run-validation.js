@@ -67,7 +67,7 @@ const examples = domainArg
   ? candidateExamples.filter(f => DOMAIN_PATTERNS[domainArg].test(path.basename(f)))
   : candidateExamples;
 
-const CONCURRENCY = 4;
+const CONCURRENCY = 2;
 const domainLabel = domainArg ? ` [${domainArg}]` : '';
 
 console.log(`\n=== FHIR Validator${domainLabel}: Validating ${examples.length} example resources (concurrency: ${CONCURRENCY}) ===\n`);
@@ -88,7 +88,7 @@ function validateExample(example) {
       '-best-practice ignore'
     ].join(' ');
 
-    exec(cmd, { encoding: 'utf8', timeout: 180000, maxBuffer: 10 * 1024 * 1024 }, (err, stdout, stderr) => {
+    exec(cmd, { encoding: 'utf8', timeout: 300000, maxBuffer: 10 * 1024 * 1024 }, (err, stdout, stderr) => {
       if (err) {
         const combined = (stdout || '') + (stderr || '');
         const errorLines = combined.split('\n')
