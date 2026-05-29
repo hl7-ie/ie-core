@@ -27,9 +27,9 @@ In IE Core medication resources, the **National Medicinal Product Catalogue (NMP
 
 | Code System | Status | Use | Notes |
 |-------------|--------|-----|-------|
-| **NMPC** | **Preferred primary** | Primary Irish medicinal product code | Use as the first coding in `Medication.code` or `medicationCodeableConcept` wherever an NMPC code exists for the product. Supports national medicines management and ePrescribing workflows. |
-| **SNOMED CT Irish Edition** | **Preferred secondary** | Secondary clinical drug terminology | Carry as an additional coding wherever available. Use concepts under the `373873005 \| Pharmaceutical / biologic product` hierarchy for medication semantics and mapping support. |
-| **ATC (WHO)** | Recommended | International classification of drugs | Use alongside NMPC/SNOMED where needed for international classification and EU cross-border interoperability (EHDS/MyHealth@EU). |
+| **NMPC** (via CTS) | **Preferred primary** | Primary Irish medicinal product code | NMPC products are SNOMED CT concepts in the Irish Extension (module `1601000220105`). Query the [HSE Central Terminology Server (CTS)](terminology-services.html) at `https://nmpc.hse.ie/production1/fhir`. Use VMP concepts for generic prescribing; AMP/AMPP for branded products and dispensing. |
+| **SNOMED CT Irish Edition** | **Preferred secondary** | Secondary clinical drug terminology | System URL: `http://snomed.info/sct/1601000220105`. Carry as an additional coding wherever available. Use concepts under `373873005 \| Pharmaceutical / biologic product` hierarchy. |
+| **ATC (WHO)** | Recommended | International classification of drugs | Use alongside NMPC/SNOMED where needed for international classification and EU cross-border interoperability (EHDS/MyHealth@EU). Mapped from NMPC via CTS ConceptMap. |
 | **LOINC** | Recommended | Laboratory-related medication observations | Used for observation codes related to medication monitoring. |
 | **ICD-10** | Optional | Indication coding | May be used for diagnosis/indication alongside SNOMED CT. |
 
@@ -37,17 +37,11 @@ In IE Core medication resources, the **National Medicinal Product Catalogue (NMP
 
 Use the following coding order wherever possible:
 
-1. NMPC as the primary coding in the medication codeable concept
-2. SNOMED CT Irish Edition as a secondary coding where available
-3. ATC as an additional coding where needed for classification or EU exchange
+1. **NMPC (SNOMED CT Irish Edition concept)** as the primary coding — retrieve from the [CTS](terminology-services.html) using the appropriate product level (VMP for generic, AMP for branded, AMPP for dispensing)
+2. **SNOMED CT Irish Edition** as a secondary coding where available (typically the same concept as the NMPC code, with the SNOMED IE system URL)
+3. **ATC** as an additional coding where needed for classification or EU exchange
 
-#### SNOMED CT for Medications
-
-SNOMED CT provides a comprehensive and semantically rich vocabulary for clinical drugs. Key aspects for Irish implementations:
-
-- **Product hierarchy**: Use concepts under `373873005 | Pharmaceutical / biologic product (product)` for medication coding
-- **Irish Edition**: The SNOMED CT Irish Edition, maintained by eHealth Ireland, should be carried as a secondary medication coding where available
-- **Cross-mapping**: SNOMED CT concepts can support mapping to ATC and other exchange terminologies
+See the [Terminology Services (CTS & NMPC)](terminology-services.html) page for detailed coding examples, FHIR `$expand` queries, PCRS filtering, and HPRA mapping guidance.
 
 #### Why Not RxNorm?
 

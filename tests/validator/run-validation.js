@@ -23,7 +23,10 @@ if (!fs.existsSync(FSH_GENERATED)) {
 const DEPENDENCY_IGS = [
   'hl7.fhir.eu.base#0.1.0',
   'hl7.fhir.uv.ips#1.1.0',
-  'hl7.fhir.eu.laboratory#0.1.1'
+  'hl7.fhir.eu.laboratory#0.1.1',
+  'hl7.fhir.eu.extensions#1.2.0',
+  'hl7.fhir.eu.mpd#0.1.0-ballot',
+  'hl7.fhir.eu.hdr#0.1.0-ballot'
 ];
 
 // Domain filtering: pass --domain <name> to validate only a subset of resources.
@@ -64,7 +67,7 @@ const examples = domainArg
   ? candidateExamples.filter(f => DOMAIN_PATTERNS[domainArg].test(path.basename(f)))
   : candidateExamples;
 
-const CONCURRENCY = 4;
+const CONCURRENCY = 2;
 const domainLabel = domainArg ? ` [${domainArg}]` : '';
 
 console.log(`\n=== FHIR Validator${domainLabel}: Validating ${examples.length} example resources (concurrency: ${CONCURRENCY}) ===\n`);
@@ -85,7 +88,7 @@ function validateExample(example) {
       '-best-practice ignore'
     ].join(' ');
 
-    exec(cmd, { encoding: 'utf8', timeout: 180000, maxBuffer: 10 * 1024 * 1024 }, (err, stdout, stderr) => {
+    exec(cmd, { encoding: 'utf8', timeout: 300000, maxBuffer: 10 * 1024 * 1024 }, (err, stdout, stderr) => {
       if (err) {
         const combined = (stdout || '') + (stderr || '');
         const errorLines = combined.split('\n')

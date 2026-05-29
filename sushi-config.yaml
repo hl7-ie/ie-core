@@ -42,6 +42,25 @@ dependencies:
     id: hl7fhireulab
     uri: http://hl7.eu/fhir/laboratory/ImplementationGuide/hl7.fhir.eu.laboratory
     version: 0.1.1
+  # HL7 Europe Extensions (published v1.2.0, Mar 2026)
+  hl7.fhir.eu.extensions:
+    id: hl7fhireuext
+    uri: http://hl7.eu/fhir/extensions/ImplementationGuide/hl7.fhir.eu.extensions
+    version: 1.2.0
+  # HL7 Europe MPD – ePrescription & eDispensation (0.1.0-ballot)
+  hl7.fhir.eu.mpd:
+    id: hl7fhireuropempd
+    uri: http://hl7.eu/fhir/mpd/ImplementationGuide/hl7.fhir.eu.mpd
+    version: 0.1.0-ballot
+  # HL7 Europe Hospital Discharge Report (0.1.0-ballot)
+  hl7.fhir.eu.hdr:
+    id: hl7fhireuropehdr
+    uri: http://hl7.eu/fhir/hdr/ImplementationGuide/hl7.fhir.eu.hdr
+    version: 0.1.0-ballot
+  # HL7 Europe Imaging IG – ballot ongoing Mar–Apr 2026; no package published yet
+  # hl7.fhir.eu.imaging: (pending publication at https://hl7.eu/fhir/imaging/)
+  # HL7 Europe Health Data API – ballot ongoing Mar–Apr 2026; no package published yet
+  # hl7.fhir.eu.health-data-api: (pending publication at https://hl7.eu/fhir/health-data-api/)
 
 parameters:
   show-hierarchical-table: true
@@ -76,6 +95,8 @@ pages:
       title: Clinical Notes
     medication-list.md:
       title: Medication List
+    terminology-services.md:
+      title: Terminology Services (CTS & NMPC)
     basic-provenance.md:
       title: Basic Provenance
     screening-and-assessments.md:
@@ -111,6 +132,7 @@ menu:
     General Guidance: general-guidance.html
     Clinical Notes: clinical-notes.html
     Medication List: medication-list.html
+    Terminology Services: terminology-services.html
     Basic Provenance: basic-provenance.html
     Screening and Assessments: screening-and-assessments.html
     Future of IE Core: future-of-ie-core.html
