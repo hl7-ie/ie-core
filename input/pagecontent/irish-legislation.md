@@ -86,7 +86,7 @@ Establishes the **Health Information and Quality Authority (HIQA)** and provides
 
 #### Health Information and Patient Safety (HIPS) Bill
 
-**Status**: Pre-legislative scrutiny completed; Bill expected to be enacted 2025–2026.
+**Status**: Pre-legislative scrutiny completed; Bill is anticipated to be enacted in 2025–2026, subject to the Oireachtas legislative process.
 
 The HIPS Bill will be Ireland's primary legislation for health information governance and data sharing. Key anticipated provisions:
 

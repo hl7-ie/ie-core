@@ -31,7 +31,7 @@ For full details of Irish ePrescription and eDispensation legislation, including
 
 #### EUDI Wallet in the Healthcare Context (MyHealth@EU / EHDS)
 
-From 2026, the EUDI Wallet is the primary mechanism for patient identity presentation in cross-border healthcare. The [MyHealth@EU](https://health.ec.europa.eu/ehealth-digital-health-and-care/electronic-cross-border-health-services_en) infrastructure is being updated to accept EUDI Wallet-issued identity attestations at **LoA: High** for cross-border ePrescription and eDispensation.
+From 2026 (targeted timeline, subject to Member State readiness and Commission decisions), the EUDI Wallet is planned as a primary mechanism for patient identity presentation in cross-border healthcare. The [MyHealth@EU](https://health.ec.europa.eu/ehealth-digital-health-and-care/electronic-cross-border-health-services_en) infrastructure is being updated to accept EUDI Wallet-issued identity attestations at **LoA: High** for cross-border ePrescription and eDispensation.
 
 ```mermaid
 flowchart LR
