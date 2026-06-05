@@ -140,6 +140,7 @@ The XT-EHR **EHDSMedicationPrescription** logical model was updated in v1.0.0 wi
 | MHD (Mobile access to Health Documents) | FHIR-based document exchange | REST/HTTPS |
 | ATNA (Audit Trail and Node Authentication) | Security audit logging | Syslog/TLS |
 | IUA (Internet User Authorization) | OAuth2/SMART on FHIR | OAuth2 |
+| **DSG (Document Digital Signature)** | **Digital signing of prescription bundles** | **XAdES / JAdES** |
 
 ### FHIR Profiles Used
 
@@ -153,6 +154,117 @@ The XT-EHR **EHDSMedicationPrescription** logical model was updated in v1.0.0 wi
 | Medication | [IE Core Medication (ePrescription)](StructureDefinition-ie-core-medication-eprescription.html) |
 | Patient Summary | [IE Core Patient Summary](StructureDefinition-ie-core-composition-patient-summary.html) |
 
+---
+
+### Cross-Border Security
+
+This section describes the security requirements that apply specifically to cross-border ePrescription and eDispensation exchange via MyHealth@EU. For domestic security requirements, see the [Security](security.html) page.
+
+#### eHDSI Security Framework
+
+The eHealth Digital Service Infrastructure (eHDSI) Security Framework governs all cross-border healthcare data exchange. It is based on:
+
+- **eHDSI Security and Privacy Architecture** (eHDSI-S-EP v2.2+) — defines security zones, trust hierarchies, and access control policies for all MyHealth@EU services
+- **eIDAS Regulation 2014/910/EU** and **eIDAS 2.0 (Regulation 2024/1183/EU)** — electronic identification and qualified trust services
+- **GDPR (2016/679/EU)** — data protection requirements applying to all cross-border health data exchange
+- **EHDS Regulation (2025/327)** — data governance framework for primary and secondary use of health data
+
+The eHDSI Security Framework defines three security domains:
+
+| Domain | Description | Participants |
+|--------|-------------|-------------|
+| **National Domain** | Each Member State's internal health infrastructure | NCPeH, national health systems |
+| **Central Infrastructure Domain** | MyHealth@EU Central Hub services | OpenNCP Central Connector, PMPOC |
+| **Service Provider Domain** | Healthcare providers accessing NCP services | GPs, hospitals, pharmacies |
+
+#### Prescription Bundle Signing
+
+The Irish NCPeH **SHALL** apply a Qualified Electronic Seal to all outbound ePrescription bundles before transmission to the MyHealth@EU Central Hub.
+
+**Signing process:**
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant GP as 🏥 Irish GP
+    participant NePS as 🇮🇪 NePS/HSE System
+    participant NCPeH_IE as 🇮🇪 NCPeH Ireland
+    participant Hub as 🌐 MyHealth@EU Hub
+
+    GP->>NePS: Create ePrescription (FHIR MedicationRequest Bundle)
+    NePS->>NCPeH_IE: Submit for cross-border export
+    NCPeH_IE->>NCPeH_IE: Validate FHIR bundle against IE Core profiles
+    NCPeH_IE->>NCPeH_IE: Apply QeSeal (JAdES enveloping signature)<br/>using HSE/NCPeH qualified certificate
+    NCPeH_IE->>NCPeH_IE: Set Bundle.signature (sigFormat: application/jose)
+    NCPeH_IE->>Hub: Transmit signed bundle via mTLS (XCA)
+    Hub->>Hub: Verify QeSeal against Irish QTSP Trust List
+    Hub-->>NCPeH_IE: Acknowledgement
+```
+
+**Signature elements in FHIR Bundle:**
+
+| Element | Value | Notes |
+|---------|-------|-------|
+| `Bundle.signature.type` | `1.2.840.10065.1.12.1.7` (Consent Signature) or `1.2.840.10065.1.12.1.5` (Verification Signature) | HL7 Signature Type codes |
+| `Bundle.signature.when` | ISO 8601 datetime | Signing time |
+| `Bundle.signature.who` | Reference to NCPeH organization or prescribing practitioner | Signer identity |
+| `Bundle.signature.sigFormat` | `application/jose` (JAdES) or `application/signature+xml` (XAdES) | Signature format |
+| `Bundle.signature.data` | Base64-encoded JAdES/XAdES signature bytes | Actual signature |
+
+#### mTLS for NCP-to-NCP Communications
+
+All NCP-to-Hub and Hub-to-NCP communications **SHALL** use mutual TLS (mTLS):
+
+| Parameter | Requirement |
+|-----------|-------------|
+| Protocol | TLS 1.3 (preferred) or TLS 1.2 (minimum) |
+| Client certificate | Qualified certificate for electronic seal (QCSeal) — eIDAS Article 38 |
+| Server certificate | Qualified website authentication certificate (QWAC) — eIDAS Article 45 |
+| QTSP | Certificate issuer must be listed on the EU Trust Service Status List (EUTSL) |
+| Key length | RSA 4096-bit or ECDSA P-384 minimum for QCSeal |
+| Certificate pinning | NCP certificate fingerprints **SHOULD** be pinned in the Central Hub configuration |
+
+#### Patient Identity Verification (eIDAS / EUDI Wallet)
+
+When a patient presents at a foreign EU pharmacy to retrieve a cross-border prescription, the pharmacy **SHALL** verify the patient's identity using an eIDAS-compliant mechanism:
+
+| Identity Mechanism | LoA | Acceptance |
+|-------------------|-----|------------|
+| EUDI Wallet (PID attestation) | High | **SHALL** be accepted from 2026 |
+| National eID (eIDAS notified scheme) | High or Substantial | Accepted if LoA ≥ Substantial |
+| EUDI Wallet (provisional / non-notified) | Substantial | Accepted during EUDI transition period |
+
+The pharmacy system extracts the `personal_identifier` from the PID attestation (format: `Origin/Destination/NationalID`, e.g. `IE/DE/1234567T`) and submits this to the NCPeH for patient discovery (XCPD).
+
+#### Cross-Border Consent Verification
+
+Before a foreign NCPeH returns a prescription to the dispensing country, consent **SHALL** be verified:
+
+1. **Implicit consent** — The patient presenting their EUDI Wallet / eIDAS identity at a pharmacy constitutes implicit consent for the pharmacy to retrieve their prescription, in accordance with the eHDSI consent model and EHDS Regulation 2025/327
+2. **Explicit opt-out** — Patients may register an opt-out with their home country NCPeH to prevent cross-border data sharing
+3. **Consent logging** — The consent decision (implicit/explicit, timestamp, patient identity, purpose of use) **SHALL** be logged as a FHIR `AuditEvent` at both the originating and receiving NCPs
+
+Consent records **SHOULD** use the following `AuditEvent` structure:
+
+```json
+{
+  "resourceType": "AuditEvent",
+  "type": { "system": "http://dicom.nema.org/resources/ontology/DCM", "code": "110106", "display": "Export" },
+  "action": "R",
+  "recorded": "2025-01-20T10:30:00Z",
+  "outcome": "0",
+  "purposeOfEvent": [{ "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason", "code": "TREAT", "display": "Treatment" }],
+  "agent": [
+    { "type": { "coding": [{ "code": "110150", "display": "Application" }] }, "who": { "display": "NCPeH Ireland (HSE)" }, "requestor": false },
+    { "type": { "coding": [{ "code": "110153", "display": "Source Role ID" }] }, "who": { "identifier": { "system": "urn:oid:1.3.6.1.4.1.12559.11.10.1.3.1.42.1", "value": "IE/DE/1234567T" } }, "requestor": true }
+  ],
+  "source": { "site": "NCPeH-IE", "observer": { "display": "HSE NCPeH Ireland" } },
+  "entity": [{ "what": { "reference": "Bundle/ie-bundle-to-de-eprescription" }, "role": { "code": "4", "display": "Domain Resource" } }]
+}
+```
+
+---
+
 ### References
 
 | Standard | URL |
@@ -163,8 +275,11 @@ The XT-EHR **EHDSMedicationPrescription** logical model was updated in v1.0.0 wi
 | IPS FHIR IG | <http://hl7.org/fhir/uv/ips/> |
 | EU MPD FHIR IG | <http://hl7.eu/fhir/mpd/> |
 | eHDSI Technical Specs | <https://ehealth.ec.europa.eu/wiki/display/EHOPERATIONS> |
-| eIDAS 2.0 | <https://digital-strategy.ec.europa.eu/en/policies/eidas-regulation> |
+| eIDAS 2.0 (Regulation 2024/1183) | <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1183> |
+| EUDI ARF (Architecture & Reference Framework) | <https://digital-strategy.ec.europa.eu/en/policies/eudi-wallet-technical-specifications> |
 | IHE XCPD | <https://profiles.ihe.net/ITI/XCPD> |
 | IHE XCA | <https://profiles.ihe.net/ITI/TF/Volume1/ch-18.html> |
+| IHE DSG | <https://profiles.ihe.net/ITI/TF/Volume1/ch-37.html> |
+| ETSI eSignature (XAdES, JAdES, CAdES) | <https://www.etsi.org/technologies/electronic-signatures> |
 | EDQM Standard Terms | <https://standardterms.edqm.eu> |
 | ATC/DDD WHO | <https://www.whocc.no/atc_ddd_index/> |

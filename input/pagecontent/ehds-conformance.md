@@ -335,6 +335,50 @@ IE Core adds the following Ireland-specific elements on top of the EU profiles:
 
 These extensions ensure that cross-border systems can distinguish Irish-origin data and map identifiers appropriately.
 
+### eIDAS 2.0 and EUDI Wallet — FHIR Mapping
+
+#### eIDAS Cross-Border Patient Identifier
+
+The eIDAS cross-border patient identifier uses the format `Origin/Destination/NationalID` (e.g. `IE/DE/1234567T`). In IE Core, this is represented in `Patient.identifier` with the eHDSI-defined OID system URI:
+
+| FHIR Element | Value | Notes |
+|-------------|-------|-------|
+| `Patient.identifier.system` | `urn:oid:1.3.6.1.4.1.12559.11.10.1.3.1.42.1` | eHDSI OID for cross-border PID |
+| `Patient.identifier.value` | `IE/DE/1234567T` | `Origin/Destination/NationalID` |
+| `Patient.identifier.use` | `official` | Cross-border official identifier |
+
+#### EUDI Wallet Person Identification Data (PID)
+
+[eIDAS 2.0 (Regulation 2024/1183/EU)](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1183) introduces the EU Digital Identity (EUDI) Wallet and the Person Identification Data (PID) attestation set, defined in the EUDI Architecture and Reference Framework (ARF). The following table maps EUDI PID attributes to IE Core FHIR elements:
+
+| EUDI PID Attribute | FHIR R4 Element | IE Core Profile | Mapping Notes |
+|-------------------|----------------|-----------------|---------------|
+| `family_name` | `Patient.name.family` | [IE Core Patient](StructureDefinition-ie-core-patient.html) | Current family name |
+| `given_name` | `Patient.name.given` | [IE Core Patient](StructureDefinition-ie-core-patient.html) | Current given name(s) |
+| `birth_date` | `Patient.birthDate` | [IE Core Patient](StructureDefinition-ie-core-patient.html) | ISO 8601 date |
+| `age_over_18` | *(derived)* | — | Derived from `Patient.birthDate`; not stored separately |
+| `nationality` / `nationalities` | `Patient.extension[nationality]` | EU Core Patient | ISO 3166-1 alpha-2 (e.g. `IE`) |
+| `personal_identifier` | `Patient.identifier` (eHDSI OID) | [IE Core Patient](StructureDefinition-ie-core-patient.html) | `Origin/Destination/NationalID` format |
+| `issuing_country` | `Patient.identifier.extension[country]` | — | ISO 3166-1 alpha-2 |
+| `resident_address` | `Patient.address` | [IE Core Patient](StructureDefinition-ie-core-patient.html) | With Irish address guidance (Eircode) |
+| `gender` | `Patient.gender` | [IE Core Patient](StructureDefinition-ie-core-patient.html) | Administrative gender; separate from PID `sex` attribute |
+
+#### FAPI 2.0 and EHDS Health Data API
+
+The EHDS Regulation 2025/327 and the HL7 Europe Health Data API IG (`hl7.fhir.eu.health-data-api`) mandate high-assurance API security for EHDS data spaces. IE Core implementations supporting EHDS secondary use data access **SHOULD** implement:
+
+| Standard | Purpose | Level |
+|----------|---------|-------|
+| **FAPI 2.0 (Security Profile)** | High-assurance OAuth2 profile for financial and healthcare APIs | SHALL for EHDS secondary use data spaces |
+| **FAPI 2.0 Message Signing (JARM)** | JWT-based authorization response signing | SHOULD for cross-border API responses |
+| **OpenID Connect (OIDC) Core** | Standard identity layer for patient and HCP authentication | SHALL |
+| **PKCE (RFC 7636)** | Proof Key for Code Exchange — prevents authorization code interception | SHALL for public clients |
+| **DPoP (RFC 9449)** | Demonstrating Proof of Possession — prevents token replay | SHOULD for high-assurance scenarios |
+
+FAPI 2.0 references:
+- [FAPI 2.0 Security Profile](https://openid.net/specs/fapi-2_0-security-profile.html)
+- [HL7 Europe Health Data API IG](https://hl7.eu/fhir/health-data-api)
+
 ### Future EU Alignment
 
 XT-EHR v1.0.0 was published in 2025. As the EHDS ecosystem evolves towards the March 2027 implementing acts deadline, IE Core will:
@@ -344,7 +388,7 @@ XT-EHR v1.0.0 was published in 2025. As the EHDS ecosystem evolves towards the M
 3. **Adopt EU Patient Summary IG** when `hl7.fhir.eu.eps` matures — currently tracking XT-EHR 1.0.0 PS structure directly
 4. **Adopt EU Hospital Discharge IG** when `hl7.fhir.eu.hdr` is published as STU — IE Core already has a formal dependency on `0.1.0-ballot`; full re-parenting is planned on STU publication
 5. **Add Imaging profiles** once `hl7.fhir.eu.imaging` is published (ballot ongoing Mar–Apr 2026); will add ImagingStudy and ImagingReport profiles and formal dependency
-6. **Add Health Data API conformance** once `hl7.fhir.eu.health-data-api` is published (ballot ongoing Mar–Apr 2026)
+6. **Add Health Data API conformance** once `hl7.fhir.eu.health-data-api` is published (ballot ongoing Mar–Apr 2026); implement FAPI 2.0 requirements for EHDS secondary use
 7. **Implement XT-EHR Obligations compliance** — formally adopt the Obligations Framework from XT-EHR 1.0.0 as EU IGs incorporate them; near-term milestone is full obligation compliance for PS and HDR
 8. **Support FHIR R5** following HL7 Europe's R5 timeline — requires re-mapping `MedicationStatement→MedicationUsage`, `DeviceUseStatement→DeviceUsage`, and `Consent` restructure
-9. **Implement EU Digital Identity Wallet** for cross-border patient authentication
+9. **Implement EUDI Wallet integration** — align cross-border patient authentication with EUDI Wallet PID attestations per eIDAS 2.0 (Regulation 2024/1183/EU) and EUDI ARF v2.x; targeted for 2026 MyHealth@EU integration
