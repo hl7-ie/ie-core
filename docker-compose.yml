@@ -1,68 +1,75 @@
+# ──────────────────────────────────────────────────────────────
+# IE Core FHIR IG – Local Development & Testing
+#
+# Usage:
+#   Build R4 IG:       docker compose run --rm ig-builder
+#   Build R4 + R5:     docker compose run --rm ig-builder bash _genonce_all.sh
+#   Preview output:    docker compose up ig-preview          (http://localhost:3000)
+#   Run test suite:    docker compose run --rm ig-test
+#
+# All services share the repository root as /workspace.
+# The input-cache volume persists the downloaded publisher.jar between runs.
+# ──────────────────────────────────────────────────────────────
+
 services:
 
   # ──────────────────────────────────────────────────────────
-  # Keycloak 26 – Identity & Access Management for NePS
+  # IG Builder – SUSHI (FSH → FHIR JSON) + HL7 IG Publisher
   # ──────────────────────────────────────────────────────────
-  keycloak:
-    image: quay.io/keycloak/keycloak:26.2
-    container_name: neps-keycloak
-    command:
-      - start-dev
-      - --import-realm
-    environment:
-      # Bootstrap admin credentials – FOR LOCAL DEVELOPMENT ONLY.
-      # MUST be changed before deploying to any non-local environment.
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
-      # Database (dev mode uses embedded H2 – swap for Postgres in production)
-      KC_DB: dev-file
-      # HTTP settings
-      KC_HTTP_PORT: "8080"
-      KC_HOSTNAME_STRICT: "false"
-      KC_HOSTNAME_STRICT_HTTPS: "false"
-      KC_HTTP_ENABLED: "true"
-      # Logging
-      KC_LOG_LEVEL: INFO
-      # Health & metrics endpoints
-      KC_HEALTH_ENABLED: "true"
-      KC_METRICS_ENABLED: "true"
-    ports:
-      - "8080:8080"
+  ig-builder:
+    image: node:20
+    container_name: ie-core-ig-builder
+    working_dir: /workspace
     volumes:
-      # Auto-import the NePS realm on first start
-      - ./keycloak/neps-realm.json:/opt/keycloak/data/import/neps-realm.json:ro
-    healthcheck:
-      test:
-        - CMD-SHELL
-        - |
-          curl -sf http://localhost:8080/health/ready || exit 1
-      interval: 15s
-      timeout: 10s
-      retries: 10
-      start_period: 30s
-    restart: unless-stopped
-
-  # ──────────────────────────────────────────────────────────
-  # HAPI FHIR Server R4 – NePS FHIR endpoint
-  # ──────────────────────────────────────────────────────────
-  fhir-server:
-    image: hapiproject/hapi:v7.4.0
-    container_name: neps-fhir-server
+      - .:/workspace
+      - ig-cache:/workspace/input-cache
     environment:
-      hapi.fhir.fhir_version: R4
-      hapi.fhir.server_address: http://localhost:8090/fhir
-      hapi.fhir.default_encoding: JSON
-      hapi.fhir.allow_multiple_delete: "true"
-      hapi.fhir.reuse_cached_search_results_millis: "-1"
-      # SMART on FHIR / OAuth2 metadata
-      hapi.fhir.cors.allow_Credentials: "true"
-      hapi.fhir.cors.allowed_origin:
-        - "*"
-    ports:
-      - "8090:8080"
-    depends_on:
-      keycloak:
-        condition: service_healthy
-    restart: unless-stopped
+      # Give the JVM enough heap for the IG Publisher
+      JAVA_TOOL_OPTIONS: "-Xmx4g -Dfile.encoding=UTF-8"
+    command: >-
+      bash -c "
+        echo '==> Installing Java runtime...' &&
+        apt-get update -qq &&
+        apt-get install -y --no-install-recommends default-jre-headless &&
+        echo '==> Installing SUSHI...' &&
+        npm install -g fsh-sushi --silent &&
+        echo '==> Downloading IG Publisher (if needed)...' &&
+        bash ./_updatePublisher.sh &&
+        echo '==> Running IG build...' &&
+        bash ./_genonce.sh
+      "
+    profiles:
+      - build
 
-volumes: {}
+  # ──────────────────────────────────────────────────────────
+  # IG Preview – serve the generated output/ directory
+  # Open http://localhost:3000 after a successful build.
+  # ──────────────────────────────────────────────────────────
+  ig-preview:
+    image: nginx:alpine
+    container_name: ie-core-ig-preview
+    ports:
+      - "3000:80"
+    volumes:
+      - ./output:/usr/share/nginx/html:ro
+    restart: unless-stopped
+    profiles:
+      - preview
+
+  # ──────────────────────────────────────────────────────────
+  # IG Test – Cucumber BDD + FHIR Validator test suite
+  # ──────────────────────────────────────────────────────────
+  ig-test:
+    image: node:20-alpine
+    container_name: ie-core-ig-test
+    working_dir: /workspace/tests
+    volumes:
+      - .:/workspace
+    command: >-
+      sh -c "npm ci && npm run download:validator && npm test"
+    profiles:
+      - test
+
+volumes:
+  # Caches publisher.jar between builds to avoid re-downloading on every run
+  ig-cache: {}
