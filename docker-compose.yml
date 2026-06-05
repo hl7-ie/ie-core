@@ -24,7 +24,8 @@ services:
       - .:/workspace
       - ig-cache:/workspace/input-cache
     environment:
-      # Give the JVM enough heap for the IG Publisher
+      # 4 GB heap is the recommended minimum for the IG Publisher on a full IG build;
+      # increase to -Xmx6g or higher on machines with more RAM if the build runs out of memory.
       JAVA_TOOL_OPTIONS: "-Xmx4g -Dfile.encoding=UTF-8"
     command: >-
       bash -c "
@@ -33,7 +34,7 @@ services:
         apt-get install -y --no-install-recommends default-jre-headless &&
         echo '==> Installing SUSHI...' &&
         npm install -g fsh-sushi --silent &&
-        echo '==> Downloading IG Publisher (if needed)...' &&
+        echo '==> Checking / updating IG Publisher...' &&
         bash ./_updatePublisher.sh &&
         echo '==> Running IG build...' &&
         bash ./_genonce.sh
@@ -66,7 +67,7 @@ services:
     volumes:
       - .:/workspace
     command: >-
-      sh -c "npm ci && npm run download:validator && npm test"
+      sh -c "set -e && npm ci && npm run download:validator && npm test"
     profiles:
       - test
 
