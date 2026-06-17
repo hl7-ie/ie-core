@@ -10,7 +10,7 @@
 
 ## Overview
 
-The IE Core Implementation Guide defines the minimum constraints on FHIR resources to create Irish healthcare interoperability profiles. It is developed in collaboration with the Health Service Executive (HSE), the Irish College of General Practitioners (ICGP), and the Department of Health.
+The IE Core Implementation Guide defines the minimum constraints on FHIR resources to create Irish healthcare interoperability profiles. It is developed by the HSE ePharmacy team in collaboration with the HSE CDAO - Data Standardization team and the Department of Health.
 
 This IG establishes a "floor" of standards that promotes interoperability and adoption through common implementation across Ireland's healthcare systems.
 

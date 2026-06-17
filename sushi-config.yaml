@@ -115,6 +115,8 @@ pages:
     title: Testing & Validation
   security.md:
     title: Security
+  irish-legislation.md:
+    title: Irish ePrescription Legislation
   downloads.md:
     title: Downloads
   hl7-registry-guidance.md:
@@ -150,6 +152,7 @@ menu:
     Sample Payloads & Downloads: crossborder-sample-payloads.html
   Testing: testing.html
   Security: security.html
+  Irish ePrescription Legislation: irish-legislation.html
   Downloads: downloads.html
   HL7 Registry Guide: hl7-registry-guidance.html
 

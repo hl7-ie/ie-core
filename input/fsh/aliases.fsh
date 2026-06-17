@@ -116,3 +116,25 @@ Alias: $EUExtMedicationPackageType = http://hl7.eu/fhir/extensions/StructureDefi
 // HL7 Europe Imaging IG (ballot ongoing — no package published yet)
 // https://hl7.eu/fhir/imaging / https://hl7.eu/fhir/imaging-r5
 // Aliases will be added once the package is formally published.
+
+// ── eIDAS 2.0 / EUDI Wallet / Cross-Border Patient Identity ───────────────────
+//
+// eIDAS Cross-Border Patient Identifier
+//   OID: 1.3.6.1.4.1.12559.11.10.1.3.1.42.1
+//   Format: Origin/Destination/NationalID (e.g. IE/DE/1234567T)
+//   Used in: Patient.identifier.system for cross-border PID (eHDSI / MyHealth@EU)
+//   Basis: eIDAS Regulation 2014/910/EU; eIDAS 2.0 Regulation 2024/1183/EU
+Alias: $EIDASPatientID = urn:oid:1.3.6.1.4.1.12559.11.10.1.3.1.42.1
+
+// EUDI Wallet Namespace (ARF v2.x)
+//   Base namespace for EU Digital Identity Wallet attestation types
+//   Defined in: EUDI Architecture and Reference Framework (ARF) v2.x
+//   See: https://digital-strategy.ec.europa.eu/en/policies/eudi-wallet-technical-specifications
+Alias: $EUDIWalletNamespace = https://identity.eudi.ec.europa.eu/claims
+
+// eHDSI / MyHealth@EU system identifiers
+//   NCPeH organisation identifier system (eHDSI OID)
+Alias: $NCPeHOrgID = urn:oid:1.3.6.1.4.1.12559.11.10.1.3.1.2.1
+
+// Irish National ePrescription Service (NePS) identifier system
+Alias: $NePS = http://hl7.hse.ie/fhir/ie/core/sid/neps
