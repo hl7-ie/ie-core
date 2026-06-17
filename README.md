@@ -2,7 +2,7 @@
 
 **Canonical URL**: `http://hl7.hse.ie/fhir/ie/core`  
 **Package**: `hl7.fhir.ie.core`  
-**Version**: 0.1.0  
+**Version**: 0.1.1  
 **FHIR Version**: R4 (4.0.1)  
 **Status**: Draft (CI Build)
 

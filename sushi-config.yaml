@@ -17,7 +17,7 @@ description: >-
   with the European Health Data Space (EHDS) and cross-border interoperability via the
   International Patient Summary (IPS) standard.
 status: draft
-version: 0.1.0
+version: 0.1.1
 fhirVersion: 4.0.1
 copyrightYear: 2025+
 releaseLabel: ci-build
