@@ -40,8 +40,7 @@ The following EU IGs are formal dependencies of IE Core:
 | `hl7.fhir.uv.extensions.r4` | 5.1.0 | Published | FHIR R4 extensions |
 | `hl7.fhir.eu.extensions` | 1.3.0 | STU 1.3 Published (Jun 2026) | HL7 Europe Extensions |
 | `hl7.fhir.eu.mpd` | 1.0.0 | STU 1.0 Published (Jun 2026) | ePrescription & eDispensation (MPD IG) |
-| `hl7.fhir.eu.eps` | 1.0.0-alpha | QA Preview (Xt-EHR Projectathon, Jun 2026) | European Patient Summary |
-| `hl7.fhir.eu.hdr` | 1.0.0-alpha | QA Preview (Xt-EHR Projectathon, Jun 2026) | Hospital Discharge Report |
+| `hl7.fhir.eu.hdr` | 0.1.0-ballot | Published ballot | Hospital Discharge Report |
 | `hl7.fhir.eu.imaging` | 1.0.0-ballot | Ballot (Jun 2026) | Imaging Report & Study |
 | `hl7.fhir.eu.health-data-api` | 1.0.0-ballot | Ballot (Jun 2026) | European Health Data API |
 
@@ -120,11 +119,11 @@ The IE Core Laboratory Report profile is aligned with the published HL7 Europe L
 
 | IE Core Profile | Xt-EHR Logical Model | HL7 Europe IG |
 |----------------|---------------------|---------------|
-| [IE Core Discharge Report](StructureDefinition-ie-core-composition-discharge-report.html) | EHDSDischargeReport | `hl7.fhir.eu.hdr` (1.0.0-alpha QA Preview) |
+| [IE Core Discharge Report](StructureDefinition-ie-core-composition-discharge-report.html) | EHDSDischargeReport | `hl7.fhir.eu.hdr` (0.1.0-ballot) |
 | [IE Core Encounter](StructureDefinition-ie-core-encounter.html) | EHDSEncounter | — |
 | [IE Core Condition (Encounter Dx)](StructureDefinition-ie-core-condition-encounter-diagnosis.html) | EHDSCondition | EU Core Condition (v2.0) |
 
-The IE Core Hospital Discharge Report provides a structured Composition with sections for admission details, discharge diagnoses, procedures, medications, allergies, and post-discharge care plans. IE Core now has a formal dependency on `hl7.fhir.eu.hdr@1.0.0-alpha` (QA Preview for Xt-EHR Projectathon, Jun 2026). Full re-parenting follows the EU HDR IG publication.
+The IE Core Hospital Discharge Report provides a structured Composition with sections for admission details, discharge diagnoses, procedures, medications, allergies, and post-discharge care plans. IE Core now depends on the published `hl7.fhir.eu.hdr@0.1.0-ballot` package for the current HDR aliases. Full re-parenting follows the next published EU HDR IG update.
 
 #### 5. Medical Images & Reports
 
