@@ -344,7 +344,7 @@ jobs:
 
       - name: Run IG Publisher (R4)
         run: |
-          java -Dfile.encoding=UTF-8 \
+          java -Xmx4g -Dfile.encoding=UTF-8 \
             -jar input-cache/publisher.jar \
             -ig ig.ini
 
