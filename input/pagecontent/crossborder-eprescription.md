@@ -127,7 +127,7 @@ The XT-EHR **EHDSMedicationPrescription** logical model was updated in v1.0.0 wi
 | `prescriptionItem.minimumDispenseInterval` | `MedicationRequest.dispenseRequest.dispenseInterval` | Minimum interval between dispensations for repeating prescriptions |
 | `prescriptionItem.intendedUseType` | `MedicationRequest.category` | Categorisation of prescription intent (prophylaxis, treatment, anaesthesia, etc.) |
 
-> **Off-label prescribing note**: The `IECoreOffLabelUse` extension is added at the `MedicationRequest` level. When the EU MPD IG (`hl7.fhir.eu.mpd`) is published as STU, the formal EU extension will be adopted and this IE Core extension will be deprecated. The extension contains two sub-extensions: `isOffLabelUse` (boolean, 1..1) and `reason` (CodeableConcept or string, 0..*).
+> **Off-label prescribing note**: The `IECoreOffLabelUse` extension is added at the `MedicationRequest` level. IE Core profiles for ePrescription, eDispensation, and Medication are formally derived from the EU MPD IG (`hl7.fhir.eu.mpd@1.0.0` STU, published Jun 2026). The extension contains two sub-extensions: `isOffLabelUse` (boolean, 1..1) and `reason` (CodeableConcept or string, 0..*).
 
 > **R4/R5 note**: The XT-EHR logical models are authored in FHIR R5. In FHIR R4, `MedicationRequest.statusReason` and `dispenseRequest.dispenseInterval` are both available and map directly to the XT-EHR elements.
 
