@@ -34,21 +34,23 @@ The following EU IGs are formal dependencies of IE Core:
 
 | Package | Version | Status | Purpose |
 |---------|---------|--------|---------|
-| `hl7.fhir.eu.base` | 0.1.0 | STU 1.0 | EU Base and Core profiles |
-| `hl7.fhir.eu.laboratory` | 0.1.1 | STU 1.1 | EU Laboratory Report |
+| `hl7.fhir.eu.base` | 2.0.0 | STU 2.0 | EU Base and Core profiles |
+| `hl7.fhir.eu.laboratory` | 2.0.0 | STU 2.0 | EU Laboratory Report |
 | `hl7.fhir.uv.ips` | 1.1.0 | STU 1 | International Patient Summary |
 | `hl7.fhir.uv.extensions.r4` | 5.1.0 | Published | FHIR R4 extensions |
-| `hl7.fhir.eu.extensions` | 1.2.0 | Published (Mar 2026) | HL7 Europe Extensions (v1.3.0 pending npm publication) |
-| `hl7.fhir.eu.mpd` | 0.1.0-ballot | Ballot | ePrescription & eDispensation (MPD IG) |
-| `hl7.fhir.eu.hdr` | 0.1.0-ballot | Ballot | Hospital Discharge Report |
+| `hl7.fhir.eu.extensions` | 1.3.0 | STU 1.3 Published (Jun 2026) | HL7 Europe Extensions |
+| `hl7.fhir.eu.mpd` | 1.0.0 | STU 1.0 Published (Jun 2026) | ePrescription & eDispensation (MPD IG) |
+| `hl7.fhir.eu.eps` | 1.0.0-alpha | QA Preview (Xt-EHR Projectathon, Jun 2026) | European Patient Summary |
+| `hl7.fhir.eu.hdr` | 1.0.0-alpha | QA Preview (Xt-EHR Projectathon, Jun 2026) | Hospital Discharge Report |
+| `hl7.fhir.eu.imaging` | 1.0.0-ballot | Ballot (Jun 2026) | Imaging Report & Study |
+| `hl7.fhir.eu.health-data-api` | 1.0.0-ballot | Ballot (Jun 2026) | European Health Data API |
 
-The following EU IGs are tracked for formal dependency once published:
+The following EU IGs have new QA Preview versions or are in active development:
 
 | Package | Status | Purpose |
 |---------|--------|---------|
-| `hl7.fhir.eu.imaging` | Ballot (Mar–Apr 2026) | Imaging Study & Report |
-| `hl7.fhir.eu.health-data-api` | Ballot (Mar–Apr 2026) | European Health Data API Specification |
-| `hl7.fhir.eu.eps` | CI Build | European Patient Summary |
+| `hl7.fhir.eu.imaging` | Ballot 1.0.0 (Jun 2026) | Imaging Study & Report |
+| `hl7.fhir.eu.health-data-api` | Ballot 1.0.0 (Jun 2026) | European Health Data API Specification |
 
 For the complete HL7 Europe EHDS IG listing, see the [HL7 Europe Confluence page](https://confluence.hl7.org/spaces/HEU/pages/358255737/Implementation+Guides).
 
@@ -56,14 +58,14 @@ For the complete HL7 Europe EHDS IG listing, see the [HL7 Europe Confluence page
 
 | IG | FHIR Version | Canonical URL | GitHub | Status |
 |----|-------------|--------------|--------|--------|
-| ePrescription / eDispensation (MPD) | R4 / R5 | [https://hl7.eu/fhir/mpd](https://hl7.eu/fhir/mpd) | [GitHub](https://github.com/hl7-eu/mpd) | Ballot |
-| Laboratory Report | R4 | [https://hl7.eu/fhir/laboratory](https://hl7.eu/fhir/laboratory) | [GitHub](https://github.com/hl7-eu/laboratory) | STU 1.1 Published |
-| Patient Summary | — | — | [GitHub](https://github.com/hl7-eu/eps) | CI Build |
-| Hospital Discharge Report (HDR) | R4 | [https://hl7.eu/fhir/hdr](https://hl7.eu/fhir/hdr) | [GitHub](https://github.com/hl7-eu/hdr) | Ballot |
-| Imaging Report & Study | R4 / R5 | [https://hl7.eu/fhir/imaging](https://hl7.eu/fhir/imaging) | [GitHub](https://github.com/hl7-eu/imaging) | Ballot (Mar–Apr 2026) |
-| European Base / Core | R4 / R5 | [https://hl7.eu/fhir/base](https://hl7.eu/fhir/base) | [GitHub](https://github.com/hl7-eu/base) | STU 1.0 Published |
-| Extensions | R4 / R5 | [https://hl7.eu/fhir/extensions](https://hl7.eu/fhir/extensions) | [GitHub](https://github.com/hl7-eu/extensions) | v1.3.0 Published (Mar 2026) |
-| Health Data API | R4 | [https://hl7.eu/fhir/health-data-api](https://hl7.eu/fhir/health-data-api) | [GitHub](https://github.com/hl7-eu/health-data-api) | Ballot (Mar–Apr 2026) |
+| ePrescription / eDispensation (MPD) | R4 / R5 | [https://hl7.eu/fhir/mpd](https://hl7.eu/fhir/mpd) | [GitHub](https://github.com/hl7-eu/mpd) | STU 1.0 Published (Jun 2026) |
+| Laboratory Report | R4 | [https://hl7.eu/fhir/laboratory](https://hl7.eu/fhir/laboratory) | [GitHub](https://github.com/hl7-eu/laboratory) | STU 2.0 Published (Jun 2026) |
+| Patient Summary | R4 | [https://hl7.eu/fhir/eps](https://hl7.eu/fhir/eps) | [GitHub](https://github.com/hl7-eu/eps) | QA Preview 1.0.0-alpha (Xt-EHR Projectathon, Jun 2026) |
+| Hospital Discharge Report (HDR) | R4 | [https://hl7.eu/fhir/hdr](https://hl7.eu/fhir/hdr) | [GitHub](https://github.com/hl7-eu/hdr) | QA Preview 1.0.0-alpha (Xt-EHR Projectathon, Jun 2026) |
+| Imaging Report & Study | R4 / R5 | [https://hl7.eu/fhir/imaging](https://hl7.eu/fhir/imaging) | [GitHub](https://github.com/hl7-eu/imaging) | Ballot 1.0.0 (Jun 2026) |
+| European Base / Core | R4 / R5 | [https://hl7.eu/fhir/base](https://hl7.eu/fhir/base) | [GitHub](https://github.com/hl7-eu/base) | STU 2.0 Published (Jun 2026) |
+| Extensions | R4 / R5 | [https://hl7.eu/fhir/extensions](https://hl7.eu/fhir/extensions) | [GitHub](https://github.com/hl7-eu/extensions) | STU 1.3 Published (Jun 2026) |
+| Health Data API | R4 | [https://hl7.eu/fhir/health-data-api](https://hl7.eu/fhir/health-data-api) | [GitHub](https://github.com/hl7-eu/health-data-api) | Ballot 1.0.0 (Jun 2026) |
 
 ---
 
@@ -89,9 +91,9 @@ The IE Core Patient Summary profile structures essential clinical information us
 
 | IE Core Profile | Xt-EHR Logical Model | HL7 Europe IG |
 |----------------|---------------------|---------------|
-| [IE Core MedicationRequest (ePrescription)](StructureDefinition-ie-core-medicationrequest-eprescription.html) | EHDSMedicationPrescription | `hl7.fhir.eu.mpd` (0.1.0-ballot) |
-| [IE Core MedicationDispense (eDispensation)](StructureDefinition-ie-core-medicationdispense-edispensation.html) | EHDSMedicationDispense | `hl7.fhir.eu.mpd` (0.1.0-ballot) |
-| [IE Core Medication (ePrescription)](StructureDefinition-ie-core-medication-eprescription.html) | EHDSMedication | `hl7.fhir.eu.mpd` (0.1.0-ballot) |
+| [IE Core MedicationRequest (ePrescription)](StructureDefinition-ie-core-medicationrequest-eprescription.html) | EHDSMedicationPrescription | `hl7.fhir.eu.mpd` (1.0.0 STU) |
+| [IE Core MedicationDispense (eDispensation)](StructureDefinition-ie-core-medicationdispense-edispensation.html) | EHDSMedicationDispense | `hl7.fhir.eu.mpd` (1.0.0 STU) |
+| [IE Core Medication (ePrescription)](StructureDefinition-ie-core-medication-eprescription.html) | EHDSMedication | `hl7.fhir.eu.mpd` (1.0.0 STU) |
 
 These profiles support the full ePrescription and eDispensation lifecycle:
 
@@ -101,28 +103,28 @@ These profiles support the full ePrescription and eDispensation lifecycle:
 - **Substitution tracking** under Irish pharmacy regulations
 - **Multi-item prescriptions** via `groupIdentifier` linking
 
-The profiles are structurally aligned with the HL7 Europe MPD IG (`MedicationRequest-eu-mpd`, `MedicationDispense-eu-mpd`, `Medication-eu-mpd`). IE Core now has a formal dependency on `hl7.fhir.eu.mpd@0.1.0-ballot`. Full re-parenting (formal profile derivation) is planned once the MPD IG is published as an STU.
+The profiles are formally aligned with and derived from the HL7 Europe MPD IG (`MedicationRequest-eu-mpd`, `MedicationDispense-eu-mpd`, `Medication-eu-mpd`). IE Core has a formal dependency on `hl7.fhir.eu.mpd@1.0.0`.
 
 #### 3. Laboratory Results
 
 | IE Core Profile | Xt-EHR Logical Model | HL7 Europe IG |
 |----------------|---------------------|---------------|
-| [IE Core Laboratory Report](StructureDefinition-ie-core-laboratory-report.html) | EHDSLaboratoryReport | `hl7.fhir.eu.laboratory` (v0.1.1) |
+| [IE Core Laboratory Report](StructureDefinition-ie-core-laboratory-report.html) | EHDSLaboratoryReport | `hl7.fhir.eu.laboratory` (2.0.0 STU) |
 | [IE Core Lab Observation](StructureDefinition-ie-core-laboratory-result-observation.html) | EHDSLaboratoryObservation | EU Lab Observation |
 | [IE Core Specimen](StructureDefinition-ie-core-specimen.html) | EHDSSpecimen | EU Lab Specimen |
 | [IE Core DiagnosticReport (Lab)](StructureDefinition-ie-core-diagnosticreport-lab.html) | EHDSLaboratoryReport | EU Core DiagnosticReport (v2.0) |
 
-The IE Core Laboratory Report profile is aligned with the published HL7 Europe Laboratory Report IG (STU 1.1). It supports laboratory reporting workflows for clinical biochemistry, haematology, microbiology, immunology, and other in-vitro diagnostic disciplines.
+The IE Core Laboratory Report profile is aligned with the published HL7 Europe Laboratory Report IG (STU 2.0, Jun 2026). It supports laboratory reporting workflows for clinical biochemistry, haematology, microbiology, immunology, and other in-vitro diagnostic disciplines.
 
 #### 4. Hospital Discharge Report
 
 | IE Core Profile | Xt-EHR Logical Model | HL7 Europe IG |
 |----------------|---------------------|---------------|
-| [IE Core Discharge Report](StructureDefinition-ie-core-composition-discharge-report.html) | EHDSDischargeReport | `hl7.fhir.eu.hdr` (0.1.0-ballot) |
+| [IE Core Discharge Report](StructureDefinition-ie-core-composition-discharge-report.html) | EHDSDischargeReport | `hl7.fhir.eu.hdr` (1.0.0-alpha QA Preview) |
 | [IE Core Encounter](StructureDefinition-ie-core-encounter.html) | EHDSEncounter | — |
 | [IE Core Condition (Encounter Dx)](StructureDefinition-ie-core-condition-encounter-diagnosis.html) | EHDSCondition | EU Core Condition (v2.0) |
 
-The IE Core Hospital Discharge Report provides a structured Composition with sections for admission details, discharge diagnoses, procedures, medications, allergies, and post-discharge care plans. IE Core now has a formal dependency on `hl7.fhir.eu.hdr@0.1.0-ballot`. Full re-parenting is planned once the HDR IG is published as an STU.
+The IE Core Hospital Discharge Report provides a structured Composition with sections for admission details, discharge diagnoses, procedures, medications, allergies, and post-discharge care plans. IE Core now has a formal dependency on `hl7.fhir.eu.hdr@1.0.0-alpha` (QA Preview for Xt-EHR Projectathon, Jun 2026). Full re-parenting follows the EU HDR IG publication.
 
 #### 5. Medical Images & Reports
 
@@ -238,7 +240,7 @@ The Obligations Framework defines ~30 Obligations models (e.g., `EHDSPatientSumm
 
 ### Profile Derivation Map
 
-#### Currently Derived from EU Core (v0.1.0)
+#### Currently Derived from EU Core (v2.0.0)
 
 | IE Core Profile | EU Core Parent | EU Profile ID |
 |----------------|---------------|---------------|
@@ -264,9 +266,9 @@ The Obligations Framework defines ~30 Obligations models (e.g., `EHDSPatientSumm
 
 | IE Core Profile | Planned EU Parent | Current Status |
 |----------------|------------------|----------------|
-| IE Core MedicationRequest (ePrescription) | `MedicationRequest-eu-mpd` | Formal dep on `0.1.0-ballot`; full derivation on MPD STU |
-| IE Core MedicationDispense (eDispensation) | `MedicationDispense-eu-mpd` | Formal dep on `0.1.0-ballot`; full derivation on MPD STU |
-| IE Core Medication (ePrescription) | `Medication-eu-mpd` | Formal dep on `0.1.0-ballot`; full derivation on MPD STU |
+| IE Core MedicationRequest (ePrescription) | `MedicationRequest-eu-mpd` | Formally derived from `hl7.fhir.eu.mpd@1.0.0` STU |
+| IE Core MedicationDispense (eDispensation) | `MedicationDispense-eu-mpd` | Formally derived from `hl7.fhir.eu.mpd@1.0.0` STU |
+| IE Core Medication (ePrescription) | `Medication-eu-mpd` | Formally derived from `hl7.fhir.eu.mpd@1.0.0` STU |
 
 ---
 
@@ -383,12 +385,12 @@ FAPI 2.0 references:
 
 XT-EHR v1.0.0 was published in 2025. As the EHDS ecosystem evolves towards the March 2027 implementing acts deadline, IE Core will:
 
-1. **Re-parent to EU MPD** when `hl7.fhir.eu.mpd` is published as STU — IE Core already has a formal dependency on `0.1.0-ballot`. offLabel, statusReason, minimumDispenseInterval, and intendedUseType elements will formally derive from the EU MPD profile on STU publication
-2. **Re-parent to EU Core v2.0** for AllergyIntolerance, Condition, Procedure, Immunization, Medication, MedicationRequest, DiagnosticReport
-3. **Adopt EU Patient Summary IG** when `hl7.fhir.eu.eps` matures — currently tracking XT-EHR 1.0.0 PS structure directly
-4. **Adopt EU Hospital Discharge IG** when `hl7.fhir.eu.hdr` is published as STU — IE Core already has a formal dependency on `0.1.0-ballot`; full re-parenting is planned on STU publication
-5. **Add Imaging profiles** once `hl7.fhir.eu.imaging` is published (ballot ongoing Mar–Apr 2026); will add ImagingStudy and ImagingReport profiles and formal dependency
-6. **Add Health Data API conformance** once `hl7.fhir.eu.health-data-api` is published (ballot ongoing Mar–Apr 2026); implement FAPI 2.0 requirements for EHDS secondary use
+1. **Complete MPD alignment** — IE Core profiles for ePrescription, eDispensation, and Medication are formally derived from `hl7.fhir.eu.mpd@1.0.0` STU (published Jun 2026). offLabel, statusReason, minimumDispenseInterval, and intendedUseType elements directly inherit from the EU MPD profile
+2. **Re-parent to EU Core v2.0** for AllergyIntolerance, Condition, Procedure, Immunization, Medication, MedicationRequest, DiagnosticReport (currently on EU Core v2.0)
+3. **Adopt EU Patient Summary IG** when `hl7.fhir.eu.eps@1.0.0` stabilizes — currently testing QA Preview 1.0.0-alpha (Xt-EHR Projectathon, Jun 2026); full re-parenting planned on STU publication
+4. **Adopt EU Hospital Discharge IG** when `hl7.fhir.eu.hdr@1.0.0` stabilizes — currently testing QA Preview 1.0.0-alpha (Xt-EHR Projectathon, Jun 2026); full re-parenting planned on STU publication
+5. **Add Imaging profiles** once `hl7.fhir.eu.imaging` is published (Ballot 1.0.0, Jun 2026); will add ImagingStudy and ImagingReport profiles and formal dependency to v1.0.0
+6. **Add Health Data API conformance** once `hl7.fhir.eu.health-data-api` is published (Ballot 1.0.0, Jun 2026); implement FAPI 2.0 requirements for EHDS secondary use
 7. **Implement XT-EHR Obligations compliance** — formally adopt the Obligations Framework from XT-EHR 1.0.0 as EU IGs incorporate them; near-term milestone is full obligation compliance for PS and HDR
 8. **Support FHIR R5** following HL7 Europe's R5 timeline — requires re-mapping `MedicationStatement→MedicationUsage`, `DeviceUseStatement→DeviceUsage`, and `Consent` restructure
 9. **Implement EUDI Wallet integration** — align cross-border patient authentication with EUDI Wallet PID attestations per eIDAS 2.0 (Regulation 2024/1183/EU) and EUDI ARF v2.x; targeted for 2026 MyHealth@EU integration

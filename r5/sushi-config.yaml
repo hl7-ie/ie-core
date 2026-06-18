@@ -9,7 +9,7 @@ description: >-
   SubscriptionTopic, new resource types) are adopted. It derives from the HL7
   Europe Base and Core R5 profiles for EHDS conformance.
 status: draft
-version: 0.1.0
+version: 0.1.1
 fhirVersion: 5.0.0
 copyrightYear: 2025+
 releaseLabel: ci-build

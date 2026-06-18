@@ -17,7 +17,7 @@ description: >-
   with the European Health Data Space (EHDS) and cross-border interoperability via the
   International Patient Summary (IPS) standard.
 status: draft
-version: 0.1.0
+version: 0.1.1
 fhirVersion: 4.0.1
 copyrightYear: 2025+
 releaseLabel: ci-build
@@ -33,7 +33,7 @@ dependencies:
   hl7.fhir.eu.base:
     id: hl7fhireubase
     uri: http://hl7.eu/fhir/base/ImplementationGuide/hl7.fhir.eu.base
-    version: 0.1.0
+    version: 2.0.0
   hl7.fhir.uv.ips:
     id: hl7fhiruvips
     uri: http://hl7.org/fhir/uv/ips/ImplementationGuide/hl7.fhir.uv.ips
@@ -41,26 +41,37 @@ dependencies:
   hl7.fhir.eu.laboratory:
     id: hl7fhireulab
     uri: http://hl7.eu/fhir/laboratory/ImplementationGuide/hl7.fhir.eu.laboratory
-    version: 0.1.1
-  # HL7 Europe Extensions (published v1.2.0, Mar 2026)
+    version: 2.0.0
+  # HL7 Europe Extensions (published STU 1.3, Jun 2026)
   hl7.fhir.eu.extensions:
     id: hl7fhireuext
     uri: http://hl7.eu/fhir/extensions/ImplementationGuide/hl7.fhir.eu.extensions
-    version: 1.2.0
-  # HL7 Europe MPD – ePrescription & eDispensation (0.1.0-ballot)
+    version: 1.3.0
+  # HL7 Europe MPD – ePrescription & eDispensation (published v1.0.0, Jun 2026)
   hl7.fhir.eu.mpd:
     id: hl7fhireuropempd
     uri: http://hl7.eu/fhir/mpd/ImplementationGuide/hl7.fhir.eu.mpd
-    version: 0.1.0-ballot
-  # HL7 Europe Hospital Discharge Report (0.1.0-ballot)
+    version: 1.0.0
+  # HL7 Europe Hospital Discharge Report (QA Preview 1.0.0-alpha, Jun 2026)
   hl7.fhir.eu.hdr:
     id: hl7fhireuropehdr
     uri: http://hl7.eu/fhir/hdr/ImplementationGuide/hl7.fhir.eu.hdr
-    version: 0.1.0-ballot
-  # HL7 Europe Imaging IG – ballot ongoing Mar–Apr 2026; no package published yet
-  # hl7.fhir.eu.imaging: (pending publication at https://hl7.eu/fhir/imaging/)
-  # HL7 Europe Health Data API – ballot ongoing Mar–Apr 2026; no package published yet
-  # hl7.fhir.eu.health-data-api: (pending publication at https://hl7.eu/fhir/health-data-api/)
+    version: 1.0.0-alpha
+  # HL7 Europe Patient Summary (QA Preview 1.0.0-alpha, Jun 2026)
+  hl7.fhir.eu.eps:
+    id: hl7fhireueps
+    uri: http://hl7.eu/fhir/eps/ImplementationGuide/hl7.fhir.eu.eps
+    version: 1.0.0-alpha
+  # HL7 Europe Imaging IG (Ballot 1.0.0, Jun 2026)
+  hl7.fhir.eu.imaging:
+    id: hl7fhireuimaging
+    uri: http://hl7.eu/fhir/imaging/ImplementationGuide/hl7.fhir.eu.imaging
+    version: 1.0.0-ballot
+  # HL7 Europe Health Data API (Ballot 1.0.0, Jun 2026)
+  hl7.fhir.eu.health-data-api:
+    id: hl7fhireuhealthdataapi
+    uri: http://hl7.eu/fhir/health-data-api/ImplementationGuide/hl7.fhir.eu.health-data-api
+    version: 1.0.0-ballot
 
 parameters:
   show-hierarchical-table: true
