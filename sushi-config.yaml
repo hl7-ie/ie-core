@@ -52,11 +52,16 @@ dependencies:
     id: hl7fhireuropempd
     uri: http://hl7.eu/fhir/mpd/ImplementationGuide/hl7.fhir.eu.mpd
     version: 1.0.0
-  # HL7 Europe Hospital Discharge Report (v0.1.0-ballot)
+  # HL7 Europe Hospital Discharge Report (QA Preview 1.0.0-alpha, Jun 2026)
   hl7.fhir.eu.hdr:
     id: hl7fhireuropehdr
     uri: http://hl7.eu/fhir/hdr/ImplementationGuide/hl7.fhir.eu.hdr
-    version: 0.1.0-ballot
+    version: 1.0.0-alpha
+  # HL7 Europe Patient Summary (QA Preview 1.0.0-alpha, Jun 2026)
+  hl7.fhir.eu.eps:
+    id: hl7fhireueps
+    uri: http://hl7.eu/fhir/eps/ImplementationGuide/hl7.fhir.eu.eps
+    version: 1.0.0-alpha
   # HL7 Europe Imaging IG (Ballot 1.0.0, Jun 2026)
   hl7.fhir.eu.imaging:
     id: hl7fhireuimaging
