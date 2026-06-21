@@ -11,7 +11,6 @@ Alias: $LOINC = http://loinc.org
 Alias: $RXNORM = http://www.nlm.nih.gov/research/umls/rxnorm
 Alias: $CVX = http://hl7.org/fhir/sid/cvx
 Alias: $ATC = http://www.whocc.no/atc
-Alias: $NMPC = https://hl7-ie.github.io/fhir/ie/core/sid/nmpc
 Alias: $ICD10PCS = http://www.cms.gov/Medicare/Coding/ICD10
 Alias: $V2-0074 = http://terminology.hl7.org/CodeSystem/v2-0074
 Alias: $V2-0136 = http://terminology.hl7.org/CodeSystem/v2-0136
