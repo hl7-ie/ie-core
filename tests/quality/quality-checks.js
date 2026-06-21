@@ -87,7 +87,7 @@ for (const ef of examples) {
   if (res.meta && res.meta.profile && res.meta.profile.length > 0) {
     check(
       'example-has-profile',
-      res.meta.profile[0].includes('hl7.hse.ie') || res.meta.profile[0].includes('hl7.org'),
+      res.meta.profile[0].includes('hl7-ie.github.io') || res.meta.profile[0].includes('hl7.org'),
       `${path.basename(ef)} profile reference: ${res.meta.profile[0]}`
     );
   }
@@ -124,7 +124,7 @@ for (const pf of profiles) {
   const sd = JSON.parse(fs.readFileSync(pf, 'utf8'));
   check(
     'canonical-url-consistent',
-    sd.url && sd.url.startsWith('http://hl7.hse.ie/fhir/ie/core/'),
+    sd.url && sd.url.startsWith('https://hl7-ie.github.io/fhir/ie/core/'),
     `${sd.id} URL: ${sd.url}`
   );
 }
