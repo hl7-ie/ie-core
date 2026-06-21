@@ -26,7 +26,7 @@ Feature: EU Core R5 Conformance
   @eu-canonical-r5
   Scenario: All IE Core R5 profiles use the correct canonical base URL
     Given I have all IE Core R5 profile StructureDefinitions
-    Then every profile URL should start with "http://hl7.hse.ie/fhir/ie/core-r5/"
+    Then every profile URL should start with "https://hl7-ie.github.io/fhir/ie/core-r5/"
 
   @fhir-version-r5
   Scenario: All R5 profiles declare FHIR version 5.0.0
