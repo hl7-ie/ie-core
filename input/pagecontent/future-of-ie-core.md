@@ -47,11 +47,13 @@ The following work items are required for full XT-EHR 1.0.0 alignment and are th
 
 ### How to Contribute
 
+**⚠️ Current Status:** This IG is a Proof of Concept maintained by Nithin Mohan. Contributions are welcome, and in the future, when governance is established, the following processes will apply:
+
 The IE Core Implementation Guide welcomes contributions from all stakeholders:
 
-1. **Issue Reporting**: Submit issues through the HL7 Ireland Jira project
-2. **Ballot Participation**: Participate in formal HL7 ballot processes
-3. **Working Group Membership**: Join the HL7 Ireland / HSE FHIR Working Group
+1. **Issue Reporting**: Submit issues through the GitHub repository
+2. **Ballot Participation**: Participate in formal HL7 ballot processes (future, when formally established)
+3. **Working Group Membership**: Join or establish an HL7 Ireland FHIR Working Group
 4. **Implementation Feedback**: Share implementation experience and challenges
 
 ### Versioning

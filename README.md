@@ -1,6 +1,8 @@
 # IE (Ireland) Core FHIR Implementation Guide
 
-**Canonical URL**: `http://hl7.hse.ie/fhir/ie/core`  
+**⚠️ Proof of Concept (PoC):** This Implementation Guide is built as a Proof of Concept by Nithin Mohan. It has no support from the HSE, HSE Standards team, or Department of Health. In future, this may be handed over to a governing body within Ireland for maintaining this implementation guide. This IG is the author's proof of concept to demonstrate how FHIR adoption should be implemented at the national level. It is built with the author's experiences working in HL7 V2, V3 CDA, and FHIR, and a curiosity to solve problems for EHDS cross-border healthcare from the context of Ireland's healthcare landscape.
+
+**Canonical URL**: `https://hl7-ie.github.io/fhir/ie/core`  
 **Package**: `hl7.fhir.ie.core`  
 **Version**: 0.1.1  
 **FHIR Version**: R4 (4.0.1)  
@@ -10,9 +12,7 @@
 
 ## Overview
 
-The IE Core Implementation Guide defines the minimum constraints on FHIR resources to create Irish healthcare interoperability profiles. It is developed by the HSE ePharmacy team in collaboration with the HSE CDAO - Data Standardization team and the Department of Health.
-
-This IG establishes a "floor" of standards that promotes interoperability and adoption through common implementation across Ireland's healthcare systems.
+The IE Core Implementation Guide defines the minimum constraints on FHIR resources to create Irish healthcare interoperability profiles. It is authored by Nithin Mohan as a proof of concept to demonstrate how FHIR adoption should be implemented at the national level.
 
 ## Contents
 
@@ -191,12 +191,23 @@ hl7-fhir/
 
 ### Overview of the Process
 
+This IG is currently a Proof of Concept maintained by Nithin Mohan and hosted on GitHub Pages via the `hl7-ie` organization domain (`hl7-ie.github.io`). The following is the intended path for future governance and publication:
+
 1. **Establish HL7 Relationship** → Join/create HL7 Ireland affiliate or get HL7 Work Group sponsorship
-2. **Register Canonical URL** → Reserve `http://hl7.hse.ie/fhir/ie/core` with HL7
+2. **Register Canonical URL** → Reserve a canonical URL with HL7 (future governance body)
 3. **HL7 Ballot** → Submit for formal ballot (For Comment → STU → Normative)
 4. **Publish** → Publish through HL7's publication pipeline to packages.fhir.org
 
-### Detailed Steps
+### Current Hosting (Proof of Concept)
+
+This IG is currently hosted at **`https://hl7-ie.github.io/`** via GitHub Pages under the `hl7-ie` organization. This demonstrates how the IG can be built, maintained, and versioned using industry-standard DevOps practices.
+
+Deployment is automated via GitHub Actions:
+- Triggered on every push to the repository
+- Builds the IG using SUSHI and the HL7 IG Publisher
+- Publishes to GitHub Pages automatically
+
+### Detailed Steps for Future Governance
 
 #### 1. Establish HL7 Ireland
 
@@ -209,19 +220,19 @@ Contact HL7 International ([hl7.org](http://hl7.org)) to establish HL7 Ireland a
 
 Alternatively, use the **HL7 FHIR Community Process** for initial publication without full affiliate status.
 
-#### 2. Domain Setup (hl7.hse.ie)
+#### 2. Domain Setup (Future National Domain)
 
-Coordinate with HSE IT to:
+Once a governing body is established, coordinate infrastructure deployment:
 
-1. Create the `hl7.hse.ie` subdomain
+1. Register a national domain (e.g., `hl7.ie` or similar)
 2. Configure DNS (CNAME to hosting platform)
 3. Obtain SSL/TLS certificate
 4. Deploy the built IG (`output/` directory)
 
 Hosting options:
-- **GitHub Pages**: Free, automated via GitHub Actions
+- **GitHub Pages**: Free, automated via GitHub Actions (current approach)
 - **Azure/AWS**: Scalable cloud hosting
-- **HSE Infrastructure**: On-premises hosting
+- **National Healthcare Infrastructure**: On-premises hosting managed by Irish health authorities
 
 #### 3. Continuous Integration
 

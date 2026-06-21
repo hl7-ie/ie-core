@@ -1,21 +1,24 @@
 # ╭──────────────────────────────────────ImplementationGuide───────────────────────────────────────╮
 # │  Ireland (IE) Core FHIR Implementation Guide                                                  │
 # │  Based on FHIR R4 (4.0.1)                                                                     │
-# │  Canonical URL: http://hl7.hse.ie/fhir/ie/core                                               │
+# │  Canonical URL: https://hl7-ie.github.io/fhir/ie/core                                        │
 # ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 id: hl7.fhir.ie.core
-canonical: http://hl7.hse.ie/fhir/ie/core
+canonical: https://hl7-ie.github.io/fhir/ie/core
 name: IECore
 title: "IE (Ireland) Core Implementation Guide"
 description: >-
-  The IE Core Implementation Guide is based on FHIR Version R4 and defines the minimum
-  constraints on the FHIR resources to create the IE Core Profiles. It also documents
-  the minimum FHIR RESTful interactions for each IE Core Profile to access patient data.
-  This IG is developed and maintained in collaboration with the Health Service Executive (HSE),
-  the Irish College of General Practitioners (ICGP), and the Department of Health.
-  IE Core profiles derive from the HL7 Europe Base and Core profiles to ensure conformance
-  with the European Health Data Space (EHDS) and cross-border interoperability via the
-  International Patient Summary (IPS) standard.
+  **⚠️ Proof of Concept (PoC):** This Implementation Guide is built as a Proof of Concept by Nithin Mohan.
+  It has no support from the HSE, HSE Standards team, or Department of Health.
+  In future, this may be handed over to a governing body within Ireland for maintaining this implementation guide.
+  This IG is the author's proof of concept to demonstrate how FHIR adoption should be implemented at the national level.
+  It is built with the author's experiences working in HL7 V2, V3 CDA, and FHIR, and a curiosity to solve problems for EHDS
+  cross-border healthcare from the context of Ireland's healthcare landscape.
+  
+  The IE Core Implementation Guide is based on FHIR Version R4 and defines the minimum constraints on FHIR resources 
+  to create the IE Core Profiles. It also documents the minimum FHIR RESTful interactions for each IE Core Profile to 
+  access patient data. IE Core profiles derive from the HL7 Europe Base and Core profiles to ensure conformance
+  with the European Health Data Space (EHDS) and cross-border interoperability via the International Patient Summary (IPS) standard.
 status: draft
 version: 0.1.1
 fhirVersion: 4.0.1
@@ -24,9 +27,9 @@ releaseLabel: ci-build
 license: CC-BY-4.0
 jurisdiction: urn:iso:std:iso:3166#IE "Ireland"
 publisher:
-  name: HL7 Ireland / HSE FHIR Working Group
-  url: http://hl7.hse.ie
-  email: fhir@hse.ie
+  name: Nithin Mohan T K (Proof of Concept)
+  url: https://github.com/hl7-ie
+  email: nithinmohantk1@gmail.com
 
 dependencies:
   hl7.fhir.uv.extensions.r4: 5.1.0

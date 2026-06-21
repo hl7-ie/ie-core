@@ -12,19 +12,19 @@ Usage: #definition
 Title: "IE Core Server CapabilityStatement"
 Description: "This CapabilityStatement describes the expected capabilities of an IE Core FHIR Server which is responsible for providing responses to the queries submitted by IE Core FHIR Clients. The complete list of FHIR profiles, RESTful operations, and search parameters supported by IE Core FHIR Servers are defined in this CapabilityStatement."
 
-* url = "http://hl7.hse.ie/fhir/ie/core/CapabilityStatement/ie-core-server"
+* url = "https://hl7-ie.github.io/fhir/ie/core/CapabilityStatement/ie-core-server"
 * version = "0.1.0"
 * name = "IECoreServerCapabilityStatement"
 * title = "IE Core Server CapabilityStatement"
 * status = #draft
 * experimental = false
 * date = "2025-01-01"
-* publisher = "HL7 Ireland / HSE FHIR Working Group"
+* publisher = "IE Core (Proof of Concept by Nithin Mohan T K)"
 * description = "This CapabilityStatement describes the expected capabilities of a system that conforms to the IE Core Implementation Guide as a Server. It lists the RESTful interactions, supported profiles, and search parameters for each resource type."
 * jurisdiction = urn:iso:std:iso:3166#IE "Ireland"
 * kind = #instance
 * implementation.description = "IE Core FHIR Server"
-* implementation.url = "http://hl7.hse.ie/fhir/ie/core"
+* implementation.url = "https://hl7-ie.github.io/fhir/ie/core"
 * fhirVersion = #4.0.1
 * format[0] = #json
 * format[+] = #xml
@@ -34,7 +34,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── Patient ──────────────────────────────────────────────────────────
 * rest.resource[+].type = #Patient
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-patient"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-patient"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -63,7 +63,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── Practitioner ─────────────────────────────────────────────────────
 * rest.resource[+].type = #Practitioner
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-practitioner"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-practitioner"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -77,7 +77,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── PractitionerRole ─────────────────────────────────────────────────
 * rest.resource[+].type = #PractitionerRole
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-practitionerrole"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-practitionerrole"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -94,7 +94,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── Organization ─────────────────────────────────────────────────────
 * rest.resource[+].type = #Organization
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-organization"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-organization"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -111,7 +111,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── Location ─────────────────────────────────────────────────────────
 * rest.resource[+].type = #Location
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-location"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-location"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -125,7 +125,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── Encounter ────────────────────────────────────────────────────────
 * rest.resource[+].type = #Encounter
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-encounter"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-encounter"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -148,8 +148,8 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── Condition ────────────────────────────────────────────────────────
 * rest.resource[+].type = #Condition
-* rest.resource[=].supportedProfile[0] = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-condition-encounter-diagnosis"
-* rest.resource[=].supportedProfile[+] = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-condition-problems-health-concerns"
+* rest.resource[=].supportedProfile[0] = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-condition-encounter-diagnosis"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-condition-problems-health-concerns"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -172,7 +172,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── Procedure ────────────────────────────────────────────────────────
 * rest.resource[+].type = #Procedure
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-procedure"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-procedure"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -192,11 +192,11 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── Observation ──────────────────────────────────────────────────────
 * rest.resource[+].type = #Observation
-* rest.resource[=].supportedProfile[0] = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-observation-clinical-result"
-* rest.resource[=].supportedProfile[+] = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-laboratory-result-observation"
-* rest.resource[=].supportedProfile[+] = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-simple-observation"
-* rest.resource[=].supportedProfile[+] = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-vital-signs"
-* rest.resource[=].supportedProfile[+] = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-blood-pressure"
+* rest.resource[=].supportedProfile[0] = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-observation-clinical-result"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-laboratory-result-observation"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-simple-observation"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-vital-signs"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-blood-pressure"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -219,8 +219,8 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── DiagnosticReport ─────────────────────────────────────────────────
 * rest.resource[+].type = #DiagnosticReport
-* rest.resource[=].supportedProfile[0] = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-diagnosticreport-lab"
-* rest.resource[=].supportedProfile[+] = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-diagnosticreport-note"
+* rest.resource[=].supportedProfile[0] = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-diagnosticreport-lab"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-diagnosticreport-note"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -243,7 +243,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── DocumentReference ────────────────────────────────────────────────
 * rest.resource[+].type = #DocumentReference
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-documentreference"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-documentreference"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -263,7 +263,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── MedicationRequest ────────────────────────────────────────────────
 * rest.resource[+].type = #MedicationRequest
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-medicationrequest"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -283,7 +283,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── MedicationDispense ───────────────────────────────────────────────
 * rest.resource[+].type = #MedicationDispense
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationdispense"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-medicationdispense"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -297,7 +297,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── Medication ───────────────────────────────────────────────────────
 * rest.resource[+].type = #Medication
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medication"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-medication"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -308,7 +308,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── Immunization ─────────────────────────────────────────────────────
 * rest.resource[+].type = #Immunization
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-immunization"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-immunization"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -325,7 +325,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── AllergyIntolerance ───────────────────────────────────────────────
 * rest.resource[+].type = #AllergyIntolerance
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-allergyintolerance"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-allergyintolerance"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -339,7 +339,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── CarePlan ─────────────────────────────────────────────────────────
 * rest.resource[+].type = #CarePlan
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-careplan"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-careplan"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -359,7 +359,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── CareTeam ─────────────────────────────────────────────────────────
 * rest.resource[+].type = #CareTeam
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-careteam"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-careteam"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -373,7 +373,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── Goal ─────────────────────────────────────────────────────────────
 * rest.resource[+].type = #Goal
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-goal"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-goal"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -387,7 +387,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── ServiceRequest ───────────────────────────────────────────────────
 * rest.resource[+].type = #ServiceRequest
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-servicerequest"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-servicerequest"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -404,7 +404,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── Coverage ─────────────────────────────────────────────────────────
 * rest.resource[+].type = #Coverage
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-coverage"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-coverage"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -418,7 +418,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── Device ───────────────────────────────────────────────────────────
 * rest.resource[+].type = #Device
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-implantable-device"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-implantable-device"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -432,7 +432,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── Provenance ───────────────────────────────────────────────────────
 * rest.resource[+].type = #Provenance
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-provenance"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-provenance"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -446,7 +446,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── RelatedPerson ────────────────────────────────────────────────────
 * rest.resource[+].type = #RelatedPerson
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-relatedperson"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-relatedperson"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -457,7 +457,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── QuestionnaireResponse ────────────────────────────────────────────
 * rest.resource[+].type = #QuestionnaireResponse
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-questionnaireresponse"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-questionnaireresponse"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -474,7 +474,7 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── Specimen ─────────────────────────────────────────────────────────
 * rest.resource[+].type = #Specimen
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-specimen"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-specimen"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -497,19 +497,19 @@ Usage: #definition
 Title: "IE Core Client CapabilityStatement"
 Description: "This CapabilityStatement describes the expected capabilities of an IE Core FHIR Client which is responsible for creating and initiating the queries for information. The complete list of FHIR profiles, RESTful operations, and search parameters supported by IE Core FHIR Clients are defined in this CapabilityStatement."
 
-* url = "http://hl7.hse.ie/fhir/ie/core/CapabilityStatement/ie-core-client"
+* url = "https://hl7-ie.github.io/fhir/ie/core/CapabilityStatement/ie-core-client"
 * version = "0.1.0"
 * name = "IECoreClientCapabilityStatement"
 * title = "IE Core Client CapabilityStatement"
 * status = #draft
 * experimental = false
 * date = "2025-01-01"
-* publisher = "HL7 Ireland / HSE FHIR Working Group"
+* publisher = "IE Core (Proof of Concept by Nithin Mohan T K)"
 * description = "This CapabilityStatement describes the expected capabilities of a system that conforms to the IE Core Implementation Guide as a Client. It lists the RESTful interactions and supported profiles for each resource type that a client application can use to query an IE Core Server."
 * jurisdiction = urn:iso:std:iso:3166#IE "Ireland"
 * kind = #instance
 * implementation.description = "IE Core FHIR Client"
-* implementation.url = "http://hl7.hse.ie/fhir/ie/core"
+* implementation.url = "https://hl7-ie.github.io/fhir/ie/core"
 * fhirVersion = #4.0.1
 * format[0] = #json
 * format[+] = #xml
@@ -519,162 +519,162 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── Patient ──────────────────────────────────────────────────────────
 * rest.resource[+].type = #Patient
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-patient"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-patient"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── Practitioner ─────────────────────────────────────────────────────
 * rest.resource[+].type = #Practitioner
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-practitioner"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-practitioner"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── PractitionerRole ─────────────────────────────────────────────────
 * rest.resource[+].type = #PractitionerRole
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-practitionerrole"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-practitionerrole"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── Organization ─────────────────────────────────────────────────────
 * rest.resource[+].type = #Organization
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-organization"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-organization"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── Location ─────────────────────────────────────────────────────────
 * rest.resource[+].type = #Location
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-location"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-location"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── Encounter ────────────────────────────────────────────────────────
 * rest.resource[+].type = #Encounter
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-encounter"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-encounter"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── Condition ────────────────────────────────────────────────────────
 * rest.resource[+].type = #Condition
-* rest.resource[=].supportedProfile[0] = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-condition-encounter-diagnosis"
-* rest.resource[=].supportedProfile[+] = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-condition-problems-health-concerns"
+* rest.resource[=].supportedProfile[0] = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-condition-encounter-diagnosis"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-condition-problems-health-concerns"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── Procedure ────────────────────────────────────────────────────────
 * rest.resource[+].type = #Procedure
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-procedure"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-procedure"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── Observation ──────────────────────────────────────────────────────
 * rest.resource[+].type = #Observation
-* rest.resource[=].supportedProfile[0] = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-observation-clinical-result"
-* rest.resource[=].supportedProfile[+] = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-laboratory-result-observation"
-* rest.resource[=].supportedProfile[+] = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-simple-observation"
-* rest.resource[=].supportedProfile[+] = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-vital-signs"
-* rest.resource[=].supportedProfile[+] = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-blood-pressure"
+* rest.resource[=].supportedProfile[0] = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-observation-clinical-result"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-laboratory-result-observation"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-simple-observation"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-vital-signs"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-blood-pressure"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── DiagnosticReport ─────────────────────────────────────────────────
 * rest.resource[+].type = #DiagnosticReport
-* rest.resource[=].supportedProfile[0] = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-diagnosticreport-lab"
-* rest.resource[=].supportedProfile[+] = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-diagnosticreport-note"
+* rest.resource[=].supportedProfile[0] = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-diagnosticreport-lab"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-diagnosticreport-note"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── DocumentReference ────────────────────────────────────────────────
 * rest.resource[+].type = #DocumentReference
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-documentreference"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-documentreference"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── MedicationRequest ────────────────────────────────────────────────
 * rest.resource[+].type = #MedicationRequest
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-medicationrequest"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── MedicationDispense ───────────────────────────────────────────────
 * rest.resource[+].type = #MedicationDispense
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationdispense"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-medicationdispense"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── Medication ───────────────────────────────────────────────────────
 * rest.resource[+].type = #Medication
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medication"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-medication"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── Immunization ─────────────────────────────────────────────────────
 * rest.resource[+].type = #Immunization
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-immunization"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-immunization"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── AllergyIntolerance ───────────────────────────────────────────────
 * rest.resource[+].type = #AllergyIntolerance
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-allergyintolerance"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-allergyintolerance"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── CarePlan ─────────────────────────────────────────────────────────
 * rest.resource[+].type = #CarePlan
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-careplan"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-careplan"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── CareTeam ─────────────────────────────────────────────────────────
 * rest.resource[+].type = #CareTeam
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-careteam"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-careteam"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── Goal ─────────────────────────────────────────────────────────────
 * rest.resource[+].type = #Goal
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-goal"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-goal"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── ServiceRequest ───────────────────────────────────────────────────
 * rest.resource[+].type = #ServiceRequest
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-servicerequest"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-servicerequest"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── Coverage ─────────────────────────────────────────────────────────
 * rest.resource[+].type = #Coverage
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-coverage"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-coverage"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── Device ───────────────────────────────────────────────────────────
 * rest.resource[+].type = #Device
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-implantable-device"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-implantable-device"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── Provenance ───────────────────────────────────────────────────────
 * rest.resource[+].type = #Provenance
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-provenance"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-provenance"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── RelatedPerson ────────────────────────────────────────────────────
 * rest.resource[+].type = #RelatedPerson
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-relatedperson"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-relatedperson"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── QuestionnaireResponse ────────────────────────────────────────────
 * rest.resource[+].type = #QuestionnaireResponse
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-questionnaireresponse"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-questionnaireresponse"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── Specimen ─────────────────────────────────────────────────────────
 * rest.resource[+].type = #Specimen
-* rest.resource[=].supportedProfile = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-specimen"
+* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-specimen"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type

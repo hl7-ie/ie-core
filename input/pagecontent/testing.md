@@ -88,7 +88,7 @@ Behaviour-Driven Development (BDD) tests using [Cucumber.js](https://cucumber.io
 ```gherkin
 Scenario: IE Core Patient IHI identifier format is valid
   Given I have the example resource "Patient-ie-core-patient-example.json"
-  When I extract identifiers with system "http://hl7.hse.ie/fhir/ie/core/sid/ihi"
+  When I extract identifiers with system "https://hl7-ie.github.io/fhir/ie/core/sid/ihi"
   Then each identifier value should match pattern "^[0-9]{18}$"
 ```
 

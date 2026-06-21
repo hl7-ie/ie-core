@@ -1,9 +1,14 @@
 # IE (Ireland) Core Implementation Guide — FHIR R5 Edition
 id: hl7.fhir.ie.core.r5
-canonical: http://hl7.hse.ie/fhir/ie/core-r5
+canonical: https://hl7-ie.github.io/fhir/ie/core-r5
 name: IECoreR5
 title: "IE (Ireland) Core Implementation Guide — FHIR R5"
 description: >-
+  **⚠️ Proof of Concept (PoC):** This Implementation Guide is built as a Proof of Concept by Nithin Mohan.
+  It has no support from the HSE, HSE Standards team, or Department of Health.
+  In future, this may be handed over to a governing body within Ireland for maintaining this implementation guide.
+  This IG is the author's proof of concept to demonstrate how FHIR adoption should be implemented at the national level.
+  
   FHIR R5 edition of the IE Core Implementation Guide. This IG mirrors the R4
   edition and will progressively diverge as R5-specific features (subscriptions,
   SubscriptionTopic, new resource types) are adopted. It derives from the HL7
@@ -16,9 +21,9 @@ releaseLabel: ci-build
 license: CC-BY-4.0
 jurisdiction: urn:iso:std:iso:3166#IE "Ireland"
 publisher:
-  name: HL7 Ireland / HSE FHIR Working Group
-  url: http://hl7.hse.ie
-  email: fhir@hse.ie
+  name: Nithin Mohan T K (Proof of Concept)
+  url: https://github.com/hl7-ie
+  email: nithinmohantk1@gmail.com
 
 dependencies:
   hl7.fhir.eu.base-r5:
