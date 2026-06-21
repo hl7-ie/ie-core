@@ -1,6 +1,6 @@
 ### Introduction
 
-The IE Core Implementation Guide is developed by the HSE ePharmacy team in collaboration with the HSE CDAO - Data Standardization team and the Department of Health. The IE Core FHIR profiles were developed through extensive consultation with healthcare stakeholders across Ireland's health system.
+**⚠️ Important Notice:** This Implementation Guide is built as a Proof of Concept by Nithin Mohan. It has no support from the HSE, HSE Standards team, or the Department of Health. In future, this may be handed over to a governing body within Ireland for maintaining this implementation guide. This IG is the author's proof of concept to demonstrate how FHIR adoption should be implemented at the national level. It is built with the author's experiences working in HL7 V2, V3 CDA, and FHIR, and a curiosity to solve problems for EHDS cross-border healthcare from the context of Ireland's healthcare landscape.
 
 The IE Core Implementation Guide, based on [FHIR Version R4](http://hl7.org/fhir/R4/), defines the minimum constraints on FHIR resources to create the IE Core Profiles. It identifies necessary elements, extensions, vocabularies, and value sets, and details their usage. It also documents the minimum FHIR RESTful interactions required for each IE Core Profile to access patient data. Establishing this "floor" of standards promotes interoperability and adoption through common implementation, allowing for further standards development for specific use cases.
 

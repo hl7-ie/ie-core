@@ -1,5 +1,7 @@
 ### HL7 FHIR Registry & Publication Guidance
 
+**⚠️ Current Status:** This page provides aspirational guidance on formal HL7 publication. This IG is currently a Proof of Concept maintained by Nithin Mohan and hosted on GitHub Pages. These steps outline the future path when a governing body is established to oversee the Irish national IG.
+
 This page provides step-by-step guidance on how to formally publish an Implementation Guide through the official HL7 FHIR registry, ensuring it is recognized as an authentic, standards-compliant IG.
 
 ### Why Publish Through HL7?
@@ -41,10 +43,10 @@ To publish an IG through HL7, you need an organizational relationship with HL7:
 
 #### Reserve Your Canonical URL
 
-The canonical URL (`http://hl7.hse.ie/fhir/ie/core`) must be:
+The canonical URL (`https://hl7-ie.github.io/fhir/ie/core`) must be:
 
-1. **Registered with HL7**: Contact HL7 to register the canonical URL namespace
-2. **Under your control**: You must own or have authority over the domain (`hl7.hse.ie`)
+1. **Registered with HL7**: Contact HL7 to register the canonical URL namespace (future governance body)
+2. **Under your control**: You must own or have authority over the domain
 3. **Stable**: The URL must remain accessible for the life of the IG
 
 #### Register the NPM Package

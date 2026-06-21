@@ -4,7 +4,7 @@ Id: ie-core-relatedperson
 Title: "IE Core RelatedPerson"
 Description: "The IE Core RelatedPerson profile sets minimum expectations for the RelatedPerson resource to record, search, and fetch related person data associated with a patient, based on Irish requirements."
 
-* ^url = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-relatedperson"
+* ^url = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-relatedperson"
 * ^version = "0.1.0"
 * ^status = #draft
 

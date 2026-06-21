@@ -135,7 +135,7 @@ Description: "The IE Core Patient Profile is based upon the core FHIR Patient Re
 * address.state MS
 * address.state ^short = "County"
 * address.state ^definition = "The Irish county. Bound to the IE Core County ValueSet."
-* address.state from http://hl7.hse.ie/fhir/ie/core/ValueSet/ie-core-county (extensible)
+* address.state from https://hl7-ie.github.io/fhir/ie/core/ValueSet/ie-core-county (extensible)
 * address.postalCode MS
 * address.postalCode ^short = "Eircode or postal code"
 * address.country MS

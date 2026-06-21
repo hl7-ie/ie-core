@@ -4,7 +4,7 @@ Id: ie-core-medicationdispense
 Title: "IE Core MedicationDispense"
 Description: "The IE Core MedicationDispense profile sets minimum expectations for the MedicationDispense resource to record, search, and fetch medication dispensing events associated with a patient, based on Irish requirements."
 
-* ^url = "http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationdispense"
+* ^url = "https://hl7-ie.github.io/fhir/ie/core/StructureDefinition/ie-core-medicationdispense"
 * ^version = "0.1.0"
 * ^status = #draft
 

@@ -1,7 +1,7 @@
 // ============================================================================
 // IE Core ValueSets
 // Ireland (IE) Core FHIR Implementation Guide
-// Canonical: http://hl7.hse.ie/fhir/ie/core
+// Canonical: https://hl7-ie.github.io/fhir/ie/core
 // FHIR R4 (4.0.1)
 // ============================================================================
 
@@ -11,7 +11,7 @@ Alias: $LOINC = http://loinc.org
 Alias: $RXNORM = http://www.nlm.nih.gov/research/umls/rxnorm
 Alias: $CVX = http://hl7.org/fhir/sid/cvx
 Alias: $ATC = http://www.whocc.no/atc
-Alias: $NMPC = http://hl7.hse.ie/fhir/ie/core/sid/nmpc
+Alias: $NMPC = https://hl7-ie.github.io/fhir/ie/core/sid/nmpc
 Alias: $ICD10PCS = http://www.cms.gov/Medicare/Coding/ICD10
 Alias: $V2-0074 = http://terminology.hl7.org/CodeSystem/v2-0074
 Alias: $V2-0136 = http://terminology.hl7.org/CodeSystem/v2-0136
@@ -29,16 +29,16 @@ Alias: $LOCATION-ROLE-TYPE = http://terminology.hl7.org/CodeSystem/v3-ServiceDel
 Alias: $MEDICATION-ADHERENCE = http://hl7.org/fhir/CodeSystem/medication-statement-adherence
 
 // --- IE Core Code System Aliases ---
-Alias: $IE-CS = http://hl7.hse.ie/fhir/ie/core/CodeSystem/ie-core-codesystem
-Alias: $IE-CONDITION-CAT = http://hl7.hse.ie/fhir/ie/core/CodeSystem/ie-core-condition-category
-Alias: $IE-PROVENANCE = http://hl7.hse.ie/fhir/ie/core/CodeSystem/ie-core-provenance-participant-type-codes
-Alias: $IE-TAGS = http://hl7.hse.ie/fhir/ie/core/CodeSystem/ie-core-tags
-Alias: $IE-DOCREF-CAT = http://hl7.hse.ie/fhir/ie/core/CodeSystem/ie-core-documentreference-category-codes
-Alias: $IE-SCREENING = http://hl7.hse.ie/fhir/ie/core/CodeSystem/ie-core-screening-assessment-codes
-Alias: $IE-COUNTY = http://hl7.hse.ie/fhir/ie/core/CodeSystem/ie-core-county-codes
-Alias: $IE-ETHNICITY = http://hl7.hse.ie/fhir/ie/core/CodeSystem/ie-core-ethnicity-codes
-Alias: $IE-IHI-STATUS = http://hl7.hse.ie/fhir/ie/core/CodeSystem/ie-core-ihi-status-codes
-Alias: $IE-IHI-RECORD = http://hl7.hse.ie/fhir/ie/core/CodeSystem/ie-core-ihi-record-status-codes
+Alias: $IE-CS = https://hl7-ie.github.io/fhir/ie/core/CodeSystem/ie-core-codesystem
+Alias: $IE-CONDITION-CAT = https://hl7-ie.github.io/fhir/ie/core/CodeSystem/ie-core-condition-category
+Alias: $IE-PROVENANCE = https://hl7-ie.github.io/fhir/ie/core/CodeSystem/ie-core-provenance-participant-type-codes
+Alias: $IE-TAGS = https://hl7-ie.github.io/fhir/ie/core/CodeSystem/ie-core-tags
+Alias: $IE-DOCREF-CAT = https://hl7-ie.github.io/fhir/ie/core/CodeSystem/ie-core-documentreference-category-codes
+Alias: $IE-SCREENING = https://hl7-ie.github.io/fhir/ie/core/CodeSystem/ie-core-screening-assessment-codes
+Alias: $IE-COUNTY = https://hl7-ie.github.io/fhir/ie/core/CodeSystem/ie-core-county-codes
+Alias: $IE-ETHNICITY = https://hl7-ie.github.io/fhir/ie/core/CodeSystem/ie-core-ethnicity-codes
+Alias: $IE-IHI-STATUS = https://hl7-ie.github.io/fhir/ie/core/CodeSystem/ie-core-ihi-status-codes
+Alias: $IE-IHI-RECORD = https://hl7-ie.github.io/fhir/ie/core/CodeSystem/ie-core-ihi-record-status-codes
 
 
 // ============================================================================

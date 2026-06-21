@@ -1,6 +1,8 @@
 # IE (Ireland) Core FHIR Implementation Guide
 
-**Canonical URL**: `http://hl7.hse.ie/fhir/ie/core`  
+**⚠️ Proof of Concept (PoC):** This Implementation Guide is built as a Proof of Concept by Nithin Mohan. It has no support from the HSE, HSE Standards team, or Department of Health. In future, this may be handed over to a governing body within Ireland for maintaining this implementation guide. This IG is the author's proof of concept to demonstrate how FHIR adoption should be implemented at the national level. It is built with the author's experiences working in HL7 V2, V3 CDA, and FHIR, and a curiosity to solve problems for EHDS cross-border healthcare from the context of Ireland's healthcare landscape.
+
+**Canonical URL**: `https://hl7-ie.github.io/fhir/ie/core`  
 **Package**: `hl7.fhir.ie.core`  
 **Version**: 0.1.1  
 **FHIR Version**: R4 (4.0.1)  
@@ -10,9 +12,7 @@
 
 ## Overview
 
-The IE Core Implementation Guide defines the minimum constraints on FHIR resources to create Irish healthcare interoperability profiles. It is developed by the HSE ePharmacy team in collaboration with the HSE CDAO - Data Standardization team and the Department of Health.
-
-This IG establishes a "floor" of standards that promotes interoperability and adoption through common implementation across Ireland's healthcare systems.
+The IE Core Implementation Guide defines the minimum constraints on FHIR resources to create Irish healthcare interoperability profiles. It is authored by Nithin Mohan as a proof of concept to demonstrate how FHIR adoption should be implemented at the national level.
 
 ## Contents
 
@@ -70,7 +70,9 @@ sushi --version     # 3.x or higher
 
 ## Building the IG
 
-### Step 1: Compile FSH to FHIR Resources
+### Standard Build (Default Configuration)
+
+#### Step 1: Compile FSH to FHIR Resources
 
 ```bash
 sushi .
@@ -78,7 +80,7 @@ sushi .
 
 This reads all `.fsh` files from `input/fsh/` and generates FHIR JSON resources in `fsh-generated/`.
 
-### Step 2: Download the IG Publisher
+#### Step 2: Download the IG Publisher
 
 **Windows:**
 ```batch
@@ -91,7 +93,7 @@ chmod +x _updatePublisher.sh
 ./_updatePublisher.sh
 ```
 
-### Step 3: Build the Full IG
+#### Step 3: Build the Full IG
 
 **Windows:**
 ```batch
@@ -106,19 +108,88 @@ chmod +x _genonce.sh
 
 The generated IG website will be in the `output/` directory. Open `output/index.html` to view.
 
+### Configurable Builds (Custom Base URL)
+
+**Important:** The base URL (canonical namespace) is configurable for different deployment environments. This allows the IG to be hosted on different domains without code changes.
+
+#### Default Configuration
+
+- **Base URL:** `https://hl7-ie.github.io` (GitHub Pages PoC)
+- **Config file:** `build-config.env`
+
+#### Build with Custom Base URL
+
+To build the IG for a different domain (e.g., when moved to national infrastructure), use the configuration-aware build script:
+
+**macOS/Linux:**
+```bash
+chmod +x build-ig-with-config.sh
+
+# Use default URL from build-config.env
+./build-ig-with-config.sh
+
+# Or override with command-line argument
+./build-ig-with-config.sh https://hl7.ie
+./build-ig-with-config.sh https://fhir.health.ie
+```
+
+**Windows (PowerShell):**
+```powershell
+# Edit build-config.env to set IE_CORE_BASE_URL
+# Then run standard build process
+
+# Or use environment variable
+$env:IE_CORE_BASE_URL="https://hl7.ie"
+# Then run sushi . and _genonce.bat
+```
+
+#### Environment-Based Configuration
+
+For CI/CD pipelines (GitHub Actions, etc.), set the base URL via environment variable:
+
+```bash
+# In GitHub Actions or shell
+export IE_CORE_BASE_URL=https://hl7.ie
+
+# Then run the build
+./build-ig-with-config.sh
+```
+
+#### Configuration File Reference
+
+Edit `build-config.env` to set the default base URL:
+
+```env
+# Default: https://hl7-ie.github.io (GitHub Pages PoC)
+IE_CORE_BASE_URL=https://hl7-ie.github.io
+
+# Examples for different environments:
+# IE_CORE_BASE_URL=https://hl7.ie
+# IE_CORE_BASE_URL=https://fhir.health.ie
+# IE_CORE_BASE_URL=https://my-institution.ie/fhir
+```
+
+This configuration affects all identifier systems and profile URLs:
+- `$IEBase` = `{IE_CORE_BASE_URL}/fhir/ie/core`
+- `$IHI` = `{IE_CORE_BASE_URL}/fhir/ie/core/sid/ihi`
+- `$HPI` = `{IE_CORE_BASE_URL}/fhir/ie/core/sid/hpi`
+- All other identifier and alias systems
+
 ## Project Structure
 
 ```
 hl7-fhir/
 ├── sushi-config.yaml              # SUSHI/IG configuration
 ├── ig.ini                         # IG Publisher configuration
+├── build-config.env               # Build configuration (base URL, etc.)
+├── build-ig-with-config.sh        # Build script with configurable base URL
 ├── _genonce.bat/.sh               # Build scripts
 ├── _updatePublisher.bat/.sh       # Publisher download scripts
 ├── README.md                      # This file
 │
 ├── input/
 │   ├── fsh/
-│   │   ├── aliases.fsh            # Common aliases and URLs
+│   │   ├── aliases.fsh            # Common aliases and URLs (base URL configurable)
 │   │   ├── profiles/              # All resource profiles
 │   │   │   ├── IECorePatient.fsh
 │   │   │   ├── IECorePractitioner.fsh
@@ -191,12 +262,23 @@ hl7-fhir/
 
 ### Overview of the Process
 
+This IG is currently a Proof of Concept maintained by Nithin Mohan and hosted on GitHub Pages via the `hl7-ie` organization domain (`hl7-ie.github.io`). The following is the intended path for future governance and publication:
+
 1. **Establish HL7 Relationship** → Join/create HL7 Ireland affiliate or get HL7 Work Group sponsorship
-2. **Register Canonical URL** → Reserve `http://hl7.hse.ie/fhir/ie/core` with HL7
+2. **Register Canonical URL** → Reserve a canonical URL with HL7 (future governance body)
 3. **HL7 Ballot** → Submit for formal ballot (For Comment → STU → Normative)
 4. **Publish** → Publish through HL7's publication pipeline to packages.fhir.org
 
-### Detailed Steps
+### Current Hosting (Proof of Concept)
+
+This IG is currently hosted at **`https://hl7-ie.github.io/`** via GitHub Pages under the `hl7-ie` organization. This demonstrates how the IG can be built, maintained, and versioned using industry-standard DevOps practices.
+
+Deployment is automated via GitHub Actions:
+- Triggered on every push to the repository
+- Builds the IG using SUSHI and the HL7 IG Publisher
+- Publishes to GitHub Pages automatically
+
+### Detailed Steps for Future Governance
 
 #### 1. Establish HL7 Ireland
 
@@ -209,19 +291,19 @@ Contact HL7 International ([hl7.org](http://hl7.org)) to establish HL7 Ireland a
 
 Alternatively, use the **HL7 FHIR Community Process** for initial publication without full affiliate status.
 
-#### 2. Domain Setup (hl7.hse.ie)
+#### 2. Domain Setup (Future National Domain)
 
-Coordinate with HSE IT to:
+Once a governing body is established, coordinate infrastructure deployment:
 
-1. Create the `hl7.hse.ie` subdomain
+1. Register a national domain (e.g., `hl7.ie` or similar)
 2. Configure DNS (CNAME to hosting platform)
 3. Obtain SSL/TLS certificate
 4. Deploy the built IG (`output/` directory)
 
 Hosting options:
-- **GitHub Pages**: Free, automated via GitHub Actions
+- **GitHub Pages**: Free, automated via GitHub Actions (current approach)
 - **Azure/AWS**: Scalable cloud hosting
-- **HSE Infrastructure**: On-premises hosting
+- **National Healthcare Infrastructure**: On-premises hosting managed by Irish health authorities
 
 #### 3. Continuous Integration
 
