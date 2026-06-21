@@ -39,7 +39,7 @@ Alias: $PCRS_CATEGORY = https://nmpc.hse.ie/PCRS/Category
 // HPRA (Health Products Regulatory Authority) drug catalogue (mapped via SNOMED ConceptMap):
 Alias: $HPRA = https://www.hpra.ie/drug-catalogue
 // Legacy/local NMPC placeholder (used in illustrative examples; real codes are SNOMED CT concepts):
-Alias: $NMPC = https://hl7-ie.github.io/fhir/ie/core/sid/nmpc
+Alias: $NMPC = https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/nmpc
 Alias: $V2-0203 = http://terminology.hl7.org/CodeSystem/v2-0203
 Alias: $V3-NullFlavor = http://terminology.hl7.org/CodeSystem/v3-NullFlavor
 Alias: $V3-ActCode = http://terminology.hl7.org/CodeSystem/v3-ActCode
@@ -54,23 +54,23 @@ Alias: $DataAbsentReason = http://terminology.hl7.org/CodeSystem/data-absent-rea
 Alias: $CondVerStatus = http://terminology.hl7.org/CodeSystem/condition-ver-status
 
 // IE Core Canonical Base
-Alias: $IEBase = https://hl7-ie.github.io/fhir/ie/core
+Alias: $IEBase = https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core
 
 // IE Core Identifier Systems
-Alias: $IHI = https://hl7-ie.github.io/fhir/ie/core/sid/ihi
-Alias: $HPI = https://hl7-ie.github.io/fhir/ie/core/sid/hpi
-Alias: $MRN = https://hl7-ie.github.io/fhir/ie/core/sid/mrn
-Alias: $IMC = https://hl7-ie.github.io/fhir/ie/core/sid/imc
-Alias: $GMS = https://hl7-ie.github.io/fhir/ie/core/sid/gms
-Alias: $DPS = https://hl7-ie.github.io/fhir/ie/core/sid/dps
-Alias: $LTI = https://hl7-ie.github.io/fhir/ie/core/sid/lti
-Alias: $HAA = https://hl7-ie.github.io/fhir/ie/core/sid/haa
-Alias: $CRN = https://hl7-ie.github.io/fhir/ie/core/sid/crn
-Alias: $IMN = https://hl7-ie.github.io/fhir/ie/core/sid/imn
+Alias: $IHI = https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/ihi
+Alias: $HPI = https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/hpi
+Alias: $MRN = https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/mrn
+Alias: $IMC = https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/imc
+Alias: $GMS = https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/gms
+Alias: $DPS = https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/dps
+Alias: $LTI = https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/lti
+Alias: $HAA = https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/haa
+Alias: $CRN = https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/crn
+Alias: $IMN = https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/imn
 
 // Irish Government Identifier Systems
-Alias: $PPS = https://hl7-ie.github.io/fhir/ie/core/sid/pps
-Alias: $Eircode = https://hl7-ie.github.io/fhir/ie/core/sid/eircode
+Alias: $PPS = https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/pps
+Alias: $Eircode = https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/eircode
 
 // HL7 FHIR Extension URLs
 Alias: $DAR = http://hl7.org/fhir/StructureDefinition/data-absent-reason
@@ -143,4 +143,4 @@ Alias: $EUDIWalletNamespace = https://identity.eudi.ec.europa.eu/claims
 Alias: $NCPeHOrgID = urn:oid:1.3.6.1.4.1.12559.11.10.1.3.1.2.1
 
 // Irish National ePrescription Service (NePS) identifier system
-Alias: $NePS = https://hl7-ie.github.io/fhir/ie/core/sid/neps
+Alias: $NePS = https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/neps

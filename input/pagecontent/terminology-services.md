@@ -59,7 +59,7 @@ To retrieve all current AMPP concepts from the CTS using the NMPC supplement:
 
 ```
 GET https://nmpc.hse.ie/production1/fhir/ValueSet/$expand
-  ?url=https://hl7-ie.github.io/fhir/ie/core/ValueSet/ie-core-nmpc-ampp
+  ?url=https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/ValueSet/ie-core-nmpc-ampp
   &useSupplement=https://nmpc.hse.ie/CodeSystem/nmpc-supplement
 Authorization: ******
 ```
@@ -82,7 +82,7 @@ PCRS scheme membership is exposed as an NMPC supplement property. To filter prod
 
 ```
 GET https://nmpc.hse.ie/production1/fhir/ValueSet/$expand
-  ?url=https://hl7-ie.github.io/fhir/ie/core/ValueSet/ie-core-nmpc-ampp
+  ?url=https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/ValueSet/ie-core-nmpc-ampp
   &useSupplement=https://nmpc.hse.ie/CodeSystem/nmpc-supplement
   &filter=PCRS:GMS
 Authorization: ******
@@ -162,7 +162,7 @@ Authorization: ******
 }
 ```
 
-> **Note on existing examples**: Some IE Core examples currently use placeholder NMPC codes (e.g., `NMPC-MET500TAB`) with the local system `https://hl7-ie.github.io/fhir/ie/core/sid/nmpc`. These are illustrative examples only. Real implementations must use SNOMED CT concept IDs from the CTS (system: `http://snomed.info/sct/1601000220105`).
+> **Note on existing examples**: Some IE Core examples currently use placeholder NMPC codes (e.g., `NMPC-MET500TAB`) with the local system `https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/nmpc`. These are illustrative examples only. Real implementations must use SNOMED CT concept IDs from the CTS (system: `http://snomed.info/sct/1601000220105`).
 
 ---
 
