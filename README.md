@@ -2,7 +2,7 @@
 
 **⚠️ Proof of Concept (PoC):** This Implementation Guide is built as a Proof of Concept by Nithin Mohan. It has no support from the HSE, HSE Standards team, or Department of Health. In future, this may be handed over to a governing body within Ireland for maintaining this implementation guide. This IG is the author's proof of concept to demonstrate how FHIR adoption should be implemented at the national level. It is built with the author's experiences working in HL7 V2, V3 CDA, and FHIR, and a curiosity to solve problems for EHDS cross-border healthcare from the context of Ireland's healthcare landscape.
 
-**Canonical URL**: `https://hl7-ie.github.io/fhir/ie/core`  
+**Canonical URL**: `https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core`  
 **Package**: `hl7.fhir.ie.core`  
 **Version**: 0.1.1  
 **FHIR Version**: R4 (4.0.1)  
@@ -114,7 +114,7 @@ The generated IG website will be in the `output/` directory. Open `output/index.
 
 #### Default Configuration
 
-- **Base URL:** `https://hl7-ie.github.io` (GitHub Pages PoC)
+- **Base URL:** `https://hl7-ie.github.io/hl7-ie-fhir-draft-ig` (GitHub Pages PoC)
 - **Config file:** `build-config.env`
 
 #### Build with Custom Base URL
@@ -160,8 +160,8 @@ export IE_CORE_BASE_URL=https://hl7.ie
 Edit `build-config.env` to set the default base URL:
 
 ```env
-# Default: https://hl7-ie.github.io (GitHub Pages PoC)
-IE_CORE_BASE_URL=https://hl7-ie.github.io
+# Default: https://hl7-ie.github.io/hl7-ie-fhir-draft-ig (GitHub Pages PoC)
+IE_CORE_BASE_URL=https://hl7-ie.github.io/hl7-ie-fhir-draft-ig
 
 # Examples for different environments:
 # IE_CORE_BASE_URL=https://hl7.ie
@@ -271,7 +271,7 @@ This IG is currently a Proof of Concept maintained by Nithin Mohan and hosted on
 
 ### Current Hosting (Proof of Concept)
 
-This IG is currently hosted at **`https://hl7-ie.github.io/`** via GitHub Pages under the `hl7-ie` organization. This demonstrates how the IG can be built, maintained, and versioned using industry-standard DevOps practices.
+This IG is currently hosted at **`https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/`** via GitHub Pages under the `hl7-ie` organization. This demonstrates how the IG can be built, maintained, and versioned using industry-standard DevOps practices.
 
 Deployment is automated via GitHub Actions:
 - Triggered on every push to the repository

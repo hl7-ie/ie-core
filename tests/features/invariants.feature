@@ -6,7 +6,7 @@ Feature: Profile Invariant Validation
 
   @ihi-valid
   Scenario Outline: Valid IHI numbers are accepted
-    Given a Patient identifier with system "https://hl7-ie.github.io/fhir/ie/core/sid/ihi"
+    Given a Patient identifier with system "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/ihi"
     When the identifier value is "<ihi>"
     Then the value should match the IHI pattern
 
@@ -18,7 +18,7 @@ Feature: Profile Invariant Validation
 
   @ihi-invalid
   Scenario Outline: Invalid IHI numbers are rejected
-    Given a Patient identifier with system "https://hl7-ie.github.io/fhir/ie/core/sid/ihi"
+    Given a Patient identifier with system "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/ihi"
     When the identifier value is "<ihi>"
     Then the value should not match the IHI pattern
 
@@ -31,7 +31,7 @@ Feature: Profile Invariant Validation
 
   @gms-valid
   Scenario Outline: Valid GMS numbers are accepted
-    Given a Patient identifier with system "https://hl7-ie.github.io/fhir/ie/core/sid/gms"
+    Given a Patient identifier with system "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/gms"
     When the identifier value is "<gms>"
     Then the value should match the GMS pattern
 
@@ -43,7 +43,7 @@ Feature: Profile Invariant Validation
 
   @gms-invalid
   Scenario Outline: Invalid GMS numbers are rejected
-    Given a Patient identifier with system "https://hl7-ie.github.io/fhir/ie/core/sid/gms"
+    Given a Patient identifier with system "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/gms"
     When the identifier value is "<gms>"
     Then the value should not match the GMS pattern
 

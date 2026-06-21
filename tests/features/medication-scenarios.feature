@@ -30,7 +30,7 @@ Feature: IE Core Medication Request and Dispensing Scenarios
   @medication @full-dispense
   Scenario: ePrescription has a PCRS identifier
     Given I have the example resource "MedicationRequest-ie-prescription-scenario1-full.json"
-    When I extract identifiers with system "https://hl7-ie.github.io/fhir/ie/core/sid/pcrs-rx"
+    When I extract identifiers with system "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/pcrs-rx"
     Then at least one identifier should exist
 
   # ──────────────────────────────────────────────
@@ -101,7 +101,7 @@ Feature: IE Core Medication Request and Dispensing Scenarios
     Given I have the example resource "MedicationRequest-ie-prescription-scenario4-ie-to-es.json"
     Then the resource should have resourceType "MedicationRequest"
     And the resource should have at least 2 identifiers
-    And one identifier should use system "https://hl7-ie.github.io/fhir/ie/core/sid/pcrs-rx"
+    And one identifier should use system "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/pcrs-rx"
     And one identifier should use system "urn:oid:2.16.840.1.113883.2.16.1.4.1"
 
   @medication @crossborder @ie-to-es
@@ -115,7 +115,7 @@ Feature: IE Core Medication Request and Dispensing Scenarios
   Scenario: Irish patient Ciarán Walsh has Irish IHI identifier
     Given I have the example resource "Patient-ie-core-patient-ciaran-walsh.json"
     Then the resource should have resourceType "Patient"
-    When I extract identifiers with system "https://hl7-ie.github.io/fhir/ie/core/sid/ihi"
+    When I extract identifiers with system "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/ihi"
     Then each identifier value should match pattern "^[0-9]{18}$"
 
   # ──────────────────────────────────────────────
@@ -141,7 +141,7 @@ Feature: IE Core Medication Request and Dispensing Scenarios
     Given I have the example resource "MedicationDispense-ie-dispense-scenario5-ie-pharmacy.json"
     Then the resource should have resourceType "MedicationDispense"
     And the resource should have a status value of "completed"
-    When I extract identifiers with system "https://hl7-ie.github.io/fhir/ie/core/sid/dispense-id"
+    When I extract identifiers with system "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/dispense-id"
     Then at least one identifier should exist
 
   @medication @crossborder @es-to-ie
