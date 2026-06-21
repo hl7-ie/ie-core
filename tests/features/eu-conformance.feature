@@ -36,4 +36,4 @@ Feature: EU Core Conformance
   @eu-canonical
   Scenario: All IE Core profiles use the correct canonical base URL
     Given I have all IE Core profile StructureDefinitions
-    Then every profile URL should start with "http://hl7.hse.ie/fhir/ie/core/"
+    Then every profile URL should start with "https://hl7-ie.github.io/fhir/ie/core/"
