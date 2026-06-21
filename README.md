@@ -70,7 +70,9 @@ sushi --version     # 3.x or higher
 
 ## Building the IG
 
-### Step 1: Compile FSH to FHIR Resources
+### Standard Build (Default Configuration)
+
+#### Step 1: Compile FSH to FHIR Resources
 
 ```bash
 sushi .
@@ -78,7 +80,7 @@ sushi .
 
 This reads all `.fsh` files from `input/fsh/` and generates FHIR JSON resources in `fsh-generated/`.
 
-### Step 2: Download the IG Publisher
+#### Step 2: Download the IG Publisher
 
 **Windows:**
 ```batch
@@ -91,7 +93,7 @@ chmod +x _updatePublisher.sh
 ./_updatePublisher.sh
 ```
 
-### Step 3: Build the Full IG
+#### Step 3: Build the Full IG
 
 **Windows:**
 ```batch
@@ -106,19 +108,88 @@ chmod +x _genonce.sh
 
 The generated IG website will be in the `output/` directory. Open `output/index.html` to view.
 
+### Configurable Builds (Custom Base URL)
+
+**Important:** The base URL (canonical namespace) is configurable for different deployment environments. This allows the IG to be hosted on different domains without code changes.
+
+#### Default Configuration
+
+- **Base URL:** `https://hl7-ie.github.io` (GitHub Pages PoC)
+- **Config file:** `build-config.env`
+
+#### Build with Custom Base URL
+
+To build the IG for a different domain (e.g., when moved to national infrastructure), use the configuration-aware build script:
+
+**macOS/Linux:**
+```bash
+chmod +x build-ig-with-config.sh
+
+# Use default URL from build-config.env
+./build-ig-with-config.sh
+
+# Or override with command-line argument
+./build-ig-with-config.sh https://hl7.ie
+./build-ig-with-config.sh https://fhir.health.ie
+```
+
+**Windows (PowerShell):**
+```powershell
+# Edit build-config.env to set IE_CORE_BASE_URL
+# Then run standard build process
+
+# Or use environment variable
+$env:IE_CORE_BASE_URL="https://hl7.ie"
+# Then run sushi . and _genonce.bat
+```
+
+#### Environment-Based Configuration
+
+For CI/CD pipelines (GitHub Actions, etc.), set the base URL via environment variable:
+
+```bash
+# In GitHub Actions or shell
+export IE_CORE_BASE_URL=https://hl7.ie
+
+# Then run the build
+./build-ig-with-config.sh
+```
+
+#### Configuration File Reference
+
+Edit `build-config.env` to set the default base URL:
+
+```env
+# Default: https://hl7-ie.github.io (GitHub Pages PoC)
+IE_CORE_BASE_URL=https://hl7-ie.github.io
+
+# Examples for different environments:
+# IE_CORE_BASE_URL=https://hl7.ie
+# IE_CORE_BASE_URL=https://fhir.health.ie
+# IE_CORE_BASE_URL=https://my-institution.ie/fhir
+```
+
+This configuration affects all identifier systems and profile URLs:
+- `$IEBase` = `{IE_CORE_BASE_URL}/fhir/ie/core`
+- `$IHI` = `{IE_CORE_BASE_URL}/fhir/ie/core/sid/ihi`
+- `$HPI` = `{IE_CORE_BASE_URL}/fhir/ie/core/sid/hpi`
+- All other identifier and alias systems
+
 ## Project Structure
 
 ```
 hl7-fhir/
 ├── sushi-config.yaml              # SUSHI/IG configuration
 ├── ig.ini                         # IG Publisher configuration
+├── build-config.env               # Build configuration (base URL, etc.)
+├── build-ig-with-config.sh        # Build script with configurable base URL
 ├── _genonce.bat/.sh               # Build scripts
 ├── _updatePublisher.bat/.sh       # Publisher download scripts
 ├── README.md                      # This file
 │
 ├── input/
 │   ├── fsh/
-│   │   ├── aliases.fsh            # Common aliases and URLs
+│   │   ├── aliases.fsh            # Common aliases and URLs (base URL configurable)
 │   │   ├── profiles/              # All resource profiles
 │   │   │   ├── IECorePatient.fsh
 │   │   │   ├── IECorePractitioner.fsh

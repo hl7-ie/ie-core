@@ -1,3 +1,9 @@
+// ╭────────────────────────────────────────────────────────────────────────────────────────────────╮
+// │ IE CORE FHIR ALIASES                                                                         │
+// │ NOTE: Base URL is configurable via build-config.env and build-ig-with-config.sh              │
+// │ See README.md for instructions on building with custom base URL                              │
+// ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+
 // HL7 & FHIR Standard Aliases
 Alias: $SCT = http://snomed.info/sct
 Alias: $LOINC = http://loinc.org

@@ -1,4 +1,8 @@
-// IE Core R5 Aliases
+// ╭────────────────────────────────────────────────────────────────────────────────────────────────╮
+// │ IE CORE FHIR R5 ALIASES                                                                      │
+// │ NOTE: Base URL is configurable via build-config.env and build-ig-with-config.sh              │
+// │ See ../../../README.md for instructions on building with custom base URL                     │
+// ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 
 // Standard Code Systems
 Alias: $SCT = http://snomed.info/sct
