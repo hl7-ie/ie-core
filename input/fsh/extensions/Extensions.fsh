@@ -13,7 +13,7 @@ Description: "Records a patient's ethnicity as categorised within the Irish heal
 Context: Patient
 * value[x] only code
 * value[x] 1..1
-* valueCode from https://hl7-ie.github.io/fhir/ie/core/ValueSet/ie-core-ethnicity (required)
+* valueCode from https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/ValueSet/ie-core-ethnicity (required)
 
 // ╭──────────────────────────────────────────────────────────────────────╮
 // │  IE Core Patient Mother Maiden Name                                 │
@@ -38,7 +38,7 @@ Description: "Records the patient's gender identity as understood within the Iri
 Context: Patient
 * value[x] only CodeableConcept
 * value[x] 1..1
-* valueCodeableConcept from https://hl7-ie.github.io/fhir/ie/core/ValueSet/ie-core-gender-identity (extensible)
+* valueCodeableConcept from https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/ValueSet/ie-core-gender-identity (extensible)
 
 // ╭──────────────────────────────────────────────────────────────────────╮
 // │  IE Core Interpreter Required                                       │
@@ -51,7 +51,7 @@ Description: "Indicates whether the patient requires an interpreter for communic
 Context: Patient, Encounter
 * value[x] only Coding
 * value[x] 1..1
-* valueCoding from https://hl7-ie.github.io/fhir/ie/core/ValueSet/ie-core-yes-no-unknown (required)
+* valueCoding from https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/ValueSet/ie-core-yes-no-unknown (required)
 
 // ╭──────────────────────────────────────────────────────────────────────╮
 // │  IE Core IHI Status                                                 │
@@ -64,7 +64,7 @@ Description: "Records the current status of an Individual Health Identifier (IHI
 Context: Identifier
 * value[x] only code
 * value[x] 1..1
-* valueCode from https://hl7-ie.github.io/fhir/ie/core/ValueSet/ie-core-ihi-status (required)
+* valueCode from https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/ValueSet/ie-core-ihi-status (required)
 
 // ╭──────────────────────────────────────────────────────────────────────╮
 // │  IE Core IHI Record Status                                          │
@@ -77,7 +77,7 @@ Description: "Records the record-level status of an Individual Health Identifier
 Context: Identifier
 * value[x] only code
 * value[x] 1..1
-* valueCode from https://hl7-ie.github.io/fhir/ie/core/ValueSet/ie-core-ihi-record-status (required)
+* valueCode from https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/ValueSet/ie-core-ihi-record-status (required)
 
 // ╭──────────────────────────────────────────────────────────────────────╮
 // │  IE Core IHI Verification Date                                      │
@@ -106,11 +106,11 @@ Context: MedicationRequest
 * extension[adherence] ^short = "Adherence status"
 * extension[adherence].value[x] only CodeableConcept
 * extension[adherence].value[x] 1..1
-* extension[adherence].valueCodeableConcept from https://hl7-ie.github.io/fhir/ie/core/ValueSet/ie-core-medication-adherence (extensible)
+* extension[adherence].valueCodeableConcept from https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/ValueSet/ie-core-medication-adherence (extensible)
 * extension[informationSource] ^short = "Source of adherence information"
 * extension[informationSource].value[x] only CodeableConcept
 * extension[informationSource].value[x] 1..1
-* extension[informationSource].valueCodeableConcept from https://hl7-ie.github.io/fhir/ie/core/ValueSet/ie-core-information-source (extensible)
+* extension[informationSource].valueCodeableConcept from https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/ValueSet/ie-core-information-source (extensible)
 * value[x] 0..0
 
 // ╭──────────────────────────────────────────────────────────────────────╮

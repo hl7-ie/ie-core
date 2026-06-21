@@ -43,7 +43,7 @@ Description: "The IE Core Organization Profile is based upon the core FHIR Organ
 // ── Type ────────────────────────────────────────────────────────────────
 * type MS
 * type ^short = "Kind of organization"
-* type from https://hl7-ie.github.io/fhir/ie/core/ValueSet/ie-core-organization-type (extensible)
+* type from https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/ValueSet/ie-core-organization-type (extensible)
 
 // ── Name ────────────────────────────────────────────────────────────────
 * name 1..1 MS
@@ -65,7 +65,7 @@ Description: "The IE Core Organization Profile is based upon the core FHIR Organ
 * address.line MS
 * address.city MS
 * address.state MS
-* address.state from https://hl7-ie.github.io/fhir/ie/core/ValueSet/ie-core-county (extensible)
+* address.state from https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/ValueSet/ie-core-county (extensible)
 * address.postalCode MS
 * address.country MS
 
