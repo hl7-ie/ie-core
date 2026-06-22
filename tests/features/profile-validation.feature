@@ -12,7 +12,7 @@ Feature: IE Core Profile Validation
   Scenario: IE Core Patient example validates against the profile
     Given I have the example resource "Patient-ie-core-patient-example.json"
     Then the resource should have resourceType "Patient"
-    And the resource should have a meta.profile containing "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/StructureDefinition/ie-core-patient"
+    And the resource should have a meta.profile containing "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/StructureDefinition/ie-core-patient"
     And the resource should have at least 1 identifier
     And the resource should have a name with a family component
     And the resource should have a gender value
@@ -20,13 +20,13 @@ Feature: IE Core Profile Validation
   @patient @identifiers
   Scenario: IE Core Patient IHI identifier format is valid
     Given I have the example resource "Patient-ie-core-patient-example.json"
-    When I extract identifiers with system "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/ihi"
+    When I extract identifiers with system "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/ihi"
     Then each identifier value should match pattern "^[0-9]{18}$"
 
   @patient @identifiers
   Scenario: IE Core Patient GMS identifier format is valid
     Given I have the example resource "Patient-ie-core-patient-example.json"
-    When I extract identifiers with system "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/gms"
+    When I extract identifiers with system "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/gms"
     Then each identifier value should match pattern "^[0-9]{7}[A-Za-z]$"
 
   @practitioner

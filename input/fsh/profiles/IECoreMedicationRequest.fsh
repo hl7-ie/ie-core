@@ -4,7 +4,7 @@ Id: ie-core-medicationrequest
 Title: "IE Core MedicationRequest"
 Description: "The IE Core MedicationRequest profile sets minimum expectations for the MedicationRequest resource to record, search, and fetch prescriptions associated with a patient, based on Irish requirements."
 
-* ^url = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/StructureDefinition/ie-core-medicationrequest"
+* ^url = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/StructureDefinition/ie-core-medicationrequest"
 * ^version = "0.1.0"
 * ^status = #draft
 

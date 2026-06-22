@@ -466,12 +466,12 @@ Usage: #example
 Title: "Scenario 1 (IE→DE) – Prescription: Metformin 500mg for Germany"
 Description: "Irish ePrescription for Metformin 500mg for Seán Murphy, transmitted via MyHealth@EU to Germany. Carries PCRS identifier and eIDAS cross-border identifier."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/pcrs-rx"
 * identifier[=].value = "PCRS-RX-2025-IE-DE-001"
 * identifier[+].system = "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier"
 * identifier[=].value = "IE/DE/1234567T"
 
-* groupIdentifier.system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/prescription-group"
+* groupIdentifier.system = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/prescription-group"
 * groupIdentifier.value = "IE-GP-RX-GROUP-20250120-DE"
 
 * status = #active
@@ -510,12 +510,12 @@ Usage: #example
 Title: "Scenario 1 (IE→DE) – Prescription: Lisinopril 10mg for Germany"
 Description: "Irish ePrescription for Lisinopril 10mg for Seán Murphy, transmitted via MyHealth@EU to Germany."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/pcrs-rx"
 * identifier[=].value = "PCRS-RX-2025-IE-DE-002"
 * identifier[+].system = "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier"
 * identifier[=].value = "IE/DE/1234567T"
 
-* groupIdentifier.system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/prescription-group"
+* groupIdentifier.system = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/prescription-group"
 * groupIdentifier.value = "IE-GP-RX-GROUP-20250120-DE"
 
 * status = #active
@@ -645,7 +645,7 @@ Usage: #example
 Title: "Scenario 5 (IE→LV) – Prescription: Metformin 500mg for Latvia"
 Description: "Irish ePrescription for Metformin 500mg for Seán Murphy, transmitted via MyHealth@EU to Latvia."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/pcrs-rx"
 * identifier[=].value = "PCRS-RX-2025-IE-LV-001"
 * identifier[+].system = "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier"
 * identifier[=].value = "IE/LV/1234567T"
@@ -725,12 +725,12 @@ Usage: #example
 Title: "Scenario 6 (IE→PT) – Prescription: Sertraline 50mg for Portugal"
 Description: "Irish ePrescription for Sertraline 50mg for Seán Murphy, transmitted via MyHealth@EU to Portugal."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/pcrs-rx"
 * identifier[=].value = "PCRS-RX-2025-IE-PT-001"
 * identifier[+].system = "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier"
 * identifier[=].value = "IE/PT/1234567T"
 
-* groupIdentifier.system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/prescription-group"
+* groupIdentifier.system = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/prescription-group"
 * groupIdentifier.value = "IE-GP-RX-GROUP-20250620-PT"
 
 * status = #active
@@ -805,7 +805,7 @@ Usage: #example
 Title: "Scenario 7 (IE→DK) – Prescription: Warfarin 5mg for Denmark"
 Description: "Irish ePrescription for Warfarin 5mg for Seán Murphy, transmitted via MyHealth@EU to Denmark. Includes critical INR monitoring note."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/pcrs-rx"
 * identifier[=].value = "PCRS-RX-2025-IE-DK-001"
 * identifier[+].system = "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier"
 * identifier[=].value = "IE/DK/1234567T"
@@ -858,12 +858,12 @@ Usage: #example
 Title: "Scenario 8 (IE→SE) – Prescription: Insulin Glargine for Sweden"
 Description: "Irish ePrescription for Insulin Glargine 100u/ml for Seán Murphy, transmitted via MyHealth@EU to Sweden."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/pcrs-rx"
 * identifier[=].value = "PCRS-RX-2025-IE-SE-001"
 * identifier[+].system = "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier"
 * identifier[=].value = "IE/SE/1234567T"
 
-* groupIdentifier.system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/prescription-group"
+* groupIdentifier.system = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/prescription-group"
 * groupIdentifier.value = "IE-GP-RX-GROUP-20250710-SE"
 
 * status = #active
@@ -912,12 +912,12 @@ Usage: #example
 Title: "Scenario 9 (IE→AT) – Prescription: Atorvastatin 80mg for Austria"
 Description: "Irish ePrescription for Atorvastatin 80mg for Seán Murphy, transmitted via MyHealth@EU to Austria."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/pcrs-rx"
 * identifier[=].value = "PCRS-RX-2025-IE-AT-001"
 * identifier[+].system = "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier"
 * identifier[=].value = "IE/AT/1234567T"
 
-* groupIdentifier.system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/prescription-group"
+* groupIdentifier.system = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/prescription-group"
 * groupIdentifier.value = "IE-GP-RX-GROUP-20250715-AT"
 
 * status = #active
@@ -1023,7 +1023,7 @@ Usage: #example
 Title: "Scenario 10 (FI→IE via NePS) – Irish Dispensation for Finnish Patient"
 Description: "Hickey's Pharmacy, Dublin dispenses Metformin 500mg for Finnish patient Mikko Korhonen against a Finnish prescription received via NePS. The Finnish medication code (Kela/FIN) is mapped to an Irish NMPC code."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/dispense-id"
+* identifier[0].system = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/dispense-id"
 * identifier[=].value = "DISP-IE-NEPS-2025-FI-001"
 * identifier[+].system = "http://www.kela.fi/fhir/sid/prescription"
 * identifier[=].value = "FI-RX-2025-NEPS-001"
@@ -1132,7 +1132,7 @@ Usage: #example
 Title: "Scenario 11 (BE→IE via NePS) – Irish Dispensation for Belgian Patient"
 Description: "McCauley's Pharmacy, Dublin dispenses Atorvastatin 40mg for Belgian patient Lars Janssen against a Belgian prescription received via NePS. Belgian CNPV medication code is mapped to an Irish NMPC code."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/dispense-id"
+* identifier[0].system = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/dispense-id"
 * identifier[=].value = "DISP-IE-NEPS-2025-BE-001"
 * identifier[+].system = "http://www.cnpv.be/fhir/sid/prescription"
 * identifier[=].value = "BE-RX-2025-NEPS-001"

@@ -19,20 +19,20 @@ Feature: Cross-Border ePrescription Workflow — Seán Murphy (IE) across EU
     Then the resource should have resourceType "Patient"
     And the resource should have an active status
     And the resource should have at least 3 identifiers
-    And one identifier should use system "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/ihi"
-    And one identifier should use system "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/pps"
+    And one identifier should use system "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/ihi"
+    And one identifier should use system "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/pps"
     And one identifier should use system "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier"
 
   @crossborder @patient-profile
   Scenario: Seán Murphy PPS identifier has correct format
     Given I have the example resource "Patient-ie-core-patient-sean-murphy.json"
-    When I extract identifiers with system "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/pps"
+    When I extract identifiers with system "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/pps"
     Then each identifier value should match pattern "^[0-9]{7}[A-Z]$"
 
   @crossborder @patient-profile
   Scenario: Seán Murphy IHI has 18-digit format
     Given I have the example resource "Patient-ie-core-patient-sean-murphy.json"
-    When I extract identifiers with system "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/ihi"
+    When I extract identifiers with system "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/ihi"
     Then each identifier value should match pattern "^[0-9]{18}$"
 
   @crossborder @patient-profile
@@ -46,7 +46,7 @@ Feature: Cross-Border ePrescription Workflow — Seán Murphy (IE) across EU
     Given I have the example resource "Practitioner-ie-core-practitioner-aoife-obrien.json"
     Then the resource should have resourceType "Practitioner"
     And the resource should have at least 1 identifiers
-    And one identifier should use system "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/imc"
+    And one identifier should use system "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/imc"
 
   @crossborder @patient-profile
   Scenario: Grafton Street Medical Practice has CRN identifier
@@ -54,7 +54,7 @@ Feature: Cross-Border ePrescription Workflow — Seán Murphy (IE) across EU
     Then the resource should have resourceType "Organization"
     And the resource should have an active status
     And the resource should have a name value
-    And one identifier should use system "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/crn"
+    And one identifier should use system "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/crn"
 
   # ──────────────────────────────────────────────────────────────────────
   # ALLERGY — PENICILLIN / AMOXICILLIN (CRITICAL)
@@ -112,7 +112,7 @@ Feature: Cross-Border ePrescription Workflow — Seán Murphy (IE) across EU
     Given I have the example resource "MedicationRequest-ie-rx-sean-de-metformin.json"
     Then the resource should have resourceType "MedicationRequest"
     And the resource should have at least 2 identifiers
-    And one identifier should use system "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/pcrs-rx"
+    And one identifier should use system "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/pcrs-rx"
     And one identifier should use system "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier"
 
   @crossborder @ie-to-de
@@ -216,7 +216,7 @@ Feature: Cross-Border ePrescription Workflow — Seán Murphy (IE) across EU
   @crossborder @ie-to-dk
   Scenario: IE→DK Warfarin prescription has a PCRS identifier
     Given I have the example resource "MedicationRequest-ie-rx-sean-dk-warfarin.json"
-    When I extract identifiers with system "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/pcrs-rx"
+    When I extract identifiers with system "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/pcrs-rx"
     Then at least one identifier should exist
 
   @crossborder @ie-to-dk
@@ -291,7 +291,7 @@ Feature: Cross-Border ePrescription Workflow — Seán Murphy (IE) across EU
     Given I have the example resource "MedicationDispense-ie-dispense-fi-to-ie-neps.json"
     Then the resource should have resourceType "MedicationDispense"
     And the resource should have a status value of "completed"
-    When I extract identifiers with system "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/dispense-id"
+    When I extract identifiers with system "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/dispense-id"
     Then at least one identifier should exist
 
   @crossborder @inbound @fi-to-ie @neps
@@ -330,7 +330,7 @@ Feature: Cross-Border ePrescription Workflow — Seán Murphy (IE) across EU
     Given I have the example resource "MedicationDispense-ie-dispense-be-to-ie-neps.json"
     Then the resource should have resourceType "MedicationDispense"
     And the resource should have a status value of "completed"
-    When I extract identifiers with system "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/dispense-id"
+    When I extract identifiers with system "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/dispense-id"
     Then at least one identifier should exist
 
   @crossborder @inbound @be-to-ie @neps

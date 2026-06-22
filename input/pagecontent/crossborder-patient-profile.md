@@ -390,7 +390,7 @@ FHIR Example: [BE→IE Dispensation via NePS](Bundle-be-to-ie-neps-dispensation.
 
 | Country | System | System URI | Example Code |
 |---------|--------|------------|-------------|
-| 🇮🇪 Ireland | NMPC + SNOMED CT Irish Edition + ATC | `https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/nmpc` | NMPC-MET500TAB |
+| 🇮🇪 Ireland | NMPC + SNOMED CT Irish Edition + ATC | `https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/nmpc` | NMPC-MET500TAB |
 | 🇩🇪 Germany | PZN | `http://fhir.de/CodeSystem/ifa/pzn` | 04823246 |
 | 🇪🇸 Spain | CIMA | `http://vocabularies.cesec.org/public-api/v1/codes/cima` | 60918 |
 | 🇫🇷 France | CIP | `http://idref.fr/CIP` | 3402895 |

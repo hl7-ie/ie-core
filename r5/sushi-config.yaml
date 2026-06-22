@@ -1,6 +1,6 @@
 # IE (Ireland) Core Implementation Guide — FHIR R5 Edition
 id: hl7.fhir.ie.core.r5
-canonical: https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core-r5
+canonical: https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core-r5
 name: IECoreR5
 title: "IE (Ireland) Core Implementation Guide — FHIR R5"
 description: >-

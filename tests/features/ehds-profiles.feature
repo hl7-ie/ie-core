@@ -47,12 +47,12 @@ Feature: EHDS Priority Category Profiles
   @eprescription-derives
   Scenario: ePrescription profile derives from IE Core MedicationRequest
     Given I have the profile "StructureDefinition-ie-core-medicationrequest-eprescription.json"
-    Then the profile baseDefinition should be "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/StructureDefinition/ie-core-medicationrequest"
+    Then the profile baseDefinition should be "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/StructureDefinition/ie-core-medicationrequest"
 
   @edispensation-derives
   Scenario: eDispensation profile derives from IE Core MedicationDispense
     Given I have the profile "StructureDefinition-ie-core-medicationdispense-edispensation.json"
-    Then the profile baseDefinition should be "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/StructureDefinition/ie-core-medicationdispense"
+    Then the profile baseDefinition should be "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/StructureDefinition/ie-core-medicationdispense"
 
   @all-five-categories
   Scenario: All 5 EHDS priority categories have IE Core profiles
