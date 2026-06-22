@@ -46,8 +46,8 @@ This release aligns IE Core with the XT-EHR logical model **v1.0.0** (released 2
 
 #### New Profiles
 
-- **`IECoreMedicationStatement`** (Draft) — maps to `EHDSMedicationUse` (XT-EHR 1.0.0). Uses FHIR R4 `MedicationStatement`; note that FHIR R5 uses `MedicationUsage`. Added to MedicationProfiles group in sushi-config.yaml.
-- **`IECoreFlag`** (Draft) — maps to `EHDSAlert` (XT-EHR 1.0.0). Uses FHIR R4 `Flag`. Added to ClinicalProfiles group in sushi-config.yaml.
+- **`IECoreMedicationStatement`** — maps to `EHDSMedicationUse` (XT-EHR 1.0.0 Release). Uses FHIR R4 `MedicationStatement`; note that FHIR R5 uses `MedicationUsage`. Added to MedicationProfiles group in sushi-config.yaml.
+- **`IECoreFlag`** — maps to `EHDSAlert` (XT-EHR 1.0.0 Release). Uses FHIR R4 `Flag`. Added to ClinicalProfiles group in sushi-config.yaml.
 
 #### New Extensions
 
