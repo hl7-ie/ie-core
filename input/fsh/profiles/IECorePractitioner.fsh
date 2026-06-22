@@ -59,7 +59,7 @@ Description: "The IE Core Practitioner Profile is based upon the core FHIR Pract
 * address.line MS
 * address.city MS
 * address.state MS
-* address.state from https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/ValueSet/ie-core-county (extensible)
+* address.state from https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/ValueSet/ie-core-county (extensible)
 * address.postalCode MS
 * address.country MS
 
@@ -69,7 +69,7 @@ Description: "The IE Core Practitioner Profile is based upon the core FHIR Pract
 * qualification.identifier MS
 * qualification.code MS
 * qualification.code ^short = "Coded representation of the qualification"
-* qualification.code from https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/ValueSet/ie-core-practitioner-qualification (extensible)
+* qualification.code from https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/ValueSet/ie-core-practitioner-qualification (extensible)
 * qualification.period MS
 * qualification.issuer MS
 

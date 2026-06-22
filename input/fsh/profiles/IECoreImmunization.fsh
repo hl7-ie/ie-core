@@ -4,7 +4,7 @@ Id: ie-core-immunization
 Title: "IE Core Immunization"
 Description: "The IE Core Immunization profile sets minimum expectations for the Immunization resource to record, search, and fetch immunization history associated with a patient, based on Irish requirements."
 
-* ^url = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/StructureDefinition/ie-core-immunization"
+* ^url = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/StructureDefinition/ie-core-immunization"
 * ^version = "0.1.0"
 * ^status = #draft
 

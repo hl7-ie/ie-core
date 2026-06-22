@@ -29,7 +29,7 @@ Description: "The IE Core Encounter Profile is based upon the core FHIR Encounte
 // ── Type ────────────────────────────────────────────────────────────────
 * type 1..* MS
 * type ^short = "Specific type of encounter"
-* type from https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/ValueSet/ie-core-encounter-type (extensible)
+* type from https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/ValueSet/ie-core-encounter-type (extensible)
 
 // ── Service Type ────────────────────────────────────────────────────────
 * serviceType MS
@@ -80,13 +80,13 @@ Description: "The IE Core Encounter Profile is based upon the core FHIR Encounte
 * hospitalization ^short = "Details about the admission to a healthcare service"
 * hospitalization.origin MS
 * hospitalization.admitSource MS
-* hospitalization.admitSource from https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/ValueSet/ie-core-admit-source (extensible)
+* hospitalization.admitSource from https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/ValueSet/ie-core-admit-source (extensible)
 * hospitalization.reAdmission MS
 * hospitalization.dietPreference MS
 * hospitalization.destination MS
 * hospitalization.dischargeDisposition MS
 * hospitalization.dischargeDisposition ^short = "Category or kind of location after discharge"
-* hospitalization.dischargeDisposition from https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/ValueSet/ie-core-discharge-disposition (extensible)
+* hospitalization.dischargeDisposition from https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/ValueSet/ie-core-discharge-disposition (extensible)
 
 // ── Location ────────────────────────────────────────────────────────────
 * location MS

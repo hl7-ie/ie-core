@@ -43,7 +43,7 @@ To publish an IG through HL7, you need an organizational relationship with HL7:
 
 #### Reserve Your Canonical URL
 
-The canonical URL (`https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core`) must be:
+The canonical URL (`https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core`) must be:
 
 1. **Registered with HL7**: Contact HL7 to register the canonical URL namespace (future governance body)
 2. **Under your control**: You must own or have authority over the domain
