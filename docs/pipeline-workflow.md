@@ -340,7 +340,7 @@ Downloads the latest HL7 FHIR IG Publisher JAR and runs the complete R4 IG build
 5. Copy dashboard and BDD HTML reports into `site/test-reports/`
 6. Create `site/versions.html` — version index page linking R4 and R5 editions and the test report dashboard
 7. Configure GitHub Pages (`actions/configure-pages@v5`)
-8. Upload pages artifact (`actions/upload-pages-artifact@v3`)
+8. Upload pages artifact (`actions/upload-pages-artifact@v4`)
 9. Deploy to GitHub Pages (`actions/deploy-pages@v4`)
 
 **Published structure:**
