@@ -762,6 +762,7 @@ jobs:
         uses: actions/upload-pages-artifact@v4
         with:
           path: site/
+          overwrite: true
 
       - name: Deploy to GitHub Pages
         id: deployment
