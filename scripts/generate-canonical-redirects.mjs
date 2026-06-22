@@ -59,7 +59,7 @@ function createRedirect(redirectDir, targetPath, canonicalUrl) {
   const safeCanonicalUrl = escapeHtml(canonicalUrl);
 
   if (fs.existsSync(redirectFile)) {
-    const existingHeader = fs.readFileSync(redirectFile, 'utf8').split('\n', 3).join('\n');
+    const existingHeader = fs.readFileSync(redirectFile, 'utf8').split('\n').slice(0, 3).join('\n');
     if (!existingHeader.includes(redirectMarker)) {
       throw new Error(`Refusing to overwrite existing non-generated file: ${redirectFile}`);
     }
@@ -139,13 +139,13 @@ for (const { artifactDir, fallbackPage } of deployments) {
     createRedirect(redirectDir, targetPath, canonicalUrl.href);
 
     if (resource.resourceType === 'ImplementationGuide') {
-      const canonicalParentDir = path.posix.dirname(canonicalUrl.pathname);
-      const canonicalGrandparentDir = path.posix.dirname(canonicalParentDir);
-      const baseDir = path.join(siteRoot, stripRepositoryPrefix(canonicalGrandparentDir));
+      const igDir = path.posix.dirname(canonicalUrl.pathname);
+      const igBaseDir = path.posix.dirname(igDir);
+      const baseDir = path.join(siteRoot, stripRepositoryPrefix(igBaseDir));
       createRedirect(
         baseDir,
         path.join(siteRoot, fallbackPage),
-        new URL(canonicalGrandparentDir, canonicalUrl.origin).href
+        new URL(igBaseDir, canonicalUrl.origin).href
       );
     }
   }
