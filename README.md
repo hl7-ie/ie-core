@@ -1,8 +1,28 @@
 # IE (Ireland) Core FHIR Implementation Guide
 
-**⚠️ Proof of Concept (PoC):** This Implementation Guide is built as a Proof of Concept by Nithin Mohan for Demonstration Purpose only, but concepts can be replicated. 
+> ### ℹ️ INFO — Proof of Concept (PoC)
+>
+> This Implementation Guide (IG) is a **Proof of Concept** developed by **Nithin Mohan** for demonstration purposes only. It illustrates how FHIR adoption could be implemented at a national level, drawing on the author's experience with **HL7 V2, V3 CDA, and FHIR**, and a practical curiosity to address cross-border healthcare interoperability challenges under the **European Health Data Space (EHDS)** — viewed through the lens of Ireland's healthcare landscape.
+>
+> - This IG has **no affiliation with, or support from**, the HSE, HSE Standards & Interoperability team, or the Department of Health Ireland.
+> - It is maintained solely at the author's initiative and discretion.
+> - In the future, this guide may be considered for handover to an appropriate governing body within Ireland for ongoing maintenance.
 
-It has no support from the HSE, HSE Standards team, or Department of Health. In future, this may be handed over to a governing body within Ireland for maintaining this implementation guide. This IG is the author's proof of concept to demonstrate how FHIR adoption should be implemented at the national level. It is built with the author's experiences working in HL7 V2, V3 CDA, and FHIR, and a curiosity to solve problems for EHDS cross-border healthcare from the context of Ireland's healthcare landscape.
+---
+
+> ### ⚠️ WARNING — No Warranty or Support
+>
+> This Implementation Guide and any associated code or artefacts are provided **"as is"**, without warranty of any kind — express or implied. The author makes **no guarantees** regarding accuracy, completeness, fitness for purpose, or suitability for production use.
+>
+> - **No support will be provided** by the author for implementation, integration, or use of any content within this guide.
+> - Use of this material is entirely at **your own risk**.
+> - The author accepts **no liability** for any outcomes arising from the use or misuse of this guide or its contents.
+
+---
+
+> ### 📋 NOTE — Licensing & Reuse
+>
+> The concepts, patterns, and approaches described in this IG **may be replicated** and adapted freely. If you build upon this work, attribution to the original author is appreciated but not required.
 
 **Canonical URL**: `https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core`  
 **Package**: `hl7.fhir.ie.core`  
