@@ -1,8 +1,8 @@
 // ╭──────────────────────────────────────────────────────────────────────╮
 // │  IE Core Flag (Alert) Profile                                      │
-// │  Aligned with: Xt-EHR EHDSAlert v1.0.0                            │
+// │  Aligned with: Xt-EHR EHDSAlert v1.0.0 Release                    │
 // │                                                                    │
-// │  STATUS: DRAFT — added in XT-EHR 1.0.0 alignment pass             │
+// │  STATUS: RELEASED — aligned with XT-EHR 1.0.0 Release             │
 // │                                                                    │
 // │  EHDSAlert maps to the FHIR R4 Flag resource.                     │
 // │  Used in the alerts sections of the Patient Summary and           │

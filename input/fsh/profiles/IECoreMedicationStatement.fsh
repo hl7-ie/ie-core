@@ -1,8 +1,8 @@
 // ╭──────────────────────────────────────────────────────────────────────╮
 // │  IE Core MedicationStatement Profile                               │
-// │  Aligned with: Xt-EHR EHDSMedicationUse v1.0.0                    │
+// │  Aligned with: Xt-EHR EHDSMedicationUse v1.0.0 Release            │
 // │                                                                    │
-// │  STATUS: DRAFT — added in XT-EHR 1.0.0 alignment pass             │
+// │  STATUS: RELEASED — aligned with XT-EHR 1.0.0 Release             │
 // │                                                                    │
 // │  EHDSMedicationUse maps to the FHIR R4 MedicationStatement        │
 // │  resource. In FHIR R5, the equivalent is MedicationUsage.         │

@@ -62,7 +62,7 @@ Below is the list of IE Core Profiles. Each profile identifies which core elemen
 | [IE Core Goal](StructureDefinition-ie-core-goal.html) | Clinical goals for patients |
 | [IE Core ServiceRequest](StructureDefinition-ie-core-servicerequest.html) | Requests for clinical services |
 | [IE Core Encounter](StructureDefinition-ie-core-encounter.html) | Healthcare encounters and visits |
-| [IE Core Flag (Alert)](StructureDefinition-ie-core-flag.html) | Substantial medical alerts — maps to EHDSAlert (XT-EHR 1.0.0) *(Draft)* |
+| [IE Core Flag (Alert)](StructureDefinition-ie-core-flag.html) | Substantial medical alerts — maps to EHDSAlert (XT-EHR 1.0.0) |
 
 #### Medication
 
@@ -71,7 +71,7 @@ Below is the list of IE Core Profiles. Each profile identifies which core elemen
 | [IE Core Medication](StructureDefinition-ie-core-medication.html) | Medication definitions |
 | [IE Core MedicationRequest](StructureDefinition-ie-core-medicationrequest.html) | Prescriptions and medication orders |
 | [IE Core MedicationDispense](StructureDefinition-ie-core-medicationdispense.html) | Medication dispensing records |
-| [IE Core MedicationStatement](StructureDefinition-ie-core-medicationstatement.html) | Medication use statements — maps to EHDSMedicationUse (XT-EHR 1.0.0) *(Draft)* |
+| [IE Core MedicationStatement](StructureDefinition-ie-core-medicationstatement.html) | Medication use statements — maps to EHDSMedicationUse (XT-EHR 1.0.0) |
 | [IE Core Immunization](StructureDefinition-ie-core-immunization.html) | Immunization administration records |
 
 #### Diagnostics & Observations

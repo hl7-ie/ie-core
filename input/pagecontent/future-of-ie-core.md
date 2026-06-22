@@ -6,8 +6,8 @@ The IE Core Implementation Guide is a living document that will continue to evol
 
 The following work items are required for full XT-EHR 1.0.0 alignment and are the next IE Core development priorities:
 
-1. **IECoreMedicationStatement** (Draft → Active) — Complete MedicationStatement profile fully aligned with EHDSMedicationUse obligations; evaluate `adherence` element workaround for FHIR R4
-2. **IECoreFlag** (Draft → Active) — Complete Flag/Alert profile aligned with EHDSAlert obligations; finalise `category` code system binding
+1. **IECoreMedicationStatement** — MedicationStatement profile fully aligned with EHDSMedicationUse v1.0.0; evaluate `adherence` element enhancements for future FHIR versions
+2. **IECoreFlag** — Flag/Alert profile aligned with EHDSAlert v1.0.0; alert codes standardized with SNOMED CT
 3. **IECoreDeviceUseStatement** — New profile mapping to EHDSDeviceUse; needed for the `medicalDevices` section of the Patient Summary
 4. **IECoreConsent** — Formal FHIR Consent profile aligned with EHDSAdvanceDirective, supplementing the current ADI DocumentReference approach
 5. **XT-EHR Obligations compliance** — Formal verification that IE Core PS and HDR profiles satisfy all SHALL obligations in the XT-EHR 1.0.0 Obligations Framework

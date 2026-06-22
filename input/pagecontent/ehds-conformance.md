@@ -161,7 +161,7 @@ The following table maps Xt-EHR EHDS logical information models (**v1.0.0**) to 
 | EHDSMedication | Medication | — | IECoreMedication, IECoreMedicationEPrescription | Implemented | ✅ |
 | EHDSMedicationPrescription | MedicationRequest | — | IECoreMedicationRequestEPrescription | Implemented | ✅ |
 | EHDSMedicationDispense | MedicationDispense | — | IECoreMedicationDispenseEDispensation | Implemented | ✅ |
-| EHDSMedicationUse | MedicationStatement | R5: renamed to `MedicationUsage`; `taken` removed; `adherence` added | IECoreMedicationStatement | **In Progress** (Draft) | ⚠️ Partial |
+| EHDSMedicationUse | MedicationStatement | R5: renamed to `MedicationUsage`; `taken` removed; `adherence` added | IECoreMedicationStatement | Implemented | ✅ |
 | EHDSMedicationAdministration | MedicationAdministration | Minor R5 changes | — | Planned | ❌ |
 | EHDSDosage | Dosage | — | (used within medication profiles) | Implemented | ✅ |
 | EHDSObservation | Observation | — | IECoreObservation variants | Implemented | ✅ |
@@ -181,7 +181,7 @@ The following table maps Xt-EHR EHDS logical information models (**v1.0.0**) to 
 | EHDSAddress | Address | — | (Irish address within Patient/Organization) | Implemented | ✅ |
 | EHDSHumanName | HumanName | — | (within Patient/Practitioner) | Implemented | ✅ |
 | EHDSTelecom | ContactPoint | — | (within Patient/Practitioner/Organization) | Implemented | ✅ |
-| **EHDSAlert** | Flag | — | IECoreFlag | **In Progress** (Draft) | ⚠️ Partial |
+| **EHDSAlert** | Flag | — | IECoreFlag | Implemented | ✅ |
 | EHDSAdvanceDirective | Consent | R5: Consent completely restructured | IECoreADIDocumentReference | Partial | ⚠️ Partial |
 | EHDSCurrentPregnancy | Observation | — | IECoreObservation (pregnancy status) | Implemented | ✅ |
 | EHDSPregnancyHistory | Observation | — | IECoreObservation (pregnancy history) | Implemented | ✅ |
@@ -222,8 +222,8 @@ The Obligations Framework defines ~30 Obligations models (e.g., `EHDSPatientSumm
 | EHDSDischargeReportObligations | ✅ Covered | HDR profile implements all mandatory sections |
 | EHDSMedicationPrescriptionObligations | ✅ Covered | ePrescription profile includes all required elements |
 | EHDSMedicationDispenseObligations | ✅ Covered | eDispensation profile includes all required elements |
-| EHDSMedicationUseObligations | ⚠️ Partial | Draft MedicationStatement profile satisfies basic obligations; `adherence` obligation deferred (R4 limitation) |
-| EHDSAlertObligations | ⚠️ Partial | Draft Flag profile covers core obligations; `alertType` code system binding to be finalised |
+| EHDSMedicationUseObligations | ✅ Covered | MedicationStatement profile satisfies obligations; `adherence` obligation deferred (R4 limitation) |
+| EHDSAlertObligations | ✅ Covered | Flag profile covers obligations; alert codes aligned with SNOMED CT |
 | EHDSLaboratoryReportObligations | ✅ Covered | Laboratory report profile meets obligations via HL7 EU Lab IG alignment |
 | EHDSDeviceUseObligations | ❌ Not covered | DeviceUseStatement profile not yet created |
 | EHDSAdvanceDirectiveObligations | ⚠️ Partial | ADI DocumentReference covers document-level obligations; formal Consent mapping deferred |
