@@ -755,6 +755,9 @@ jobs:
           </html>
           HTMLEOF
 
+      - name: Generate canonical redirects
+        run: node scripts/generate-canonical-redirects.mjs site
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 

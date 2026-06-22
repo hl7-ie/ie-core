@@ -339,9 +339,10 @@ Downloads the latest HL7 FHIR IG Publisher JAR and runs the complete R4 IG build
 4. Generate the Test Dashboard HTML (`node tests/reports/generate-dashboard.js`)
 5. Copy dashboard and BDD HTML reports into `site/test-reports/`
 6. Create `site/versions.html` — version index page linking R4 and R5 editions and the test report dashboard
-7. Configure GitHub Pages (`actions/configure-pages@v5`)
-8. Upload pages artifact (`actions/upload-pages-artifact@v4`)
-9. Deploy to GitHub Pages (`actions/deploy-pages@v4`)
+7. Generate canonical redirect pages for R4 and R5 FHIR artifact URLs (`node scripts/generate-canonical-redirects.mjs site`)
+8. Configure GitHub Pages (`actions/configure-pages@v5`)
+9. Upload pages artifact (`actions/upload-pages-artifact@v4`)
+10. Deploy to GitHub Pages (`actions/deploy-pages@v4`)
 
 **Published structure:**
 
@@ -349,6 +350,8 @@ Downloads the latest HL7 FHIR IG Publisher JAR and runs the complete R4 IG build
 https://<org>.github.io/<repo>/
 ├── index.html              # R4 IG home page
 ├── versions.html           # Version index (R4, R5, reports)
+├── fhir/ie/core/...        # Canonical R4 artifact URL redirects
+├── fhir/ie/core-r5/...     # Canonical R5 artifact URL redirects
 ├── R5/
 │   └── index.html          # R5 IG home page
 └── test-reports/
