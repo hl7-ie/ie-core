@@ -3,7 +3,7 @@ import path from 'node:path';
 
 const siteRoot = path.resolve(process.argv[2] ?? 'site');
 const repoName =
-  process.env.GITHUB_REPOSITORY?.split('/').at(-1) ||
+  process.env.GITHUB_REPOSITORY?.split('/').pop() ||
   path.basename(process.cwd());
 
 const deployments = [
@@ -144,13 +144,13 @@ for (const { artifactDir, fallbackPage } of deployments) {
     createRedirect(redirectDir, targetPath, canonicalUrl.href);
 
     if (resource.resourceType === 'ImplementationGuide') {
-      const igParentDir = path.posix.dirname(canonicalUrl.pathname);
-      const igBasePath = path.posix.dirname(igParentDir);
-      const baseDir = path.join(siteRoot, stripRepositoryPrefix(igBasePath));
+      const canonicalParentPath = path.posix.dirname(canonicalUrl.pathname);
+      const canonicalGrandparentPath = path.posix.dirname(canonicalParentPath);
+      const baseDir = path.join(siteRoot, stripRepositoryPrefix(canonicalGrandparentPath));
       createRedirect(
         baseDir,
         path.join(siteRoot, fallbackPage),
-        new URL(igBasePath, canonicalUrl.origin).href
+        new URL(canonicalGrandparentPath, canonicalUrl.origin).href
       );
     }
   }
