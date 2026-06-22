@@ -129,7 +129,7 @@ chmod +x build-ig-with-config.sh
 ./build-ig-with-config.sh
 
 # Or override with command-line argument
-./build-ig-with-config.sh https://hl7.ie
+./build-ig-with-config.sh https://hl7-ie.org
 ./build-ig-with-config.sh https://fhir.health.ie
 ```
 
@@ -139,7 +139,7 @@ chmod +x build-ig-with-config.sh
 # Then run standard build process
 
 # Or use environment variable
-$env:IE_CORE_BASE_URL="https://hl7.ie"
+$env:IE_CORE_BASE_URL="https://hl7-ie.org"
 # Then run sushi . and _genonce.bat
 ```
 
@@ -149,7 +149,7 @@ For CI/CD pipelines (GitHub Actions, etc.), set the base URL via environment var
 
 ```bash
 # In GitHub Actions or shell
-export IE_CORE_BASE_URL=https://hl7.ie
+export IE_CORE_BASE_URL=https://hl7-ie.org
 
 # Then run the build
 ./build-ig-with-config.sh
@@ -164,7 +164,7 @@ Edit `build-config.env` to set the default base URL:
 IE_CORE_BASE_URL=https://hl7-ie.github.io/ie-core-fhir-ig-draft
 
 # Examples for different environments:
-# IE_CORE_BASE_URL=https://hl7.ie
+# IE_CORE_BASE_URL=https://hl7-ie.org
 # IE_CORE_BASE_URL=https://fhir.health.ie
 # IE_CORE_BASE_URL=https://my-institution.ie/fhir
 ```
@@ -295,7 +295,7 @@ Alternatively, use the **HL7 FHIR Community Process** for initial publication wi
 
 Once a governing body is established, coordinate infrastructure deployment:
 
-1. Register a national domain (e.g., `hl7.ie` or similar)
+1. Register a national domain (e.g., `hl7-ie.org` or similar)
 2. Configure DNS (CNAME to hosting platform)
 3. Obtain SSL/TLS certificate
 4. Deploy the built IG (`output/` directory)

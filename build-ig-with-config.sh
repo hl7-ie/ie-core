@@ -2,7 +2,7 @@
 # build-ig-with-config.sh
 # Builds the IE Core IG with configurable base URL
 # Usage: ./build-ig-with-config.sh [base_url]
-# Example: ./build-ig-with-config.sh https://hl7.ie
+# Example: ./build-ig-with-config.sh https://hl7-ie.org
 
 set -e
 
