@@ -104,14 +104,21 @@ for (const { artifactDir, fallbackPage } of deployments) {
       continue;
     }
 
-    const canonicalUrl = new URL(resource.url);
+    let canonicalUrl;
+    try {
+      canonicalUrl = new URL(resource.url);
+    } catch {
+      continue;
+    }
+
     const redirectDir = path.join(siteRoot, toPublishedPath(canonicalUrl.pathname));
     createRedirect(redirectDir, targetPath, canonicalUrl.href);
 
     if (resource.resourceType === 'ImplementationGuide') {
-      const basePath = path.posix.dirname(path.posix.dirname(canonicalUrl.pathname));
-      const baseDir = path.join(siteRoot, toPublishedPath(basePath));
-      createRedirect(baseDir, path.join(siteRoot, fallbackPage), `${canonicalUrl.origin}${basePath}`);
+      const implementationGuidePath = path.posix.dirname(canonicalUrl.pathname);
+      const baseCanonicalPath = path.posix.dirname(implementationGuidePath);
+      const baseDir = path.join(siteRoot, toPublishedPath(baseCanonicalPath));
+      createRedirect(baseDir, path.join(siteRoot, fallbackPage), `${canonicalUrl.origin}${baseCanonicalPath}`);
     }
   }
 }
