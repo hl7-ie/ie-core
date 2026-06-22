@@ -30,7 +30,9 @@ function toPosix(filePath) {
   return filePath.split(path.sep).join('/');
 }
 
-function toPublishedPath(relativeUrlPath) {
+// GitHub Pages project sites are served from /<repo>/, but the published artifact
+// already represents that root, so canonical URL paths must drop the repository prefix.
+function stripRepositoryPrefix(relativeUrlPath) {
   const trimmedPath = relativeUrlPath.replace(/^\/+/, '');
   if (trimmedPath === repoName) {
     return '';
@@ -133,14 +135,18 @@ for (const { artifactDir, fallbackPage } of deployments) {
       continue;
     }
 
-    const redirectDir = path.join(siteRoot, toPublishedPath(canonicalUrl.pathname));
+    const redirectDir = path.join(siteRoot, stripRepositoryPrefix(canonicalUrl.pathname));
     createRedirect(redirectDir, targetPath, canonicalUrl.href);
 
     if (resource.resourceType === 'ImplementationGuide') {
       const canonicalParentDir = path.posix.dirname(canonicalUrl.pathname);
       const canonicalGrandparentDir = path.posix.dirname(canonicalParentDir);
-      const baseDir = path.join(siteRoot, toPublishedPath(canonicalGrandparentDir));
-      createRedirect(baseDir, path.join(siteRoot, fallbackPage), `${canonicalUrl.origin}${canonicalGrandparentDir}`);
+      const baseDir = path.join(siteRoot, stripRepositoryPrefix(canonicalGrandparentDir));
+      createRedirect(
+        baseDir,
+        path.join(siteRoot, fallbackPage),
+        new URL(canonicalGrandparentDir, canonicalUrl.origin).href
+      );
     }
   }
 }
