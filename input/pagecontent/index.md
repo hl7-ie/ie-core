@@ -1,8 +1,30 @@
 ### Introduction
 
-**⚠️ Important Notice:** This Implementation Guide is built as a Proof of Concept by Nithin Mohan. It has no support from the HSE, HSE Standards team, or the Department of Health. In future, this may be handed over to a governing body within Ireland for maintaining this implementation guide. This IG is the author's proof of concept to demonstrate how FHIR adoption should be implemented at the national level. It is built with the author's experiences working in HL7 V2, V3 CDA, and FHIR, and a curiosity to solve problems for EHDS cross-border healthcare from the context of Ireland's healthcare landscape.
+**ℹ️ Important Notice:**
+> This Implementation Guide (IG) is a **Proof of Concept** developed by **Nithin Mohan** for demonstration purposes only. It illustrates how FHIR adoption could be implemented at a national level, drawing on the author's experience with **HL7 V2, V3 CDA, and FHIR**, and a practical curiosity to address cross-border healthcare interoperability challenges under the **European Health Data Space (EHDS)** — viewed through the lens of Ireland's healthcare landscape.
+>
+> - This IG has **no affiliation with, or support from**, the HSE, HSE Standards & Interoperability team, or the Department of Health Ireland.
+> - It is maintained solely at the author's initiative and discretion.
+> - In the future, this guide may be considered for handover to an appropriate governing body within Ireland for ongoing maintenance.
 
 The IE Core Implementation Guide, based on [FHIR Version R4](http://hl7.org/fhir/R4/), defines the minimum constraints on FHIR resources to create the IE Core Profiles. It identifies necessary elements, extensions, vocabularies, and value sets, and details their usage. It also documents the minimum FHIR RESTful interactions required for each IE Core Profile to access patient data. Establishing this "floor" of standards promotes interoperability and adoption through common implementation, allowing for further standards development for specific use cases.
+
+---
+
+> ### ⚠️ WARNING — No Warranty or Support
+>
+> This Implementation Guide and any associated code or artefacts are provided **"as is"**, without warranty of any kind — express or implied. The author makes **no guarantees** regarding accuracy, completeness, fitness for purpose, or suitability for production use.
+>
+> - **No support will be provided** by the author for implementation, integration, or use of any content within this guide.
+> - Use of this material is entirely at **your own risk**.
+> - The author accepts **no liability** for any outcomes arising from the use or misuse of this guide or its contents.
+
+---
+
+> ### 📋 NOTE — Licensing & Reuse
+>
+> The concepts, patterns, and approaches described in this IG **may be replicated** and adapted freely. If you build upon this work, attribution to the original author is appreciated but not required.
+
 
 ### EU EHDS Alignment
 
