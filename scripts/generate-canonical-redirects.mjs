@@ -2,7 +2,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const siteRoot = path.resolve(process.argv[2] ?? 'site');
-const repoName = path.basename(process.cwd());
+const repoName =
+  process.env.GITHUB_REPOSITORY?.split('/').at(-1) ||
+  path.basename(process.cwd());
 
 const deployments = [
   { artifactDir: siteRoot, fallbackPage: 'index.html' },
@@ -55,8 +57,8 @@ function createRedirect(redirectDir, targetPath, canonicalUrl) {
   const safeCanonicalUrl = escapeHtml(canonicalUrl);
 
   if (fs.existsSync(redirectFile)) {
-    const existingContent = fs.readFileSync(redirectFile, 'utf8');
-    if (!existingContent.includes(redirectMarker)) {
+    const existingHeader = fs.readFileSync(redirectFile, 'utf8').split('\n', 3).join('\n');
+    if (!existingHeader.includes(redirectMarker)) {
       throw new Error(`Refusing to overwrite existing non-generated file: ${redirectFile}`);
     }
   }
@@ -136,9 +138,9 @@ for (const { artifactDir, fallbackPage } of deployments) {
 
     if (resource.resourceType === 'ImplementationGuide') {
       const canonicalParentDir = path.posix.dirname(canonicalUrl.pathname);
-      const baseCanonicalPath = path.posix.dirname(canonicalParentDir);
-      const baseDir = path.join(siteRoot, toPublishedPath(baseCanonicalPath));
-      createRedirect(baseDir, path.join(siteRoot, fallbackPage), `${canonicalUrl.origin}${baseCanonicalPath}`);
+      const canonicalGrandparentDir = path.posix.dirname(canonicalParentDir);
+      const baseDir = path.join(siteRoot, toPublishedPath(canonicalGrandparentDir));
+      createRedirect(baseDir, path.join(siteRoot, fallbackPage), `${canonicalUrl.origin}${canonicalGrandparentDir}`);
     }
   }
 }
