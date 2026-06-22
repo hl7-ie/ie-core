@@ -3,7 +3,7 @@
 **⚠️ Proof of Concept (PoC):** This Implementation Guide is built as a Proof of Concept by Nithin Mohan. It has no support from the HSE, HSE Standards team, or Department of Health. In future, this may be handed over to a governing body within Ireland for maintaining this implementation guide. This IG is the author's proof of concept to demonstrate how FHIR adoption should be implemented at the national level.
 
 This is the **FHIR R5 edition** of the IE Core Implementation Guide. It mirrors
-the [R4 edition](https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core) and will progressively adopt
+the [R4 edition](https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core) and will progressively adopt
 R5-specific capabilities as they mature.
 
 ### Relationship to R4

@@ -124,7 +124,7 @@ for (const pf of profiles) {
   const sd = JSON.parse(fs.readFileSync(pf, 'utf8'));
   check(
     'canonical-url-consistent',
-    sd.url && sd.url.startsWith('https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/'),
+    sd.url && sd.url.startsWith('https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/'),
     `${sd.id} URL: ${sd.url}`
   );
 }

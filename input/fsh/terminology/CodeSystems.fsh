@@ -1,7 +1,7 @@
 // ============================================================================
 // IE Core CodeSystems
 // Ireland (IE) Core FHIR Implementation Guide
-// Canonical: https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core
+// Canonical: https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core
 // FHIR R4 (4.0.1)
 // ============================================================================
 

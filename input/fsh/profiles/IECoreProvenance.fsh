@@ -4,7 +4,7 @@ Id: ie-core-provenance
 Title: "IE Core Provenance"
 Description: "The IE Core Provenance profile sets minimum expectations for the Provenance resource to record, search, and fetch provenance information associated with a record, based on Irish requirements."
 
-* ^url = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/StructureDefinition/ie-core-provenance"
+* ^url = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/StructureDefinition/ie-core-provenance"
 * ^version = "0.1.0"
 * ^status = #draft
 

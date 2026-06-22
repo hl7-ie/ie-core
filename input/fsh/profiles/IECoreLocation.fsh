@@ -52,7 +52,7 @@ Description: "The IE Core Location Profile is based upon the core FHIR Location 
 * address.city MS
 * address.state MS
 * address.state ^short = "County"
-* address.state from https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/ValueSet/ie-core-county (extensible)
+* address.state from https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/ValueSet/ie-core-county (extensible)
 * address.postalCode MS
 * address.postalCode ^short = "Eircode or postal code"
 * address.country MS

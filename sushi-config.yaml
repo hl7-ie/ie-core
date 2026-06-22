@@ -1,10 +1,10 @@
 # ╭──────────────────────────────────────ImplementationGuide───────────────────────────────────────╮
 # │  Ireland (IE) Core FHIR Implementation Guide                                                  │
 # │  Based on FHIR R4 (4.0.1)                                                                     │
-# │  Canonical URL: https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core                   │
+# │  Canonical URL: https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core                   │
 # ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 id: hl7.fhir.ie.core
-canonical: https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core
+canonical: https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core
 name: IECore
 title: "IE (Ireland) Core Implementation Guide"
 description: >-

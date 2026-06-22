@@ -4,7 +4,7 @@ Id: ie-core-condition-encounter-diagnosis
 Title: "IE Core Condition Encounter Diagnosis"
 Description: "The IE Core Condition Encounter Diagnosis profile sets minimum expectations for the Condition resource to record, search, and fetch encounter diagnosis data associated with a patient, based on Irish requirements."
 
-* ^url = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/StructureDefinition/ie-core-condition-encounter-diagnosis"
+* ^url = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/StructureDefinition/ie-core-condition-encounter-diagnosis"
 * ^version = "0.1.0"
 * ^status = #draft
 
@@ -31,7 +31,7 @@ Id: ie-core-condition-problems-health-concerns
 Title: "IE Core Condition Problems and Health Concerns"
 Description: "The IE Core Condition Problems and Health Concerns profile sets minimum expectations for the Condition resource to record, search, and fetch problems and health concerns associated with a patient, based on Irish requirements."
 
-* ^url = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/StructureDefinition/ie-core-condition-problems-health-concerns"
+* ^url = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/StructureDefinition/ie-core-condition-problems-health-concerns"
 * ^version = "0.1.0"
 * ^status = #draft
 

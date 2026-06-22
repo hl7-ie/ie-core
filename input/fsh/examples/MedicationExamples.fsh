@@ -122,7 +122,7 @@ Usage: #example
 Title: "IE Core Practitioner – Pharmacist Niamh Brennan"
 Description: "An example Irish registered pharmacist dispensing medication in Dublin."
 
-* identifier[0].system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/psi"
+* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/psi"
 * identifier[=].type = $V2-0203#MD "Medical License number"
 * identifier[=].value = "PSI-54321"
 
@@ -310,7 +310,7 @@ Usage: #example
 Title: "Scenario 1 – IE Local Prescription: Metformin (Full Dispense)"
 Description: "A standard Irish GP prescription for Metformin 500mg tablets. Authorised via PCRS. Intended for a single full dispensation."
 
-* identifier[0].system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/pcrs-rx"
 * identifier[=].value = "PCRS-RX-2024-001001"
 
 * status = #active
@@ -349,7 +349,7 @@ Usage: #example
 Title: "Scenario 1 – IE Local Dispense: Metformin Full Dispensation"
 Description: "Full dispensation of 60 Metformin 500mg tablets against Scenario 1 prescription. Dispensed in full at Boots Pharmacy Dublin."
 
-* identifier[0].system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/dispense-id"
+* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/dispense-id"
 * identifier[=].value = "DISP-IE-2024-001001"
 
 * status = #completed
@@ -389,7 +389,7 @@ Usage: #example
 Title: "Scenario 2 – IE Local Prescription: Atorvastatin (Partial Dispense)"
 Description: "An Irish GP prescription for Atorvastatin 20mg tablets (90 days supply). Intended to be dispensed in three partial dispensations of 30 tablets each, reflecting typical Irish community pharmacy dispensing for long-term medication."
 
-* identifier[0].system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/pcrs-rx"
 * identifier[=].value = "PCRS-RX-2024-002001"
 
 * status = #active
@@ -429,7 +429,7 @@ Usage: #example
 Title: "Scenario 2 – Partial Dispense 1 of 3: Atorvastatin 30 tabs (Month 1)"
 Description: "First partial dispensation of 30 Atorvastatin 20mg tablets (of 90 prescribed) on 15 June 2024."
 
-* identifier[0].system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/dispense-id"
+* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/dispense-id"
 * identifier[=].value = "DISP-IE-2024-002001-1"
 
 * status = #completed
@@ -457,7 +457,7 @@ Usage: #example
 Title: "Scenario 2 – Partial Dispense 2 of 3: Atorvastatin 30 tabs (Month 2)"
 Description: "Second partial dispensation of 30 Atorvastatin 20mg tablets on 15 July 2024."
 
-* identifier[0].system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/dispense-id"
+* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/dispense-id"
 * identifier[=].value = "DISP-IE-2024-002001-2"
 
 * status = #completed
@@ -485,7 +485,7 @@ Usage: #example
 Title: "Scenario 2 – Partial Dispense 3 of 3: Atorvastatin 30 tabs (Month 3 – Final)"
 Description: "Third and final partial dispensation of 30 Atorvastatin 20mg tablets on 15 August 2024. Completes the full 90-tablet prescription."
 
-* identifier[0].system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/dispense-id"
+* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/dispense-id"
 * identifier[=].value = "DISP-IE-2024-002001-3"
 
 * status = #completed
@@ -518,10 +518,10 @@ Usage: #example
 Title: "Scenario 3 – Multi-Rx Bundle: Metformin 500mg"
 Description: "First of three prescriptions in a multi-prescription bundle for John Murphy. Metformin for Type 2 Diabetes."
 
-* identifier[0].system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/pcrs-rx"
 * identifier[=].value = "PCRS-RX-2024-003001"
 
-* groupIdentifier.system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/prescription-group"
+* groupIdentifier.system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/prescription-group"
 * groupIdentifier.value = "IE-GP-RX-GROUP-20240620"
 
 * status = #active
@@ -558,10 +558,10 @@ Usage: #example
 Title: "Scenario 3 – Multi-Rx Bundle: Atorvastatin 20mg"
 Description: "Second of three prescriptions in a multi-prescription bundle for John Murphy. Atorvastatin for hyperlipidaemia."
 
-* identifier[0].system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/pcrs-rx"
 * identifier[=].value = "PCRS-RX-2024-003002"
 
-* groupIdentifier.system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/prescription-group"
+* groupIdentifier.system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/prescription-group"
 * groupIdentifier.value = "IE-GP-RX-GROUP-20240620"
 
 * status = #active
@@ -598,10 +598,10 @@ Usage: #example
 Title: "Scenario 3 – Multi-Rx Bundle: Ramipril 5mg"
 Description: "Third of three prescriptions in a multi-prescription bundle for John Murphy. Ramipril for hypertension/cardiac protection."
 
-* identifier[0].system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/pcrs-rx"
 * identifier[=].value = "PCRS-RX-2024-003003"
 
-* groupIdentifier.system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/prescription-group"
+* groupIdentifier.system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/prescription-group"
 * groupIdentifier.value = "IE-GP-RX-GROUP-20240620"
 
 * status = #active
@@ -639,7 +639,7 @@ Usage: #example
 Title: "Scenario 3 – Multi-Rx Bundle Dispense: Metformin"
 Description: "Full dispensation of Metformin 60 tablets from the multi-prescription bundle."
 
-* identifier[0].system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/dispense-id"
+* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/dispense-id"
 * identifier[=].value = "DISP-IE-2024-003001"
 
 * status = #completed
@@ -662,7 +662,7 @@ Usage: #example
 Title: "Scenario 3 – Multi-Rx Bundle Dispense: Atorvastatin"
 Description: "Full dispensation of Atorvastatin 30 tablets from the multi-prescription bundle."
 
-* identifier[0].system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/dispense-id"
+* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/dispense-id"
 * identifier[=].value = "DISP-IE-2024-003002"
 
 * status = #completed
@@ -685,7 +685,7 @@ Usage: #example
 Title: "Scenario 3 – Multi-Rx Bundle Dispense: Ramipril"
 Description: "Full dispensation of Ramipril 28 capsules from the multi-prescription bundle."
 
-* identifier[0].system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/dispense-id"
+* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/dispense-id"
 * identifier[=].value = "DISP-IE-2024-003003"
 
 * status = #completed
@@ -755,7 +755,7 @@ Usage: #example
 Title: "Scenario 4 – Cross-border IE→ES: Amlodipine Repeat Prescription"
 Description: "An Irish ePrescription for Amlodipine 5mg (chronic hypertension, repeat prescription) issued by an Irish GP. This prescription is transmitted via the MyHealth@EU infrastructure (IE NCP → ES NCP) for dispensation at a Spanish pharmacy. The prescription is tagged as cross-border eligible."
 
-* identifier[0].system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/pcrs-rx"
 * identifier[=].value = "PCRS-RX-2024-004001"
 
 * identifier[+].system = "urn:oid:2.16.840.1.113883.2.16.1.4.1"
@@ -875,7 +875,7 @@ Usage: #example
 Title: "Scenario 5 – Cross-border ES→IE: Irish Dispensation of Spanish Prescription"
 Description: "An Irish pharmacy (Boots, Grafton St.) dispenses Amlodipine 5mg tablets against the Spanish cross-border ePrescription for María García López, via MyHealth@EU. Equivalent Irish-licensed generic dispensed."
 
-* identifier[0].system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/dispense-id"
+* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/dispense-id"
 * identifier[=].value = "DISP-IE-2024-XB-005001"
 
 * status = #completed
@@ -914,7 +914,7 @@ Usage: #example
 Title: "Scenario 6 – Repeat Prescription: Metformin 500mg (6-month GMS)"
 Description: "A GMS repeat prescription for Metformin 500mg tablets, valid for 6 months with up to 6 dispensation events (once monthly). Represents a typical Irish GMS chronic disease management prescription under the Drugs Payment Scheme."
 
-* identifier[0].system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/pcrs-rx"
 * identifier[=].value = "PCRS-RX-2024-006001"
 
 * status = #active
@@ -951,7 +951,7 @@ Usage: #example
 Title: "Scenario 6 – Repeat Dispense Month 1: Metformin January 2024"
 Description: "First monthly dispensation of Metformin under the 6-month GMS repeat prescription."
 
-* identifier[0].system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/dispense-id"
+* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/dispense-id"
 * identifier[=].value = "DISP-IE-2024-006001-M1"
 * status = #completed
 * medicationReference = Reference(ie-core-medication-metformin-500)
@@ -972,7 +972,7 @@ Usage: #example
 Title: "Scenario 6 – Repeat Dispense Month 2: Metformin February 2024"
 Description: "Second monthly dispensation of Metformin under the 6-month GMS repeat prescription."
 
-* identifier[0].system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/dispense-id"
+* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/dispense-id"
 * identifier[=].value = "DISP-IE-2024-006001-M2"
 * status = #completed
 * medicationReference = Reference(ie-core-medication-metformin-500)
@@ -993,7 +993,7 @@ Usage: #example
 Title: "Scenario 6 – Repeat Dispense Month 3: Metformin March 2024"
 Description: "Third monthly dispensation of Metformin under the 6-month GMS repeat prescription."
 
-* identifier[0].system = "https://hl7-ie.github.io/hl7-ie-fhir-draft-ig/fhir/ie/core/sid/dispense-id"
+* identifier[0].system = "https://hl7-ie.github.io/ie-fhir-ig-core-draft/fhir/ie/core/sid/dispense-id"
 * identifier[=].value = "DISP-IE-2024-006001-M3"
 * status = #completed
 * medicationReference = Reference(ie-core-medication-metformin-500)
