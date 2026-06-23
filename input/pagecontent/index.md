@@ -1,7 +1,7 @@
 ### Introduction
 
-**ℹ️ Important Notice:**
-> This Implementation Guide (IG) is a **Proof of Concept** developed by **Nithin Mohan** for demonstration purposes only. It illustrates how FHIR adoption could be implemented at a national level, drawing on the author's experience with **HL7 V2, V3 CDA, and FHIR**, and a practical curiosity to address cross-border healthcare interoperability challenges under the **European Health Data Space (EHDS)** — viewed through the lens of Ireland's healthcare landscape.
+> ### **ℹ️ Important Notice:**
+> This Implementation Guide (IG) is a **Proof of Concept** developed by [**Nithin Mohan**](https://github.com/nithinmohantk) for demonstration and educational purposes only. It illustrates how FHIR adoption could be implemented at a national level, drawing on the author's experience with **HL7 V2, V3 CDA, and FHIR**, and a practical curiosity to address cross-border healthcare interoperability challenges under the **European Health Data Space (EHDS)** — viewed through the lens of Ireland's healthcare landscape.
 >
 > - This IG has **no affiliation with, or support from**, the HSE, HSE Standards & Interoperability team, or the Department of Health Ireland.
 > - It is maintained solely at the author's initiative and discretion.
