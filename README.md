@@ -30,7 +30,7 @@
 **FHIR Version**: R4 (4.0.1)  
 **Status**: Draft (CI Build)
 
-[![Build IE Core FHIR IG](https://github.com/nithinmohantk/ie-core-fhir-ig-draft/actions/workflows/build-ig.yml/badge.svg)](https://github.com/nithinmohantk/ie-core-fhir-ig-draft/actions/workflows/build-ig.yml)
+[![Build IE Core FHIR IG](https://github.com/hl7-ie/ie-core-fhir-ig-draft/actions/workflows/build-ig.yml/badge.svg)](https://github.com/nithinmohantk/ie-core-fhir-ig-draft/actions/workflows/build-ig.yml)
 
 ## Overview
 
