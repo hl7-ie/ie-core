@@ -4,7 +4,7 @@ Id: ie-core-careplan
 Title: "IE Core CarePlan"
 Description: "The IE Core CarePlan profile sets minimum expectations for the CarePlan resource to record, search, and fetch care plan data associated with a patient, based on Irish requirements."
 
-* ^url = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/StructureDefinition/ie-core-careplan"
+* ^url = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-careplan"
 * ^version = "0.1.0"
 * ^status = #draft
 
@@ -18,6 +18,6 @@ Description: "The IE Core CarePlan profile sets minimum expectations for the Car
 * category ^slicing.discriminator.path = "$this"
 * category ^slicing.rules = #open
 * category contains AssessPlan 1..1 MS
-* category[AssessPlan] = https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/CodeSystem/ie-core-codesystem#assess-plan "Assessment and Plan of Treatment"
+* category[AssessPlan] = https://hl7-ie.github.io/ie-core/fhir/ie/core/CodeSystem/ie-core-codesystem#assess-plan "Assessment and Plan of Treatment"
 * subject 1..1 MS
 * subject only Reference(IECorePatient)
