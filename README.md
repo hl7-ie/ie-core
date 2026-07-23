@@ -24,13 +24,13 @@
 >
 > The concepts, patterns, and approaches described in this IG **may be replicated** and adapted freely. If you build upon this work, attribution to the original author is appreciated but not required.
 
-**Canonical URL**: `https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core`  
+**Canonical URL**: `https://hl7-ie.github.io/ie-core/fhir/ie/core`  
 **Package**: `hl7.fhir.ie.core`  
 **Version**: 0.1.1  
 **FHIR Version**: R4 (4.0.1)  
 **Status**: Draft (CI Build)
 
-[![Build IE Core FHIR IG](https://github.com/hl7-ie/ie-core-fhir-ig-draft/actions/workflows/build-ig.yml/badge.svg)](https://github.com/nithinmohantk/ie-core-fhir-ig-draft/actions/workflows/build-ig.yml)
+[![Build IE Core FHIR IG](https://github.com/hl7-ie/ie-core/actions/workflows/build-ig.yml/badge.svg)](https://github.com/nithinmohantk/ie-core/actions/workflows/build-ig.yml)
 
 ## Overview
 
@@ -136,7 +136,7 @@ The generated IG website will be in the `output/` directory. Open `output/index.
 
 #### Default Configuration
 
-- **Base URL:** `https://hl7-ie.github.io/ie-core-fhir-ig-draft` (GitHub Pages PoC)
+- **Base URL:** `https://hl7-ie.github.io/ie-core` (GitHub Pages PoC)
 - **Config file:** `build-config.env`
 
 #### Build with Custom Base URL
@@ -182,8 +182,8 @@ export IE_CORE_BASE_URL=https://hl7-ie.org
 Edit `build-config.env` to set the default base URL:
 
 ```env
-# Default: https://hl7-ie.github.io/ie-core-fhir-ig-draft (GitHub Pages PoC)
-IE_CORE_BASE_URL=https://hl7-ie.github.io/ie-core-fhir-ig-draft
+# Default: https://hl7-ie.github.io/ie-core (GitHub Pages PoC)
+IE_CORE_BASE_URL=https://hl7-ie.github.io/ie-core
 
 # Examples for different environments:
 # IE_CORE_BASE_URL=https://hl7-ie.org
@@ -293,7 +293,7 @@ This IG is currently a Proof of Concept maintained by Nithin Mohan and hosted on
 
 ### Current Hosting (Proof of Concept)
 
-This IG is currently hosted at **`https://hl7-ie.github.io/ie-core-fhir-ig-draft/`** via GitHub Pages under the `hl7-ie` organization. This demonstrates how the IG can be built, maintained, and versioned using industry-standard DevOps practices.
+This IG is currently hosted at **`https://hl7-ie.github.io/ie-core/`** via GitHub Pages under the `hl7-ie` organization. This demonstrates how the IG can be built, maintained, and versioned using industry-standard DevOps practices.
 
 Deployment is automated via GitHub Actions:
 - Triggered on every push to the repository

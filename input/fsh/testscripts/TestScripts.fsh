@@ -9,7 +9,7 @@ Usage: #definition
 Title: "IE Core TestScript: Patient Read"
 Description: "Verifies that a FHIR server can return a Patient resource conforming to the IE Core Patient profile."
 
-* url = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/TestScript/ie-core-testscript-patient-read"
+* url = "https://hl7-ie.github.io/ie-core/fhir/ie/core/TestScript/ie-core-testscript-patient-read"
 * name = "IECoreTestScriptPatientRead"
 * status = #draft
 * date = "2025-01-01"
@@ -38,7 +38,7 @@ Description: "Verifies that a FHIR server can return a Patient resource conformi
 * test[=].action[=].assert.warningOnly = false
 
 * test[=].action[+].assert.description = "Confirm Patient has the IE Core Patient profile"
-* test[=].action[=].assert.expression = "meta.profile.where($this = 'https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/StructureDefinition/ie-core-patient').exists()"
+* test[=].action[=].assert.expression = "meta.profile.where($this = 'https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient').exists()"
 * test[=].action[=].assert.warningOnly = false
 
 * test[=].action[+].assert.description = "Confirm Patient has at least one name"
@@ -56,7 +56,7 @@ Usage: #definition
 Title: "IE Core TestScript: Patient Search"
 Description: "Verifies that a FHIR server supports searching for Patient resources by name, identifier, and birthdate."
 
-* url = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/TestScript/ie-core-testscript-patient-search"
+* url = "https://hl7-ie.github.io/ie-core/fhir/ie/core/TestScript/ie-core-testscript-patient-search"
 * name = "IECoreTestScriptPatientSearch"
 * status = #draft
 * date = "2025-01-01"
@@ -86,7 +86,7 @@ Description: "Verifies that a FHIR server supports searching for Patient resourc
 * test[=].action[=].operation.description = "Search for Patients by IHI"
 * test[=].action[=].operation.accept = #json
 * test[=].action[=].operation.encodeRequestUrl = true
-* test[=].action[=].operation.params = "?identifier=https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/ihi|210000000012345678"
+* test[=].action[=].operation.params = "?identifier=https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/ihi|210000000012345678"
 
 * test[=].action[+].assert.description = "Confirm the response is HTTP 200 OK"
 * test[=].action[=].assert.response = #okay
@@ -116,7 +116,7 @@ Usage: #definition
 Title: "IE Core TestScript: Encounter Read"
 Description: "Verifies that a FHIR server can return an Encounter resource conforming to the IE Core Encounter profile."
 
-* url = "https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/TestScript/ie-core-testscript-encounter-read"
+* url = "https://hl7-ie.github.io/ie-core/fhir/ie/core/TestScript/ie-core-testscript-encounter-read"
 * name = "IECoreTestScriptEncounterRead"
 * status = #draft
 * date = "2025-01-01"

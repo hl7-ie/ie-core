@@ -11,17 +11,17 @@ Alias: $V2-0203 = http://terminology.hl7.org/CodeSystem/v2-0203
 Alias: $V3-NullFlavor = http://terminology.hl7.org/CodeSystem/v3-NullFlavor
 
 // IE Core Base
-Alias: $IEBase = https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core-r5
+Alias: $IEBase = https://hl7-ie.github.io/ie-core/fhir/ie/core-r5
 
 // Irish Identifier Systems
-Alias: $IHI = https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/ihi
-Alias: $HPI = https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/hpi
-Alias: $GMS = https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/gms
-Alias: $DPS = https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/dps
-Alias: $LTI = https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/lti
-Alias: $HAA = https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/haa
-Alias: $MRN = https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/mrn
-Alias: $IMN = https://hl7-ie.github.io/ie-core-fhir-ig-draft/fhir/ie/core/sid/imn
+Alias: $IHI = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/ihi
+Alias: $HPI = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/hpi
+Alias: $GMS = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/gms
+Alias: $DPS = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dps
+Alias: $LTI = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/lti
+Alias: $HAA = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/haa
+Alias: $MRN = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/mrn
+Alias: $IMN = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/imn
 
 // HL7 Europe R5 Core Profiles
 Alias: $EUPatientCoreR5 = http://hl7.eu/fhir/base-r5/StructureDefinition/patient-eu-core
