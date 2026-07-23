@@ -13,11 +13,11 @@ IE Core uses the concept of [Must Support](must-support.html) as defined on the 
 
 ### Conformance Obligations (XT-EHR Obligations Framework)
 
-In addition to the narrative Must Support rules above, IE Core profiles that derive from **Xt-EHR-aligned** HL7 Europe artifacts (Patient Summary, Hospital Discharge Report, Laboratory Report, ePrescription/eDispensation) **SHOULD** be read together with the actor-specific `SHALL`/`SHOULD` obligations declared by the corresponding EU Base, EU Laboratory, and EU MPD CapabilityStatements, using the [HL7 FHIR Obligations extension](http://hl7.org/fhir/extensions/StructureDefinition-obligation.html) (`http://hl7.org/fhir/tools/StructureDefinition/obligation`). This machine-readable obligations approach is the pattern adopted by the Xt-EHR Obligations Framework and by 2026-era national Core IGs (e.g. US Core, AU Core) as the successor to purely narrative must-support tables, and:
+In addition to the narrative Must Support rules above, IE Core profiles that derive from **XT-EHR-aligned** HL7 Europe artifacts (Patient Summary, Hospital Discharge Report, Laboratory Report, ePrescription/eDispensation) **SHOULD** be read together with the corresponding EU Base, EU Laboratory, and EU MPD CapabilityStatements. Those CapabilityStatements declare actor-specific `SHALL`/`SHOULD` obligations. These obligations use the [HL7 FHIR Obligations extension](http://hl7.org/fhir/extensions/StructureDefinition-obligation.html) (`http://hl7.org/fhir/tools/StructureDefinition/obligation`). This machine-readable obligations approach is the pattern adopted by the XT-EHR Obligations Framework. It has also been adopted by 2026-era national Core IGs (e.g. US Core, AU Core) as the successor to purely narrative must-support tables. It:
 
-- Allows automated conformance testing tools (e.g. Touchstone, Inferno, Xt-EHR test suites) to verify actor obligations directly from the CapabilityStatement rather than free-text guidance
+- Allows automated conformance testing tools (e.g. Touchstone, Inferno, XT-EHR test suites) to verify actor obligations directly from the CapabilityStatement rather than free-text guidance
 - Distinguishes obligations by actor (e.g. `send-data`, `receive-data`) rather than a single blanket Must Support rule
-- Is tracked as a formal verification item in the [Future of IE Core](future-of-ie-core.html) roadmap ("XT-EHR Obligations compliance") pending full mapping of every IE Core profile against the Xt-EHR 1.0.0 Obligations Framework
+- Is tracked as a formal verification item in the [Future of IE Core](future-of-ie-core.html) roadmap ("XT-EHR Obligations compliance") pending full mapping of every IE Core profile against the XT-EHR 1.0.0 Obligations Framework
 
 ### Missing Data
 
