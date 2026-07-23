@@ -2,6 +2,12 @@
 
 The IE Core Implementation Guide is a living document that will continue to evolve as Ireland's digital health infrastructure matures. This page reflects priorities following the XT-EHR v1.0.0 release (2025) and the entry into force of the EHDS Regulation 2025/327 and eIDAS 2.0 (Regulation 2024/1183/EU).
 
+### Recently Completed
+
+- **IPS STU2 alignment** — Updated the `hl7.fhir.uv.ips` dependency to STU2 (v2.0.0, published October 2025)
+- **SMART App Launch v2.2 scopes** — Migrated recommended authorization scopes from legacy v1 `.read`/`.write` syntax to v2 granular `.rs`/`.cruds` scope syntax
+- **XT-EHR Obligations Framework guidance** — Documented the HL7 FHIR Obligations extension pattern as the recommended machine-readable successor to narrative-only Must Support tables
+
 ### Immediate Priorities (2025-2026)
 
 The following work items are required for full XT-EHR 1.0.0 alignment and are the next IE Core development priorities:

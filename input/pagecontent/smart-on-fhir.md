@@ -1,27 +1,29 @@
 ### SMART on FHIR Obligations and Capabilities
 
-IE Core implementations **SHOULD** support [SMART App Launch Framework](http://hl7.org/fhir/smart-app-launch/) for authorization and authentication. This enables third-party applications to securely access patient data with appropriate consent.
+IE Core implementations **SHOULD** support [SMART App Launch Framework v2.2](http://hl7.org/fhir/smart-app-launch/2.2.0/) for authorization and authentication. This enables third-party applications to securely access patient data with appropriate consent, and aligns with the SMART on FHIR conformance approach adopted by the HL7 Europe Health Data API IG for EHDS/XT-EHR data access.
 
 ### Authorization Scopes
 
-IE Core defines the following recommended authorization scopes aligned with SMART on FHIR v2.0:
+IE Core defines the following recommended authorization scopes using the **v2 granular scope syntax** (`.rs`/`.cruds`) defined by [SMART App Launch v2.2](http://hl7.org/fhir/smart-app-launch/2.2.0/scopes-and-launch-context.html#quick-start). Legacy v1 scopes (`.read`/`.write`) **SHOULD NOT** be used for new implementations, as v1 scope syntax is deprecated by SMART App Launch v2 and is being retired across 2026-era national Core IGs (e.g. US Core, AU Core):
 
 | Scope | Description |
 |-------|-------------|
-| `patient/Patient.read` | Read access to patient demographics |
-| `patient/Observation.read` | Read access to observations including vital signs and lab results |
-| `patient/Condition.read` | Read access to conditions and diagnoses |
-| `patient/MedicationRequest.read` | Read access to medication prescriptions |
-| `patient/AllergyIntolerance.read` | Read access to allergies and intolerances |
-| `patient/Procedure.read` | Read access to procedures |
-| `patient/Encounter.read` | Read access to encounters |
-| `patient/DiagnosticReport.read` | Read access to diagnostic reports |
-| `patient/DocumentReference.read` | Read access to clinical documents |
-| `patient/Immunization.read` | Read access to immunization records |
-| `patient/CarePlan.read` | Read access to care plans |
-| `patient/CareTeam.read` | Read access to care team information |
-| `patient/Goal.read` | Read access to clinical goals |
-| `patient/Coverage.read` | Read access to insurance coverage |
+| `patient/Patient.rs` | Read and search access to patient demographics |
+| `patient/Observation.rs` | Read and search access to observations including vital signs and lab results |
+| `patient/Condition.rs` | Read and search access to conditions and diagnoses |
+| `patient/MedicationRequest.rs` | Read and search access to medication prescriptions |
+| `patient/AllergyIntolerance.rs` | Read and search access to allergies and intolerances |
+| `patient/Procedure.rs` | Read and search access to procedures |
+| `patient/Encounter.rs` | Read and search access to encounters |
+| `patient/DiagnosticReport.rs` | Read and search access to diagnostic reports |
+| `patient/DocumentReference.rs` | Read and search access to clinical documents |
+| `patient/Immunization.rs` | Read and search access to immunization records |
+| `patient/CarePlan.rs` | Read and search access to care plans |
+| `patient/CareTeam.rs` | Read and search access to care team information |
+| `patient/Goal.rs` | Read and search access to clinical goals |
+| `patient/Coverage.rs` | Read and search access to insurance coverage |
+
+For fine-grained data segmentation (e.g. restricting access to sensitive categories under GDPR Article 9), servers **MAY** additionally support [SMART v2 search-parameter-scoped scopes](http://hl7.org/fhir/smart-app-launch/2.2.0/scopes-and-launch-context.html#finer-grained-resource-constraints) (e.g. `patient/Observation.rs?category=vital-signs`).
 
 ### Server Obligations
 
