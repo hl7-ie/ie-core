@@ -41,6 +41,10 @@ To publish an IG through HL7, you need an organizational relationship with HL7:
 
 ### Step 2: Canonical URL and Package Registration
 
+#### Package Naming Convention
+
+The package ID `hl7.fhir.ie.core` follows the standard HL7 FHIR package-naming convention `hl7.fhir.<ISO-3166-country-code>.core`, used consistently across all national Core IGs (`hl7.fhir.us.core`, `hl7.fhir.au.core`, `hl7.fhir.uk.core`, `hl7.fhir.nl.core`, etc.). It is derived solely from this convention and Ireland's ISO 3166-1 alpha-2 code (`IE`) — it is not derived from, and has no connection to, any third-party domain or unofficial source.
+
 #### Reserve Your Canonical URL
 
 The canonical URL (`https://hl7-ie.github.io/ie-core/fhir/ie/core`) must be:
@@ -48,6 +52,8 @@ The canonical URL (`https://hl7-ie.github.io/ie-core/fhir/ie/core`) must be:
 1. **Registered with HL7**: Contact HL7 to register the canonical URL namespace (future governance body)
 2. **Under your control**: You must own or have authority over the domain
 3. **Stable**: The URL must remain accessible for the life of the IG
+
+**Current status**: The canonical URL above is a **GitHub Pages placeholder** under the `hl7-ie` GitHub organization, used only while this IG remains a Proof of Concept. It is not a claim of official HL7 registration and will be replaced once a formal governance body registers a permanent namespace.
 
 #### Register the NPM Package
 

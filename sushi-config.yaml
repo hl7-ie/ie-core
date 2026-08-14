@@ -37,10 +37,11 @@ dependencies:
     id: hl7fhireubase
     uri: http://hl7.eu/fhir/base/ImplementationGuide/hl7.fhir.eu.base
     version: 2.0.0
+  # IPS STU2 / Edition 2 (published Oct 2025)
   hl7.fhir.uv.ips:
     id: hl7fhiruvips
     uri: http://hl7.org/fhir/uv/ips/ImplementationGuide/hl7.fhir.uv.ips
-    version: 1.1.0
+    version: 2.0.0
   hl7.fhir.eu.laboratory:
     id: hl7fhireulab
     uri: http://hl7.eu/fhir/laboratory/ImplementationGuide/hl7.fhir.eu.laboratory

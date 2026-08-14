@@ -11,7 +11,6 @@ Alias: $LOINC = http://loinc.org
 Alias: $RXNORM = http://www.nlm.nih.gov/research/umls/rxnorm
 Alias: $CVX = http://hl7.org/fhir/sid/cvx
 Alias: $ATC = http://www.whocc.no/atc
-Alias: $ICD10PCS = http://www.cms.gov/Medicare/Coding/ICD10
 Alias: $V2-0074 = http://terminology.hl7.org/CodeSystem/v2-0074
 Alias: $V2-0136 = http://terminology.hl7.org/CodeSystem/v2-0136
 Alias: $V2-0203 = http://terminology.hl7.org/CodeSystem/v2-0203
@@ -139,10 +138,9 @@ Description: "Condition codes drawn from SNOMED CT clinical finding hierarchy."
 ValueSet: IECoreProcedureCode
 Id: ie-core-procedure-code
 Title: "IE Core Procedure Codes"
-Description: "Procedure codes drawn from SNOMED CT procedure hierarchy and ICD-10-PCS."
+Description: "Procedure codes drawn from the SNOMED CT procedure hierarchy, consistent with Ireland's national terminology standards and EHDS/EU cross-border interoperability guidance."
 * ^experimental = false
 * include codes from system $SCT where concept is-a #71388002 "Procedure"
-* include codes from system $ICD10PCS
 
 // ============================================================================
 // 10. Encounter Type
@@ -266,7 +264,9 @@ Title: "IE Core Narrative Status"
 Description: "Allowed narrative status codes for IE Core resources."
 * ^experimental = false
 * $NARRATIVE-STATUS#generated "Generated"
+* $NARRATIVE-STATUS#extensions "Extensions"
 * $NARRATIVE-STATUS#additional "Additional"
+* $NARRATIVE-STATUS#empty "Empty"
 
 // ============================================================================
 // 19. Smoking Status

@@ -8,9 +8,6 @@
 Alias: $SCT = http://snomed.info/sct
 Alias: $LOINC = http://loinc.org
 Alias: $UCUM = http://unitsofmeasure.org
-Alias: $ICD10 = http://hl7.org/fhir/sid/icd-10-cm
-Alias: $ICD10PCS = http://www.cms.gov/Medicare/Coding/ICD10
-Alias: $CPT = http://www.ama-assn.org/go/cpt
 Alias: $RxNorm = http://www.nlm.nih.gov/research/umls/rxnorm
 Alias: $CVX = http://hl7.org/fhir/sid/cvx
 Alias: $ATC = http://www.whocc.no/atc
@@ -48,7 +45,6 @@ Alias: $V3-ParticipationType = http://terminology.hl7.org/CodeSystem/v3-Particip
 Alias: $ObsCat = http://terminology.hl7.org/CodeSystem/observation-category
 Alias: $CondCat = http://terminology.hl7.org/CodeSystem/condition-category
 Alias: $DiagReportCat = http://terminology.hl7.org/CodeSystem/v2-0074
-Alias: $DocRefCat = http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category
 Alias: $ProvenanceParticipant = http://terminology.hl7.org/CodeSystem/provenance-participant-type
 Alias: $DataAbsentReason = http://terminology.hl7.org/CodeSystem/data-absent-reason
 Alias: $CondVerStatus = http://terminology.hl7.org/CodeSystem/condition-ver-status

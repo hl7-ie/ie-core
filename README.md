@@ -30,6 +30,8 @@
 **FHIR Version**: R4 (4.0.1)  
 **Status**: Draft (CI Build)
 
+> **Naming provenance:** The package ID `hl7.fhir.ie.core` follows the standard HL7 FHIR package-naming convention `hl7.fhir.<ISO-3166-country-code>.core` used by every national Core IG (e.g. `hl7.fhir.us.core`, `hl7.fhir.au.core`, `hl7.fhir.uk.core`). It is not derived from, and has no relationship to, any third-party domain. The canonical URL above is a **GitHub Pages placeholder** hosted under the `hl7-ie` GitHub organization while this IG remains a Proof of Concept; it will be replaced with an HL7-registered namespace if and when a formal national governance body is established (see [Recommendations for Further National Alignment](#recommendations-for-further-national-alignment) and the [HL7 Registry & Publication Guidance](https://hl7-ie.github.io/ie-core/hl7-registry-guidance.html) page).
+
 [![Build IE Core FHIR IG](https://github.com/hl7-ie/ie-core/actions/workflows/build-ig.yml/badge.svg)](https://github.com/nithinmohantk/ie-core/actions/workflows/build-ig.yml)
 
 ## Overview
@@ -373,6 +375,16 @@ After ballot approval:
 2. Submit the package to [packages.fhir.org](https://packages.fhir.org)
 3. Update the IG version in `sushi-config.yaml`
 4. Tag the release in git
+
+## Recommendations for Further National Alignment
+
+The following recommendations would further strengthen this IG's alignment with legitimate national and international governance as it matures beyond Proof of Concept status:
+
+1. **Formal HL7 Ireland affiliate or working group** — Establish an HL7 International affiliate, or sponsor the IG through an existing HL7 Work Group, to obtain a governance mandate (see [HL7 Registry & Publication Guidance](https://hl7-ie.github.io/ie-core/hl7-registry-guidance.html)).
+2. **HIQA/HSE sign-off on identifier systems** — Confirm IHI, HPI, and GMS/DPS/LTI/HAA identifier `system` URIs and validation rules with HIQA's National Standards and Assurance function and HSE's national identifier custodians before any production use.
+3. **National terminology server dependency** — Formalize the relationship with the HSE NMPC Central Terminology Server (CTS) as the authoritative source for Irish SNOMED CT edition releases, rather than embedding value set snapshots.
+4. **Domain and canonical URL registration** — Register a durable national domain (e.g. under `gov.ie` or a future HL7 Ireland domain) before any non-PoC deployment, and update the canonical URL and package ID accordingly.
+5. **Independent conformance testing** — Run the IG through HL7 FHIR Connectathon testing and an independent conformance review before any claim of production readiness.
 
 ## Key Contacts
 
