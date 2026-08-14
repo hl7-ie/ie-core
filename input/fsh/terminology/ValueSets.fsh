@@ -25,6 +25,7 @@ Alias: $DATA-ABSENT-REASON = http://terminology.hl7.org/CodeSystem/data-absent-r
 Alias: $COVERAGE-TYPE = http://terminology.hl7.org/CodeSystem/v3-ActCode
 Alias: $LOCATION-ROLE-TYPE = http://terminology.hl7.org/CodeSystem/v3-ServiceDeliveryLocationRoleType
 Alias: $MEDICATION-ADHERENCE = http://hl7.org/fhir/CodeSystem/medication-statement-adherence
+Alias: $ADMIT-SOURCE = http://terminology.hl7.org/CodeSystem/admit-source
 
 // --- IE Core Code System Aliases ---
 Alias: $IE-CS = https://hl7-ie.github.io/ie-core/fhir/ie/core/CodeSystem/ie-core-codesystem
@@ -808,3 +809,13 @@ Title: "IE Core NMPC Virtual Medicinal Product (VMP)"
 Description: "Virtual Medicinal Product (VMP) concepts from the SNOMED CT Irish Edition (NMPC). VMPs represent generic, non-branded medicinal products at the product level. Use VMP codes for generic prescribing. SNOMED CT refset ID: 660371000220109."
 * ^experimental = false
 * include codes from system $SCT_IE where concept in "^660371000220109"
+
+// ============================================================================
+// 50. Admission Source
+// ============================================================================
+ValueSet: IECoreAdmitSource
+Id: ie-core-admit-source
+Title: "IE Core Admission Source"
+Description: "Codes indicating the source or circumstances of a patient's admission, used to populate Encounter.hospitalization.admitSource."
+* ^experimental = false
+* include codes from system $ADMIT-SOURCE
