@@ -85,7 +85,7 @@ parameters:
   excludejson: false
   excludettl: true
   excludemap: true
-  pin-canonicals: all
+  pin-canonicals: always
 
 pages:
   index.md:
