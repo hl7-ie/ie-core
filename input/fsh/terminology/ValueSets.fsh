@@ -68,6 +68,7 @@ Id: ie-core-gender-identity
 Title: "IE Core Gender Identity"
 Description: "Gender identity concepts for use in the IE Core Implementation Guide."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * $SCT#446141000124107 "Identifies as female gender"
 * $SCT#446151000124109 "Identifies as male gender"
 * $SCT#33791000087105 "Identifies as nonbinary gender"
@@ -119,6 +120,7 @@ Id: ie-core-allergy-intolerance-set
 Title: "IE Core Allergy Intolerance Set"
 Description: "Codes for substances and clinical findings related to allergies and intolerances."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * include codes from system $SCT where concept is-a #105590001 "Substance"
 * include codes from system $SCT where concept is-a #418038007 "Propensity to adverse reactions to substance"
 * include codes from system $SCT where concept is-a #373873005 "Pharmaceutical / biologic product"
@@ -131,6 +133,7 @@ Id: ie-core-condition-code
 Title: "IE Core Condition Codes"
 Description: "Condition codes drawn from SNOMED CT clinical finding hierarchy."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * include codes from system $SCT where concept is-a #404684003 "Clinical finding"
 
 // ============================================================================
@@ -141,6 +144,7 @@ Id: ie-core-procedure-code
 Title: "IE Core Procedure Codes"
 Description: "Procedure codes drawn from the SNOMED CT procedure hierarchy, consistent with Ireland's national terminology standards and EHDS/EU cross-border interoperability guidance."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * include codes from system $SCT where concept is-a #71388002 "Procedure"
 
 // ============================================================================
@@ -151,6 +155,7 @@ Id: ie-core-encounter-type
 Title: "IE Core Encounter Type"
 Description: "Encounter type codes for categorising patient encounters."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * include codes from system $SCT where concept is-a #308335008 "Patient encounter procedure"
 * $SCT#11429006 "Consultation"
 * $SCT#281036007 "Follow-up consultation"
@@ -168,6 +173,7 @@ Id: ie-core-discharge-disposition
 Title: "IE Core Discharge Disposition"
 Description: "Discharge disposition codes indicating patient destination upon discharge."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * $SCT#306689006 "Discharge to home"
 * $SCT#306691003 "Discharge to residential home"
 * $SCT#306694006 "Discharge to nursing home"
@@ -189,6 +195,7 @@ Id: ie-core-medication-codes
 Title: "IE Core Medication Codes"
 Description: "Medication codes for the Irish healthcare system. NMPC (via the SNOMED CT Irish Edition hosted on the HSE Central Terminology Server) is the preferred primary medication code wherever available. SNOMED CT Irish Edition is the preferred secondary clinical terminology wherever available, and ATC (WHO) codes are included for international classification and EU cross-border interoperability (EHDS/MyHealth@EU). Use $SCT_IE with the NMPC supplement (useSupplement: $NMPC_SUPPLEMENT) when querying the CTS for real medication codes."
 * ^experimental = false
+* ^copyright = "This artifact includes content from Anatomical Therapeutic Chemical (ATC) classification system. ATC codes are copyright World Health Organization (WHO) Collaborating Centre for Drug Statistics Methodology. Terms & Conditions in https://www.whocc.no/use_of_atc_ddd/"
 * include codes from system $SCT_IE where concept is-a #373873005 "Pharmaceutical / biologic product (product)"
 * include codes from system $NMPC
 * include codes from system $ATC
@@ -211,6 +218,7 @@ Id: ie-core-laboratory-test-codes
 Title: "IE Core Laboratory Test Codes"
 Description: "Laboratory test codes from LOINC for use in diagnostic observations."
 * ^experimental = false
+* ^copyright = "This material contains content from LOINC (http://loinc.org). LOINC is copyright © 1995-2020, Regenstrief Institute, Inc. and the Logical Observation Identifiers Names and Codes (LOINC) Committee and is available at no cost under the license at http://loinc.org/license. LOINC® is a registered United States trademark of Regenstrief Institute, Inc"
 * include codes from system $LOINC
 
 // ============================================================================
@@ -221,6 +229,7 @@ Id: ie-core-specimen-type
 Title: "IE Core Specimen Type"
 Description: "Specimen type codes drawn from the SNOMED CT specimen hierarchy."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * include codes from system $SCT where concept is-a #123038009 "Specimen"
 
 // ============================================================================
@@ -241,6 +250,7 @@ Id: ie-core-vital-sign-result-type
 Title: "IE Core Vital Sign Result Type"
 Description: "LOINC codes identifying vital sign observation types."
 * ^experimental = false
+* ^copyright = "This material contains content from LOINC (http://loinc.org). LOINC is copyright © 1995-2020, Regenstrief Institute, Inc. and the Logical Observation Identifiers Names and Codes (LOINC) Committee and is available at no cost under the license at http://loinc.org/license. LOINC® is a registered United States trademark of Regenstrief Institute, Inc"
 * $LOINC#85354-9 "Blood pressure panel with all children optional"
 * $LOINC#8480-6 "Systolic blood pressure"
 * $LOINC#8462-4 "Diastolic blood pressure"
@@ -277,6 +287,7 @@ Id: ie-core-smoking-status
 Title: "IE Core Smoking Status"
 Description: "SNOMED CT codes representing a patient's smoking status."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * $SCT#449868002 "Current every day smoker"
 * $SCT#428041000124106 "Occasional tobacco smoker"
 * $SCT#8517006 "Former smoker"
@@ -294,6 +305,7 @@ Id: ie-core-smoking-status-comprehensive
 Title: "IE Core Smoking Status Comprehensive"
 Description: "Comprehensive set of SNOMED CT codes for tobacco use and smoking status."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * include codes from system $SCT where concept is-a #365980008 "Finding of tobacco use and exposure"
 * $SCT#449868002 "Current every day smoker"
 * $SCT#428041000124106 "Occasional tobacco smoker"
@@ -316,6 +328,7 @@ Id: ie-core-smoking-status-type
 Title: "IE Core Smoking Status Type"
 Description: "LOINC observation codes used to identify the type of smoking status observation."
 * ^experimental = false
+* ^copyright = "This material contains content from LOINC (http://loinc.org). LOINC is copyright © 1995-2020, Regenstrief Institute, Inc. and the Logical Observation Identifiers Names and Codes (LOINC) Committee and is available at no cost under the license at http://loinc.org/license. LOINC® is a registered United States trademark of Regenstrief Institute, Inc"
 * $LOINC#72166-2 "Tobacco smoking status"
 * $LOINC#11367-0 "History of Tobacco use"
 
@@ -327,6 +340,7 @@ Id: ie-core-survey-codes
 Title: "IE Core Survey Codes"
 Description: "LOINC survey and screening panel codes for structured assessments."
 * ^experimental = false
+* ^copyright = "This material contains content from LOINC (http://loinc.org). LOINC is copyright © 1995-2020, Regenstrief Institute, Inc. and the Logical Observation Identifiers Names and Codes (LOINC) Committee and is available at no cost under the license at http://loinc.org/license. LOINC® is a registered United States trademark of Regenstrief Institute, Inc"
 * $LOINC#44249-1 "PHQ-9 quick depression assessment panel"
 * $LOINC#69725-0 "GAD-7 Anxiety"
 * $LOINC#72109-2 "Alcohol Use Disorder Identification Test - Consumption"
@@ -396,6 +410,7 @@ Id: ie-core-sexual-orientation-including-data-absent-reason
 Title: "IE Core Sexual Orientation"
 Description: "Sexual orientation concepts including data absent reason codes."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * $SCT#20430005 "Heterosexual"
 * $SCT#38628009 "Homosexual"
 * $SCT#42035005 "Bisexual"
@@ -412,6 +427,7 @@ Id: ie-core-pregnancy-status
 Title: "IE Core Pregnancy Status Codes"
 Description: "SNOMED CT codes for reporting a patient's pregnancy status."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * $SCT#77386006 "Pregnant"
 * $SCT#60001007 "Not pregnant"
 * $SCT#261665006 "Unknown"
@@ -424,6 +440,7 @@ Id: ie-core-pregnancy-intent
 Title: "IE Core Pregnancy Intent Codes"
 Description: "Codes indicating a patient's pregnancy intention."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * $SCT#454381000124105 "Intends to become pregnant"
 * $SCT#454391000124108 "Does not intend to become pregnant"
 * $SCT#454401000124105 "Ambivalent about becoming pregnant"
@@ -437,6 +454,7 @@ Id: ie-core-goal-codes
 Title: "IE Core Goal Codes"
 Description: "SNOMED CT goal and target codes for care planning."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * include codes from system $SCT where concept is-a #410518001 "Goal"
 
 // ============================================================================
@@ -447,6 +465,7 @@ Id: ie-core-payer-type
 Title: "IE Core Payer Type"
 Description: "Payer type codes relevant to the Irish health system including HSE schemes and private coverage."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * $COVERAGE-TYPE#PUBLICPOL "Public healthcare"
 * $COVERAGE-TYPE#SUBSIDIZ "Subsidized health program"
 * $COVERAGE-TYPE#EHCPOL "Extended healthcare"
@@ -465,6 +484,7 @@ Id: ie-core-healthcare-provider-taxonomy
 Title: "IE Core Healthcare Provider Taxonomy"
 Description: "Healthcare provider taxonomy codes for categorising provider specialties and roles."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * include codes from system $SCT where concept is-a #223366009 "Healthcare professional"
 * include codes from system $SCT where concept is-a #394658006 "Clinical specialty"
 
@@ -487,6 +507,7 @@ Id: ie-core-clinical-note-type
 Title: "IE Core Clinical Note Type"
 Description: "LOINC document type codes for clinical notes."
 * ^experimental = false
+* ^copyright = "This material contains content from LOINC (http://loinc.org). LOINC is copyright © 1995-2020, Regenstrief Institute, Inc. and the Logical Observation Identifiers Names and Codes (LOINC) Committee and is available at no cost under the license at http://loinc.org/license. LOINC® is a registered United States trademark of Regenstrief Institute, Inc"
 * $LOINC#18842-5 "Discharge summary"
 * $LOINC#11488-4 "Consultation note"
 * $LOINC#34117-2 "History and physical note"
@@ -504,6 +525,7 @@ Id: ie-core-documentreference-type
 Title: "IE Core DocumentReference Type"
 Description: "LOINC document type codes for typed DocumentReference resources."
 * ^experimental = false
+* ^copyright = "This material contains content from LOINC (http://loinc.org). LOINC is copyright © 1995-2020, Regenstrief Institute, Inc. and the Logical Observation Identifiers Names and Codes (LOINC) Committee and is available at no cost under the license at http://loinc.org/license. LOINC® is a registered United States trademark of Regenstrief Institute, Inc"
 * $LOINC#18842-5 "Discharge summary"
 * $LOINC#11488-4 "Consultation note"
 * $LOINC#34117-2 "History and physical note"
@@ -537,6 +559,7 @@ Id: ie-core-diagnosticreport-category
 Title: "IE Core Diagnostic Report Category"
 Description: "Category codes for DiagnosticReport resources."
 * ^experimental = false
+* ^copyright = "This material contains content from LOINC (http://loinc.org). LOINC is copyright © 1995-2020, Regenstrief Institute, Inc. and the Logical Observation Identifiers Names and Codes (LOINC) Committee and is available at no cost under the license at http://loinc.org/license. LOINC® is a registered United States trademark of Regenstrief Institute, Inc"
 * $V2-0074#LAB "Laboratory"
 * $V2-0074#RAD "Radiology"
 * $V2-0074#CUS "Cardiac Ultrasound"
@@ -558,6 +581,7 @@ Id: ie-core-diagnosticreport-report-and-note-codes
 Title: "IE Core Non Laboratory Diagnostic Report and Note Codes"
 Description: "LOINC codes for non-laboratory diagnostic reports and clinical notes."
 * ^experimental = false
+* ^copyright = "This material contains content from LOINC (http://loinc.org). LOINC is copyright © 1995-2020, Regenstrief Institute, Inc. and the Logical Observation Identifiers Names and Codes (LOINC) Committee and is available at no cost under the license at http://loinc.org/license. LOINC® is a registered United States trademark of Regenstrief Institute, Inc"
 * $LOINC#18842-5 "Discharge summary"
 * $LOINC#11488-4 "Consultation note"
 * $LOINC#34117-2 "History and physical note"
@@ -579,6 +603,7 @@ Id: ie-core-care-team-member-function
 Title: "IE Core Care Team Member Function"
 Description: "SNOMED CT codes for care team member functions and roles."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * include codes from system $SCT where concept is-a #223366009 "Healthcare professional"
 * $SCT#446050000 "Primary care provider"
 * $SCT#768819009 "Consultant"
@@ -607,6 +632,7 @@ Id: ie-core-servicerequest-category
 Title: "IE Core ServiceRequest Category"
 Description: "Category codes for ServiceRequest resources."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * $SCT#108252007 "Laboratory procedure"
 * $SCT#363679005 "Imaging"
 * $SCT#409063005 "Counselling"
@@ -624,6 +650,7 @@ Id: ie-core-medication-adherence
 Title: "IE Core Medication Adherence"
 Description: "Codes indicating a patient's medication adherence status."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * $SCT#275929009 "Compliant - making progress towards goals"
 * $SCT#275928001 "Non-compliant - Loss to follow-up"
 * $SCT#266710000 "Drugs not taken/completed"
@@ -641,6 +668,7 @@ Id: ie-core-information-source-for-medication-adherence
 Title: "IE Core Information Source for Medication Adherence"
 Description: "Codes identifying the source of medication adherence information."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * $SCT#116154003 "Patient"
 * $SCT#394572006 "Medical secretary"
 * $SCT#158965000 "Doctor"
@@ -657,6 +685,7 @@ Id: ie-core-location-type
 Title: "IE Core Location Type"
 Description: "Codes for classifying healthcare delivery location types."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * include codes from system $LOCATION-ROLE-TYPE
 * $SCT#22232009 "Hospital"
 * $SCT#264372000 "Pharmacy"
@@ -685,6 +714,7 @@ Id: ie-core-advance-directives-content-type
 Title: "IE Core Advance Directives Content Type"
 Description: "LOINC codes for advance directive document content types."
 * ^experimental = false
+* ^copyright = "This material contains content from LOINC (http://loinc.org). LOINC is copyright © 1995-2020, Regenstrief Institute, Inc. and the Logical Observation Identifiers Names and Codes (LOINC) Committee and is available at no cost under the license at http://loinc.org/license. LOINC® is a registered United States trademark of Regenstrief Institute, Inc"
 * $LOINC#75320-2 "Advance directive"
 * $LOINC#81334-5 "Patient Personal advance care plan"
 * $LOINC#86533-7 "Patient Living will"
@@ -702,6 +732,7 @@ Id: ie-core-advance-healthcare-directive-categories-grouper
 Title: "IE Core Advance Healthcare Directive Categories"
 Description: "Grouper value set for advance healthcare directive document categories."
 * ^experimental = false
+* ^copyright = "This material contains content from LOINC (http://loinc.org). LOINC is copyright © 1995-2020, Regenstrief Institute, Inc. and the Logical Observation Identifiers Names and Codes (LOINC) Committee and is available at no cost under the license at http://loinc.org/license. LOINC® is a registered United States trademark of Regenstrief Institute, Inc"
 * $LOINC#42348-3 "Advance directives"
 * $LOINC#75320-2 "Advance directive"
 * $LOINC#81334-5 "Patient Personal advance care plan"
@@ -728,6 +759,7 @@ Id: ie-core-alcohol-drinking-status
 Title: "IE Core Alcohol Drinking Status"
 Description: "SNOMED CT codes representing a patient's alcohol drinking status."
 * ^experimental = false
+* ^copyright = "This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"
 * include codes from system $SCT where concept is-a #228273003 "Finding relating to alcohol drinking behavior"
 * $SCT#219006 "Current drinker of alcohol"
 * $SCT#228276006 "Occasional drinker"
