@@ -42,7 +42,7 @@ parameters:
   excludexml: false
   excludejson: false
   excludettl: true
-  pin-canonicals: always
+  pin-canonicals: all
   excludemap: true
 
 pages:
