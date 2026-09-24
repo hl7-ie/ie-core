@@ -3,10 +3,9 @@
   "id": "ie-bundle-to-pt-eprescription",
   "type": "collection",
   "timestamp": "2025-06-20T10:00:00+01:00",
-  "_comment": "Scenario 6: Seán Murphy visits Lisbon. ePrescription for Sertraline 50mg + Omeprazole 20mg via MyHealth@EU (MPD format). Dispensed at Farmácia Central, Lisbon on 20 June 2025. INFARMED codes included. No substitution allowed for Sertraline (psychiatric medication).",
   "entry": [
     {
-      "fullUrl": "urn:uuid:patient-sean-murphy",
+      "fullUrl": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
       "resource": {
         "resourceType": "Patient",
         "id": "patient-sean-murphy",
@@ -48,13 +47,45 @@
             ],
             "city": "Dublin 2",
             "postalCode": "D02 XY45",
-            "country": "IE"
+            "country": "IE",
+            "state": "Dublin"
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              },
+              {
+                "url": "type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "76689-9",
+                      "display": "Sex assigned at birth"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         ]
       }
     },
     {
-      "fullUrl": "urn:uuid:practitioner-aoife-obrien",
+      "fullUrl": "urn:uuid:f6ae4c82-db5b-5024-b472-a1582886e3ce",
       "resource": {
         "resourceType": "Practitioner",
         "id": "practitioner-aoife-obrien",
@@ -80,7 +111,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:allergy-penicillin",
+      "fullUrl": "urn:uuid:3ab51105-7364-58f5-a3d6-f9bc50690c12",
       "resource": {
         "resourceType": "AllergyIntolerance",
         "id": "allergy-penicillin",
@@ -116,7 +147,7 @@
           "text": "Penicillin / Amoxicillin — ALL penicillin-class antibiotics"
         },
         "patient": {
-          "reference": "urn:uuid:patient-sean-murphy"
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9"
         },
         "reaction": [
           {
@@ -137,14 +168,16 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:org-pt-farmacia-central",
+      "fullUrl": "urn:uuid:ab46a9eb-2169-53ae-a356-7c47ffe2a1b7",
       "resource": {
         "resourceType": "Organization",
         "id": "org-pt-farmacia-central",
         "identifier": [
           {
-            "system": "http://example.org/fhir/sid/pt/farmacia",
-            "value": "PT-FAR-LIS-001"
+            "value": "PT-FAR-LIS-001",
+            "assigner": {
+              "display": "Issuing authority in Portugal (illustrative)"
+            }
           }
         ],
         "active": true,
@@ -158,7 +191,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:rx-ie-pt-sertraline",
+      "fullUrl": "urn:uuid:2af67e7a-8f9c-5e38-beba-9e7d6fc7146e",
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "rx-ie-pt-sertraline",
@@ -196,14 +229,14 @@
               "display": "Sertraline"
             }
           ],
-          "text": "Sertraline 50mg tablets → PT: Sertralina 50mg Comprimidos (INFARMED: INF-00012345)"
+          "text": "Sertraline 50mg tablets → PT: Sertralina 50mg Comprimidos"
         },
         "subject": {
-          "reference": "urn:uuid:patient-sean-murphy",
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
         },
         "requester": {
-          "reference": "urn:uuid:practitioner-aoife-obrien",
+          "reference": "urn:uuid:f6ae4c82-db5b-5024-b472-a1582886e3ce",
           "display": "Dr. Aoife O'Brien"
         },
         "authoredOn": "2025-06-15",
@@ -243,7 +276,10 @@
           }
         },
         "substitution": {
-          "allowedBoolean": false
+          "allowedBoolean": false,
+          "reason": {
+            "text": "Reason not stated in the source example"
+          }
         },
         "note": [
           {
@@ -253,7 +289,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:rx-ie-pt-omeprazole",
+      "fullUrl": "urn:uuid:a30b9d9f-6112-503f-a622-e04c879f6f8f",
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "rx-ie-pt-omeprazole",
@@ -291,14 +327,14 @@
               "display": "Omeprazole"
             }
           ],
-          "text": "Omeprazole 20mg capsules → PT: Omeprazol 20mg Cápsulas (INFARMED: INF-00056789)"
+          "text": "Omeprazole 20mg capsules → PT: Omeprazol 20mg Cápsulas"
         },
         "subject": {
-          "reference": "urn:uuid:patient-sean-murphy",
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
         },
         "requester": {
-          "reference": "urn:uuid:practitioner-aoife-obrien",
+          "reference": "urn:uuid:f6ae4c82-db5b-5024-b472-a1582886e3ce",
           "display": "Dr. Aoife O'Brien"
         },
         "authoredOn": "2025-06-15",
@@ -307,8 +343,8 @@
             "coding": [
               {
                 "system": "http://snomed.info/sct",
-                "code": "44801005",
-                "display": "Gastro-oesophageal reflux disease"
+                "code": "235595009",
+                "display": "Gastroesophageal reflux disease"
               }
             ]
           }

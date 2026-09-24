@@ -79,8 +79,12 @@ if (domainArg && !DOMAIN_PATTERNS[domainArg]) {
 }
 
 const NON_EXAMPLE = /^(StructureDefinition|ValueSet|CodeSystem|ImplementationGuide|SearchParameter|CapabilityStatement|TestScript|NamingSystem|ConceptMap)-/;
-const examples = glob.sync(path.join(FSH_GENERATED, '*.json').replace(/\\/g, '/'))
-  .map(f => path.basename(f))
+// SUSHI-generated examples plus the hand-written payloads in input/examples (SUSHI adds those to the IG too)
+const PREDEFINED = path.join(IG_ROOT, 'input', 'examples');
+const sourceOf = {};
+for (const f of glob.sync(path.join(FSH_GENERATED, '*.json').replace(/\\/g, '/'))) sourceOf[path.basename(f)] = f;
+for (const f of glob.sync(path.join(PREDEFINED, '*.json').replace(/\\/g, '/'))) sourceOf[path.basename(f)] = f;
+const examples = Object.keys(sourceOf)
   .filter(n => !NON_EXAMPLE.test(n))
   .filter(n => !domainArg || DOMAIN_PATTERNS[domainArg].test(n))
   .filter(n => !onlyArg || new RegExp(onlyArg).test(n))
@@ -100,7 +104,7 @@ console.log(`\n=== FHIR Validator${label ? ` [${label}]` : ''}: ${examples.lengt
 
 // Copy the selection to a temp folder and validate it in ONE run; the IG's own definitions come from -ig.
 const work = fs.mkdtempSync(path.join(os.tmpdir(), 'ie-core-validate-'));
-for (const n of examples) fs.copyFileSync(path.join(FSH_GENERATED, n), path.join(work, n));
+for (const n of examples) fs.copyFileSync(sourceOf[n], path.join(work, n));
 const rawOut = path.join(work, 'validator-output.json');
 
 const args = ['-Xmx6g', '-Dfile.encoding=UTF-8', '-jar', VALIDATOR_JAR, work, '-version', '4.0.1',

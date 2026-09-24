@@ -3,10 +3,9 @@
   "id": "ie-bundle-to-lv-eprescription",
   "type": "collection",
   "timestamp": "2025-06-15T10:00:00+03:00",
-  "_comment": "Scenario 5: Seán Murphy visits Riga, Latvia. ePrescription for Metformin 500mg + Lisinopril 10mg via MyHealth@EU. Dispensed at Mēs atdot Aptieka, Riga on 15 June 2025. Latvian ZRA product codes included (LR Farmācijas likums — 90-day validity).",
   "entry": [
     {
-      "fullUrl": "urn:uuid:patient-sean-murphy",
+      "fullUrl": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
       "resource": {
         "resourceType": "Patient",
         "id": "patient-sean-murphy",
@@ -48,13 +47,45 @@
             ],
             "city": "Dublin 2",
             "postalCode": "D02 XY45",
-            "country": "IE"
+            "country": "IE",
+            "state": "Dublin"
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              },
+              {
+                "url": "type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "76689-9",
+                      "display": "Sex assigned at birth"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         ]
       }
     },
     {
-      "fullUrl": "urn:uuid:practitioner-aoife-obrien",
+      "fullUrl": "urn:uuid:f6ae4c82-db5b-5024-b472-a1582886e3ce",
       "resource": {
         "resourceType": "Practitioner",
         "id": "practitioner-aoife-obrien",
@@ -80,7 +111,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:allergy-penicillin",
+      "fullUrl": "urn:uuid:3ab51105-7364-58f5-a3d6-f9bc50690c12",
       "resource": {
         "resourceType": "AllergyIntolerance",
         "id": "allergy-penicillin",
@@ -116,7 +147,7 @@
           "text": "Penicillin / Amoxicillin — ALL penicillin-class antibiotics"
         },
         "patient": {
-          "reference": "urn:uuid:patient-sean-murphy"
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9"
         },
         "reaction": [
           {
@@ -137,14 +168,16 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:org-lv-mes-aptieka",
+      "fullUrl": "urn:uuid:aa73d645-a114-5c27-87e4-8bfef2382b05",
       "resource": {
         "resourceType": "Organization",
         "id": "org-lv-mes-aptieka",
         "identifier": [
           {
-            "system": "http://example.org/fhir/sid/lv/aptieka",
-            "value": "LV-APT-RIGA-001"
+            "value": "LV-APT-RIGA-001",
+            "assigner": {
+              "display": "Issuing authority in Latvia (illustrative)"
+            }
           }
         ],
         "active": true,
@@ -158,7 +191,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:rx-ie-lv-metformin",
+      "fullUrl": "urn:uuid:43a4ad71-f51a-5259-bf17-d72968a663bd",
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "rx-ie-lv-metformin",
@@ -192,14 +225,14 @@
               "display": "Metformin"
             }
           ],
-          "text": "Metformin 500mg tablets → LV: Metformins 500mg tabletes (ZRA: ZRA-00098432)"
+          "text": "Metformin 500mg tablets → LV: Metformins 500mg tabletes"
         },
         "subject": {
-          "reference": "urn:uuid:patient-sean-murphy",
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
         },
         "requester": {
-          "reference": "urn:uuid:practitioner-aoife-obrien",
+          "reference": "urn:uuid:f6ae4c82-db5b-5024-b472-a1582886e3ce",
           "display": "Dr. Aoife O'Brien"
         },
         "authoredOn": "2025-06-10",
@@ -242,7 +275,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:rx-ie-lv-lisinopril",
+      "fullUrl": "urn:uuid:d27b2b33-8db4-509e-9e5f-ba3c32d8d71b",
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "rx-ie-lv-lisinopril",
@@ -271,14 +304,14 @@
               "display": "Lisinopril"
             }
           ],
-          "text": "Lisinopril 10mg tablets → LV: Lizinoprils 10mg tabletes (ZRA: ZRA-00102345)"
+          "text": "Lisinopril 10mg tablets → LV: Lizinoprils 10mg tabletes"
         },
         "subject": {
-          "reference": "urn:uuid:patient-sean-murphy",
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
         },
         "requester": {
-          "reference": "urn:uuid:practitioner-aoife-obrien",
+          "reference": "urn:uuid:f6ae4c82-db5b-5024-b472-a1582886e3ce",
           "display": "Dr. Aoife O'Brien"
         },
         "authoredOn": "2025-06-10",

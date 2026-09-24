@@ -1,0 +1,22 @@
+version: 2
+updates:
+  # GitHub Actions are pinned to commit SHAs; Dependabot proposes SHA bumps with the version in the comment.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ['*']
+
+  - package-ecosystem: npm
+    directory: /tests
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: npm
+    directory: /r5/tests
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 2

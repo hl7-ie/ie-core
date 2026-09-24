@@ -57,8 +57,26 @@ repository). The HIQA element IDs are cited as EP x.y / PS x.y.
   identifiers use `urn:uuid`; CDA OIDs use the HL7 example arc (OI-020). Hypercholesterolaemia is
   ICD-10 E78.0 (was E78.5, *Hyperlipidaemia, unspecified*).
 
+- **Legacy payload Bundles conform (Phase 9).** The 22 JSON payloads in `input/examples` are published IG examples,
+  but they had never validated (non-UUID `urn:uuid` fullUrls, `_comment`, missing dispense `recorded`, and so on).
+  `scripts/audit/conform_payloads.py` fixed them without inventing clinical content; all 22 now validate.
+- **R5 track frozen (ADR-005).** Banner on the R5 pages; IHI accepts 18 or 10 digits; the unsourced GMS slice and
+  format invariant were removed. R5 is no longer a CI gate.
+- **Identifier pages (ADR-006).** HPI, DPS/LTI/HAA/GMS formats, IMN and CRN removed from the documentation; the IHI
+  "modulus 11 / GS1 check digit" claim removed (no source; OI-002).
+- **Terminology page.** SNOMED CT Irish Edition is named in `version`, never in `system`; the invented HPRA "code
+  system" URI was removed (OI-023).
+
 #### Changed
 
+- New pages: [HIQA 2026 Alignment](hiqa-2026-alignment.html), [Data Minimisation](data-minimisation.html) and
+  [Open Issues](open-issues.html) (generated from `docs/hiqa-2026/open-issues.md`), in a new HIQA 2026 menu.
+- The home page opens with an INFO notice (HIQA consultation drafts) and a WARNING (proof of concept, not for clinical
+  use, placeholders, fictional examples).
+- CI: GitHub Actions pinned to commit SHAs; read-only permissions except the Pages deploy and the PR comment; SUSHI
+  3.18.0, IG Publisher 2.3.4 and validator 6.10.4 pinned and checked by SHA-256; FHIR package and validator caches;
+  new gates for the traceability, mapping, data-minimisation guard, codes, validator QA baseline and page links;
+  Dependabot for Actions and npm. The version page no longer claims publication by HL7 Ireland or the HSE.
 - `ie-bnd-xb-2` accepts the signature target as the entry `fullUrl` or as a relative reference.
 - `ie-rx-cd-2` compares the validity end and the 14-day limit as dates (a date and a dateTime of
   different precision previously compared as empty).

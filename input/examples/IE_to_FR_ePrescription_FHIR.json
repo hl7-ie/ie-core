@@ -3,10 +3,9 @@
   "id": "ie-bundle-to-fr-eprescription",
   "type": "collection",
   "timestamp": "2025-03-05T09:30:00+01:00",
-  "_comment": "Scenario 3: Seán Murphy visits Paris. ePrescription for Metformin 500mg + Lisinopril 10mg transmitted via MyHealth@EU. Dispensed at Pharmacie de la Madeleine, Paris on 5 March 2025. French CIP product codes included (ordonnance transfrontalière).",
   "entry": [
     {
-      "fullUrl": "urn:uuid:patient-sean-murphy",
+      "fullUrl": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
       "resource": {
         "resourceType": "Patient",
         "id": "patient-sean-murphy",
@@ -48,13 +47,45 @@
             ],
             "city": "Dublin 2",
             "postalCode": "D02 XY45",
-            "country": "IE"
+            "country": "IE",
+            "state": "Dublin"
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              },
+              {
+                "url": "type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "76689-9",
+                      "display": "Sex assigned at birth"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         ]
       }
     },
     {
-      "fullUrl": "urn:uuid:practitioner-aoife-obrien",
+      "fullUrl": "urn:uuid:f6ae4c82-db5b-5024-b472-a1582886e3ce",
       "resource": {
         "resourceType": "Practitioner",
         "id": "practitioner-aoife-obrien",
@@ -81,7 +112,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:allergy-penicillin",
+      "fullUrl": "urn:uuid:3ab51105-7364-58f5-a3d6-f9bc50690c12",
       "resource": {
         "resourceType": "AllergyIntolerance",
         "id": "allergy-penicillin",
@@ -117,7 +148,7 @@
           "text": "Penicillin / Amoxicillin — ALL penicillin-class antibiotics"
         },
         "patient": {
-          "reference": "urn:uuid:patient-sean-murphy"
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9"
         },
         "reaction": [
           {
@@ -138,14 +169,16 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:org-fr-pharmacie-madeleine",
+      "fullUrl": "urn:uuid:c7b89982-4d0d-56ed-ab1a-b87f952844b4",
       "resource": {
         "resourceType": "Organization",
         "id": "org-fr-pharmacie-madeleine",
         "identifier": [
           {
-            "system": "http://example.org/fhir/sid/fr/pharmacie",
-            "value": "FR-PH-75008-001"
+            "value": "FR-PH-75008-001",
+            "assigner": {
+              "display": "Issuing authority in France (illustrative)"
+            }
           }
         ],
         "active": true,
@@ -169,7 +202,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:rx-ie-fr-metformin",
+      "fullUrl": "urn:uuid:2aea1ece-d68e-5214-bf4e-bba0e47ccf42",
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "rx-ie-fr-metformin",
@@ -217,14 +250,14 @@
               "display": "Metformin"
             }
           ],
-          "text": "Metformin 500mg tablets → FR: METFORMINE BIOGARAN 500mg comprimé pelliculé (CIP: 3402895)"
+          "text": "Metformin 500mg tablets → FR: METFORMINE BIOGARAN 500mg comprimé pelliculé"
         },
         "subject": {
-          "reference": "urn:uuid:patient-sean-murphy",
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
         },
         "requester": {
-          "reference": "urn:uuid:practitioner-aoife-obrien",
+          "reference": "urn:uuid:f6ae4c82-db5b-5024-b472-a1582886e3ce",
           "display": "Dr. Aoife O'Brien"
         },
         "authoredOn": "2025-03-01",
@@ -267,7 +300,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:rx-ie-fr-lisinopril",
+      "fullUrl": "urn:uuid:ac1b1557-0095-5950-b1e5-07ee097d9c4b",
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "rx-ie-fr-lisinopril",
@@ -315,14 +348,14 @@
               "display": "Lisinopril"
             }
           ],
-          "text": "Lisinopril 10mg tablets → FR: LISINOPRIL BIOGARAN 10mg comprimé (CIP: 3400936)"
+          "text": "Lisinopril 10mg tablets → FR: LISINOPRIL BIOGARAN 10mg comprimé"
         },
         "subject": {
-          "reference": "urn:uuid:patient-sean-murphy",
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
         },
         "requester": {
-          "reference": "urn:uuid:practitioner-aoife-obrien",
+          "reference": "urn:uuid:f6ae4c82-db5b-5024-b472-a1582886e3ce",
           "display": "Dr. Aoife O'Brien"
         },
         "authoredOn": "2025-03-01",

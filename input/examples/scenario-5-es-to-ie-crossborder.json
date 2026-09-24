@@ -8,10 +8,9 @@
   },
   "type": "collection",
   "timestamp": "2024-08-12T14:15:00+01:00",
-  "_comment": "Scenario 5: Spanish patient (María García López) visits Ireland. She presents her Spanish prescription for Amlodipine 5mg to Boots Pharmacy Dublin. The prescription is transmitted via MyHealth@EU (ES NCP → IE NCP) and dispensed at an Irish pharmacy.",
   "entry": [
     {
-      "fullUrl": "urn:uuid:patient-maria-garcia",
+      "fullUrl": "urn:uuid:c0bb4600-ec0e-5bee-9d8e-ac68c12e18fb",
       "resource": {
         "resourceType": "Patient",
         "id": "patient-maria-garcia",
@@ -22,7 +21,6 @@
         },
         "identifier": [
           {
-            "system": "http://example.org/fhir/sid/es/cip",
             "type": {
               "coding": [
                 {
@@ -32,7 +30,10 @@
                 }
               ]
             },
-            "value": "ES280000000000000012"
+            "value": "ES280000000000000012",
+            "assigner": {
+              "display": "Issuing authority in Spain (illustrative)"
+            }
           },
           {
             "system": "urn:oid:1.3.6.1.4.1.36764",
@@ -107,18 +108,51 @@
               ]
             }
           }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              },
+              {
+                "url": "type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "76689-9",
+                      "display": "Sex assigned at birth"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
         ]
       }
     },
     {
-      "fullUrl": "urn:uuid:practitioner-es-martinez",
+      "fullUrl": "urn:uuid:48509461-ecc8-58b4-bcdf-faf09b26578e",
       "resource": {
         "resourceType": "Practitioner",
         "id": "practitioner-es-martinez",
         "identifier": [
           {
-            "system": "http://example.org/fhir/sid/es/colegiadoMedico",
-            "value": "ES-COL-28-001234"
+            "value": "ES-COL-28-001234",
+            "assigner": {
+              "display": "Issuing authority in Spain (illustrative)"
+            }
           }
         ],
         "active": true,
@@ -148,14 +182,16 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:org-es-cs-aguilas",
+      "fullUrl": "urn:uuid:2e503857-b07e-5331-8c5c-b9591e7afc3f",
       "resource": {
         "resourceType": "Organization",
         "id": "org-es-cs-aguilas",
         "identifier": [
           {
-            "system": "http://example.org/fhir/sid/es/centroSanitario",
-            "value": "ES-CS-28-001234"
+            "value": "ES-CS-28-001234",
+            "assigner": {
+              "display": "Issuing authority in Spain (illustrative)"
+            }
           }
         ],
         "active": true,
@@ -174,7 +210,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:pharmacist-niamh-brennan",
+      "fullUrl": "urn:uuid:5c04d66b-bf19-525c-a27f-5ae9fae4cc82",
       "resource": {
         "resourceType": "Practitioner",
         "id": "pharmacist-niamh-brennan",
@@ -206,7 +242,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:org-ie-pharmacy-boots",
+      "fullUrl": "urn:uuid:41d665f8-aecf-5d8c-ab17-4b1148c5c908",
       "resource": {
         "resourceType": "Organization",
         "id": "org-ie-pharmacy-boots",
@@ -231,7 +267,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:medication-amlodipine-5",
+      "fullUrl": "urn:uuid:163dc720-e227-50da-9071-5caed63e9759",
       "resource": {
         "resourceType": "Medication",
         "id": "medication-amlodipine-5",
@@ -289,7 +325,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:prescription-es-to-ie",
+      "fullUrl": "urn:uuid:445ef388-7385-552e-ae07-a23cc2c371b3",
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "prescription-es-to-ie",
@@ -300,8 +336,10 @@
         },
         "identifier": [
           {
-            "system": "http://example.org/fhir/sid/es/recetaElectronica",
-            "value": "ES-RX-2024-28-987654321"
+            "value": "ES-RX-2024-28-987654321",
+            "assigner": {
+              "display": "Issuing authority in Spain (illustrative)"
+            }
           },
           {
             "system": "urn:oid:2.16.840.1.113883.19.1.4.1",
@@ -321,14 +359,14 @@
           }
         ],
         "medicationReference": {
-          "reference": "urn:uuid:medication-amlodipine-5"
+          "reference": "urn:uuid:163dc720-e227-50da-9071-5caed63e9759"
         },
         "subject": {
-          "reference": "urn:uuid:patient-maria-garcia",
+          "reference": "urn:uuid:c0bb4600-ec0e-5bee-9d8e-ac68c12e18fb",
           "display": "María García López"
         },
         "requester": {
-          "reference": "urn:uuid:practitioner-es-martinez",
+          "reference": "urn:uuid:48509461-ecc8-58b4-bcdf-faf09b26578e",
           "display": "Dr. Alejandro Martínez Ruiz"
         },
         "authoredOn": "2024-08-01",
@@ -399,7 +437,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:dispense-ie-pharmacy",
+      "fullUrl": "urn:uuid:5449a67b-8b7a-57a3-98d1-ba3d1fa5b31a",
       "resource": {
         "resourceType": "MedicationDispense",
         "id": "dispense-ie-pharmacy",
@@ -416,23 +454,23 @@
         ],
         "status": "completed",
         "medicationReference": {
-          "reference": "urn:uuid:medication-amlodipine-5"
+          "reference": "urn:uuid:163dc720-e227-50da-9071-5caed63e9759"
         },
         "subject": {
-          "reference": "urn:uuid:patient-maria-garcia",
+          "reference": "urn:uuid:c0bb4600-ec0e-5bee-9d8e-ac68c12e18fb",
           "display": "María García López"
         },
         "performer": [
           {
             "actor": {
-              "reference": "urn:uuid:pharmacist-niamh-brennan",
+              "reference": "urn:uuid:5c04d66b-bf19-525c-a27f-5ae9fae4cc82",
               "display": "Niamh Brennan"
             }
           }
         ],
         "authorizingPrescription": [
           {
-            "reference": "urn:uuid:prescription-es-to-ie",
+            "reference": "urn:uuid:445ef388-7385-552e-ae07-a23cc2c371b3",
             "display": "ES-RX-2024-28-987654321"
           }
         ],
@@ -482,7 +520,13 @@
         ],
         "substitution": {
           "wasSubstituted": false
-        }
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MedicationDispense.recorded",
+            "valueDateTime": "2024-08-12T14:15:00+01:00"
+          }
+        ]
       }
     }
   ]

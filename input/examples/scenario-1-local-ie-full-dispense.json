@@ -10,7 +10,7 @@
   "timestamp": "2024-06-15T14:15:00+01:00",
   "entry": [
     {
-      "fullUrl": "urn:uuid:patient-john-murphy",
+      "fullUrl": "urn:uuid:96c59959-0693-5775-8050-809878a10e98",
       "resource": {
         "resourceType": "Patient",
         "id": "patient-john-murphy",
@@ -81,11 +81,42 @@
             "value": "+353 87 123 4567",
             "use": "mobile"
           }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              },
+              {
+                "url": "type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "76689-9",
+                      "display": "Sex assigned at birth"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
         ]
       }
     },
     {
-      "fullUrl": "urn:uuid:practitioner-sarah-obrien",
+      "fullUrl": "urn:uuid:30f2ac6d-a312-55a8-8960-b779170c7460",
       "resource": {
         "resourceType": "Practitioner",
         "id": "practitioner-sarah-obrien",
@@ -126,7 +157,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:org-sjh",
+      "fullUrl": "urn:uuid:7ccda2a2-6d53-565e-a11d-af8ad7d5fd87",
       "resource": {
         "resourceType": "Organization",
         "id": "org-sjh",
@@ -140,7 +171,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:org-pharmacy-boots",
+      "fullUrl": "urn:uuid:ef51ed83-3b5e-56e7-a679-c0576ea85f54",
       "resource": {
         "resourceType": "Organization",
         "id": "org-pharmacy-boots",
@@ -165,7 +196,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:pharmacist-niamh-brennan",
+      "fullUrl": "urn:uuid:5c04d66b-bf19-525c-a27f-5ae9fae4cc82",
       "resource": {
         "resourceType": "Practitioner",
         "id": "pharmacist-niamh-brennan",
@@ -205,7 +236,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:medication-metformin-500",
+      "fullUrl": "urn:uuid:f0eb8add-fd90-5f1a-97ef-782f7817db63",
       "resource": {
         "resourceType": "Medication",
         "id": "medication-metformin-500",
@@ -278,7 +309,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:prescription-scenario1",
+      "fullUrl": "urn:uuid:ff6c0aa1-2ef6-5f76-a722-ff46f36d9ffa",
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "prescription-scenario1",
@@ -307,14 +338,14 @@
           }
         ],
         "medicationReference": {
-          "reference": "urn:uuid:medication-metformin-500"
+          "reference": "urn:uuid:f0eb8add-fd90-5f1a-97ef-782f7817db63"
         },
         "subject": {
-          "reference": "urn:uuid:patient-john-murphy",
+          "reference": "urn:uuid:96c59959-0693-5775-8050-809878a10e98",
           "display": "John Murphy"
         },
         "requester": {
-          "reference": "urn:uuid:practitioner-sarah-obrien",
+          "reference": "urn:uuid:30f2ac6d-a312-55a8-8960-b779170c7460",
           "display": "Dr. Sarah O'Brien"
         },
         "authoredOn": "2024-06-15",
@@ -386,7 +417,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:dispense-scenario1-full",
+      "fullUrl": "urn:uuid:86475311-7fc5-51f8-9b40-becda839932c",
       "resource": {
         "resourceType": "MedicationDispense",
         "id": "dispense-scenario1-full",
@@ -403,23 +434,23 @@
         ],
         "status": "completed",
         "medicationReference": {
-          "reference": "urn:uuid:medication-metformin-500"
+          "reference": "urn:uuid:f0eb8add-fd90-5f1a-97ef-782f7817db63"
         },
         "subject": {
-          "reference": "urn:uuid:patient-john-murphy",
+          "reference": "urn:uuid:96c59959-0693-5775-8050-809878a10e98",
           "display": "John Murphy"
         },
         "performer": [
           {
             "actor": {
-              "reference": "urn:uuid:pharmacist-niamh-brennan",
+              "reference": "urn:uuid:5c04d66b-bf19-525c-a27f-5ae9fae4cc82",
               "display": "Niamh Brennan"
             }
           }
         ],
         "authorizingPrescription": [
           {
-            "reference": "urn:uuid:prescription-scenario1",
+            "reference": "urn:uuid:ff6c0aa1-2ef6-5f76-a722-ff46f36d9ffa",
             "display": "PCRS-RX-2024-001001"
           }
         ],
@@ -469,7 +500,13 @@
         ],
         "substitution": {
           "wasSubstituted": false
-        }
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MedicationDispense.recorded",
+            "valueDateTime": "2024-06-15T14:15:00+01:00"
+          }
+        ]
       }
     }
   ]

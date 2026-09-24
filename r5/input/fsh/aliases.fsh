@@ -16,7 +16,6 @@ Alias: $IEBase = https://hl7-ie.github.io/ie-core/fhir/ie/core-r5
 // Irish Identifier Systems
 Alias: $IHI = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/ihi
 Alias: $HPI = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/hpi
-Alias: $GMS = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/gms
 Alias: $DPS = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dps
 Alias: $LTI = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/lti
 Alias: $HAA = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/haa

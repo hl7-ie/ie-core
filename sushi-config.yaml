@@ -130,8 +130,14 @@ pages:
       title: Future of IE Core
   ehds-conformance.md:
     title: EHDS & EU Conformance
-  hiqa-traceability.md:
-    title: HIQA Traceability (Draft Standards, Sept 2026)
+  hiqa-2026-alignment.md:
+    title: HIQA 2026 Alignment (Draft National Standards)
+    hiqa-traceability.md:
+      title: HIQA Traceability (Draft Standards, Sept 2026)
+    data-minimisation.md:
+      title: Data Minimisation
+    open-issues.md:
+      title: Open Issues (Requires Clarification)
   crossborder-eprescription.md:
     title: Cross-Border ePrescription
     crossborder-patient-profile.md:
@@ -172,6 +178,11 @@ menu:
     Operations: artifacts.html#behavior-operation-definitions
     Terminology: artifacts.html#terminology-value-sets
     Capability Statements: artifacts.html#behavior-capability-statements
+  HIQA 2026:
+    Alignment Overview: hiqa-2026-alignment.html
+    Traceability: hiqa-traceability.html
+    Data Minimisation: data-minimisation.html
+    Open Issues: open-issues.html
   EHDS & EU: ehds-conformance.html
   Cross-Border ePrescription:
     Overview: crossborder-eprescription.html

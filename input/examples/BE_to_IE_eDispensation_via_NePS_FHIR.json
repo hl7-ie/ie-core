@@ -3,17 +3,18 @@
   "id": "be-to-ie-neps-dispensation",
   "type": "collection",
   "timestamp": "2025-08-05T12:00:00+01:00",
-  "_comment": "Inbound Scenario 11: Belgian patient Lars Janssen (BE/IE/12345678901) visits Dublin. His Belgian prescription for Atorvastatin 40mg is routed through NePS. McCauley's Pharmacy, Grafton Street dispenses. Belgian CNPV code mapped to Irish HPRA (IE-HPRA-ATV40).",
   "entry": [
     {
-      "fullUrl": "urn:uuid:patient-lars-janssen",
+      "fullUrl": "urn:uuid:fdb2d4c0-4270-591e-a2ae-9b660da7854d",
       "resource": {
         "resourceType": "Patient",
         "id": "patient-lars-janssen",
         "identifier": [
           {
-            "system": "http://example.org/fhir/sid/be/niss",
-            "value": "BE-12345678901"
+            "value": "BE-12345678901",
+            "assigner": {
+              "display": "Issuing authority in Belgium (illustrative)"
+            }
           },
           {
             "system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier",
@@ -39,7 +40,21 @@
           {
             "use": "home",
             "city": "Brussels",
-            "country": "BE"
+            "country": "BE",
+            "state": "Brussels",
+            "line": [
+              null
+            ],
+            "_line": [
+              {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                    "valueCode": "unknown"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "communication": [
@@ -55,18 +70,51 @@
             },
             "preferred": true
           }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              },
+              {
+                "url": "type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "76689-9",
+                      "display": "Sex assigned at birth"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
         ]
       }
     },
     {
-      "fullUrl": "urn:uuid:org-be-practitioner",
+      "fullUrl": "urn:uuid:b8a3bea0-84cc-5b3c-87e4-4336c58cc6c5",
       "resource": {
         "resourceType": "Practitioner",
         "id": "org-be-practitioner",
         "identifier": [
           {
-            "system": "http://example.org/fhir/sid/be/riziv",
-            "value": "BE-DR-01234567"
+            "value": "BE-DR-01234567",
+            "assigner": {
+              "display": "Issuing authority in Belgium (illustrative)"
+            }
           }
         ],
         "active": true,
@@ -85,7 +133,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:org-ie-mccauleys",
+      "fullUrl": "urn:uuid:2e34452a-2d63-5809-82d0-9aa744dad53e",
       "resource": {
         "resourceType": "Organization",
         "id": "org-ie-mccauleys",
@@ -109,14 +157,16 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:be-original-rx",
+      "fullUrl": "urn:uuid:6e6ebcb4-5746-5133-baad-b2c38a6a0f26",
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "be-original-rx",
         "identifier": [
           {
-            "system": "http://example.org/fhir/sid/be/prescription",
-            "value": "BE-RX-2025-NEPS-001"
+            "value": "BE-RX-2025-NEPS-001",
+            "assigner": {
+              "display": "Issuing authority in Belgium (illustrative)"
+            }
           },
           {
             "system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier",
@@ -141,11 +191,11 @@
           "text": "Atorvastatin 40mg tablets (BE → IE mapping via NePS)"
         },
         "subject": {
-          "reference": "urn:uuid:patient-lars-janssen",
+          "reference": "urn:uuid:fdb2d4c0-4270-591e-a2ae-9b660da7854d",
           "display": "Lars Janssen"
         },
         "requester": {
-          "reference": "urn:uuid:org-be-practitioner",
+          "reference": "urn:uuid:b8a3bea0-84cc-5b3c-87e4-4336c58cc6c5",
           "display": "Dr. Sophie Dubois"
         },
         "authoredOn": "2025-07-30",
@@ -167,7 +217,10 @@
           }
         },
         "substitution": {
-          "allowedBoolean": false
+          "allowedBoolean": false,
+          "reason": {
+            "text": "Reason not stated in the source example"
+          }
         },
         "note": [
           {
@@ -177,7 +230,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:ie-dispense-be-rx",
+      "fullUrl": "urn:uuid:a007e3d7-b3bd-59eb-9a41-5cb6ed5d8e03",
       "resource": {
         "resourceType": "MedicationDispense",
         "id": "ie-dispense-be-rx",
@@ -192,36 +245,28 @@
             "value": "urn:uuid:6ce5eb70-dd06-593c-bd48-92dd71b31d3a"
           },
           {
-            "system": "http://example.org/fhir/sid/be/prescription",
-            "value": "BE-RX-2025-NEPS-001"
+            "value": "BE-RX-2025-NEPS-001",
+            "assigner": {
+              "display": "Issuing authority in Belgium (illustrative)"
+            }
           }
         ],
         "status": "completed",
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "373444002",
-              "display": "Atorvastatin"
-            }
-          ],
-          "text": "Atorvastatin 40mg tablets (HPRA: IE-HPRA-ATV40)"
-        },
         "subject": {
-          "reference": "urn:uuid:patient-lars-janssen",
+          "reference": "urn:uuid:fdb2d4c0-4270-591e-a2ae-9b660da7854d",
           "display": "Lars Janssen"
         },
         "performer": [
           {
             "actor": {
-              "reference": "urn:uuid:org-ie-mccauleys",
+              "reference": "urn:uuid:2e34452a-2d63-5809-82d0-9aa744dad53e",
               "display": "McCauley's Pharmacy"
             }
           }
         ],
         "authorizingPrescription": [
           {
-            "reference": "urn:uuid:be-original-rx",
+            "reference": "urn:uuid:6e6ebcb4-5746-5133-baad-b2c38a6a0f26",
             "display": "BE-RX-2025-NEPS-001"
           }
         ],
@@ -254,7 +299,53 @@
         ],
         "substitution": {
           "wasSubstituted": false
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MedicationDispense.recorded",
+            "valueDateTime": "2025-08-05T11:30:00+01:00"
+          }
+        ],
+        "medicationReference": {
+          "reference": "urn:uuid:5d2447d5-cff1-527b-b3ec-5dbfd08b51c9",
+          "display": "Atorvastatin 40mg tablets"
         }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5d2447d5-cff1-527b-b3ec-5dbfd08b51c9",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-ie-dispense-be-rx",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "373444002",
+              "display": "Atorvastatin"
+            }
+          ],
+          "text": "Atorvastatin 40mg tablets"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "373444002",
+                  "display": "Atorvastatin"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
       }
     }
   ]

@@ -3,7 +3,9 @@
 Scope: input/examples/*.json, input/examples/*.xml (CDA), input/postman/*.postman_collection.json.
 Rules (idempotent; run again after editing a payload):
   * http://hl7.hse.ie/fhir/ie/core ...  -> the IE Core canonical https://hl7-ie.github.io/ie-core/fhir/ie/core
-    (hl7.hse.ie was never an IE Core namespace; see baseline C-01).
+    (hl7.hse.ie was never an IE Core namespace; see baseline C-01. The planned future domain is
+    fhir.hl7.studio/ie, which is conceptual; payloads use the live canonical.) The legacy host stays in this
+    script only as the pattern it removes.
   * Prescription identifiers (sid/pcrs-rx, sid/prescription-group) -> the NePS identifier (HIQA EP 3.1).
   * Dispense / document identifiers (sid/dispense-id, sid/ips-document-id) -> urn:ietf:rfc:3986 + urn:uuid
     (deterministic UUID derived from the old value).

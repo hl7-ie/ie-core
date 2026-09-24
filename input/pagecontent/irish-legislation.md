@@ -52,7 +52,7 @@ Governs the registration and practice of pharmacists and pharmacy businesses in 
 
 | Provision | Relevance to IE Core |
 |-----------|---------------------|
-| Part 3 — Registration of pharmacists | Only registered pharmacists may dispense; maps to `MedicationDispense.performer.actor` requiring a valid HPI or PSI registration number |
+| Part 3 — Registration of pharmacists | Only registered pharmacists may dispense; maps to `MedicationDispense.performer.actor` requiring a PSI registration number (HIQA EP 2.6.2; `Practitioner.identifier:PSI`) |
 | Section 18 — Pharmacy premises | Only registered pharmacy premises may dispense; maps to `MedicationDispense.location` and `Organization` profiles |
 | Code of Conduct (PSI) | Professional obligations of pharmacists when dispensing, including verification of prescriptions and allergy checking |
 
@@ -68,10 +68,10 @@ Establishes the **General Medical Services (GMS)** scheme, which underpins the M
 
 | Provision | Relevance to IE Core |
 |-----------|---------------------|
-| Section 58 — GMS entitlement | Defines eligibility for the GMS scheme; maps to `Patient.identifier` (GMS scheme identifier) and `MedicationRequest.insurance` (Coverage) |
-| GMS Prescribing | GMS prescriptions carry specific scheme identifiers; maps to `MedicationRequest.identifier` with PCRS claim reference |
+| Section 58 — GMS entitlement | Defines eligibility for the GMS scheme; maps to `Patient.identifier` with PCRS scheme type `medical-card` (HIQA EP/PS 1.3.3) and `MedicationRequest.insurance` (Coverage) |
+| GMS Panel ID | The prescriber's GMS Panel ID (HIQA EP/PS 2.12) maps to `Organization.identifier:GMSPanel` |
 
-See: [IE Core General Medical Service Identifier](StructureDefinition-ie-core-general-medical-service.html)
+See: [IE Core Organization](StructureDefinition-ie-core-organization.html) and [General Requirements: Irish identifiers](general-requirements.html#irish-healthcare-identifiers)
 
 #### Health Act 2007
 
@@ -166,13 +166,13 @@ The following EU instruments have direct effect in Ireland without requiring tra
 
 ### PCRS (Primary Care Reimbursement Service)
 
-The **Primary Care Reimbursement Service (PCRS)** is operated by the HSE and processes reimbursement claims for community drug schemes including GMS, DPS, LTI, and HAA. PCRS claim references are a mandatory component of Irish ePrescriptions for reimbursable medicines:
+The **Primary Care Reimbursement Service (PCRS)** is operated by the HSE and processes reimbursement claims for community drug schemes including GMS, DPS, LTI and the Health (Amendment) Act card scheme. How PCRS claims link to an ePrescription is not defined by the HIQA drafts; the mapping below is IE Core's:
 
 | PCRS Element | FHIR Element | Profile |
 |-------------|-------------|---------|
-| PCRS claim reference number | `MedicationRequest.identifier` | [IE Core MedicationRequest (ePrescription)](StructureDefinition-ie-core-medicationrequest-eprescription.html) |
+| Electronic prescription identifier (NePS) | `MedicationRequest.groupIdentifier` / `identifier` (HIQA EP 3.1) | [IE Core MedicationRequest (ePrescription)](StructureDefinition-ie-core-medicationrequest-eprescription.html) |
 | Scheme category (GMS, DPS, LTI, HAA) | `MedicationRequest.insurance` → `Coverage.type` | [IE Core Coverage](StructureDefinition-ie-core-coverage.html) |
-| Patient eligibility scheme number | `Patient.identifier` | [IE Core Patient](StructureDefinition-ie-core-patient.html) |
+| Patient scheme number (HIQA EP/PS 1.3.3) | `Patient.identifier`, typed by `IECorePCRSSchemeType` | [IE Core Patient](StructureDefinition-ie-core-patient.html) |
 
 PCRS reimbursement categories are exposed as properties on the NMPC supplement CodeSystem at:
 `https://nmpc.hse.ie/PCRS/Category`

@@ -15,6 +15,23 @@ For the purposes of the IE Core Implementation Guide, Must Support on any data e
 - The client application **SHOULD** be capable of displaying Must Support data elements for human use, or processing them for other purposes (e.g. storing, further processing).
 - The client application **SHALL NOT** modify or remove Must Support elements when updating resources on the server.
 
+### HIQA conformance levels
+
+The HIQA draft national standards (September 2026) classify every data element as Mandatory, Required or Optional.
+IE Core maps them as follows (ADR-001):
+
+| HIQA | IE Core | Meaning for a sender |
+|---|---|---|
+| **Mandatory** | minimum cardinality ≥ 1 **and** MustSupport | SHALL always be sent |
+| **Required** | MustSupport | SHALL be sent when the data is available |
+| **Optional** | allowed, no MustSupport | MAY be sent |
+| Not in the dataset for the use case | `0..0` in the use-case profile | SHALL NOT be sent (e.g. ethnicity in an ePrescription) |
+{:.grid}
+
+Where HIQA marks an element Mandatory only *within* an optional group (for example the lines of the facility address),
+IE Core enforces it only when the group is present, or by an invariant. Each case is listed on the
+[HIQA Traceability](hiqa-traceability.html) page.
+
 ### Mandatory Elements
 
 Mandatory elements (minimum cardinality ≥ 1) **SHALL** always be present in the resource. If the data is not available:

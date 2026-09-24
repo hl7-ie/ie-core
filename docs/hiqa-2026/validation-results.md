@@ -1,4 +1,4 @@
-# Example validation results (Phase 8)
+# Example validation results (Phases 8–9)
 
 | | |
 |---|---|
@@ -6,7 +6,7 @@
 | Tool | HL7 FHIR Validator CLI 6.10.4, FHIR 4.0.1 |
 | Command | `cd tests && node validator/run-validation.js --tx` (dependencies read from `sushi-config.yaml`) |
 | Terminology | tx.fhir.org (codes and displays checked) |
-| Result | **145 passed, 0 failed, 145 examples**; the 52 HIQA scenario resources: 52/52 pass |
+| Result | **167 passed, 0 failed, 167 examples**: 145 SUSHI-generated (including the 52 HIQA scenario resources) and 22 hand-written payload Bundles in `input/examples` (validated from Phase 9; they had never validated before) |
 
 An example fails when the validator reports an error or fatal issue. Warnings remain; the common ones are:
 missing narrative (dom-6, best practice); `address.state` county names against the coded county
@@ -21,7 +21,7 @@ resolvable on tx.fhir.org; the SNOMED CT Irish edition not hosted on tx.fhir.org
 |---|---|---|---|
 | `main` baseline | 48 | 9 | |
 | Phase 7 | 30 | 1 | all 30 are ImplementationGuide parameter codes (a validator artefact present on `main` too) |
-| Phase 8 | 35 | 6 | the same 30, plus 5 ValueSets that filter on the SNOMED CT Irish edition, which tx.fhir.org does not host (OI-022). No example has an error |
+| Phases 8–9 | 35 | 6 | the same 30, plus 5 ValueSets that filter on the SNOMED CT Irish edition, which tx.fhir.org does not host (OI-022). No example has an error |
 
 ## Per example
 
@@ -31,6 +31,7 @@ resolvable on tx.fhir.org; the SNOMED CT Irish edition not hosted on tx.fhir.org
 | `AllergyIntolerance-hiqa-ps-allergy-niamh.json` | PASS | 0 | 2 |
 | `AllergyIntolerance-ie-core-allergy-example.json` | PASS | 0 | 1 |
 | `AllergyIntolerance-ie-core-allergy-penicillin-murphy.json` | PASS | 0 | 1 |
+| `BE_to_IE_eDispensation_via_NePS_FHIR.json` | PASS | 0 | 10 |
 | `Bundle-hiqa-bundle-s1-acute-adult.json` | PASS | 0 | 18 |
 | `Bundle-hiqa-bundle-s2-paediatric.json` | PASS | 0 | 15 |
 | `Bundle-hiqa-bundle-s3-repeat.json` | PASS | 0 | 23 |
@@ -47,9 +48,23 @@ resolvable on tx.fhir.org; the SNOMED CT Irish edition not hosted on tx.fhir.org
 | `Condition-ie-core-condition-hypertension-murphy.json` | PASS | 0 | 1 |
 | `Condition-ie-core-condition-t2dm-murphy.json` | PASS | 0 | 1 |
 | `Coverage-hiqa-ps-coverage-niamh.json` | PASS | 0 | 1 |
+| `DE_Patient_to_IE_NePS_Dispensation_FHIR.json` | PASS | 0 | 10 |
+| `DE_eDispensation_Response_FHIR.json` | PASS | 0 | 14 |
 | `Encounter-ie-core-encounter-example.json` | PASS | 0 | 1 |
+| `FI_to_IE_eDispensation_via_NePS_FHIR.json` | PASS | 0 | 11 |
+| `IE_Patient_IPS_FHIR.json` | PASS | 0 | 11 |
+| `IE_to_AT_ePrescription_FHIR.json` | PASS | 0 | 9 |
+| `IE_to_DE_ePrescription_FHIR.json` | PASS | 0 | 23 |
+| `IE_to_DK_ePrescription_FHIR.json` | PASS | 0 | 7 |
+| `IE_to_ES_ePrescription_FHIR.json` | PASS | 0 | 15 |
+| `IE_to_FR_ePrescription_FHIR.json` | PASS | 0 | 10 |
+| `IE_to_LV_ePrescription_FHIR.json` | PASS | 0 | 11 |
+| `IE_to_NL_ePrescription_FHIR.json` | PASS | 0 | 15 |
+| `IE_to_PT_ePrescription_FHIR.json` | PASS | 0 | 10 |
+| `IE_to_SE_ePrescription_FHIR.json` | PASS | 0 | 9 |
 | `Immunization-hiqa-ps-immunization-flu.json` | PASS | 0 | 2 |
 | `Immunization-ie-core-immunization-example.json` | PASS | 0 | 1 |
+| `LV_to_IE_eDispensation_FHIR.json` | PASS | 0 | 13 |
 | `List-hiqa-allergies-declan-nilknown.json` | PASS | 0 | 1 |
 | `List-hiqa-allergies-niamh.json` | PASS | 0 | 1 |
 | `List-hiqa-allergies-oisin-nilknown.json` | PASS | 0 | 1 |
@@ -146,6 +161,7 @@ resolvable on tx.fhir.org; the SNOMED CT Irish edition not hosted on tx.fhir.org
 | `Organization-ie-org-lv-mes-aptieka.json` | PASS | 0 | 1 |
 | `Organization-ie-org-pt-farmacia-central-lisbon.json` | PASS | 0 | 1 |
 | `Organization-ie-org-se-apoteket-hjartat.json` | PASS | 0 | 1 |
+| `PT_to_IE_eDispensation_FHIR.json` | PASS | 0 | 13 |
 | `Patient-hiqa-patient-declan-walsh.json` | PASS | 0 | 3 |
 | `Patient-hiqa-patient-niamh-keane.json` | PASS | 0 | 3 |
 | `Patient-hiqa-patient-oisin-brady.json` | PASS | 0 | 3 |
@@ -172,3 +188,9 @@ resolvable on tx.fhir.org; the SNOMED CT Irish edition not hosted on tx.fhir.org
 | `Procedure-hiqa-ps-procedure-appendectomy.json` | PASS | 0 | 1 |
 | `Provenance-hiqa-provenance-s6-signature.json` | PASS | 0 | 1 |
 | `Provenance-ie-core-provenance-example.json` | PASS | 0 | 1 |
+| `scenario-1-local-ie-full-dispense.json` | PASS | 0 | 21 |
+| `scenario-2-local-ie-partial-dispense.json` | PASS | 0 | 21 |
+| `scenario-3-multiple-prescriptions.json` | PASS | 0 | 36 |
+| `scenario-4-ie-to-es-crossborder.json` | PASS | 0 | 18 |
+| `scenario-5-es-to-ie-crossborder.json` | PASS | 0 | 19 |
+| `scenario-6-repeat-prescription.json` | PASS | 0 | 20 |

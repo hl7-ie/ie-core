@@ -8,10 +8,9 @@
   },
   "type": "collection",
   "timestamp": "2024-03-10T09:15:00+00:00",
-  "_comment": "Scenario 6: A 6-month GMS repeat prescription for Metformin 500mg. Shows 3 of 6 monthly dispensations. The prescription allows 5 repeats (6 total dispenses) over 6 months. Patient collects monthly from the same pharmacy.",
   "entry": [
     {
-      "fullUrl": "urn:uuid:patient-john-murphy",
+      "fullUrl": "urn:uuid:96c59959-0693-5775-8050-809878a10e98",
       "resource": {
         "resourceType": "Patient",
         "id": "patient-john-murphy",
@@ -63,13 +62,45 @@
             ],
             "city": "Dublin",
             "postalCode": "D02 XY12",
-            "country": "IE"
+            "country": "IE",
+            "state": "Dublin"
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              },
+              {
+                "url": "type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "76689-9",
+                      "display": "Sex assigned at birth"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         ]
       }
     },
     {
-      "fullUrl": "urn:uuid:practitioner-sarah-obrien",
+      "fullUrl": "urn:uuid:30f2ac6d-a312-55a8-8960-b779170c7460",
       "resource": {
         "resourceType": "Practitioner",
         "id": "practitioner-sarah-obrien",
@@ -101,7 +132,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:pharmacist-niamh-brennan",
+      "fullUrl": "urn:uuid:5c04d66b-bf19-525c-a27f-5ae9fae4cc82",
       "resource": {
         "resourceType": "Practitioner",
         "id": "pharmacist-niamh-brennan",
@@ -133,7 +164,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:medication-metformin-500",
+      "fullUrl": "urn:uuid:f0eb8add-fd90-5f1a-97ef-782f7817db63",
       "resource": {
         "resourceType": "Medication",
         "id": "medication-metformin-500",
@@ -191,7 +222,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:prescription-repeat-6month",
+      "fullUrl": "urn:uuid:4924aaa5-217a-54c2-83ee-9cd73c153e99",
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "prescription-repeat-6month",
@@ -220,14 +251,14 @@
           }
         ],
         "medicationReference": {
-          "reference": "urn:uuid:medication-metformin-500"
+          "reference": "urn:uuid:f0eb8add-fd90-5f1a-97ef-782f7817db63"
         },
         "subject": {
-          "reference": "urn:uuid:patient-john-murphy",
+          "reference": "urn:uuid:96c59959-0693-5775-8050-809878a10e98",
           "display": "John Murphy"
         },
         "requester": {
-          "reference": "urn:uuid:practitioner-sarah-obrien",
+          "reference": "urn:uuid:30f2ac6d-a312-55a8-8960-b779170c7460",
           "display": "Dr. Sarah O'Brien"
         },
         "authoredOn": "2024-01-10",
@@ -298,7 +329,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:dispense-repeat-month1",
+      "fullUrl": "urn:uuid:ebb98869-8ec1-511c-ba57-9733a520fa7e",
       "resource": {
         "resourceType": "MedicationDispense",
         "id": "dispense-repeat-month1",
@@ -315,23 +346,23 @@
         ],
         "status": "completed",
         "medicationReference": {
-          "reference": "urn:uuid:medication-metformin-500"
+          "reference": "urn:uuid:f0eb8add-fd90-5f1a-97ef-782f7817db63"
         },
         "subject": {
-          "reference": "urn:uuid:patient-john-murphy",
+          "reference": "urn:uuid:96c59959-0693-5775-8050-809878a10e98",
           "display": "John Murphy"
         },
         "performer": [
           {
             "actor": {
-              "reference": "urn:uuid:pharmacist-niamh-brennan",
+              "reference": "urn:uuid:5c04d66b-bf19-525c-a27f-5ae9fae4cc82",
               "display": "Niamh Brennan"
             }
           }
         ],
         "authorizingPrescription": [
           {
-            "reference": "urn:uuid:prescription-repeat-6month"
+            "reference": "urn:uuid:4924aaa5-217a-54c2-83ee-9cd73c153e99"
           }
         ],
         "type": {
@@ -363,11 +394,17 @@
         ],
         "substitution": {
           "wasSubstituted": false
-        }
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MedicationDispense.recorded",
+            "valueDateTime": "2024-01-10T10:00:00+00:00"
+          }
+        ]
       }
     },
     {
-      "fullUrl": "urn:uuid:dispense-repeat-month2",
+      "fullUrl": "urn:uuid:faaa65d6-88d2-52b5-b6a8-40aac0dff430",
       "resource": {
         "resourceType": "MedicationDispense",
         "id": "dispense-repeat-month2",
@@ -384,23 +421,23 @@
         ],
         "status": "completed",
         "medicationReference": {
-          "reference": "urn:uuid:medication-metformin-500"
+          "reference": "urn:uuid:f0eb8add-fd90-5f1a-97ef-782f7817db63"
         },
         "subject": {
-          "reference": "urn:uuid:patient-john-murphy",
+          "reference": "urn:uuid:96c59959-0693-5775-8050-809878a10e98",
           "display": "John Murphy"
         },
         "performer": [
           {
             "actor": {
-              "reference": "urn:uuid:pharmacist-niamh-brennan",
+              "reference": "urn:uuid:5c04d66b-bf19-525c-a27f-5ae9fae4cc82",
               "display": "Niamh Brennan"
             }
           }
         ],
         "authorizingPrescription": [
           {
-            "reference": "urn:uuid:prescription-repeat-6month"
+            "reference": "urn:uuid:4924aaa5-217a-54c2-83ee-9cd73c153e99"
           }
         ],
         "type": {
@@ -432,11 +469,17 @@
         ],
         "substitution": {
           "wasSubstituted": false
-        }
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MedicationDispense.recorded",
+            "valueDateTime": "2024-02-10T10:30:00+00:00"
+          }
+        ]
       }
     },
     {
-      "fullUrl": "urn:uuid:dispense-repeat-month3",
+      "fullUrl": "urn:uuid:f821dfd3-84b5-5d43-9aac-a4bb8c83b8d8",
       "resource": {
         "resourceType": "MedicationDispense",
         "id": "dispense-repeat-month3",
@@ -453,23 +496,23 @@
         ],
         "status": "completed",
         "medicationReference": {
-          "reference": "urn:uuid:medication-metformin-500"
+          "reference": "urn:uuid:f0eb8add-fd90-5f1a-97ef-782f7817db63"
         },
         "subject": {
-          "reference": "urn:uuid:patient-john-murphy",
+          "reference": "urn:uuid:96c59959-0693-5775-8050-809878a10e98",
           "display": "John Murphy"
         },
         "performer": [
           {
             "actor": {
-              "reference": "urn:uuid:pharmacist-niamh-brennan",
+              "reference": "urn:uuid:5c04d66b-bf19-525c-a27f-5ae9fae4cc82",
               "display": "Niamh Brennan"
             }
           }
         ],
         "authorizingPrescription": [
           {
-            "reference": "urn:uuid:prescription-repeat-6month"
+            "reference": "urn:uuid:4924aaa5-217a-54c2-83ee-9cd73c153e99"
           }
         ],
         "type": {
@@ -501,7 +544,13 @@
         ],
         "substitution": {
           "wasSubstituted": false
-        }
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MedicationDispense.recorded",
+            "valueDateTime": "2024-03-10T09:15:00+00:00"
+          }
+        ]
       }
     }
   ]

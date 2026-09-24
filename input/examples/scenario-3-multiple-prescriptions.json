@@ -10,7 +10,7 @@
   "timestamp": "2024-06-20T16:15:00+01:00",
   "entry": [
     {
-      "fullUrl": "urn:uuid:patient-john-murphy",
+      "fullUrl": "urn:uuid:96c59959-0693-5775-8050-809878a10e98",
       "resource": {
         "resourceType": "Patient",
         "id": "patient-john-murphy",
@@ -62,13 +62,45 @@
             ],
             "city": "Dublin",
             "postalCode": "D02 XY12",
-            "country": "IE"
+            "country": "IE",
+            "state": "Dublin"
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              },
+              {
+                "url": "type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "76689-9",
+                      "display": "Sex assigned at birth"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         ]
       }
     },
     {
-      "fullUrl": "urn:uuid:practitioner-sarah-obrien",
+      "fullUrl": "urn:uuid:30f2ac6d-a312-55a8-8960-b779170c7460",
       "resource": {
         "resourceType": "Practitioner",
         "id": "practitioner-sarah-obrien",
@@ -100,7 +132,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:pharmacist-niamh-brennan",
+      "fullUrl": "urn:uuid:5c04d66b-bf19-525c-a27f-5ae9fae4cc82",
       "resource": {
         "resourceType": "Practitioner",
         "id": "pharmacist-niamh-brennan",
@@ -132,7 +164,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:medication-metformin",
+      "fullUrl": "urn:uuid:9e8c1004-684b-51a7-8ac3-29cbff280cbe",
       "resource": {
         "resourceType": "Medication",
         "id": "medication-metformin",
@@ -190,7 +222,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:medication-atorvastatin",
+      "fullUrl": "urn:uuid:7c92e1cb-9b5a-5710-867b-90b4820b2261",
       "resource": {
         "resourceType": "Medication",
         "id": "medication-atorvastatin",
@@ -248,7 +280,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:medication-ramipril",
+      "fullUrl": "urn:uuid:8237525b-e5a4-5142-a04d-20cd2119716d",
       "resource": {
         "resourceType": "Medication",
         "id": "medication-ramipril",
@@ -306,7 +338,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:prescription-multi-metformin",
+      "fullUrl": "urn:uuid:105fb4ef-eb48-58e3-aa44-c53c7745524f",
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "prescription-multi-metformin",
@@ -338,13 +370,13 @@
           }
         ],
         "medicationReference": {
-          "reference": "urn:uuid:medication-metformin"
+          "reference": "urn:uuid:9e8c1004-684b-51a7-8ac3-29cbff280cbe"
         },
         "subject": {
-          "reference": "urn:uuid:patient-john-murphy"
+          "reference": "urn:uuid:96c59959-0693-5775-8050-809878a10e98"
         },
         "requester": {
-          "reference": "urn:uuid:practitioner-sarah-obrien"
+          "reference": "urn:uuid:30f2ac6d-a312-55a8-8960-b779170c7460"
         },
         "authoredOn": "2024-06-20",
         "reasonCode": [
@@ -403,7 +435,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:prescription-multi-atorvastatin",
+      "fullUrl": "urn:uuid:d677ebaf-e5d2-5ce7-823a-6b6538c9059a",
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "prescription-multi-atorvastatin",
@@ -435,13 +467,13 @@
           }
         ],
         "medicationReference": {
-          "reference": "urn:uuid:medication-atorvastatin"
+          "reference": "urn:uuid:7c92e1cb-9b5a-5710-867b-90b4820b2261"
         },
         "subject": {
-          "reference": "urn:uuid:patient-john-murphy"
+          "reference": "urn:uuid:96c59959-0693-5775-8050-809878a10e98"
         },
         "requester": {
-          "reference": "urn:uuid:practitioner-sarah-obrien"
+          "reference": "urn:uuid:30f2ac6d-a312-55a8-8960-b779170c7460"
         },
         "authoredOn": "2024-06-20",
         "reasonCode": [
@@ -503,7 +535,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:prescription-multi-ramipril",
+      "fullUrl": "urn:uuid:47125fbb-33b3-5c47-8ac5-4d8cdb9bc23e",
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "prescription-multi-ramipril",
@@ -535,13 +567,13 @@
           }
         ],
         "medicationReference": {
-          "reference": "urn:uuid:medication-ramipril"
+          "reference": "urn:uuid:8237525b-e5a4-5142-a04d-20cd2119716d"
         },
         "subject": {
-          "reference": "urn:uuid:patient-john-murphy"
+          "reference": "urn:uuid:96c59959-0693-5775-8050-809878a10e98"
         },
         "requester": {
-          "reference": "urn:uuid:practitioner-sarah-obrien"
+          "reference": "urn:uuid:30f2ac6d-a312-55a8-8960-b779170c7460"
         },
         "authoredOn": "2024-06-20",
         "reasonCode": [
@@ -603,7 +635,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:dispense-multi-metformin",
+      "fullUrl": "urn:uuid:14f60dc0-11ae-54de-abbe-c182ac5f6711",
       "resource": {
         "resourceType": "MedicationDispense",
         "id": "dispense-multi-metformin",
@@ -620,21 +652,21 @@
         ],
         "status": "completed",
         "medicationReference": {
-          "reference": "urn:uuid:medication-metformin"
+          "reference": "urn:uuid:9e8c1004-684b-51a7-8ac3-29cbff280cbe"
         },
         "subject": {
-          "reference": "urn:uuid:patient-john-murphy"
+          "reference": "urn:uuid:96c59959-0693-5775-8050-809878a10e98"
         },
         "performer": [
           {
             "actor": {
-              "reference": "urn:uuid:pharmacist-niamh-brennan"
+              "reference": "urn:uuid:5c04d66b-bf19-525c-a27f-5ae9fae4cc82"
             }
           }
         ],
         "authorizingPrescription": [
           {
-            "reference": "urn:uuid:prescription-multi-metformin"
+            "reference": "urn:uuid:105fb4ef-eb48-58e3-aa44-c53c7745524f"
           }
         ],
         "type": {
@@ -667,11 +699,17 @@
         ],
         "substitution": {
           "wasSubstituted": false
-        }
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MedicationDispense.recorded",
+            "valueDateTime": "2024-06-20T16:15:00+01:00"
+          }
+        ]
       }
     },
     {
-      "fullUrl": "urn:uuid:dispense-multi-atorvastatin",
+      "fullUrl": "urn:uuid:cf37f33a-3bb2-5c19-8617-66e5e7d2b3ab",
       "resource": {
         "resourceType": "MedicationDispense",
         "id": "dispense-multi-atorvastatin",
@@ -688,21 +726,21 @@
         ],
         "status": "completed",
         "medicationReference": {
-          "reference": "urn:uuid:medication-atorvastatin"
+          "reference": "urn:uuid:7c92e1cb-9b5a-5710-867b-90b4820b2261"
         },
         "subject": {
-          "reference": "urn:uuid:patient-john-murphy"
+          "reference": "urn:uuid:96c59959-0693-5775-8050-809878a10e98"
         },
         "performer": [
           {
             "actor": {
-              "reference": "urn:uuid:pharmacist-niamh-brennan"
+              "reference": "urn:uuid:5c04d66b-bf19-525c-a27f-5ae9fae4cc82"
             }
           }
         ],
         "authorizingPrescription": [
           {
-            "reference": "urn:uuid:prescription-multi-atorvastatin"
+            "reference": "urn:uuid:d677ebaf-e5d2-5ce7-823a-6b6538c9059a"
           }
         ],
         "type": {
@@ -735,11 +773,17 @@
         ],
         "substitution": {
           "wasSubstituted": false
-        }
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MedicationDispense.recorded",
+            "valueDateTime": "2024-06-20T16:15:00+01:00"
+          }
+        ]
       }
     },
     {
-      "fullUrl": "urn:uuid:dispense-multi-ramipril",
+      "fullUrl": "urn:uuid:2b24412d-fbf1-5ca8-845f-1f1ab5956fee",
       "resource": {
         "resourceType": "MedicationDispense",
         "id": "dispense-multi-ramipril",
@@ -756,21 +800,21 @@
         ],
         "status": "completed",
         "medicationReference": {
-          "reference": "urn:uuid:medication-ramipril"
+          "reference": "urn:uuid:8237525b-e5a4-5142-a04d-20cd2119716d"
         },
         "subject": {
-          "reference": "urn:uuid:patient-john-murphy"
+          "reference": "urn:uuid:96c59959-0693-5775-8050-809878a10e98"
         },
         "performer": [
           {
             "actor": {
-              "reference": "urn:uuid:pharmacist-niamh-brennan"
+              "reference": "urn:uuid:5c04d66b-bf19-525c-a27f-5ae9fae4cc82"
             }
           }
         ],
         "authorizingPrescription": [
           {
-            "reference": "urn:uuid:prescription-multi-ramipril"
+            "reference": "urn:uuid:47125fbb-33b3-5c47-8ac5-4d8cdb9bc23e"
           }
         ],
         "type": {
@@ -803,7 +847,13 @@
         ],
         "substitution": {
           "wasSubstituted": false
-        }
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MedicationDispense.recorded",
+            "valueDateTime": "2024-06-20T16:15:00+01:00"
+          }
+        ]
       }
     }
   ]

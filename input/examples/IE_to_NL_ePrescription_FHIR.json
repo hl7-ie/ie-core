@@ -3,10 +3,9 @@
   "id": "ie-bundle-to-nl-eprescription",
   "type": "collection",
   "timestamp": "2025-04-01T09:00:00+02:00",
-  "_comment": "Scenario 4: Seán Murphy visits Amsterdam. ePrescription for Metformin 500mg + Lisinopril 10mg + Atorvastatin 20mg transmitted via MyHealth@EU. Dispensed at Apotheek Dam, Damrak 1, Amsterdam on 1 April 2025 with Dutch G-Standaard GNK product codes.",
   "entry": [
     {
-      "fullUrl": "urn:uuid:patient-sean-murphy",
+      "fullUrl": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
       "resource": {
         "resourceType": "Patient",
         "id": "patient-sean-murphy",
@@ -48,13 +47,45 @@
             ],
             "city": "Dublin 2",
             "postalCode": "D02 XY45",
-            "country": "IE"
+            "country": "IE",
+            "state": "Dublin"
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              },
+              {
+                "url": "type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "76689-9",
+                      "display": "Sex assigned at birth"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         ]
       }
     },
     {
-      "fullUrl": "urn:uuid:practitioner-aoife-obrien",
+      "fullUrl": "urn:uuid:f6ae4c82-db5b-5024-b472-a1582886e3ce",
       "resource": {
         "resourceType": "Practitioner",
         "id": "practitioner-aoife-obrien",
@@ -80,7 +111,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:allergy-penicillin",
+      "fullUrl": "urn:uuid:3ab51105-7364-58f5-a3d6-f9bc50690c12",
       "resource": {
         "resourceType": "AllergyIntolerance",
         "id": "allergy-penicillin",
@@ -116,7 +147,7 @@
           "text": "Penicillin / Amoxicillin — ALL penicillin-class antibiotics"
         },
         "patient": {
-          "reference": "urn:uuid:patient-sean-murphy"
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9"
         },
         "reaction": [
           {
@@ -137,14 +168,16 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:org-nl-apotheek-dam",
+      "fullUrl": "urn:uuid:ce65bec8-200a-529e-86d4-52f2c8aaf3c5",
       "resource": {
         "resourceType": "Organization",
         "id": "org-nl-apotheek-dam",
         "identifier": [
           {
-            "system": "http://example.org/fhir/sid/nl/apotheek",
-            "value": "NL-APO-1012LG-001"
+            "value": "NL-APO-1012LG-001",
+            "assigner": {
+              "display": "Issuing authority in Netherlands (illustrative)"
+            }
           }
         ],
         "active": true,
@@ -168,7 +201,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:rx-ie-nl-metformin",
+      "fullUrl": "urn:uuid:7a13aed7-b5fa-54c7-8a2e-06739d80416a",
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "rx-ie-nl-metformin",
@@ -209,11 +242,11 @@
           "text": "Metformin 500mg tablets → NL: Metformine HCl 500mg tabletten (GNK: 1701410)"
         },
         "subject": {
-          "reference": "urn:uuid:patient-sean-murphy",
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
         },
         "requester": {
-          "reference": "urn:uuid:practitioner-aoife-obrien",
+          "reference": "urn:uuid:f6ae4c82-db5b-5024-b472-a1582886e3ce",
           "display": "Dr. Aoife O'Brien"
         },
         "authoredOn": "2025-03-28",
@@ -256,7 +289,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:rx-ie-nl-lisinopril",
+      "fullUrl": "urn:uuid:fb054e82-d871-5aed-80d3-870918b17342",
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "rx-ie-nl-lisinopril",
@@ -292,11 +325,11 @@
           "text": "Lisinopril 10mg tablets → NL: Lisinopril 10mg tabletten (GNK: 1701420)"
         },
         "subject": {
-          "reference": "urn:uuid:patient-sean-murphy",
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
         },
         "requester": {
-          "reference": "urn:uuid:practitioner-aoife-obrien",
+          "reference": "urn:uuid:f6ae4c82-db5b-5024-b472-a1582886e3ce",
           "display": "Dr. Aoife O'Brien"
         },
         "authoredOn": "2025-03-28",
@@ -334,7 +367,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:rx-ie-nl-atorvastatin",
+      "fullUrl": "urn:uuid:8f969a20-877f-5736-a41a-0aa0a5b91732",
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "rx-ie-nl-atorvastatin",
@@ -370,11 +403,11 @@
           "text": "Atorvastatin 20mg tablets → NL: Atorvastatine 20mg tabletten (GNK: 1701430)"
         },
         "subject": {
-          "reference": "urn:uuid:patient-sean-murphy",
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
         },
         "requester": {
-          "reference": "urn:uuid:practitioner-aoife-obrien",
+          "reference": "urn:uuid:f6ae4c82-db5b-5024-b472-a1582886e3ce",
           "display": "Dr. Aoife O'Brien"
         },
         "authoredOn": "2025-03-28",

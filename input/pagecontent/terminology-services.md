@@ -70,7 +70,8 @@ The `useSupplement` parameter enables the CTS to return NMPC-specific properties
 
 ```
 GET https://nmpc.hse.ie/production1/fhir/CodeSystem/$lookup
-  ?system=http://snomed.info/sct/1601000220105
+  ?system=http://snomed.info/sct
+  &version=http://snomed.info/sct/1601000220105
   &code=<SNOMED concept ID>
   &useSupplement=https://nmpc.hse.ie/CodeSystem/nmpc-supplement
 Authorization: ******
@@ -98,7 +99,7 @@ The **HPRA** (Health Products Regulatory Authority) maintains the authoritative 
 
 To look up an HPRA authorisation number for a product use the NMPC supplement lookup, which includes the HPRA identifier as a property on the SNOMED CT concept.
 
-The system URL for HPRA codes in IE Core resources is: `https://www.hpra.ie/drug-catalogue`
+No FHIR code system URI for HPRA authorisation numbers has been published, so IE Core does not define one (Requires Clarification, OI-023). Carry the HPRA authorisation number in `Medication.identifier` with a system agreed with the HPRA/HSE once one exists; the CTS ConceptMap refset identifiers on this page have not been independently verified (OI-018).
 
 ---
 
@@ -108,7 +109,8 @@ WHO **ATC** (Anatomical Therapeutic Chemical) codes are mapped to NMPC VTM-level
 
 ```
 GET https://nmpc.hse.ie/production1/fhir/ConceptMap/$translate
-  ?system=http://snomed.info/sct/1601000220105
+  ?system=http://snomed.info/sct
+  &version=http://snomed.info/sct/1601000220105
   &code=<SNOMED VTM concept ID>
   &target=http://www.whocc.no/atc
 Authorization: ******
@@ -126,7 +128,8 @@ Authorization: ******
   "medicationCodeableConcept": {
     "coding": [
       {
-        "system": "http://snomed.info/sct/1601000220105",
+        "system": "http://snomed.info/sct",
+        "version": "http://snomed.info/sct/1601000220105",
         "code": "<VMP SNOMED concept ID>",
         "display": "<VMP display name from NMPC>"
       },
@@ -142,27 +145,34 @@ Authorization: ******
 
 #### MedicationDispense (AMPP — dispensed pack)
 
+> HIQA EP 6.6 (dispensed medication) and ADR-003: the HL7 Europe MPD parent requires `medicationReference`, so
+> the coding below sits in the referenced `Medication.code`. It is shown inline here for brevity.
+
 ```json
 {
   "resourceType": "MedicationDispense",
   "medicationCodeableConcept": {
     "coding": [
       {
-        "system": "http://snomed.info/sct/1601000220105",
+        "system": "http://snomed.info/sct",
+        "version": "http://snomed.info/sct/1601000220105",
         "code": "<AMPP SNOMED concept ID>",
         "display": "<AMPP display name from NMPC>"
       },
       {
-        "system": "https://www.hpra.ie/drug-catalogue",
-        "code": "<HPRA authorisation number>",
-        "display": "<HPRA product name>"
+        "system": "http://www.whocc.no/atc",
+        "code": "<ATC code>",
+        "display": "<ATC description>"
       }
     ]
   }
 }
 ```
 
-> **Note on existing examples**: Some IE Core examples currently use placeholder NMPC codes (e.g., `NMPC-MET500TAB`) with the local system `https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/nmpc`. These are illustrative examples only. Real implementations must use SNOMED CT concept IDs from the CTS (system: `http://snomed.info/sct/1601000220105`).
+> **Note on existing examples**: some IE Core examples use placeholder NMPC codes (e.g., `NMPC-MET500TAB`) from the
+> code system `IECoreNMPCPlaceholder`, which is explicitly **not** the NMPC (OI-018). Real implementations must use
+> SNOMED CT Irish Edition concept IDs from the CTS (`system` `http://snomed.info/sct`, `version`
+> `http://snomed.info/sct/1601000220105`).
 
 ---
 
@@ -171,8 +181,18 @@ Authorization: ******
 The SNOMED CT Irish Edition extends the SNOMED CT International Edition with Irish-specific content, maintained by [eHealth Ireland](https://www.ehealthireland.ie/technology-and-transformation-functions/chief-data-and-analytics-office-cdao/standards-and-terminologies/snomed-ct/) in partnership with SNOMED International.
 
 - **Module ID**: `1601000220105`
-- **System URL for FHIR**: `http://snomed.info/sct/1601000220105`
-- **International SNOMED CT system URL**: `http://snomed.info/sct` (use for concepts from the international release)
+- **Coding.system**: always `http://snomed.info/sct` (FHIR uses one system URI for every SNOMED CT edition)
+- **Coding.version / ValueSet `compose.include.version`**: `http://snomed.info/sct/1601000220105` to name the Irish
+  Edition. A `system` of `http://snomed.info/sct/1601000220105` is **wrong**: no validator or terminology server
+  treats it as SNOMED CT (ADR-007).
+
+**IE Core uses the SNOMED CT Irish Edition.** Every SNOMED CT ValueSet in this IG includes codes from the Irish
+Edition. International Edition concepts are part of the Irish Edition, so an International concept is a valid Irish
+Edition code. Irish Extension concepts (including all NMPC products) exist only in the Irish Edition.
+
+Validation: tx.fhir.org does not host the Irish Edition. Public validation therefore checks International concepts
+only, and ValueSets pinned to the Irish Edition cannot be expanded there (OI-022). Irish Extension codes must be
+checked against the HSE CTS.
 - **Release schedule**: Aligned with SNOMED International biannual releases
 
 The Irish Extension includes:

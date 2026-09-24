@@ -1,420 +1,271 @@
 name: PR Validation
 
+# Quality gates for every pull request (Phase 9 of the HIQA 2026 alignment).
+# Actions are pinned to commit SHAs (Dependabot keeps them current); tools are pinned to exact versions and
+# the downloaded jars are checked against their SHA-256. Every job has read-only permissions unless it says otherwise.
+
 on:
   pull_request:
     branches: [main, develop]
-    paths:
-      - 'input/fsh/**'
-      - 'r5/input/fsh/**'
-      - 'sushi-config.yaml'
-      - 'r5/sushi-config.yaml'
-      - 'ig.ini'
-      - 'r5/ig.ini'
-      - 'tests/**'
-      - 'r5/tests/**'
+  workflow_dispatch:
 
 permissions:
   contents: read
-  pull-requests: write
+
+concurrency:
+  group: pr-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  SUSHI_VERSION: 3.18.0
+  PUBLISHER_VERSION: 2.3.4
+  PUBLISHER_SHA256: 970922c12eb583bfb4cb6121584b922a236d5904e36413e3545d2fbc248f8e2b
+  VALIDATOR_VERSION: 6.10.4
+  VALIDATOR_SHA256: 1106b9d58f9e363e47bea7c4fc065841e5fc91fe9d062775c3bfdd212bd653cc
+  JEKYLL_VERSION: 4.4.1
+  NODE_VERSION: '20'
+  PYTHON_VERSION: '3.12'
+  JAVA_VERSION: '17'
 
 jobs:
   sushi-r4:
-    name: SUSHI R4
+    name: SUSHI R4 (0 errors)
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: '20'
-
-      - name: Install SUSHI
-        run: npm install -g fsh-sushi
-
-      - name: Run SUSHI (R4)
-        run: sushi .
-
-      - name: Upload R4 output
-        uses: actions/upload-artifact@v4
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Cache FHIR packages
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
-          name: pr-fsh-generated-r4
+          path: ~/.fhir/packages
+          key: fhir-packages-${{ hashFiles('sushi-config.yaml') }}
+      - name: Install SUSHI ${{ env.SUSHI_VERSION }}
+        run: npm install -g fsh-sushi@${{ env.SUSHI_VERSION }}
+      - name: Run SUSHI (fail on any error)
+        run: |
+          sushi . | tee sushi.log
+          grep -Eq '\b0 Errors\b' sushi.log
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: fsh-generated-r4
           path: fsh-generated/
-          retention-days: 1
+          retention-days: 3
 
-      - name: R4 Summary
-        run: |
-          echo "## SUSHI R4 Compilation" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          PROFILES=$(find fsh-generated/resources -name "StructureDefinition-*.json" | wc -l)
-          VALUESETS=$(find fsh-generated/resources -name "ValueSet-*.json" | wc -l)
-          CODESYSTEMS=$(find fsh-generated/resources -name "CodeSystem-*.json" | wc -l)
-          EXAMPLES=$(find fsh-generated/resources -name "*.json" \
-            -not -name "StructureDefinition-*" -not -name "ValueSet-*" \
-            -not -name "CodeSystem-*" -not -name "CapabilityStatement-*" \
-            -not -name "SearchParameter-*" -not -name "ImplementationGuide-*" | wc -l)
-          echo "| Artifact | Count |" >> $GITHUB_STEP_SUMMARY
-          echo "|----------|-------|" >> $GITHUB_STEP_SUMMARY
-          echo "| Profiles/Extensions | $PROFILES |" >> $GITHUB_STEP_SUMMARY
-          echo "| ValueSets | $VALUESETS |" >> $GITHUB_STEP_SUMMARY
-          echo "| CodeSystems | $CODESYSTEMS |" >> $GITHUB_STEP_SUMMARY
-          echo "| Examples/Instances | $EXAMPLES |" >> $GITHUB_STEP_SUMMARY
-
-  sushi-r5:
-    name: SUSHI R5
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install SUSHI
-        run: npm install -g fsh-sushi
-
-      - name: Run SUSHI (R5)
-        run: sushi r5/
-
-      - name: Upload R5 output
-        uses: actions/upload-artifact@v4
-        with:
-          name: pr-fsh-generated-r5
-          path: r5/fsh-generated/
-          retention-days: 1
-
-      - name: R5 Summary
-        run: |
-          echo "## SUSHI R5 Compilation" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          if [ -d "r5/fsh-generated/resources" ]; then
-            R5PROFILES=$(find r5/fsh-generated/resources -name "StructureDefinition-*.json" | wc -l)
-            R5VS=$(find r5/fsh-generated/resources -name "ValueSet-*.json" | wc -l)
-            echo "| Artifact | Count |" >> $GITHUB_STEP_SUMMARY
-            echo "|----------|-------|" >> $GITHUB_STEP_SUMMARY
-            echo "| R5 Profiles | $R5PROFILES |" >> $GITHUB_STEP_SUMMARY
-            echo "| R5 ValueSets | $R5VS |" >> $GITHUB_STEP_SUMMARY
-          fi
-
-  bdd-tests:
-    name: BDD Tests
+  tests:
+    name: BDD, quality, HIQA traceability and data-minimisation guard
     needs: sushi-r4
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: tests
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: '20'
-
-      - name: Download SUSHI output
-        uses: actions/download-artifact@v4
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: tests/package-lock.json
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          name: pr-fsh-generated-r4
+          python-version: ${{ env.PYTHON_VERSION }}
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: fsh-generated-r4
           path: fsh-generated/
-
-      - name: Install test dependencies
-        run: npm ci
-        working-directory: tests
-
-      - name: Run BDD tests
+      - run: npm ci
+      - name: BDD (includes the traceability and guard scripts)
         run: npm run test:bdd
-        working-directory: tests
-
-      - name: Run quality checks
+      - name: Quality checks
         run: npm run test:quality
-        working-directory: tests
-
-      - name: Upload R4 test reports
-        uses: actions/upload-artifact@v4
+      - name: HIQA traceability matrix is current
+        working-directory: .
+        run: python scripts/hiqa/generate_traceability.py --check
+      - name: HIQA mapping agrees with the profiles
+        working-directory: .
+        run: python scripts/hiqa/check_mapping_against_snapshots.py
+      - name: ePrescription data-minimisation guard
+        working-directory: .
+        run: python scripts/qa/check_ep_data_minimisation.py
+      - name: Open-issues page is in sync
+        working-directory: .
+        run: python scripts/hiqa/sync_open_issues.py --check
+      - name: Page links resolve to artefacts
+        working-directory: .
+        run: python scripts/qa/check_page_links.py
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:
-          name: pr-test-reports-r4
-          path: |
-            tests/reports/cucumber-report.json
-            tests/reports/quality-results.json
-          retention-days: 5
+          name: test-reports-r4
+          path: tests/reports/
+          retention-days: 7
 
-      - name: R4 Test Step Summary
-        if: always()
-        run: |
-          python3 << 'PYEOF'
-          import json, os
-
-          md = ""
-
-          # BDD
-          try:
-              with open("tests/reports/cucumber-report.json") as f:
-                  data = json.load(f)
-              passed = failed = 0
-              rows = []
-              for feat in data:
-                  for elem in feat.get("elements", []):
-                      if elem.get("type") != "scenario": continue
-                      has_fail = any(s.get("result",{}).get("status") == "failed" for s in elem.get("steps",[]))
-                      if has_fail: failed += 1
-                      else: passed += 1
-                      icon = ":x:" if has_fail else ":white_check_mark:"
-                      rows.append(f"| {icon} | {feat['name']} | {elem['name']} |")
-              total = passed + failed
-              md += f"## R4 BDD Tests: {passed}/{total} passed\n\n"
-              md += "<details><summary>Scenario details</summary>\n\n"
-              md += "| Status | Feature | Scenario |\n|--------|---------|----------|\n"
-              md += "\n".join(rows) + "\n\n</details>\n\n"
-          except: md += "## R4 BDD Tests\n\nNo report available\n\n"
-
-          # Quality
-          try:
-              with open("tests/reports/quality-results.json") as f:
-                  data = json.load(f)
-              s = data.get("summary", {})
-              md += f"## R4 Quality: {s.get('passed',0)}/{s.get('total',0)} passed\n\n"
-              issues = data.get("details", [])
-              if issues:
-                  md += "| Check | Detail |\n|-------|--------|\n"
-                  for i in issues:
-                      md += f"| :x: {i['check']} | {i['detail']} |\n"
-              else:
-                  md += ":white_check_mark: All checks passed\n"
-              md += "\n"
-          except: md += "## R4 Quality\n\nNo report available\n\n"
-
-          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
-              f.write(md)
-          PYEOF
-
-  bdd-tests-r5:
-    name: BDD Tests (R5)
-    needs: sushi-r5
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Download R5 SUSHI output
-        uses: actions/download-artifact@v4
-        with:
-          name: pr-fsh-generated-r5
-          path: r5/fsh-generated/
-
-      - name: Install R5 test dependencies
-        run: npm ci
-        working-directory: r5/tests
-
-      - name: Run R5 BDD tests
-        run: npm run test:bdd
-        working-directory: r5/tests
-
-      - name: Run R5 quality checks
-        run: npm run test:quality
-        working-directory: r5/tests
-
-      - name: Upload R5 test reports
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: pr-test-reports-r5
-          path: |
-            r5/tests/reports/cucumber-report.json
-            r5/tests/reports/quality-results.json
-          retention-days: 5
-
-      - name: R5 Test Step Summary
-        if: always()
-        run: |
-          python3 << 'PYEOF'
-          import json, os
-
-          md = ""
-
-          try:
-              with open("r5/tests/reports/cucumber-report.json") as f:
-                  data = json.load(f)
-              passed = failed = 0
-              rows = []
-              for feat in data:
-                  for elem in feat.get("elements", []):
-                      if elem.get("type") != "scenario": continue
-                      has_fail = any(s.get("result",{}).get("status") == "failed" for s in elem.get("steps",[]))
-                      if has_fail: failed += 1
-                      else: passed += 1
-                      icon = ":x:" if has_fail else ":white_check_mark:"
-                      rows.append(f"| {icon} | {feat['name']} | {elem['name']} |")
-              total = passed + failed
-              md += f"## R5 BDD Tests: {passed}/{total} passed\n\n"
-              md += "<details><summary>Scenario details</summary>\n\n"
-              md += "| Status | Feature | Scenario |\n|--------|---------|----------|\n"
-              md += "\n".join(rows) + "\n\n</details>\n\n"
-          except: md += "## R5 BDD Tests\n\nNo report available\n\n"
-
-          try:
-              with open("r5/tests/reports/quality-results.json") as f:
-                  data = json.load(f)
-              s = data.get("summary", {})
-              md += f"## R5 Quality: {s.get('passed',0)}/{s.get('total',0)} passed\n\n"
-              issues = data.get("details", [])
-              if issues:
-                  md += "| Check | Detail |\n|-------|--------|\n"
-                  for i in issues:
-                      md += f"| :x: {i['check']} | {i['detail']} |\n"
-              else:
-                  md += ":white_check_mark: All R5 checks passed\n"
-              md += "\n"
-          except: md += "## R5 Quality\n\nNo report available\n\n"
-
-          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
-              f.write(md)
-          PYEOF
-
-  ig-publisher-r4-check:
-    name: IG Publisher R4 (Dry Run)
+  terminology:
+    name: Every explicit code exists and is active (tx.fhir.org)
     needs: sushi-r4
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          node-version: '20'
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Verify codes (ADR-007)
+        run: |
+          python scripts/terminology/verify_codes.py | tee verify.log
+          grep -Eq ' 0 not found, errored or inactive$' verify.log
 
-      - uses: actions/setup-java@v4
+  validator:
+    name: FHIR Validator (examples pass; QA not above baseline)
+    needs: sushi-r4
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Setup Ruby and Jekyll
-        uses: ruby/setup-ruby@v1
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: tests/package-lock.json
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
-          ruby-version: '3.2'
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: fsh-generated-r4
+          path: fsh-generated/
+      - name: Cache FHIR packages
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.fhir/packages
+          key: fhir-packages-${{ hashFiles('sushi-config.yaml') }}
+      - name: Cache validator ${{ env.VALIDATOR_VERSION }}
+        id: validator-cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: tests/validator/validator_cli.jar
+          key: validator-${{ env.VALIDATOR_VERSION }}
+      - name: Download validator ${{ env.VALIDATOR_VERSION }}
+        if: steps.validator-cache.outputs.cache-hit != 'true'
+        run: curl -fsSL -o tests/validator/validator_cli.jar "https://github.com/hapifhir/org.hl7.fhir.core/releases/download/${VALIDATOR_VERSION}/validator_cli.jar"
+      - name: Check validator checksum
+        run: echo "${VALIDATOR_SHA256}  tests/validator/validator_cli.jar" | sha256sum -c -
+      - run: npm ci
+        working-directory: tests
+      - name: Validate every example (codes checked on tx.fhir.org)
+        working-directory: tests
+        run: node validator/run-validation.js --tx
+      - name: Whole-IG validator QA not above baseline
+        run: |
+          python scripts/qa/validate_all.py . tests/validator/validator_cli.jar qa.json
+          python scripts/qa/qa_gate.py qa.json
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: validation-report-r4
+          path: |
+            tests/reports/validation-results.json
+            qa.json
+          retention-days: 7
 
-      - name: Install Jekyll
-        run: gem install jekyll
-
-      - name: Install SUSHI
-        run: npm install -g fsh-sushi
-
-      - name: Download IG Publisher
+  ig-publisher:
+    name: IG Publisher R4 (QA report)
+    needs: sushi-r4
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+      - uses: ruby/setup-ruby@762794c140bbeda0f1224786aa33b4b46783a6c1 # v1.326.0
+        with:
+          ruby-version: '3.3'
+      - name: Install Jekyll ${{ env.JEKYLL_VERSION }}
+        run: gem install jekyll -v "${JEKYLL_VERSION}" --no-document
+      - name: Install SUSHI ${{ env.SUSHI_VERSION }}
+        run: npm install -g fsh-sushi@${{ env.SUSHI_VERSION }}
+      - name: Cache FHIR packages
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.fhir/packages
+          key: fhir-packages-${{ hashFiles('sushi-config.yaml') }}
+      - name: Download IG Publisher ${{ env.PUBLISHER_VERSION }}
         run: |
           mkdir -p input-cache
-          curl -L https://github.com/HL7/fhir-ig-publisher/releases/latest/download/publisher.jar \
-            -o input-cache/publisher.jar
-
-      - name: Run IG Publisher (R4)
-        run: |
-          java -Dfile.encoding=UTF-8 \
-            -jar input-cache/publisher.jar \
-            -ig ig.ini
-
-      - name: R4 QA Summary
+          curl -fsSL -o input-cache/publisher.jar "https://github.com/HL7/fhir-ig-publisher/releases/download/${PUBLISHER_VERSION}/publisher.jar"
+          echo "${PUBLISHER_SHA256}  input-cache/publisher.jar" | sha256sum -c -
+      - name: Run IG Publisher
+        run: java -Xmx6g -Dfile.encoding=UTF-8 -jar input-cache/publisher.jar -ig .
+      - name: QA summary
         if: always()
         run: |
-          echo "## IG Publisher R4 QA" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          if [ -f output/qa.json ]; then
-            cat output/qa.json | python3 -c "
-          import sys, json
-          data = json.load(sys.stdin)
-          print(f\"- Errors: {data.get('errs', 'N/A')}\")
-          print(f\"- Warnings: {data.get('warnings', 'N/A')}\")
-          print(f\"- Information: {data.get('info', 'N/A')}\")
-          " >> $GITHUB_STEP_SUMMARY 2>/dev/null || echo "Could not parse QA results" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "QA file not generated" >> $GITHUB_STEP_SUMMARY
-          fi
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json, os
+          p = 'output/qa.json'
+          if not os.path.exists(p):
+              print('## IG Publisher QA\n\nNo qa.json produced.')
+          else:
+              d = json.load(open(p, encoding='utf-8'))
+              print('## IG Publisher QA\n')
+              print(f"- Errors: {d.get('errs')}\n- Warnings: {d.get('warnings')}\n- Hints: {d.get('hints')}")
+          PY
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: ig-qa-r4
+          path: |
+            output/qa.html
+            output/qa.json
+            output/qa.txt
+          retention-days: 7
 
-  ig-publisher-r5-check:
-    name: IG Publisher R5 (Dry Run)
-    needs: sushi-r5
+  sushi-r5:
+    name: SUSHI R5 (informational; frozen track, ADR-005)
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    continue-on-error: true
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: '20'
-
-      - uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Setup Ruby and Jekyll
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-
-      - name: Install Jekyll
-        run: gem install jekyll
-
-      - name: Install SUSHI
-        run: npm install -g fsh-sushi
-
-      - name: Download IG Publisher
-        run: |
-          mkdir -p r5/input-cache
-          curl -L https://github.com/HL7/fhir-ig-publisher/releases/latest/download/publisher.jar \
-            -o r5/input-cache/publisher.jar
-
-      - name: Run IG Publisher (R5)
-        run: |
-          cd r5
-          java -Dfile.encoding=UTF-8 \
-            -jar input-cache/publisher.jar \
-            -ig ig.ini
-
-      - name: R5 QA Summary
-        if: always()
-        run: |
-          echo "## IG Publisher R5 QA" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          if [ -f r5/output/qa.json ]; then
-            cat r5/output/qa.json | python3 -c "
-          import sys, json
-          data = json.load(sys.stdin)
-          print(f\"- Errors: {data.get('errs', 'N/A')}\")
-          print(f\"- Warnings: {data.get('warnings', 'N/A')}\")
-          print(f\"- Information: {data.get('info', 'N/A')}\")
-          " >> $GITHUB_STEP_SUMMARY 2>/dev/null || echo "Could not parse QA results" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "QA file not generated" >> $GITHUB_STEP_SUMMARY
-          fi
+          node-version: ${{ env.NODE_VERSION }}
+      - run: npm install -g fsh-sushi@${{ env.SUSHI_VERSION }}
+      - run: sushi r5/
 
   pr-comment:
-    name: Post PR Test Summary
-    needs: [bdd-tests, bdd-tests-r5]
-    if: always()
+    name: Post PR test summary
+    needs: [tests, validator]
+    if: always() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     permissions:
+      contents: read
       pull-requests: write
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: '20'
-
-      - name: Download R4 test reports
-        uses: actions/download-artifact@v4
+          node-version: ${{ env.NODE_VERSION }}
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        continue-on-error: true
         with:
-          name: pr-test-reports-r4
+          name: test-reports-r4
           path: tests/reports/
-        continue-on-error: true
-
-      - name: Download R5 test reports
-        uses: actions/download-artifact@v4
-        with:
-          name: pr-test-reports-r5
-          path: r5/tests/reports/
-        continue-on-error: true
-
       - name: Generate PR summary
         run: node tests/reports/generate-summary.js tests/reports/pr-comment.md
-
-      - name: Post comment on PR
-        uses: marocchino/sticky-pull-request-comment@v2
+      - uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
         with:
           path: tests/reports/pr-comment.md
           header: ie-core-test-results

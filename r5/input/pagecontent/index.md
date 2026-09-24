@@ -1,5 +1,11 @@
 ### IE Core — FHIR R5 Edition
 
+> **⛔ Frozen exploratory track (ADR-005).** This R5 edition is **not aligned** with the HIQA
+> draft national standards (September 2026) and is **not maintained**. Use the
+> [R4 IE Core IG](https://hl7-ie.github.io/ie-core/). Only correctness fixes are applied (IHI accepts
+> 18 or 10 digits; the unsourced GMS identifier slice was removed). It will be revisited when the
+> HL7 Europe R5 packages reach STU and MyHealth@EU announces an R5 timeline.
+
 **⚠️ Proof of Concept (PoC):** This Implementation Guide is built as a Proof of Concept by Nithin Mohan. It has no support from the HSE, HSE Standards team, or Department of Health. In future, this may be handed over to a governing body within Ireland for maintaining this implementation guide. This IG is the author's proof of concept to demonstrate how FHIR adoption should be implemented at the national level.
 
 This is the **FHIR R5 edition** of the IE Core Implementation Guide. It mirrors

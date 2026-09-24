@@ -8,10 +8,9 @@
   },
   "type": "collection",
   "timestamp": "2025-01-20T10:00:00+01:00",
-  "_comment": "Scenario 1: Seán Murphy (Irish) visits Berlin. Dr. Aoife O'Brien's ePrescription for Metformin 500mg + Lisinopril 10mg transmitted via MyHealth@EU (IE NCPeH → DE NCPeH). Dispensed with generic substitution at Apotheke am Brandenburger Tor on 20 Jan 2025.",
   "entry": [
     {
-      "fullUrl": "urn:uuid:patient-sean-murphy",
+      "fullUrl": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
       "resource": {
         "resourceType": "Patient",
         "id": "patient-sean-murphy",
@@ -52,7 +51,8 @@
               "coding": [
                 {
                   "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-                  "code": "NI"
+                  "code": "NI",
+                  "display": "National unique individual identifier"
                 }
               ]
             },
@@ -116,11 +116,42 @@
             },
             "preferred": true
           }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              },
+              {
+                "url": "type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "76689-9",
+                      "display": "Sex assigned at birth"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
         ]
       }
     },
     {
-      "fullUrl": "urn:uuid:practitioner-aoife-obrien",
+      "fullUrl": "urn:uuid:f6ae4c82-db5b-5024-b472-a1582886e3ce",
       "resource": {
         "resourceType": "Practitioner",
         "id": "practitioner-aoife-obrien",
@@ -192,7 +223,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:org-grafton-medical",
+      "fullUrl": "urn:uuid:ff72d437-b173-500c-9baf-4e2e1a3e6ce5",
       "resource": {
         "resourceType": "Organization",
         "id": "org-grafton-medical",
@@ -228,7 +259,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:allergy-penicillin",
+      "fullUrl": "urn:uuid:3ab51105-7364-58f5-a3d6-f9bc50690c12",
       "resource": {
         "resourceType": "AllergyIntolerance",
         "id": "allergy-penicillin",
@@ -269,7 +300,7 @@
           "text": "Penicillin / Amoxicillin — ALL penicillin-class antibiotics"
         },
         "patient": {
-          "reference": "urn:uuid:patient-sean-murphy"
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9"
         },
         "onsetDateTime": "1995-01-01",
         "reaction": [
@@ -301,14 +332,16 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:org-de-apotheke-brandenburger",
+      "fullUrl": "urn:uuid:d33355f3-e1b4-5bcb-8f00-4c3864063ae1",
       "resource": {
         "resourceType": "Organization",
         "id": "org-de-apotheke-brandenburger",
         "identifier": [
           {
-            "system": "http://example.org/fhir/sid/de/apothekenVerzeichnis",
-            "value": "DE-APO-10117-001"
+            "value": "DE-APO-10117-001",
+            "assigner": {
+              "display": "Issuing authority in Germany (illustrative)"
+            }
           }
         ],
         "active": true,
@@ -344,7 +377,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:medication-metformin-500",
+      "fullUrl": "urn:uuid:f0eb8add-fd90-5f1a-97ef-782f7817db63",
       "resource": {
         "resourceType": "Medication",
         "id": "medication-metformin-500",
@@ -408,7 +441,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:medication-lisinopril-10",
+      "fullUrl": "urn:uuid:90e30fe4-70a2-569d-927b-4666c2cc7866",
       "resource": {
         "resourceType": "Medication",
         "id": "medication-lisinopril-10",
@@ -472,7 +505,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:rx-ie-de-metformin",
+      "fullUrl": "urn:uuid:6e19310f-cfab-58d7-b5e0-f633adb8dd4e",
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "rx-ie-de-metformin",
@@ -509,14 +542,14 @@
           }
         ],
         "medicationReference": {
-          "reference": "urn:uuid:medication-metformin-500"
+          "reference": "urn:uuid:f0eb8add-fd90-5f1a-97ef-782f7817db63"
         },
         "subject": {
-          "reference": "urn:uuid:patient-sean-murphy",
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
         },
         "requester": {
-          "reference": "urn:uuid:practitioner-aoife-obrien",
+          "reference": "urn:uuid:f6ae4c82-db5b-5024-b472-a1582886e3ce",
           "display": "Dr. Aoife O'Brien"
         },
         "authoredOn": "2025-01-15",
@@ -597,7 +630,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:rx-ie-de-lisinopril",
+      "fullUrl": "urn:uuid:abc0b5d5-799f-54d3-b6db-fc8d0b01f5dc",
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "rx-ie-de-lisinopril",
@@ -634,14 +667,14 @@
           }
         ],
         "medicationReference": {
-          "reference": "urn:uuid:medication-lisinopril-10"
+          "reference": "urn:uuid:90e30fe4-70a2-569d-927b-4666c2cc7866"
         },
         "subject": {
-          "reference": "urn:uuid:patient-sean-murphy",
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
         },
         "requester": {
-          "reference": "urn:uuid:practitioner-aoife-obrien",
+          "reference": "urn:uuid:f6ae4c82-db5b-5024-b472-a1582886e3ce",
           "display": "Dr. Aoife O'Brien"
         },
         "authoredOn": "2025-01-15",
@@ -656,7 +689,7 @@
               {
                 "system": "http://hl7.org/fhir/sid/icd-10",
                 "code": "I10",
-                "display": "Essential hypertension"
+                "display": "Essential (primary) hypertension"
               }
             ]
           }

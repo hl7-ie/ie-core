@@ -277,6 +277,14 @@ In accordance with GDPR's data minimization principle:
 - Use SMART on FHIR scopes to limit data access
 - Implement server-side filtering to exclude unnecessary data elements
 - For cross-border prescriptions, include only the EUDI PID attributes required by the receiving NCP (do not transmit full patient demographics beyond what is needed)
+- **ePrescription and eDispensation carry only the HIQA EP patient dataset.** Ethnicity, mother's maiden name,
+  nationality, citizenship, religion, marital status and similar data are prohibited by
+  [IE Core Patient (ePrescription)](StructureDefinition-ie-core-patient-eprescription.html) (ADR-002) and checked in CI by
+  `scripts/qa/check_ep_data_minimisation.py`. See [Data Minimisation](data-minimisation.html).
+- The Patient Summary carries ethnicity (GDPR Art. 9 special-category data) because HIQA PS 1.4.10 requires it.
+  Systems SHALL restrict and audit access to it, and SHALL NOT use it for patient identification.
+- Show sex assigned at birth only to users who need it for care; disclosing it without need can harm the patient
+  (HIQA EP 1.4.3 / PS 1.4.4 make it Mandatory to record; limiting display is a local safeguard).
 
 ---
 

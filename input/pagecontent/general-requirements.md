@@ -53,32 +53,31 @@ IE Core Servers **SHOULD** support [paging](http://hl7.org/fhir/R4/http.html#pag
 
 ### Irish Healthcare Identifiers
 
-Ireland's healthcare system uses several key identifiers:
+The identifiers below are those named in the HIQA draft national standards (September 2026). Identifiers without an
+authoritative source were removed (ADR-006). The `system` URIs are placeholders under this IG's canonical until the
+issuing bodies publish FHIR identifier systems (OI-003).
 
-| Identifier | Description | Issuing Authority |
-|------------|-------------|-------------------|
-| IHI (Individual Healthcare Identifier) | National unique patient identifier | HSE |
-| HPI (Health Service Provider Identifier) | Healthcare provider identifier | HSE |
-| IMC (Irish Medical Council) | Medical practitioner registration number | Medical Council of Ireland |
-| GMS (General Medical Service) | Medical card number | HSE Primary Care |
-| DPS (Drugs Payment Scheme) | DPS card number | HSE Primary Care |
-| LTI (Long Term Illness) | LTI scheme number | HSE Primary Care |
-| HAA (Health Amendment Act) | HAA card number | HSE Primary Care |
-| PPS (Personal Public Service) | Social services identifier (should NOT be used as patient ID) | Department of Social Protection |
-| Eircode | Postal address code | An Post / Eircode |
+| Identifier | HIQA element | Where in IE Core | Issuing authority |
+|------------|-------------|------------------|-------------------|
+| IHI (Individual Health Identifier) | EP/PS 1.3.1 (Required) | `Patient.identifier:IHI` | HSE |
+| PPSN (Personal Public Service Number) | EP/PS 1.3.2 (Required) | `Patient.identifier:PPSN`, no MustSupport (legal basis Requires Clarification, OI-008) | Department of Social Protection |
+| PCRS scheme numbers (medical card, GP visit card, DPS, LTI, Health (Amendment) Act card) | EP/PS 1.3.3 "other identifier" | `Patient.identifier` with `type` from `IECorePCRSSchemeType`; no format enforced | HSE PCRS |
+| Medical Council (IMC) registration number | EP/PS 2.6.2 | `Practitioner.identifier:IMC` | Medical Council |
+| PSI registration number (pharmacists) | EP/PS 2.6.2 | `Practitioner.identifier:PSI` (up to 8 digits) | Pharmaceutical Society of Ireland |
+| NMBI registration number (nurse and midwife prescribers) | EP/PS 2.6.2 | `Practitioner.identifier:NMBI` | Nursing and Midwifery Board of Ireland |
+| Dental Council registration number | EP (prescriber definition) | `Practitioner.identifier:DentalCouncil` | Dental Council |
+| PSI Retail Pharmacy Business number | EP/PS 2.8 | `Organization.identifier:PSIRPB` | Pharmaceutical Society of Ireland |
+| GMS Panel ID | EP/PS 2.12 | `Organization.identifier:GMSPanel` | HSE PCRS |
+| GLN (Global Location Number) | EP/PS 2.11 | `Location.identifier:GLN` (`http://www.gs1.org/gln`, check digit enforced) | GS1 |
+| NePS electronic prescription identifier | EP 3.1 | `MedicationRequest.groupIdentifier` / `identifier` | HSE (NePS) |
+| Eircode | EP/PS 1.2.1 | `address.postalCode` | Eircode |
 
-#### IHI Validation Rules
+#### IHI format
 
-The Individual Healthcare Identifier (IHI) is an 18-digit number with the following validation:
-- Exactly 18 digits
-- Position 17 must pass modulus 11 check digit validation
-- Position 18 must pass GS1 check digit validation
+HIQA EP/PS 1.3.1 describes the IHI as "a unique 18 or 10-digit number". IE Core accepts either form (invariant
+`ie-pat-1`). How the two forms relate, and whether either has a check digit, is not stated by HIQA and is Requires
+Clarification (OI-002), so IE Core enforces no check digit.
 
-#### GMS/DPS/LTI/HAA Format Rules
+#### PCRS scheme numbers
 
-| Scheme | Format |
-|--------|--------|
-| GMS | 8 characters, alphanumeric, always ends in a letter |
-| DPS | 8 characters, alphanumeric, always ends in a letter |
-| LTI | 7 characters, 6 numbers followed by a letter |
-| HAA | 7 characters, starts and ends with a letter, contains 5 numbers |
+HIQA does not define formats for PCRS scheme numbers, so IE Core enforces none (ADR-006).

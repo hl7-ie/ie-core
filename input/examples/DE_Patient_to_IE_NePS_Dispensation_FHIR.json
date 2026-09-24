@@ -3,17 +3,18 @@
   "id": "de-patient-to-ie-neps",
   "type": "collection",
   "timestamp": "2025-08-10T10:00:00+01:00",
-  "_comment": "Inbound: German patient Klaus Weber visits Dublin for a conference. His German prescription for Ramipril 10mg (PZN 06581334) is routed through NePS and dispensed at Boots Pharmacy, Grafton Street. German PZN code mapped to Irish HPRA product.",
   "entry": [
     {
-      "fullUrl": "urn:uuid:patient-klaus-weber",
+      "fullUrl": "urn:uuid:6053ae6e-5307-5593-a512-efee6484a192",
       "resource": {
         "resourceType": "Patient",
         "id": "patient-klaus-weber",
         "identifier": [
           {
-            "system": "http://example.org/fhir/sid/de/gkv-kvid-10",
-            "value": "DE-K123456789"
+            "value": "DE-K123456789",
+            "assigner": {
+              "display": "Issuing authority in Germany (illustrative)"
+            }
           },
           {
             "system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier",
@@ -38,7 +39,21 @@
             "use": "home",
             "city": "Munich",
             "postalCode": "80331",
-            "country": "DE"
+            "country": "DE",
+            "state": "Munich",
+            "line": [
+              null
+            ],
+            "_line": [
+              {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                    "valueCode": "unknown"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "communication": [
@@ -54,18 +69,51 @@
             },
             "preferred": true
           }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              },
+              {
+                "url": "type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "76689-9",
+                      "display": "Sex assigned at birth"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
         ]
       }
     },
     {
-      "fullUrl": "urn:uuid:de-prescriber",
+      "fullUrl": "urn:uuid:e0bcd61c-b497-5c68-8175-27c9b0c88496",
       "resource": {
         "resourceType": "Practitioner",
         "id": "de-prescriber",
         "identifier": [
           {
-            "system": "http://example.org/fhir/sid/de/bundesaerztekammer-efn",
-            "value": "DE-ARZT-0012345"
+            "value": "DE-ARZT-0012345",
+            "assigner": {
+              "display": "Issuing authority in Germany (illustrative)"
+            }
           }
         ],
         "active": true,
@@ -84,7 +132,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:org-ie-boots-grafton",
+      "fullUrl": "urn:uuid:4dca1744-857f-54d3-8f4e-9b328adc386b",
       "resource": {
         "resourceType": "Organization",
         "id": "org-ie-boots-grafton",
@@ -109,14 +157,16 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:de-original-rx-ramipril",
+      "fullUrl": "urn:uuid:0418f532-1491-5c2f-9032-090f511b0de9",
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "de-original-rx-ramipril",
         "identifier": [
           {
-            "system": "http://example.org/fhir/sid/de/kbv-kbv-pr-erp-prescription",
-            "value": "DE-RX-2025-NEPS-001"
+            "value": "DE-RX-2025-NEPS-001",
+            "assigner": {
+              "display": "Issuing authority in Germany (illustrative)"
+            }
           },
           {
             "system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier",
@@ -133,14 +183,14 @@
               "display": "Ramipril"
             }
           ],
-          "text": "Ramipril 10mg Kapseln (PZN: 06581334) → IE: HPRA-RAM10"
+          "text": "Ramipril 10mg Kapseln"
         },
         "subject": {
-          "reference": "urn:uuid:patient-klaus-weber",
+          "reference": "urn:uuid:6053ae6e-5307-5593-a512-efee6484a192",
           "display": "Klaus Weber"
         },
         "requester": {
-          "reference": "urn:uuid:de-prescriber",
+          "reference": "urn:uuid:e0bcd61c-b497-5c68-8175-27c9b0c88496",
           "display": "Dr. Hans Müller"
         },
         "authoredOn": "2025-08-01",
@@ -162,12 +212,15 @@
           }
         },
         "substitution": {
-          "allowedBoolean": false
+          "allowedBoolean": false,
+          "reason": {
+            "text": "Reason not stated in the source example"
+          }
         }
       }
     },
     {
-      "fullUrl": "urn:uuid:ie-dispense-de-rx",
+      "fullUrl": "urn:uuid:043302f8-447b-552d-b243-f24d9024b4a1",
       "resource": {
         "resourceType": "MedicationDispense",
         "id": "ie-dispense-de-rx",
@@ -182,36 +235,28 @@
             "value": "urn:uuid:6546ff3d-1518-54d2-82b3-17ec46e0f789"
           },
           {
-            "system": "http://example.org/fhir/sid/de/kbv-kbv-pr-erp-prescription",
-            "value": "DE-RX-2025-NEPS-001"
+            "value": "DE-RX-2025-NEPS-001",
+            "assigner": {
+              "display": "Issuing authority in Germany (illustrative)"
+            }
           }
         ],
         "status": "completed",
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "386872004",
-              "display": "Ramipril"
-            }
-          ],
-          "text": "Ramipril 10mg capsules (HPRA: IE-HPRA-RAM10)"
-        },
         "subject": {
-          "reference": "urn:uuid:patient-klaus-weber",
+          "reference": "urn:uuid:6053ae6e-5307-5593-a512-efee6484a192",
           "display": "Klaus Weber"
         },
         "performer": [
           {
             "actor": {
-              "reference": "urn:uuid:org-ie-boots-grafton",
+              "reference": "urn:uuid:4dca1744-857f-54d3-8f4e-9b328adc386b",
               "display": "Boots Pharmacy Grafton Street"
             }
           }
         ],
         "authorizingPrescription": [
           {
-            "reference": "urn:uuid:de-original-rx-ramipril"
+            "reference": "urn:uuid:0418f532-1491-5c2f-9032-090f511b0de9"
           }
         ],
         "type": {
@@ -237,7 +282,53 @@
         ],
         "substitution": {
           "wasSubstituted": false
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MedicationDispense.recorded",
+            "valueDateTime": "2025-08-10T10:00:00+01:00"
+          }
+        ],
+        "medicationReference": {
+          "reference": "urn:uuid:30e82dfd-ec4b-59be-9243-433b425a22f6",
+          "display": "Ramipril 10mg capsules"
         }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:30e82dfd-ec4b-59be-9243-433b425a22f6",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-ie-dispense-de-rx",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "386872004",
+              "display": "Ramipril"
+            }
+          ],
+          "text": "Ramipril 10mg capsules"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "386872004",
+                  "display": "Ramipril"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
       }
     }
   ]

@@ -12,10 +12,9 @@
   },
   "type": "document",
   "timestamp": "2025-01-14T09:00:00+00:00",
-  "_comment": "International Patient Summary (IPS) for Seán Patrick Murphy — used in cross-border ePrescription exchange via MyHealth@EU. Contains patient demographics, active conditions (T2DM, Hypertension, Hypercholesterolaemia), critical allergy (Penicillin/Amoxicillin — ANAPHYLAXIS), and current medication summary.",
   "entry": [
     {
-      "fullUrl": "urn:uuid:composition-ips-sean-murphy",
+      "fullUrl": "urn:uuid:93074ae6-768d-52f3-8f10-cd73a05d8eba",
       "resource": {
         "resourceType": "Composition",
         "id": "composition-ips-sean-murphy",
@@ -35,12 +34,12 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:patient-sean-murphy"
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9"
         },
         "date": "2025-01-14T09:00:00+00:00",
         "author": [
           {
-            "reference": "urn:uuid:practitioner-aoife-obrien",
+            "reference": "urn:uuid:f6ae4c82-db5b-5024-b472-a1582886e3ce",
             "display": "Dr. Aoife O'Brien"
           }
         ],
@@ -51,12 +50,12 @@
             "mode": "professional",
             "time": "2025-01-14T09:00:00+00:00",
             "party": {
-              "reference": "urn:uuid:practitioner-aoife-obrien"
+              "reference": "urn:uuid:f6ae4c82-db5b-5024-b472-a1582886e3ce"
             }
           }
         ],
         "custodian": {
-          "reference": "urn:uuid:org-grafton-medical"
+          "reference": "urn:uuid:ff72d437-b173-500c-9baf-4e2e1a3e6ce5"
         },
         "section": [
           {
@@ -72,7 +71,7 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:allergy-penicillin"
+                "reference": "urn:uuid:3ab51105-7364-58f5-a3d6-f9bc50690c12"
               }
             ],
             "text": {
@@ -93,15 +92,19 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:condition-t2dm"
+                "reference": "urn:uuid:288fcb31-2d8d-545e-b463-11701742844d"
               },
               {
-                "reference": "urn:uuid:condition-hypertension"
+                "reference": "urn:uuid:a9df7080-135a-501c-ae27-68edc30f5e07"
               },
               {
-                "reference": "urn:uuid:condition-hypercholesterolaemia"
+                "reference": "urn:uuid:cdede635-05d1-5d47-b6d7-8371512d8496"
               }
-            ]
+            ],
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Problem List</p></div>"
+            }
           },
           {
             "title": "Medication Summary",
@@ -116,21 +119,25 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:medstmt-metformin"
+                "reference": "urn:uuid:da964139-a5e6-5a21-b904-dfe8cd22f6f7"
               },
               {
-                "reference": "urn:uuid:medstmt-lisinopril"
+                "reference": "urn:uuid:763af5c2-e610-55aa-bac2-c5e5af4a1da3"
               },
               {
-                "reference": "urn:uuid:medstmt-atorvastatin"
+                "reference": "urn:uuid:7819230f-4bcc-5e4b-a565-0770f9612fb3"
               }
-            ]
+            ],
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Medication Summary</p></div>"
+            }
           }
         ]
       }
     },
     {
-      "fullUrl": "urn:uuid:patient-sean-murphy",
+      "fullUrl": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
       "resource": {
         "resourceType": "Patient",
         "id": "patient-sean-murphy",
@@ -204,7 +211,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:practitioner-aoife-obrien",
+      "fullUrl": "urn:uuid:f6ae4c82-db5b-5024-b472-a1582886e3ce",
       "resource": {
         "resourceType": "Practitioner",
         "id": "practitioner-aoife-obrien",
@@ -230,7 +237,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:org-grafton-medical",
+      "fullUrl": "urn:uuid:ff72d437-b173-500c-9baf-4e2e1a3e6ce5",
       "resource": {
         "resourceType": "Organization",
         "id": "org-grafton-medical",
@@ -249,7 +256,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:allergy-penicillin",
+      "fullUrl": "urn:uuid:3ab51105-7364-58f5-a3d6-f9bc50690c12",
       "resource": {
         "resourceType": "AllergyIntolerance",
         "id": "allergy-penicillin",
@@ -290,7 +297,7 @@
           "text": "Penicillin / Amoxicillin (ALL penicillin-class antibiotics)"
         },
         "patient": {
-          "reference": "urn:uuid:patient-sean-murphy"
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9"
         },
         "onsetDateTime": "1995-01-01",
         "reaction": [
@@ -312,7 +319,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:condition-t2dm",
+      "fullUrl": "urn:uuid:288fcb31-2d8d-545e-b463-11701742844d",
       "resource": {
         "resourceType": "Condition",
         "id": "condition-t2dm",
@@ -345,13 +352,13 @@
           "text": "Type 2 Diabetes Mellitus"
         },
         "subject": {
-          "reference": "urn:uuid:patient-sean-murphy"
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9"
         },
         "onsetDateTime": "2018-03-10"
       }
     },
     {
-      "fullUrl": "urn:uuid:condition-hypertension",
+      "fullUrl": "urn:uuid:a9df7080-135a-501c-ae27-68edc30f5e07",
       "resource": {
         "resourceType": "Condition",
         "id": "condition-hypertension",
@@ -373,19 +380,19 @@
             {
               "system": "http://hl7.org/fhir/sid/icd-10",
               "code": "I10",
-              "display": "Essential hypertension"
+              "display": "Essential (primary) hypertension"
             }
           ],
           "text": "Essential Hypertension"
         },
         "subject": {
-          "reference": "urn:uuid:patient-sean-murphy"
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9"
         },
         "onsetDateTime": "2019-05-22"
       }
     },
     {
-      "fullUrl": "urn:uuid:condition-hypercholesterolaemia",
+      "fullUrl": "urn:uuid:cdede635-05d1-5d47-b6d7-8371512d8496",
       "resource": {
         "resourceType": "Condition",
         "id": "condition-hypercholesterolaemia",
@@ -413,13 +420,13 @@
           "text": "Hypercholesterolaemia"
         },
         "subject": {
-          "reference": "urn:uuid:patient-sean-murphy"
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9"
         },
         "onsetDateTime": "2020-01-15"
       }
     },
     {
-      "fullUrl": "urn:uuid:medstmt-metformin",
+      "fullUrl": "urn:uuid:da964139-a5e6-5a21-b904-dfe8cd22f6f7",
       "resource": {
         "resourceType": "MedicationStatement",
         "id": "medstmt-metformin",
@@ -445,7 +452,7 @@
           "text": "Metformin 500mg tablets"
         },
         "subject": {
-          "reference": "urn:uuid:patient-sean-murphy"
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9"
         },
         "effectivePeriod": {
           "start": "2018-04-01"
@@ -469,7 +476,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:medstmt-lisinopril",
+      "fullUrl": "urn:uuid:763af5c2-e610-55aa-bac2-c5e5af4a1da3",
       "resource": {
         "resourceType": "MedicationStatement",
         "id": "medstmt-lisinopril",
@@ -490,7 +497,7 @@
           "text": "Lisinopril 10mg tablets"
         },
         "subject": {
-          "reference": "urn:uuid:patient-sean-murphy"
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9"
         },
         "effectivePeriod": {
           "start": "2019-06-01"
@@ -514,7 +521,7 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:medstmt-atorvastatin",
+      "fullUrl": "urn:uuid:7819230f-4bcc-5e4b-a565-0770f9612fb3",
       "resource": {
         "resourceType": "MedicationStatement",
         "id": "medstmt-atorvastatin",
@@ -535,7 +542,7 @@
           "text": "Atorvastatin 20mg tablets"
         },
         "subject": {
-          "reference": "urn:uuid:patient-sean-murphy"
+          "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9"
         },
         "effectivePeriod": {
           "start": "2020-02-01"
