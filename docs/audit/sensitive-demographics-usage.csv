@@ -1,0 +1,69 @@
+file,line,element,context
+README.md,59,ethnicity,"Ethnicity, Mother's Maiden Name, Gender Identity, Interpreter Required, IHI Status, IHI Record Status, IHI Verified Date, Medication Adherence, Authentication Time, Questionnaire URI, Direct Email, IE"
+README.md,59,mothersMaidenName,"Ethnicity, Mother's Maiden Name, Gender Identity, Interpreter Required, IHI Status, IHI Record Status, IHI Verified Date, Medication Adherence, Authentication Time, Questionnaire URI, Direct Email, IE"
+README.md,59,genderIdentity,"Ethnicity, Mother's Maiden Name, Gender Identity, Interpreter Required, IHI Status, IHI Record Status, IHI Verified Date, Medication Adherence, Authentication Time, Questionnaire URI, Direct Email, IE"
+README.md,63,ethnicity,"- 10 CodeSystems (including Ireland-specific: Counties, Ethnicity, IHI Status)"
+input/fsh/aliases.fsh,73,pronouns,Alias: $IndividualPronouns = http://hl7.org/fhir/StructureDefinition/individual-pronouns
+input/fsh/extensions/Extensions.fsh,6,ethnicity,// │  IE Core Ethnicity                                                  │
+input/fsh/extensions/Extensions.fsh,9,ethnicity,Extension: IECoreEthnicity
+input/fsh/extensions/Extensions.fsh,10,ethnicity,Id: ie-core-ethnicity
+input/fsh/extensions/Extensions.fsh,11,ethnicity,"Title: ""IE Core Ethnicity"""
+input/fsh/extensions/Extensions.fsh,12,ethnicity,"Description: ""Records a patient's ethnicity as categorised within the Irish healthcare system, aligned with the Central Statistics Office (CSO) classifications."""
+input/fsh/extensions/Extensions.fsh,16,ethnicity,* valueCode from https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-ethnicity (required)
+input/fsh/extensions/Extensions.fsh,19,mothersMaidenName,// │  IE Core Patient Mother Maiden Name                                 │
+input/fsh/extensions/Extensions.fsh,22,mothersMaidenName,Extension: IECorePatientMotherMaidenName
+input/fsh/extensions/Extensions.fsh,23,mothersMaidenName,Id: ie-core-patient-mother-maiden-name
+input/fsh/extensions/Extensions.fsh,24,mothersMaidenName,"Title: ""IE Core Patient Mother Maiden Name"""
+input/fsh/extensions/Extensions.fsh,25,mothersMaidenName,"Description: ""Records the mother's maiden (birth family) name for the patient."""
+input/fsh/extensions/Extensions.fsh,31,genderIdentity,// │  IE Core Gender Identity                                            │
+input/fsh/extensions/Extensions.fsh,34,genderIdentity,Extension: IECoreGenderIdentity
+input/fsh/extensions/Extensions.fsh,35,genderIdentity,Id: ie-core-genderIdentity
+input/fsh/extensions/Extensions.fsh,36,genderIdentity,"Title: ""IE Core Gender Identity"""
+input/fsh/extensions/Extensions.fsh,37,genderIdentity,"Description: ""Records the patient's gender identity as understood within the Irish healthcare system."""
+input/fsh/extensions/Extensions.fsh,41,genderIdentity,* valueCodeableConcept from https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-gender-identity (extensible)
+input/fsh/profiles/IECorePatient.fsh,13,ethnicity,IECoreEthnicity named ethnicity 0..1 MS and
+input/fsh/profiles/IECorePatient.fsh,14,mothersMaidenName,http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName named mothersMaidenName 0..1 MS and
+input/fsh/profiles/IECorePatient.fsh,15,genderIdentity,http://hl7.org/fhir/StructureDefinition/individual-genderIdentity named genderIdentity 0..* MS and
+input/fsh/profiles/IECorePatient.fsh,16,pronouns,$IndividualPronouns named personalPronouns 0..* MS and
+input/fsh/profiles/IECorePatient.fsh,19,ethnicity,"* extension[ethnicity] ^short = ""Ethnicity of the patient"""
+input/fsh/profiles/IECorePatient.fsh,20,ethnicity,"* extension[ethnicity] ^definition = ""The patient's ethnicity as categorised within the Irish healthcare system."""
+input/fsh/profiles/IECorePatient.fsh,21,mothersMaidenName,"* extension[mothersMaidenName] ^short = ""Mother's maiden (birth family) name"""
+input/fsh/profiles/IECorePatient.fsh,22,genderIdentity,"* extension[genderIdentity] ^short = ""The patient's gender identity"""
+input/fsh/profiles/IECorePatient.fsh,23,pronouns,"* extension[personalPronouns] ^short = ""The patient's personal pronouns"""
+input/fsh/terminology/CodeSystems.fsh,125,ethnicity,// 8. IE Core Ethnicity Codes
+input/fsh/terminology/CodeSystems.fsh,127,ethnicity,CodeSystem: IECoreEthnicityCodes
+input/fsh/terminology/CodeSystems.fsh,128,ethnicity,Id: ie-core-ethnicity-codes
+input/fsh/terminology/CodeSystems.fsh,129,ethnicity,"Title: ""IE Core Ethnicity Codes"""
+input/fsh/terminology/CodeSystems.fsh,130,ethnicity,"Description: ""Ethnicity codes based on the Central Statistics Office (CSO) census categories for the Republic of Ireland."""
+input/fsh/terminology/CodeSystems.fsh,135,ethnicity,"* #irish-traveller ""Irish Traveller"" ""Irish Traveller ethnic group."""
+input/fsh/terminology/CodeSystems.fsh,136,ethnicity,"* #roma ""Roma"" ""Roma ethnic group."""
+input/fsh/terminology/CodeSystems.fsh,137,ethnicity,"* #white-irish ""White Irish"" ""White Irish ethnic group."""
+input/fsh/terminology/CodeSystems.fsh,138,ethnicity,"* #white-irish-traveller ""White Irish Traveller"" ""White Irish Traveller ethnic group."""
+input/fsh/terminology/CodeSystems.fsh,139,ethnicity,"* #any-other-white ""Any other White background"" ""Any other White background ethnic group."""
+input/fsh/terminology/CodeSystems.fsh,140,ethnicity,"* #black-african ""Black or Black Irish - African"" ""Black or Black Irish – African ethnic group."""
+input/fsh/terminology/CodeSystems.fsh,141,ethnicity,"* #black-other ""Black or Black Irish - any other Black background"" ""Black or Black Irish – any other Black background ethnic group."""
+input/fsh/terminology/CodeSystems.fsh,142,ethnicity,"* #asian-chinese ""Asian or Asian Irish - Chinese"" ""Asian or Asian Irish – Chinese ethnic group."""
+input/fsh/terminology/CodeSystems.fsh,143,ethnicity,"* #asian-other ""Asian or Asian Irish - any other Asian background"" ""Asian or Asian Irish – any other Asian background ethnic group."""
+input/fsh/terminology/CodeSystems.fsh,144,ethnicity,"* #other-mixed ""Other including mixed background"" ""Other including mixed background ethnic group."""
+input/fsh/terminology/CodeSystems.fsh,145,ethnicity,"* #not-stated ""Not stated"" ""Ethnicity not stated."""
+input/fsh/terminology/ValueSets.fsh,38,ethnicity,Alias: $IE-ETHNICITY = https://hl7-ie.github.io/ie-core/fhir/ie/core/CodeSystem/ie-core-ethnicity-codes
+input/fsh/terminology/ValueSets.fsh,54,ethnicity,// 2. IE Core Ethnicity
+input/fsh/terminology/ValueSets.fsh,56,ethnicity,ValueSet: IECoreEthnicity
+input/fsh/terminology/ValueSets.fsh,57,ethnicity,Id: ie-core-ethnicity
+input/fsh/terminology/ValueSets.fsh,58,ethnicity,"Title: ""IE Core Ethnicity"""
+input/fsh/terminology/ValueSets.fsh,59,ethnicity,"Description: ""Ethnicity categories for use in the Irish health system, based on CSO census categories."""
+input/fsh/terminology/ValueSets.fsh,61,ethnicity,* include codes from system $IE-ETHNICITY
+input/fsh/terminology/ValueSets.fsh,64,genderIdentity,// 3. IE Core Gender Identity
+input/fsh/terminology/ValueSets.fsh,66,genderIdentity,ValueSet: IECoreGenderIdentity
+input/fsh/terminology/ValueSets.fsh,67,genderIdentity,Id: ie-core-gender-identity
+input/fsh/terminology/ValueSets.fsh,68,genderIdentity,"Title: ""IE Core Gender Identity"""
+input/fsh/terminology/ValueSets.fsh,69,genderIdentity,"Description: ""Gender identity concepts for use in the IE Core Implementation Guide."""
+input/fsh/terminology/ValueSets.fsh,76,genderIdentity,"* $SCT#394743007 ""Gender identity unknown"""
+input/pagecontent/changes.md,115,ethnicity,- IE Core Ethnicity
+input/pagecontent/changes.md,116,mothersMaidenName,- IE Core Patient Mother's Maiden Name
+input/pagecontent/changes.md,117,genderIdentity,- IE Core Gender Identity
+input/pagecontent/crossborder-patient-profile.md,10,nationality,| **Nationality** | Irish (IE) |
+input/pagecontent/ehds-conformance.md,334,ethnicity,| Irish ethnicity CodeSystem | Patient | HSE ethnicity categories |
+input/pagecontent/ehds-conformance.md,361,nationality,| `nationality` / `nationalities` | `Patient.extension[nationality]` | EU Core Patient | ISO 3166-1 alpha-2 (e.g. `IE`) |
+input/pagecontent/security.md,40,nationality,"PID[""🪪 PID Attestation<br/>(family_name, given_name,<br/>birth_date, nationality,<br/>personal_identifier: IE/CC/PPSN)""]"
+input/pagecontent/security.md,61,nationality,| `nationality` / `nationalities` | Nationality (ISO 3166-1 alpha-2) | `Patient.extension[nationality]` (EU Core) |

@@ -29,3 +29,10 @@ r5/tests/reports/*.html
 r5/tests/reports/*.md
 r5/tests/reports/html/
 r5/tests/validator/validator_cli.jar
+
+# HIQA source documents (copyright HIQA) — kept locally for traceability, not redistributed.
+# Only derived structural metadata (docs/sources/hiqa-2026/*-elements.csv) is committed.
+docs/sources/hiqa-2026/*.pdf
+docs/sources/hiqa-2026/*.txt
+docs/sources/hiqa-2026/*-full.csv
+docs/audit/.*.log
