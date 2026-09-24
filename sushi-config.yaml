@@ -3,7 +3,7 @@
 # │  Based on FHIR R4 (4.0.1)                                                                     │
 # │  Canonical URL: https://hl7-ie.github.io/ie-core/fhir/ie/core                   │
 # ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
-id: hl7.fhir.ie.core
+id: nostalgic-ie.fhir.core
 canonical: https://hl7-ie.github.io/ie-core/fhir/ie/core
 name: IECore
 title: "IE (Ireland) Core Implementation Guide"
@@ -23,7 +23,7 @@ status: draft
 version: 0.2.0
 fhirVersion: 4.0.1
 copyrightYear: 2025+
-releaseLabel: ci-build
+releaseLabel: Nostalgic IE (draft)
 license: CC-BY-4.0
 jurisdiction: urn:iso:std:iso:3166#IE "Ireland"
 publisher:
@@ -48,11 +48,16 @@ dependencies:
     id: hl7fhireulab
     uri: http://hl7.eu/fhir/laboratory/ImplementationGuide/hl7.fhir.eu.laboratory
     version: 2.0.0
-  # HL7 Europe Extensions (published STU 1.3, Jun 2026)
-  hl7.fhir.eu.extensions:
-    id: hl7fhireuext
-    uri: http://hl7.eu/fhir/extensions/ImplementationGuide/hl7.fhir.eu.extensions
+  # HL7 Europe Extensions 1.3.0, R4 variant (the base package is FHIR R5; an R4 IG must use the .r4 package)
+  hl7.fhir.eu.extensions.r4:
+    id: hl7fhireuextr4
+    uri: http://hl7.eu/fhir/extensions/ImplementationGuide/hl7.fhir.eu.extensions.r4
     version: 1.3.0
+  # SMART App Launch 2.2.0: referenced by the SMART on FHIR page (links resolve only for declared dependencies)
+  hl7.fhir.uv.smart-app-launch:
+    id: hl7fhiruvsmart
+    uri: http://hl7.org/fhir/smart-app-launch/ImplementationGuide/hl7.fhir.uv.smart-app-launch
+    version: 2.2.0
   # HL7 Europe MPD – ePrescription & eDispensation (published v1.0.0, Jun 2026)
   hl7.fhir.eu.mpd:
     id: hl7fhireuropempd
@@ -87,7 +92,6 @@ dependencies:
     version: 1.0.0-ballot
 
 parameters:
-  show-hierarchical-table: true
   apply-jurisdiction: true
   apply-publisher: true
   jira-code: ie-core
@@ -154,6 +158,8 @@ pages:
     title: Downloads
   hl7-registry-guidance.md:
     title: HL7 Registry & Publication Guidance
+  simplifier-publishing.md:
+    title: Publishing on Simplifier.net
   changes.md:
     title: Change Log
 
@@ -175,7 +181,6 @@ menu:
     Profiles: artifacts.html#structures-resource-profiles
     Extensions: artifacts.html#structures-extension-definitions
     Search Parameters: artifacts.html#behavior-search-parameters
-    Operations: artifacts.html#behavior-operation-definitions
     Terminology: artifacts.html#terminology-value-sets
     Capability Statements: artifacts.html#behavior-capability-statements
   HIQA 2026:
@@ -193,6 +198,7 @@ menu:
   Irish ePrescription Legislation: irish-legislation.html
   Downloads: downloads.html
   HL7 Registry Guide: hl7-registry-guidance.html
+  Simplifier.net: simplifier-publishing.html
 
 groups:
   HIQALogicalModels:

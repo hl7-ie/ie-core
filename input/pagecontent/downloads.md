@@ -55,7 +55,7 @@ All cross-border samples are documented with full scenario context on the [Cross
 To validate resources against IE Core profiles:
 
 ```bash
-java -jar validator_cli.jar [resource-file] -ig hl7.fhir.ie.core#0.1.0
+java -jar validator_cli.jar [resource-file] -ig nostalgic-ie.fhir.core#0.2.0
 ```
 
 ### Package Installation
@@ -63,5 +63,5 @@ java -jar validator_cli.jar [resource-file] -ig hl7.fhir.ie.core#0.1.0
 For use in FHIR servers and tooling:
 
 ```bash
-npm --registry https://packages.fhir.org install hl7.fhir.ie.core@0.1.0
+npm --registry https://packages.simplifier.net install nostalgic-ie.fhir.core@0.2.0   # once published (see Publishing on Simplifier.net)
 ```

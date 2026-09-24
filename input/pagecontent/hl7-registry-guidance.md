@@ -43,7 +43,7 @@ To publish an IG through HL7, you need an organizational relationship with HL7:
 
 #### Package Naming Convention
 
-The package ID `hl7.fhir.ie.core` follows the standard HL7 FHIR package-naming convention `hl7.fhir.<ISO-3166-country-code>.core`, used consistently across all national Core IGs (`hl7.fhir.us.core`, `hl7.fhir.au.core`, `hl7.fhir.uk.core`, `hl7.fhir.nl.core`, etc.). It is derived solely from this convention and Ireland's ISO 3166-1 alpha-2 code (`IE`) — it is not derived from, and has no connection to, any third-party domain or unofficial source.
+The package id is `nostalgic-ie.fhir.core` (ADR-008). The FHIR package specification says "HL7 manages all the packages that start with `hl7.`", so an unofficial proof of concept must not publish under `hl7.fhir.ie.core`. That name is left for HL7 and a future Irish governing body; if one adopts this work, it can publish it under an official id.
 
 #### Reserve Your Canonical URL
 
@@ -57,11 +57,11 @@ The canonical URL (`https://hl7-ie.github.io/ie-core/fhir/ie/core`) must be:
 
 #### Register the NPM Package
 
-Register the package name (`hl7.fhir.ie.core`) on the [FHIR Package Registry](https://packages.fhir.org):
+Publish the package (`nostalgic-ie.fhir.core`) through Simplifier.net, which feeds the [FHIR Package Registry](https://packages.fhir.org) (see [Publishing on Simplifier.net](simplifier-publishing.html)):
 
 1. Build the IG using the HL7 IG Publisher (see build instructions)
 2. The package will be named based on `sushi-config.yaml` settings
-3. Contact the FHIR Package Registry administrators to register the package namespace
+3. Public Simplifier.net packages are listed on the FHIR Package Registry; no separate namespace registration is needed for a non-`hl7.` id
 
 ### Step 3: HL7 Ballot Process
 
@@ -99,7 +99,7 @@ The HL7 ballot process ensures quality and community consensus:
 #### Package Publication
 
 1. The IG package will be published to [packages.fhir.org](https://packages.fhir.org)
-2. Implementers can then install it: `npm --registry https://packages.fhir.org install hl7.fhir.ie.core`
+2. Implementers can then install it: `npm --registry https://packages.simplifier.net install nostalgic-ie.fhir.core`
 
 #### Ongoing Maintenance
 

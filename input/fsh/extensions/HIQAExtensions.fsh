@@ -35,7 +35,8 @@ Context: MedicationRequest
 * valueAge.system 1..1
 * valueAge.system = $UCUM
 * valueAge.code 1..1
-* valueAge.code from IECoreAgeUnits (required)
+* valueAge.code from IECoreAgeUnits (extensible)
+* valueAge obeys ie-age-units-1
 * valueAge.code ^comment = "HIQA EP 1.4.2.2 Age if less than 12 years – type (Mandatory 1..1): years, months or days."
 
 ValueSet: IECoreAgeUnits
@@ -107,3 +108,8 @@ Context: MedicationDispense
 * ^status = #draft
 * value[x] only Reference(IECoreRelatedPerson)
 * value[x] 1..1
+
+Invariant: ie-age-units-1
+Description: "The age SHALL be in UCUM years (a), months (mo) or days (d) (HIQA EP 1.4.2.2)"
+Expression: "system = 'http://unitsofmeasure.org' and (code = 'a' or code = 'mo' or code = 'd')"
+Severity: #error

@@ -17,7 +17,7 @@ Description: "The IE Core CarePlan profile sets minimum expectations for the Car
 * category ^slicing.discriminator.path = "$this"
 * category ^slicing.rules = #open
 * category contains AssessPlan 1..1 MS
-* category[AssessPlan] = https://hl7-ie.github.io/ie-core/fhir/ie/core/CodeSystem/ie-core-codesystem#assess-plan "Assessment and Plan of Treatment"
+* category[AssessPlan] = https://hl7-ie.github.io/ie-core/fhir/ie/core/CodeSystem/ie-core-codesystem#assess-plan "Assess and Plan"
 * subject 1..1 MS
 * subject only Reference(IECorePatient)
 

@@ -88,6 +88,13 @@ jobs:
       - run: python scripts/qa/check_ep_data_minimisation.py
       - run: python scripts/hiqa/sync_open_issues.py --check
       - run: python scripts/qa/check_page_links.py
+      - name: Simplifier.net bundle (ADR-008)
+        run: python scripts/simplifier/build_bundle.py
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: simplifier-bundle
+          path: build/simplifier-upload.zip
+          retention-days: 90
       - name: Test dashboard
         if: always()
         run: node tests/reports/generate-dashboard.js
@@ -272,9 +279,9 @@ jobs:
               HL7 Ireland, HIQA, the HSE or the Department of Health. Draft; not for clinical use.</p>
             <table>
               <tr><th>Edition</th><th>FHIR</th><th>Package</th><th>Status</th><th>Link</th></tr>
-              <tr><td><strong>R4</strong></td><td>4.0.1</td><td><code>hl7.fhir.ie.core</code></td>
+              <tr><td><strong>R4</strong></td><td>4.0.1</td><td><code>nostalgic-ie.fhir.core</code></td>
                 <td>Draft, aligned with the HIQA draft national standards (Sept 2026)</td><td><a href="index.html">R4 IG</a></td></tr>
-              <tr><td><strong>R5</strong></td><td>5.0.0</td><td><code>hl7.fhir.ie.core.r5</code></td>
+              <tr><td><strong>R5</strong></td><td>5.0.0</td><td><code>nostalgic-ie.fhir.core.r5</code></td>
                 <td>Frozen exploratory track (ADR-005); not maintained</td><td><a href="R5/index.html">R5 IG</a></td></tr>
             </table>
             <p><a href="test-reports/index.html">Test report dashboard</a></p>

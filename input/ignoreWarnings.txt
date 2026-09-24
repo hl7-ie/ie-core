@@ -1,0 +1,3 @@
+== Suppressed Messages ==
+
+# IE Core suppresses no messages. The IG Publisher expects this file to exist.

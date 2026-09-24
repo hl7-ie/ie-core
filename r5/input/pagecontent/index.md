@@ -20,7 +20,7 @@ roadmap.
 
 | Aspect | R4 | R5 |
 |--------|----|----|
-| Package | `hl7.fhir.ie.core` | `hl7.fhir.ie.core.r5` |
+| Package | `nostalgic-ie.fhir.core` | `nostalgic-ie.fhir.core.r5` (ADR-008) |
 | FHIR version | 4.0.1 | 5.0.0 |
 | EU dependency | `hl7.fhir.eu.base` | `hl7.fhir.eu.base-r5` |
 | Status | Primary | Early access |
