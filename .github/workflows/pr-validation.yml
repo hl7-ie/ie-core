@@ -102,6 +102,14 @@ jobs:
       - name: Page links resolve to artefacts
         working-directory: .
         run: python scripts/qa/check_page_links.py
+      - name: Simplifier.net bundle builds (package id, dependencies, canonical)
+        working-directory: .
+        run: python scripts/simplifier/build_bundle.py
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: simplifier-bundle
+          path: build/simplifier-upload.zip
+          retention-days: 7
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:

@@ -1,6 +1,6 @@
 # IE Core FHIR IG — Pipeline Workflow
 
-This document describes the end-to-end CI/CD pipeline for the **IE (Ireland) Core FHIR Implementation Guide** (`hl7.fhir.ie.core`). The pipeline is implemented as two GitHub Actions workflows:
+This document describes the end-to-end CI/CD pipeline for the **IE (Ireland) Core FHIR Implementation Guide** (`nostalgic-ie.fhir.core`). The pipeline is implemented as two GitHub Actions workflows:
 
 | Workflow file | Purpose | Triggered by |
 |---|---|---|
