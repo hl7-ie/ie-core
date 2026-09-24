@@ -116,6 +116,8 @@ pages:
       title: Future of IE Core
   ehds-conformance.md:
     title: EHDS & EU Conformance
+  hiqa-traceability.md:
+    title: HIQA Traceability (Draft Standards, Sept 2026)
   crossborder-eprescription.md:
     title: Cross-Border ePrescription
     crossborder-patient-profile.md:

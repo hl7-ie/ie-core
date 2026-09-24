@@ -1,0 +1,250 @@
+hiqa_id,profile,path,ms,status,notes
+1.1.1,IECorePatient,Patient.name.prefix,Y,Aligned,
+1.1.2,IECorePatient,Patient.name.given,Y,Partial,HIQA Mandatory 1..1; IG given is 0..* (name is 1..*)
+1.1.3,IECorePatient,Patient.name.family,Y,Partial,HIQA Mandatory 1..1; IG family is 0..1
+1.1.4,IECorePatient,Patient.name.suffix,Y,Aligned,
+1.2.1,IECorePatient,Patient.address.postalCode,Y,Aligned,Eircode format XXX XXXX per HIQA guidance; no invariant
+1.2.2,IECorePatient,Patient.address.line,Y,Partial,HIQA Mandatory 1..1; IG address and line are 0..*
+1.2.3,IECorePatient,Patient.address.city,Y,Aligned,
+1.2.4,IECorePatient,Patient.address.state,Y,Partial,HIQA Mandatory 1..1; IG 0..1. Dublin postal districts go in 1.2.3 per HIQA; district may also map to Address.district
+1.2.5,IECorePatient,Patient.address.country,Y,Aligned,
+1.2.6,IECorePatient,Patient.address.use,N,Partial,HIQA Mandatory 1..1 (type/purpose incl. temporary accommodation and homelessness); Address.use (home|temp) not MS and has no homelessness value
+1.2.7,IECorePatient,Patient.address.type,N,Aligned,postal|physical|both; Optional in HIQA
+1.3.1,IECorePatient,Patient.identifier:IHI,Y,Partial,invariant ie-pat-1 allows 18 digits only; HIQA says 18 or 10 (H-02)
+1.3.2,IECorePatient,,N,Gap,would sit under Patient.identifier; no PPSN slice; legal basis Requires Clarification (OI-008)
+1.3.3,IECorePatient,Patient.identifier,Y,Aligned,open slicing
+1.3.3.1,IECorePatient,Patient.identifier.type,N,Partial,type not MS on the unsliced identifier
+1.3.3.2,IECorePatient,Patient.identifier.value,N,Partial,value not MS on the unsliced identifier
+1.3.3.3,IECorePatient,Patient.identifier.period,N,Partial,not MS
+1.3.3.4,IECorePatient,Patient.identifier.assigner,N,Partial,not MS; HIQA value is free text (assigner.display)
+1.4.1,IECorePatient,Patient.birthDate,Y,Partial,HIQA Mandatory 1..1 (legal requirement cross-border); IG 0..1
+1.4.2,IECoreMedicationRequestEPrescription,,N,Gap,no age element; legal requirement when the patient is under 12 (H-04)
+1.4.2.1,IECoreMedicationRequestEPrescription,,N,Gap,
+1.4.2.2,IECoreMedicationRequestEPrescription,,N,Gap,
+1.4.3,IECorePatient,Patient.gender,Y,Partial,"Patient.gender is administrative gender, not sex assigned at birth (H-01)"
+1.4.4,IECorePatient,Patient.extension:genderIdentity,Y,Partial,cluster modelled as one extension; no 'other gender' code verified
+1.4.4.1,IECorePatient,Patient.extension:genderIdentity.value[x],Y,Partial,binding to ie-core-gender-identity not verified against a HIQA value set (none published)
+1.4.4.2,IECorePatient,Patient.extension:genderIdentity.value[x].text,N,Aligned,
+1.5.1,IECorePatient,Patient.telecom,Y,Aligned,no mobile slice (system=phone & use=mobile)
+1.5.2,IECorePatient,Patient.telecom,Y,Aligned,no email slice
+1.5.3,IECorePatient,Patient.telecom,Y,Aligned,
+1.5.3.1,IECorePatient,Patient.telecom.system,Y,Aligned,
+1.5.3.2,IECorePatient,Patient.telecom.value,Y,Aligned,
+1.6.1,IECoreMedicationRequestEPrescription,,N,Gap,no 'reason for not recording allergies' (H-03)
+1.6.2,IECoreAllergyIntolerance,AllergyIntolerance,Y,Partial,profile exists but is not linked to the prescription (H-03)
+1.6.2.1,IECoreAllergyIntolerance,AllergyIntolerance.code,Y,Aligned,
+1.6.2.2,IECoreAllergyIntolerance,AllergyIntolerance.reaction.substance,N,Partial,Required but not MS
+1.6.2.3,IECoreAllergyIntolerance,AllergyIntolerance.note,N,Aligned,
+1.6.2.4,IECoreAllergyIntolerance,AllergyIntolerance,N,Partial,provenance cluster: recorder/recordedDate not MS
+1.6.2.4.1,IECoreAllergyIntolerance,AllergyIntolerance.identifier,N,Aligned,
+1.6.2.4.2,IECoreAllergyIntolerance,AllergyIntolerance.recorder,N,Partial,Mandatory within the cluster; not MS
+1.6.2.4.3,IECoreAllergyIntolerance,AllergyIntolerance.recordedDate,N,Partial,Mandatory within the cluster; not MS
+1.6.2.4.4,IECoreAllergyIntolerance,AllergyIntolerance.asserter,N,Aligned,
+1.6.2.4.5,IECoreAllergyIntolerance,AllergyIntolerance.language,N,Aligned,
+1.6.3,IECoreBodyWeight,Observation,N,Aligned,Optional; not linked to the prescription (supportingInformation)
+1.6.3.1,IECoreBodyWeight,Observation.valueQuantity.value,Y,Aligned,
+1.6.3.2,IECoreBodyWeight,Observation.valueQuantity.code,Y,Aligned,UCUM kg; HIQA also lists stone/pounds
+1.6.3.3,IECoreBodyWeight,Observation,N,Aligned,
+1.6.3.3.1,IECoreBodyWeight,Observation.identifier,N,Aligned,
+1.6.3.3.2,IECoreBodyWeight,Observation.performer,N,Partial,Mandatory within the cluster; not MS
+1.6.3.3.3,IECoreBodyWeight,Observation.effective[x],Y,Aligned,
+1.6.3.3.4,IECoreBodyWeight,Observation.performer,N,Aligned,source (patient-reported vs practitioner)
+1.6.3.3.5,IECoreBodyWeight,Observation.language,N,Aligned,
+1.6.4,IECoreBodyHeight,Observation,N,Aligned,Optional; not linked to the prescription
+1.6.4.1,IECoreBodyHeight,Observation.valueQuantity.value,Y,Aligned,
+1.6.4.2,IECoreBodyHeight,Observation.valueQuantity.code,Y,Aligned,
+1.6.4.3,IECoreBodyHeight,Observation,N,Aligned,
+1.6.4.3.1,IECoreBodyHeight,Observation.identifier,N,Aligned,
+1.6.4.3.2,IECoreBodyHeight,Observation.performer,N,Partial,Mandatory within the cluster; not MS
+1.6.4.3.3,IECoreBodyHeight,Observation.effective[x],Y,Aligned,
+1.6.4.3.4,IECoreBodyHeight,Observation.performer,N,Aligned,
+1.6.4.3.5,IECoreBodyHeight,Observation.language,N,Aligned,
+1.6.5,IECoreMedicationRequestEPrescription,MedicationRequest.note,Y,Aligned,
+2.1,IECorePractitioner,Practitioner.name.prefix,Y,Aligned,
+2.2,IECorePractitioner,Practitioner.name.given,Y,Partial,HIQA Mandatory 1..1; IG 0..*
+2.3,IECorePractitioner,Practitioner.name.family,Y,Aligned,
+2.4,IECorePractitioner,Practitioner.name.suffix,Y,Aligned,
+2.5,IECorePractitionerRole,PractitionerRole,Y,Partial,requester may reference Practitioner directly so a role is not guaranteed
+2.5.1,IECorePractitionerRole,PractitionerRole.code,Y,Aligned,binding ie-core-provider-taxonomy; HIQA roles (RNP/RMP/CCS pharmacist) not verified in it
+2.5.2,IECorePractitionerRole,PractitionerRole.specialty,Y,Aligned,
+2.6,IECorePractitioner,Practitioner.identifier,Y,Partial,HIQA Mandatory 1..1; only an IMC slice 0..1; requester may be an Organization (H-07)
+2.6.1,IECorePractitioner,Practitioner.identifier.system,Y,Partial,no PSI / NMBI / Dental Council slices
+2.6.2,IECorePractitioner,Practitioner.identifier.value,Y,Partial,
+2.7,IECoreOrganization,Organization.name,Y,Aligned,
+2.8,IECoreOrganization,Organization.identifier,Y,Partial,no PSI Retail Pharmacy Business registration number slice (H-09)
+2.9,IECoreOrganization,Organization.address,Y,Partial,HIQA Mandatory 1..1; IG 0..*
+2.9.1,IECoreOrganization,Organization.address.postalCode,Y,Partial,HIQA Mandatory 1..1
+2.9.2,IECoreOrganization,Organization.address.line,Y,Partial,HIQA Mandatory 1..1
+2.9.3,IECoreOrganization,Organization.address.city,Y,Aligned,
+2.9.4,IECoreOrganization,Organization.address.state,Y,Partial,HIQA Mandatory 1..1
+2.9.5,IECoreOrganization,Organization.address.country,Y,Partial,HIQA Mandatory 1..1
+2.10,IECorePractitionerRole,PractitionerRole.telecom,Y,Partial,HIQA Mandatory 1..*; IG 0..*
+2.10.1,IECorePractitionerRole,PractitionerRole.telecom,Y,Partial,telephone Mandatory; no phone slice
+2.10.2,IECorePractitionerRole,PractitionerRole.telecom,Y,Partial,Required; a legal requirement cross-border but not enforced (H-08)
+2.10.3,IECorePractitionerRole,PractitionerRole.telecom,Y,Aligned,
+2.10.3.1,IECorePractitionerRole,PractitionerRole.telecom.system,Y,Aligned,
+2.10.3.2,IECorePractitionerRole,PractitionerRole.telecom.value,Y,Aligned,
+2.11,IECoreLocation,Location.identifier,Y,Partial,no GLN slice or GS1 check-digit rule (H-09)
+2.12,IECoreOrganization,,N,Gap,would sit under Organization.identifier; no GMS Panel ID identifier system
+2.13,IECoreMedicationRequestEPrescription,,N,Gap,no signature; a legal requirement for inbound cross-border prescriptions (H-08)
+3.1,IECoreMedicationRequestEPrescription,MedicationRequest.groupIdentifier,Y,Aligned,NePS group identifier (multi-item) or item identifier (single-item)
+3.1.1,IECoreMedicationRequestEPrescription,MedicationRequest.identifier.type,N,Partial,type not MS or typed
+3.1.2,IECoreMedicationRequestEPrescription,MedicationRequest.identifier.value,N,Partial,value not constrained
+3.2,IECoreMedicationRequestEPrescription,MedicationRequest.authoredOn,Y,Aligned,
+3.3,IECoreMedicationRequestEPrescription,MedicationRequest.status,Y,Partial,HIQA prescription-level status (whole prescription) has no container in the IG; only item-level status exists
+3.3.1,IECoreMedicationRequestEPrescription,MedicationRequest.status,Y,Partial,item-level only
+3.3.2,IECoreMedicationRequestEPrescription,MedicationRequest.statusReason,Y,Partial,item-level only
+3.3.3,IECoreMedicationRequestEPrescription,MedicationRequest.statusReason.text,N,Partial,item-level only
+3.4,IECoreMedicationRequestEPrescription,,N,Gap,presented form (PDF) not modelled; Optional
+3.5,IECoreMedicationRequestEPrescription,MedicationRequest,Y,Aligned,
+3.5.1,IECoreMedicationRequestEPrescription,MedicationRequest.identifier,Y,Aligned,
+3.5.2,IECoreMedicationRequestEPrescription,MedicationRequest.status,Y,Aligned,
+3.5.2.1,IECoreMedicationRequestEPrescription,MedicationRequest.status,Y,Aligned,
+3.5.2.2,IECoreMedicationRequestEPrescription,MedicationRequest.statusReason,Y,Aligned,
+3.5.2.3,IECoreMedicationRequestEPrescription,MedicationRequest.statusReason.text,N,Aligned,
+3.5.3,IECoreMedicationRequestEPrescription,MedicationRequest.medication[x],Y,Aligned,
+3.5.4,IECoreMedicationRequestEPrescription,MedicationRequest.reasonCode,Y,Aligned,
+3.5.4.1,IECoreMedicationRequestEPrescription,MedicationRequest.reasonCode,Y,Aligned,
+3.5.4.2,IECoreMedicationRequestEPrescription,MedicationRequest.reasonCode.text,N,Aligned,
+3.5.5,IECoreMedicationRequestEPrescription,MedicationRequest.category,Y,Aligned,
+3.5.6,IECoreMedicationRequestEPrescription,,N,Gap,EU MPD uses the R5 extension effectiveDosePeriod
+3.5.7,IECoreMedicationRequestEPrescription,MedicationRequest.dispenseRequest.quantity,Y,Aligned,
+3.5.7.1,IECoreMedicationRequestEPrescription,MedicationRequest.dispenseRequest.quantity,Y,Aligned,
+3.5.7.2,IECoreMedicationRequestEPrescription,,N,Gap,words-and-figures quantity; a legal requirement for controlled drugs (H-05)
+3.5.8,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction,Y,Aligned,
+3.5.9,IECoreMedicationRequestEPrescription,MedicationRequest.dispenseRequest.validityPeriod,Y,Aligned,
+3.5.9.1,IECoreMedicationRequestEPrescription,MedicationRequest.dispenseRequest.validityPeriod,Y,Aligned,no 14-day controlled-drug rule (H-05)
+3.5.9.2,IECoreMedicationRequestEPrescription,,N,Gap,'Do Not Extend'; Optional
+3.5.10,IECoreMedicationRequestEPrescription,MedicationRequest.substitution,Y,Aligned,
+3.5.10.1,IECoreMedicationEPrescription,,N,Gap,HPRA interchangeable-list flag; expected auto-populated from NMPC
+3.5.10.2,IECoreMedicationRequestEPrescription,MedicationRequest.substitution.allowed[x],Y,Aligned,'Do Not Substitute' = allowedBoolean false
+3.5.10.3,IECoreMedicationRequestEPrescription,MedicationRequest.substitution.reason.text,Y,Aligned,
+3.5.11,IECoreMedicationRequestEPrescription,MedicationRequest.dispenseRequest.numberOfRepeatsAllowed,Y,Aligned,
+3.5.12,IECoreMedicationRequestEPrescription,,N,Gap,number of instalments; a legal requirement for CD Schedules 2 / 3 / 4 part 1 (H-05)
+3.5.13,IECoreMedicationRequestEPrescription,MedicationRequest.dispenseRequest.dispenseInterval,Y,Aligned,
+3.5.14,IECoreMedicationRequestEPrescription,MedicationRequest.extension:offLabelUse,Y,Partial,custom extension; EU MPD uses IHE ihe-ext-offLabel (M-01)
+3.5.14.1,IECoreMedicationRequestEPrescription,MedicationRequest.extension:offLabelUse.extension:isOffLabelUse,N,Aligned,
+3.5.14.2,IECoreMedicationRequestEPrescription,MedicationRequest.extension:offLabelUse.extension:reason,N,Aligned,
+3.5.14.2.1,IECoreMedicationRequestEPrescription,MedicationRequest.extension:offLabelUse.extension:reason.value[x],N,Aligned,
+3.5.14.2.2,IECoreMedicationRequestEPrescription,MedicationRequest.extension:offLabelUse.extension:reason.value[x],N,Aligned,
+3.6.1,IECoreMedicationRequestEPrescription,MedicationRequest.note,Y,Aligned,
+4.1,IECoreMedicationEPrescription,Medication.code,Y,Aligned,NMPC code
+4.2,IECoreMedicationEPrescription,,N,Gap,classification cluster not modelled
+4.2.1,IECoreMedicationEPrescription,Medication.code,Y,Partial,ATC may be carried as an extra coding in code; no explicit element
+4.2.2,IECoreMedicationEPrescription,,N,Gap,supply legal status
+4.2.3,IECoreMedicationEPrescription,,N,Gap,MDA schedule (H-05)
+4.2.4,IECoreMedicationEPrescription,,N,Gap,
+4.3,IECoreMedicationEPrescription,Medication.code,Y,Aligned,
+4.3.1,IECoreMedicationEPrescription,Medication.code,Y,Aligned,
+4.3.2,IECoreMedicationEPrescription,Medication.code.text,N,Aligned,
+4.4,IECoreMedicationEPrescription,Medication.manufacturer,N,Aligned,
+4.4.1,IECoreMedicationEPrescription,Medication.manufacturer.display,N,Aligned,
+4.4.2,IECoreMedicationEPrescription,Medication.manufacturer.identifier,N,Aligned,
+4.5,IECoreMedicationEPrescription,Medication.form,Y,Partial,no EDQM binding
+4.6,IECoreMedicationEPrescription,,N,Gap,R4 Medication has no description element; Optional
+4.7,IECoreMedicationEPrescription,Medication.ingredient,Y,Aligned,
+4.7.1,IECoreMedicationEPrescription,Medication.form,Y,Partial,R4 has no item-level dose form (combination packs need contained Medications)
+4.7.2,IECoreMedicationEPrescription,Medication.ingredient,Y,Partial,HIQA Mandatory 1..* within the item; IG 0..*
+4.7.2.1,IECoreMedicationEPrescription,Medication.ingredient.isActive,Y,Aligned,
+4.7.2.2,IECoreMedicationEPrescription,Medication.ingredient.item[x],Y,Aligned,
+4.7.2.3,IECoreMedicationEPrescription,Medication.ingredient.strength,Y,Aligned,
+4.7.2.3.1,IECoreMedicationEPrescription,Medication.ingredient.strength,Y,Aligned,
+4.7.2.3.2,IECoreMedicationEPrescription,,N,Gap,basis of strength substance
+4.7.3,IECoreMedicationEPrescription,,N,Gap,unit of presentation
+4.7.4,IECoreMedicationEPrescription,,N,Gap,contained quantity
+4.7.5,IECoreMedicationEPrescription,Medication.amount,Y,Aligned,
+4.7.6,IECoreMedicationEPrescription,,N,Gap,package type (EU extension medication-package-type is aliased but unused)
+4.8,IECoreMedicationEPrescription,,N,Gap,device cluster
+4.8.1,IECoreMedicationEPrescription,,N,Gap,
+4.8.2,IECoreMedicationEPrescription,,N,Gap,
+4.9,IECoreMedicationEPrescription,,N,Gap,characteristics
+4.9.1,IECoreMedicationEPrescription,,N,Gap,
+4.9.2,IECoreMedicationEPrescription,,N,Gap,
+4.9.2.1,IECoreMedicationEPrescription,,N,Gap,
+4.9.2.2,IECoreMedicationEPrescription,,N,Gap,
+4.9.2.3,IECoreMedicationEPrescription,,N,Gap,
+4.9.2.4,IECoreMedicationEPrescription,,N,Gap,
+4.9.2.5,IECoreMedicationEPrescription,,N,Gap,
+4.9.2.6,IECoreMedicationEPrescription,,N,Gap,
+4.9.2.7,IECoreMedicationEPrescription,,N,Gap,
+4.10,IECoreMedicationEPrescription,Medication.batch,Y,Aligned,
+4.10.1,IECoreMedicationEPrescription,Medication.batch.lotNumber,Y,Aligned,
+4.10.2,IECoreMedicationEPrescription,Medication.batch.expirationDate,Y,Aligned,
+4.11,IECoreMedicationEPrescription,,N,Gap,exempt medication item
+5.1,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.text,Y,Aligned,IG 1..1 (stricter; safety fallback)
+5.2,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction,Y,Aligned,
+5.2.1,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.sequence,N,Aligned,
+5.2.2,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.patientInstruction,N,Partial,Required; not MS
+5.2.3,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.doseAndRate,Y,Aligned,
+5.2.3.1,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.doseAndRate.dose[x],N,Partial,Required; not MS
+5.2.3.1.1,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.doseAndRate.doseQuantity,N,Partial,Required; not MS
+5.2.3.1.2,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.doseAndRate.doseRange,N,Partial,Required; not MS
+5.2.3.2,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.doseAndRate.rate[x],N,Aligned,
+5.2.3.2.1,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.doseAndRate.rateQuantity,N,Aligned,
+5.2.3.2.2,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.doseAndRate.rateRatio,N,Aligned,
+5.2.4,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing,Y,Aligned,
+5.2.4.1,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat.bounds[x],N,Aligned,
+5.2.4.1.1,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat.boundsDuration,N,Aligned,
+5.2.4.1.2,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat.boundsPeriod,N,Aligned,
+5.2.4.2,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat.duration,N,Aligned,
+5.2.4.3,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat,N,Partial,Required; not MS
+5.2.4.3.1,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat.frequency,N,Partial,Mandatory within the cluster; not MS
+5.2.4.3.2,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat.period,N,Partial,Mandatory within the cluster; not MS (period + periodUnit)
+5.2.4.4,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat.dayOfWeek,N,Aligned,
+5.2.4.5,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat.timeOfDay,N,Aligned,
+5.2.4.6,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat.when,N,Aligned,
+5.2.5,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.asNeeded[x],N,Aligned,
+5.2.6,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.site,N,Aligned,
+5.2.6.1,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.site,N,Aligned,post-coordinated in site (SNOMED CT) or a body-structure extension
+5.2.6.2,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.site,N,Aligned,
+5.2.6.3,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.site,N,Aligned,
+5.2.6.4,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.site,N,Aligned,
+5.2.6.5,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.site.text,N,Aligned,
+5.2.7,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.route,Y,Partial,no EDQM route binding
+6.1,IECoreMedicationDispenseEDispensation,MedicationDispense.identifier,Y,Aligned,IG 1..* (stricter than HIQA 0..*)
+6.2,IECoreMedicationDispenseEDispensation,,N,Gap,HIQA Mandatory; EU MPD extension:recorded 1..1 covers it (M-01)
+6.3,IECoreMedicationDispenseEDispensation,MedicationDispense.status,Y,Aligned,
+6.3.1,IECoreMedicationDispenseEDispensation,MedicationDispense.status,Y,Aligned,
+6.3.2,IECoreMedicationDispenseEDispensation,MedicationDispense.statusReasonCodeableConcept,Y,Aligned,
+6.3.2.1,IECoreMedicationDispenseEDispensation,MedicationDispense.statusReasonCodeableConcept,Y,Aligned,
+6.3.2.2,IECoreMedicationDispenseEDispensation,MedicationDispense.statusReasonCodeableConcept.text,N,Aligned,
+6.4,IECoreMedicationDispenseEDispensation,MedicationDispense.receiver,N,Aligned,
+6.4.1,IECoreMedicationDispenseEDispensation,MedicationDispense.receiver,N,Aligned,Reference(Patient)
+6.4.2,IECoreMedicationDispenseEDispensation,MedicationDispense.receiver,N,Aligned,Reference(Practitioner)
+6.4.3,IECoreMedicationDispenseEDispensation,,N,Gap,would sit under MedicationDispense.receiver; R4 receiver allows only Patient or Practitioner; RelatedPerson needs an extension or R5 cross-version
+6.4.3.1,IECoreRelatedPerson,RelatedPerson.name.prefix,N,Partial,profile exists but cannot be referenced from the R4 receiver
+6.4.3.2,IECoreRelatedPerson,RelatedPerson.name.given,N,Partial,
+6.4.3.3,IECoreRelatedPerson,RelatedPerson.name.family,N,Partial,
+6.4.3.4,IECoreRelatedPerson,RelatedPerson.name.suffix,N,Partial,
+6.4.3.5,IECoreRelatedPerson,RelatedPerson.identifier,N,Partial,
+6.4.3.5.1,IECoreRelatedPerson,RelatedPerson.identifier.type,N,Partial,
+6.4.3.5.2,IECoreRelatedPerson,RelatedPerson.identifier.value,N,Partial,
+6.4.3.5.3,IECoreRelatedPerson,RelatedPerson.identifier.period,N,Partial,
+6.4.3.5.4,IECoreRelatedPerson,RelatedPerson.identifier.assigner,N,Partial,
+6.4.3.6,IECoreRelatedPerson,RelatedPerson.relationship,Y,Partial,
+6.4.3.7,IECoreRelatedPerson,RelatedPerson.relationship,Y,Partial,
+6.4.3.8,IECoreRelatedPerson,RelatedPerson.address,N,Partial,
+6.4.3.8.1,IECoreRelatedPerson,RelatedPerson.address.postalCode,N,Partial,
+6.4.3.8.2,IECoreRelatedPerson,RelatedPerson.address.line,N,Partial,
+6.4.3.8.3,IECoreRelatedPerson,RelatedPerson.address.city,N,Partial,
+6.4.3.8.4,IECoreRelatedPerson,RelatedPerson.address.state,N,Partial,
+6.4.3.8.5,IECoreRelatedPerson,RelatedPerson.address.country,N,Partial,
+6.4.3.9,IECoreRelatedPerson,RelatedPerson.telecom,N,Partial,
+6.4.3.9.1,IECoreRelatedPerson,RelatedPerson.telecom,N,Partial,
+6.4.3.9.2,IECoreRelatedPerson,RelatedPerson.telecom,N,Partial,
+6.4.3.9.3,IECoreRelatedPerson,RelatedPerson.telecom,N,Partial,
+6.5,IECoreMedicationDispenseEDispensation,MedicationDispense.authorizingPrescription,Y,Aligned,IG 1..* is stricter than HIQA Required 0..1 (M-03)
+6.6,IECoreMedicationDispenseEDispensation,MedicationDispense.medication[x],Y,Aligned,
+6.7,IECoreMedicationDispenseEDispensation,MedicationDispense.quantity,Y,Aligned,
+6.8,IECoreMedicationDispenseEDispensation,MedicationDispense.whenHandedOver,Y,Partial,HIQA Mandatory 1..1; IG 0..1
+6.9,IECoreMedicationDispenseEDispensation,MedicationDispense.whenHandedOver,Y,Partial,time component of whenHandedOver
+6.10,IECoreMedicationDispenseEDispensation,MedicationDispense.substitution.wasSubstituted,Y,Aligned,
+6.11,IECoreMedicationDispenseEDispensation,MedicationDispense.dosageInstruction,Y,Aligned,
+6.12,IECoreMedicationDispenseEDispensation,MedicationDispense.note,N,Aligned,
+NA-ethnicity,IECorePatient,Patient.extension:ethnicity,Y,Prohibited (violated),not in the EP dataset; currently MustSupport on the prescription subject (C-01). GDPR Art. 9 special-category data
+NA-mothersMaidenName,IECorePatient,Patient.extension:mothersMaidenName,Y,Prohibited (violated),not in the EP dataset; currently MustSupport (C-01)
+NA-nationality,IECorePatient,Patient.extension,N,Prohibited (violated),not in the EP dataset; not constrained (open extension slicing allows patient-nationality)
+NA-maritalStatus,IECorePatient,Patient.maritalStatus,N,Prohibited (violated),not in the EP dataset; allowed (base 0..1)
+NA-religion,IECorePatient,Patient.extension,N,Prohibited (violated),not in the EP dataset; not constrained (patient-religion allowed); GDPR Art. 9
+NA-pronouns,IECorePatient,Patient.extension:personalPronouns,Y,Prohibited (violated),not in the EP dataset; currently MustSupport
+NA-birthPlace,IECorePatient,Patient.extension,N,Prohibited (violated),not in the EP dataset (it is PS 1.4.3)
