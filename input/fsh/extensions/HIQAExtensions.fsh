@@ -46,3 +46,64 @@ Description: "UCUM units for recording a patient's age: years, months or days (H
 * $UCUM#a "year"
 * $UCUM#mo "month"
 * $UCUM#d "day"
+
+// ── HIQA EP Section 3: Medication prescription ─────────────────────────
+
+Extension: IECoreQuantityInWordsAndFigures
+Id: ie-core-quantity-in-words-and-figures
+Title: "IE Core Quantity Prescribed (Words and Figures)"
+Description: "HIQA EP 3.5.7.2 Quantity prescribed (free text): the overall quantity in words and figures, e.g. 'twenty-eight (28) tablets'. HIQA: a legal requirement if the item is a controlled drug under the Misuse of Drugs Act 1977 (as amended) and the Misuse of Drugs Regulations 2017 (S.I. No. 173/2017). Enforced for MDA Schedules 2, 3 and 4 Part 1 by invariant ie-rx-cd-1."
+Context: MedicationRequest
+* ^status = #draft
+* value[x] only string
+* value[x] 1..1
+
+Extension: IECoreNumberOfInstalments
+Id: ie-core-number-of-instalments
+Title: "IE Core Number of Instalments"
+Description: "HIQA EP 3.5.12 Number of instalments (Required 0..1): whether the total quantity can be dispensed in smaller, specified amounts at specified intervals (phased dispensing). This differs from repeats (numberOfRepeatsAllowed, EP 3.5.11). HIQA: a legal requirement for Schedule 2, 3 and 4 Part 1 controlled drugs; the interval is dispenseRequest.dispenseInterval (EP 3.5.13)."
+Context: MedicationRequest.dispenseRequest
+* ^status = #draft
+* value[x] only positiveInt
+* value[x] 1..1
+
+Extension: IECoreDoNotExtend
+Id: ie-core-do-not-extend
+Title: "IE Core Do Not Extend"
+Description: "HIQA EP 3.5.9.2 'Do Not Extend' (Optional 0..1): true when the prescriber does not want the pharmacist to extend the prescription beyond its validity period. HIQA: pharmacists can extend a six-month prescription for up to a further six months."
+Context: MedicationRequest.dispenseRequest
+* ^status = #draft
+* value[x] only boolean
+* value[x] 1..1
+
+// ── HIQA EP Section 4: Medication ──────────────────────────────────────
+
+Extension: IECoreMedicationInterchangeable
+Id: ie-core-medication-interchangeable
+Title: "IE Core Medicinal Product Is Interchangeable"
+Description: "HIQA EP 3.5.10.1 (Required 0..1, expected auto-populated from the NMPC): whether the medicinal product is on the HPRA List of Interchangeable Medicines. If true, substitution is allowed by default unless the prescriber invokes 'Do Not Substitute' (MedicationRequest.substitution.allowedBoolean = false)."
+Context: Medication
+* ^status = #draft
+* value[x] only boolean
+* value[x] 1..1
+
+Extension: IECoreExemptMedicationItem
+Id: ie-core-exempt-medication-item
+Title: "IE Core Exempt Medication Item (Requires Clarification)"
+Description: "HIQA EP 4.11 Exempt medication item (Required 0..1, Boolean, expected auto-populated). REQUIRES CLARIFICATION: the draft does not say what the item is exempt from (e.g. an exempt medicinal product without a marketing authorisation). Modelled as a boolean flag so that the dataset element can be carried; see the open issues."
+Context: Medication
+* ^status = #draft
+* ^experimental = true
+* value[x] only boolean
+* value[x] 1..1
+
+// ── HIQA EP Section 6: Medication dispense ─────────────────────────────
+
+Extension: IECoreDispenseReceiverRelatedPerson
+Id: ie-core-dispense-receiver-related-person
+Title: "IE Core Dispense Receiver (Related Person)"
+Description: "HIQA EP 6.4.3 Related person is the receiver (Optional): the person (e.g. carer or family member) who collected the dispensed medication on the patient's behalf. R4 MedicationDispense.receiver allows only Patient or Practitioner."
+Context: MedicationDispense
+* ^status = #draft
+* value[x] only Reference(IECoreRelatedPerson)
+* value[x] 1..1

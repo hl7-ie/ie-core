@@ -101,7 +101,10 @@ def main():
     # Over-claims (hand says Aligned, structure says otherwise) are errors. Hand "Partial" where the
     # structure looks fine is allowed only with a note giving the semantic reason.
     # "Mandatory within the ... cluster" rows are enforced when the cluster is present (ADR-001).
-    over = [d for d in diffs if 'hand=Aligned' in d[6] and 'Mandatory within' not in d[7]]
+    # "enforced by invariant <key>" rows are conditionally required by a named invariant; the Phase 8
+    # traceability test checks that the named invariant exists on the profile.
+    over = [d for d in diffs if 'hand=Aligned' in d[6]
+            and 'Mandatory within' not in d[7] and 'enforced by invariant' not in d[7]]
     unexplained = [d for d in diffs if 'hand=Partial' in d[6] and not d[7]]
     print(f'{len(over)} over-claims (hand Aligned, structure Partial)')
     for d in over:

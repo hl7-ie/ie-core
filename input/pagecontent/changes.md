@@ -30,6 +30,14 @@ repository). The HIQA element IDs are cited as EP x.y / PS x.y.
 - **Ethnicity extension** value changed from `code` 0..1 (required binding) to `CodeableConcept`
   (repeatable, extensible binding), per PS 1.4.10.
 
+- **ePrescription/eDispensation re-parented on HL7 Europe MPD 1.0.0 (ADR-003).**
+  `IECoreMedicationRequestEPrescription`, `IECoreMedicationDispenseEDispensation` and
+  `IECoreMedicationEPrescription` now derive from the MPD profiles. The custom `IECoreOffLabelUse`
+  extension is **retired** in favour of MPD's IHE off-label extension. Dispenses must carry MPD's
+  `recorded` (HIQA EP 6.2). `authorizingPrescription` is exactly 1..1. `requester` must be a
+  Practitioner or PractitionerRole (registration is Mandatory, EP 2.6).
+- `IECorePractitioner` requires at least one registration identifier (EP/PS 2.6) and a given name.
+
 #### Changed
 
 - IHI invariant `ie-pat-1` accepts **18 or 10 digits** (EP/PS 1.3.1). It previously rejected valid 10-digit IHIs.
@@ -40,6 +48,23 @@ repository). The HIQA element IDs are cited as EP x.y / PS x.y.
 
 #### Added
 
+- `IECoreBundleEPrescription` (+ `IECoreBundleEPrescriptionCrossBorder`, claimed in `meta.profile`
+  to flag a cross-border prescription), `IECoreListAllergiesAtPrescribing` (the allergy statement
+  sent with every prescription, EP 1.6.1/1.6.2) and `IECoreProvenanceEPrescriptionSignature`
+  (EP 2.13).
+- Invariants: group identifier (`ie-bnd-rx-1`), allergy statement (`ie-bnd-rx-2`,
+  `ie-list-allergy-1`), under-12 age (`ie-bnd-rx-3`), prescriber phone (`ie-bnd-rx-4`),
+  cross-border email and signature (`ie-bnd-xb-1/2`), status reason (`ie-rx-status-1`),
+  structured dosage with text (`ie-rx-dosage-1`), Do Not Substitute reason (`ie-rx-subst-1`),
+  controlled drugs (`ie-rx-cd-1/2`), non-dispensation reason (`ie-md-status-1`), hand-over date
+  (`ie-md-handover-1`), GLN check digit (`ie-loc-gln-1`).
+- Registration identifier slices (IMC, PSI, NMBI, Dental Council), PSI Retail Pharmacy Business
+  number, GMS Panel ID, and GLN (GS1, `http://www.gs1.org/gln`).
+- Extensions for HIQA EP elements not covered by HL7/EU/IHE: quantity in words and figures, number
+  of instalments, do-not-extend, interchangeable, exempt medication item, receiver (related person).
+- Placeholder code systems for the MDA schedule and supply legal status (Requires Clarification).
+- SearchParameter `ie-core-medicationrequest-group-identifier`. The server CapabilityStatement adds
+  `MedicationDispense?prescription` (repeats dispensed are derived, not stored), Bundle and List.
 - HIQA logical models `HIQAEPrescriptionLM` and `HIQAPatientSummaryLM` with mappings to IE Core,
   and the [HIQA Traceability](hiqa-traceability.html) page (ADR-001).
 - Extensions: `IECorePatientAgeAtPrescribing` (EP 1.4.2; invariant `ie-rx-age-1`: age required on

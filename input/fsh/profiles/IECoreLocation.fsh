@@ -11,6 +11,16 @@ Description: "The IE Core Location Profile is based upon the core FHIR Location 
 // ── Identifier ──────────────────────────────────────────────────────────
 * identifier MS
 * identifier ^short = "Unique code or number identifying the location to its users"
+* identifier ^slicing.discriminator.type = #value
+* identifier ^slicing.discriminator.path = "system"
+* identifier ^slicing.rules = #open
+* identifier contains GLN 0..1 MS
+* identifier[GLN] ^short = "Global Location Number (GLN)"
+* identifier[GLN] ^comment = "HIQA EP/PS 2.11 Location ID (GLN) (Required 0..1): a 13-digit number made up of a GS1 company prefix, a location reference and a check digit. Not an organisation identifier: each GP practice in a shared building has its own GLN. System: GS1 GLN (HL7 Terminology NamingSystem/GLN)."
+* identifier[GLN].system 1..1 MS
+* identifier[GLN].system = $GLN
+* identifier[GLN].value 1..1 MS
+* identifier[GLN] obeys ie-loc-gln-1
 
 // ── Status ──────────────────────────────────────────────────────────────
 * status MS
@@ -76,3 +86,8 @@ Description: "The IE Core Location Profile is based upon the core FHIR Location 
 
 // ── Endpoint ────────────────────────────────────────────────────────────
 * endpoint MS
+
+Invariant: ie-loc-gln-1
+Description: "GLN SHALL be 13 digits with a valid GS1 mod-10 check digit (HIQA EP/PS 2.11)"
+Expression: "value.matches('^[0-9]{13}$') and (((10 - ((value.substring(0,1).toInteger() + value.substring(1,1).toInteger()*3 + value.substring(2,1).toInteger() + value.substring(3,1).toInteger()*3 + value.substring(4,1).toInteger() + value.substring(5,1).toInteger()*3 + value.substring(6,1).toInteger() + value.substring(7,1).toInteger()*3 + value.substring(8,1).toInteger() + value.substring(9,1).toInteger()*3 + value.substring(10,1).toInteger() + value.substring(11,1).toInteger()*3) mod 10)) mod 10) = value.substring(12,1).toInteger())"
+Severity: #error

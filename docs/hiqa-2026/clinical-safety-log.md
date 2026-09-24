@@ -43,7 +43,7 @@ been reviewed by a clinical safety officer.
 
 ## HZ-03. Prescription issued with no allergy statement
 
-- **Status:** Open (H-03).
+- **Status:** Mitigated (Phase 5): `IECoreListAllergiesAtPrescribing` is 1..1 in every `IECoreBundleEPrescription` (entry xor emptyReason, `ie-list-allergy-1`), and every item references it (`ie-bnd-rx-2`). A prescription Bundle without an allergy statement fails validation (H-03).
 - **Hazard:** a medicine the patient is allergic to is dispensed.
 - **Cause:** there is no link or rule tying a prescription to allergy records or to "reason for not
   recording allergies" (HIQA EP 1.6.1 / 1.6.2).
@@ -55,7 +55,7 @@ been reviewed by a clinical safety officer.
 
 ## HZ-04. Paediatric age missing on prescriptions for children under 12
 
-- **Status:** Partly mitigated (Phase 4): `IECorePatientAgeAtPrescribing` + invariant `ie-rx-age-1` on the prescription (resolves the subject within the Bundle). The Bundle-level enforcement lands in Phase 5 (H-04).
+- **Status:** Partly mitigated (Phase 4): `IECorePatientAgeAtPrescribing` + invariant `ie-rx-age-1` on the prescription (resolves the subject within the Bundle). Phase 5 adds Bundle-level enforcement (`ie-bnd-rx-3`), which does not depend on reference resolution (H-04).
 - **Hazard:** a paediatric dosing error.
 - **Cause:** there is no age element or rule. HIQA EP 1.4.2 says age is a legal requirement when
   the patient is under 12.
@@ -67,7 +67,7 @@ been reviewed by a clinical safety officer.
 
 ## HZ-05. Controlled-drug legal safeguards not captured
 
-- **Status:** Open (H-05).
+- **Status:** Mitigated with placeholder codes (Phase 5): MDA schedule on Medication (IHE classification, placeholder `ie-core-mda-schedule`); `ie-rx-cd-1` (words-and-figures quantity + instalments for Schedules 2/3/4 Part 1) and `ie-rx-cd-2` (validity ≤ 14 days for Schedules 2/3). The rules fire only when the medication is referenced and carries the schedule (H-05).
 - **Hazard:** a controlled drug is over-supplied or diverted; an invalid CD prescription is
   dispensed.
 - **Cause:** there is no MDA schedule (EP 4.2.3), no words-and-figures quantity (EP 3.5.7.2), no
@@ -86,3 +86,24 @@ been reviewed by a clinical safety officer.
   1.1.3, 1.2.2, 1.2.4 and 1.4.1 are Mandatory, so these are always present. Guidance to use the
   IHI wherever one exists.
 - **Residual:** Low. The same data set is legally sufficient for paper prescriptions today.
+
+## HZ-07. "Do Not Substitute" without a reason
+
+- **Status:** Mitigated (Phase 5). Found while migrating the examples: three cross-border
+  prescriptions (warfarin, insulin glargine, sertraline) had substitution disallowed with no reason.
+- **Hazard:** a pharmacist substitutes (or refuses to supply) without understanding the clinical intent.
+- **Cause:** there was no rule linking `substitution.allowedBoolean = false` to `substitution.reason`
+  (HIQA EP 3.5.10.3).
+- **Mitigation:** invariant `ie-rx-subst-1`; the examples now carry reasons (e.g. narrow therapeutic
+  index, biological medicine excluded from the HPRA interchangeable list).
+- **Residual:** Low.
+
+## HZ-08. Non-dispensation without a reason
+
+- **Status:** Mitigated (Phase 5).
+- **Hazard:** the prescriber is unaware that an item was not supplied, or why (e.g. a safety concern
+  raised by the pharmacist).
+- **Cause:** a dispense record with status declined/stopped could carry no reason.
+- **Mitigation:** invariant `ie-md-status-1` (reason required for declined, stopped, cancelled or
+  on-hold; HIQA EP 6.3.2).
+- **Residual:** Low. Notifying the prescriber is a workflow matter outside the IG.

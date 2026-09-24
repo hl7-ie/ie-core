@@ -108,3 +108,93 @@ Title: "National ePrescribing Service (NePS) prescription (group) identifier"
 * uniqueId[0].type = #uri
 * uniqueId[=].value = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/neps"
 * uniqueId[=].preferred = true
+
+Instance: ie-core-ns-imc
+InstanceOf: NamingSystem
+Usage: #definition
+Title: "Irish Medical Council registration number (MCRN)"
+* name = "IECoreNamingSystemIMC"
+* status = #draft
+* kind = #identifier
+* date = "2026-09-24"
+* responsible = "Medical Council"
+* description = "PLACEHOLDER URI, pending a URI published by the issuing authority (Requires Clarification, OI-003). HIQA EP/PS 2.6.2."
+* jurisdiction = urn:iso:std:iso:3166#IE "Ireland"
+* uniqueId[0].type = #uri
+* uniqueId[=].value = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/imc"
+* uniqueId[=].preferred = true
+
+Instance: ie-core-ns-psi
+InstanceOf: NamingSystem
+Usage: #definition
+Title: "Pharmaceutical Society of Ireland registration number"
+* name = "IECoreNamingSystemPSI"
+* status = #draft
+* kind = #identifier
+* date = "2026-09-24"
+* responsible = "Pharmaceutical Society of Ireland"
+* description = "PLACEHOLDER URI, pending a URI published by the issuing authority (Requires Clarification, OI-003). HIQA EP/PS 2.6.2: up to eight digits."
+* jurisdiction = urn:iso:std:iso:3166#IE "Ireland"
+* uniqueId[0].type = #uri
+* uniqueId[=].value = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/psi"
+* uniqueId[=].preferred = true
+
+Instance: ie-core-ns-nmbi
+InstanceOf: NamingSystem
+Usage: #definition
+Title: "Nursing and Midwifery Board of Ireland registration number"
+* name = "IECoreNamingSystemNMBI"
+* status = #draft
+* kind = #identifier
+* date = "2026-09-24"
+* responsible = "Nursing and Midwifery Board of Ireland"
+* description = "PLACEHOLDER URI, pending a URI published by the issuing authority (Requires Clarification, OI-003). HIQA EP/PS 2.6.2 (RNP/RMP divisions)."
+* jurisdiction = urn:iso:std:iso:3166#IE "Ireland"
+* uniqueId[0].type = #uri
+* uniqueId[=].value = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/nmbi"
+* uniqueId[=].preferred = true
+
+Instance: ie-core-ns-dental-council
+InstanceOf: NamingSystem
+Usage: #definition
+Title: "Dental Council of Ireland registration number"
+* name = "IECoreNamingSystemDentalCouncil"
+* status = #draft
+* kind = #identifier
+* date = "2026-09-24"
+* responsible = "Dental Council of Ireland"
+* description = "PLACEHOLDER URI, pending a URI published by the issuing authority (Requires Clarification, OI-003). HIQA EP definitions (dentist prescribers)."
+* jurisdiction = urn:iso:std:iso:3166#IE "Ireland"
+* uniqueId[0].type = #uri
+* uniqueId[=].value = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dental-council"
+* uniqueId[=].preferred = true
+
+Instance: ie-core-ns-psi-rpb
+InstanceOf: NamingSystem
+Usage: #definition
+Title: "PSI Retail Pharmacy Business registration number"
+* name = "IECoreNamingSystemPSIRPB"
+* status = #draft
+* kind = #identifier
+* date = "2026-09-24"
+* responsible = "Pharmaceutical Society of Ireland"
+* description = "PLACEHOLDER URI, pending a URI published by the issuing authority (Requires Clarification, OI-003). HIQA EP/PS 2.8."
+* jurisdiction = urn:iso:std:iso:3166#IE "Ireland"
+* uniqueId[0].type = #uri
+* uniqueId[=].value = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/psi-rpb"
+* uniqueId[=].preferred = true
+
+Instance: ie-core-ns-gms-panel
+InstanceOf: NamingSystem
+Usage: #definition
+Title: "GMS Panel ID"
+* name = "IECoreNamingSystemGMSPanel"
+* status = #draft
+* kind = #identifier
+* date = "2026-09-24"
+* responsible = "HSE PCRS"
+* description = "PLACEHOLDER URI, pending a URI published by the issuing authority (Requires Clarification, OI-003). HIQA EP/PS 2.12."
+* jurisdiction = urn:iso:std:iso:3166#IE "Ireland"
+* uniqueId[0].type = #uri
+* uniqueId[=].value = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/gms-panel"
+* uniqueId[=].preferred = true

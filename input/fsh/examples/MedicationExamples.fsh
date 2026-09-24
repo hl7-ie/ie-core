@@ -350,6 +350,7 @@ Description: "Full dispensation of 60 Metformin 500mg tablets against Scenario 1
 * identifier[=].value = "DISP-IE-2024-001001"
 
 * status = #completed
+* extension[recorded].valueDateTime = "2024-06-15T14:15:00+01:00"
 * medicationReference = Reference(ie-core-medication-metformin-500)
 
 * subject = Reference(ie-core-patient-example) "John Murphy"
@@ -430,6 +431,7 @@ Description: "First partial dispensation of 30 Atorvastatin 20mg tablets (of 90 
 * identifier[=].value = "DISP-IE-2024-002001-1"
 
 * status = #completed
+* extension[recorded].valueDateTime = "2024-06-15T14:45:00+01:00"
 * medicationReference = Reference(ie-core-medication-atorvastatin-20)
 * subject = Reference(ie-core-patient-example) "John Murphy"
 
@@ -458,6 +460,7 @@ Description: "Second partial dispensation of 30 Atorvastatin 20mg tablets on 15 
 * identifier[=].value = "DISP-IE-2024-002001-2"
 
 * status = #completed
+* extension[recorded].valueDateTime = "2024-07-15T10:10:00+01:00"
 * medicationReference = Reference(ie-core-medication-atorvastatin-20)
 * subject = Reference(ie-core-patient-example) "John Murphy"
 
@@ -486,6 +489,7 @@ Description: "Third and final partial dispensation of 30 Atorvastatin 20mg table
 * identifier[=].value = "DISP-IE-2024-002001-3"
 
 * status = #completed
+* extension[recorded].valueDateTime = "2024-08-15T11:10:00+01:00"
 * medicationReference = Reference(ie-core-medication-atorvastatin-20)
 * subject = Reference(ie-core-patient-example) "John Murphy"
 
@@ -640,6 +644,7 @@ Description: "Full dispensation of Metformin 60 tablets from the multi-prescript
 * identifier[=].value = "DISP-IE-2024-003001"
 
 * status = #completed
+* extension[recorded].valueDateTime = "2024-06-20T16:15:00+01:00"
 * medicationReference = Reference(ie-core-medication-metformin-500)
 * subject = Reference(ie-core-patient-example) "John Murphy"
 * performer[0].actor = Reference(ie-core-practitioner-pharmacist-example) "Niamh Brennan"
@@ -663,6 +668,7 @@ Description: "Full dispensation of Atorvastatin 30 tablets from the multi-prescr
 * identifier[=].value = "DISP-IE-2024-003002"
 
 * status = #completed
+* extension[recorded].valueDateTime = "2024-06-20T16:15:00+01:00"
 * medicationReference = Reference(ie-core-medication-atorvastatin-20)
 * subject = Reference(ie-core-patient-example) "John Murphy"
 * performer[0].actor = Reference(ie-core-practitioner-pharmacist-example) "Niamh Brennan"
@@ -686,6 +692,7 @@ Description: "Full dispensation of Ramipril 28 capsules from the multi-prescript
 * identifier[=].value = "DISP-IE-2024-003003"
 
 * status = #completed
+* extension[recorded].valueDateTime = "2024-06-20T16:15:00+01:00"
 * medicationReference = Reference(ie-core-medication-ramipril-5)
 * subject = Reference(ie-core-patient-example) "John Murphy"
 * performer[0].actor = Reference(ie-core-practitioner-pharmacist-example) "Niamh Brennan"
@@ -796,6 +803,7 @@ Description: "A Spanish pharmacy dispenses Amlodipine 5mg (30 tablets) against t
 * identifier[=].value = "ES-DISP-2024-XB-004001"
 
 * status = #completed
+* extension[recorded].valueDateTime = "2024-07-28T11:45:00+02:00"
 * medicationReference = Reference(ie-core-medication-amlodipine-5)
 
 * subject = Reference(ie-core-patient-ciaran-walsh) "Ciarán Walsh"
@@ -875,6 +883,7 @@ Description: "An Irish pharmacy (Boots, Grafton St.) dispenses Amlodipine 5mg ta
 * identifier[=].value = "DISP-IE-2024-XB-005001"
 
 * status = #completed
+* extension[recorded].valueDateTime = "2024-08-12T14:15:00+01:00"
 * medicationReference = Reference(ie-core-medication-amlodipine-5)
 
 * subject = Reference(ie-core-patient-es-maria-garcia) "María García López"
@@ -950,6 +959,7 @@ Description: "First monthly dispensation of Metformin under the 6-month GMS repe
 * identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dispense-id"
 * identifier[=].value = "DISP-IE-2024-006001-M1"
 * status = #completed
+* extension[recorded].valueDateTime = "2024-01-10T10:00:00+00:00"
 * medicationReference = Reference(ie-core-medication-metformin-500)
 * subject = Reference(ie-core-patient-example) "John Murphy"
 * performer[0].actor = Reference(ie-core-practitioner-pharmacist-example) "Niamh Brennan"
@@ -971,6 +981,7 @@ Description: "Second monthly dispensation of Metformin under the 6-month GMS rep
 * identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dispense-id"
 * identifier[=].value = "DISP-IE-2024-006001-M2"
 * status = #completed
+* extension[recorded].valueDateTime = "2024-02-10T10:30:00+00:00"
 * medicationReference = Reference(ie-core-medication-metformin-500)
 * subject = Reference(ie-core-patient-example) "John Murphy"
 * performer[0].actor = Reference(ie-core-practitioner-pharmacist-example) "Niamh Brennan"
@@ -992,6 +1003,7 @@ Description: "Third monthly dispensation of Metformin under the 6-month GMS repe
 * identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dispense-id"
 * identifier[=].value = "DISP-IE-2024-006001-M3"
 * status = #completed
+* extension[recorded].valueDateTime = "2024-03-10T09:15:00+00:00"
 * medicationReference = Reference(ie-core-medication-metformin-500)
 * subject = Reference(ie-core-patient-example) "John Murphy"
 * performer[0].actor = Reference(ie-core-practitioner-pharmacist-example) "Niamh Brennan"

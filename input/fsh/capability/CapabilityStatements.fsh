@@ -34,7 +34,9 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── Patient ──────────────────────────────────────────────────────────
 * rest.resource[+].type = #Patient
-* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient"
+* rest.resource[=].supportedProfile[0] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient-eprescription"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient-summary-patient"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -263,7 +265,8 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── MedicationRequest ────────────────────────────────────────────────
 * rest.resource[+].type = #MedicationRequest
-* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medicationrequest"
+* rest.resource[=].supportedProfile[0] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medicationrequest"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -280,10 +283,19 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 * rest.resource[=].searchParam[+].name = "authoredon"
 * rest.resource[=].searchParam[=].type = #date
 * rest.resource[=].searchParam[=].definition = "http://hl7.org/fhir/SearchParameter/MedicationRequest-authoredon"
+* rest.resource[=].searchParam[+].name = "identifier"
+* rest.resource[=].searchParam[=].type = #token
+* rest.resource[=].searchParam[=].definition = "http://hl7.org/fhir/SearchParameter/clinical-identifier"
+* rest.resource[=].searchParam[=].documentation = "Prescription item identifier (HIQA EP 3.5.1)."
+* rest.resource[=].searchParam[+].name = "group-identifier"
+* rest.resource[=].searchParam[=].type = #token
+* rest.resource[=].searchParam[=].definition = "https://hl7-ie.github.io/ie-core/fhir/ie/core/SearchParameter/ie-core-medicationrequest-group-identifier"
+* rest.resource[=].searchParam[=].documentation = "Electronic prescription (group) identifier: all items of one prescription (HIQA EP 3.1)."
 
 // ── MedicationDispense ───────────────────────────────────────────────
 * rest.resource[+].type = #MedicationDispense
-* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medicationdispense"
+* rest.resource[=].supportedProfile[0] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medicationdispense"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medicationdispense-edispensation"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -294,10 +306,18 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 * rest.resource[=].searchParam[+].name = "status"
 * rest.resource[=].searchParam[=].type = #token
 * rest.resource[=].searchParam[=].definition = "http://hl7.org/fhir/SearchParameter/medications-status"
+* rest.resource[=].searchParam[+].name = "prescription"
+* rest.resource[=].searchParam[=].type = #reference
+* rest.resource[=].searchParam[=].definition = "http://hl7.org/fhir/SearchParameter/medications-prescription"
+* rest.resource[=].searchParam[=].documentation = "SHALL be supported. The number of repeats already dispensed is DERIVED by counting completed dispenses for a prescription item (HIQA EP 3.5.11; ADR-003); it is not stored."
+* rest.resource[=].searchParam[+].name = "whenhandedover"
+* rest.resource[=].searchParam[=].type = #date
+* rest.resource[=].searchParam[=].definition = "http://hl7.org/fhir/SearchParameter/MedicationDispense-whenhandedover"
 
 // ── Medication ───────────────────────────────────────────────────────
 * rest.resource[+].type = #Medication
-* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication"
+* rest.resource[=].supportedProfile[0] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 * rest.resource[=].interaction[+].code = #create
@@ -491,6 +511,25 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 // 2. IE Core Client CapabilityStatement
 // ====================================================================
 
+// ── Bundle (ePrescription) and List (allergy statement) ─────────────
+* rest.resource[+].type = #Bundle
+* rest.resource[=].supportedProfile[0] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-bundle-eprescription"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-bundle-eprescription-crossborder"
+* rest.resource[=].documentation = "An ePrescription is exchanged as an IE Core ePrescription Bundle (HIQA EP; ADR-003). A cross-border prescription claims the cross-border profile in meta.profile."
+* rest.resource[=].interaction[0].code = #read
+* rest.resource[=].interaction[+].code = #create
+* rest.resource[=].interaction[+].code = #search-type
+* rest.resource[=].searchParam[0].name = "identifier"
+* rest.resource[=].searchParam[=].type = #token
+* rest.resource[=].searchParam[=].definition = "http://hl7.org/fhir/SearchParameter/Bundle-identifier"
+* rest.resource[+].type = #List
+* rest.resource[=].supportedProfile[0] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-list-allergies-at-prescribing"
+* rest.resource[=].interaction[0].code = #read
+* rest.resource[=].interaction[+].code = #search-type
+* rest.resource[=].searchParam[0].name = "patient"
+* rest.resource[=].searchParam[=].type = #reference
+* rest.resource[=].searchParam[=].definition = "http://hl7.org/fhir/SearchParameter/clinical-patient"
+
 Instance: ie-core-client
 InstanceOf: CapabilityStatement
 Usage: #definition
@@ -519,7 +558,9 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── Patient ──────────────────────────────────────────────────────────
 * rest.resource[+].type = #Patient
-* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient"
+* rest.resource[=].supportedProfile[0] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient-eprescription"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient-summary-patient"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
@@ -591,19 +632,22 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── MedicationRequest ────────────────────────────────────────────────
 * rest.resource[+].type = #MedicationRequest
-* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medicationrequest"
+* rest.resource[=].supportedProfile[0] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medicationrequest"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── MedicationDispense ───────────────────────────────────────────────
 * rest.resource[+].type = #MedicationDispense
-* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medicationdispense"
+* rest.resource[=].supportedProfile[0] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medicationdispense"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medicationdispense-edispensation"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
 // ── Medication ───────────────────────────────────────────────────────
 * rest.resource[+].type = #Medication
-* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication"
+* rest.resource[=].supportedProfile[0] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
@@ -657,7 +701,8 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 
 // ── Provenance ───────────────────────────────────────────────────────
 * rest.resource[+].type = #Provenance
-* rest.resource[=].supportedProfile = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-provenance"
+* rest.resource[=].supportedProfile[0] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-provenance"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-provenance-eprescription-signature"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
 
@@ -678,3 +723,10 @@ Description: "This CapabilityStatement describes the expected capabilities of an
 * rest.resource[=].supportedProfile = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-specimen"
 * rest.resource[=].interaction[0].code = #read
 * rest.resource[=].interaction[+].code = #search-type
+
+// ── Bundle (ePrescription) ───────────────────────────────────────────
+* rest.resource[+].type = #Bundle
+* rest.resource[=].supportedProfile[0] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-bundle-eprescription"
+* rest.resource[=].supportedProfile[+] = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-bundle-eprescription-crossborder"
+* rest.resource[=].interaction[0].code = #read
+* rest.resource[=].interaction[+].code = #create

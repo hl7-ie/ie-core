@@ -109,7 +109,8 @@ Alias: $EUHDRBundle      = http://hl7.eu/fhir/hdr/StructureDefinition/bundle-eu-
 // HL7 Europe Extensions (hl7.fhir.eu.extensions 1.2.0)
 // https://hl7.eu/fhir/extensions
 Alias: $EUExtInformationRecipient = http://hl7.eu/fhir/extensions/StructureDefinition/information-recipient
-Alias: $EUExtMedicationPackageType = http://hl7.eu/fhir/extensions/StructureDefinition/medication-package-type
+// Fixed in Phase 5: the canonical in hl7.fhir.eu.extensions 1.3.0 has no "/extensions" path segment
+Alias: $EUExtMedicationPackageType = http://hl7.eu/fhir/StructureDefinition/medication-package-type
 
 // HL7 Europe Imaging IG (ballot ongoing — no package published yet)
 // https://hl7.eu/fhir/imaging / https://hl7.eu/fhir/imaging-r5
@@ -155,3 +156,24 @@ Alias: $EUBundleEPS = http://hl7.eu/fhir/eps/StructureDefinition/bundle-eu-eps
 
 // GS1 Global Location Number: preferred URI of HL7 Terminology NamingSystem/GLN (THO 7.4.0)
 Alias: $GLN = http://www.gs1.org/gln
+
+// ── IHE Pharmacy MPD extensions reused for HIQA EP (ADR-003) ───────────────
+Alias: $IHEOffLabel = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-offLabel
+Alias: $IHEPrescribedQuantity = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medicationrequest-prescribedQuantity
+Alias: $IHEMedClassification = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-classification
+Alias: $IHEMedProductName = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-productname
+Alias: $IHEMedUnitOfPresentation = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-unitofpresentation
+Alias: $IHEMedStrengthSubstance = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-strengthsubstance
+Alias: $IHEMedDevice = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-device
+Alias: $IHEMedCharacteristic = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-characteristic
+// R5 cross-version extensions used by HL7 Europe MPD
+Alias: $R5DispenseRecorded = http://hl7.org/fhir/5.0/StructureDefinition/extension-MedicationDispense.recorded
+Alias: $R5EffectiveDosePeriod = http://hl7.org/fhir/5.0/StructureDefinition/extension-MedicationRequest.effectiveDosePeriod
+
+// HIQA-sourced professional registration and facility identifier systems (ADR-006).
+// PLACEHOLDER URIs pending authority-published URIs (OI-003); see NamingSystems.fsh.
+Alias: $PSI = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/psi
+Alias: $NMBI = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/nmbi
+Alias: $DentalCouncil = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dental-council
+Alias: $PSIRPB = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/psi-rpb
+Alias: $GMSPanel = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/gms-panel

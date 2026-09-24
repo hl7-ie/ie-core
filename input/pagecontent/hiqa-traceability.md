@@ -24,9 +24,9 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 
 | Conformance | Aligned | Partial | Gap | Prohibited (violated) | Prohibited (enforced) | N/A |
 |---|---|---|---|---|---|---|
-| Mandatory | 25 | 25 | 4 | 0 | 0 | 0 |
-| Required | 41 | 21 | 11 | 0 | 0 | 0 |
-| Optional | 74 | 22 | 19 | 0 | 0 | 0 |
+| Mandatory | 40 | 13 | 1 | 0 | 0 | 0 |
+| Required | 63 | 10 | 0 | 0 | 0 | 0 |
+| Optional | 104 | 1 | 10 | 0 | 0 | 0 |
 | Not in dataset | 0 | 0 | 0 | 0 | 12 | 0 |
 
 **Patient Summary** (306 HIQA elements)
@@ -47,30 +47,15 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | EP | 1.6.2.4.3 | Record entry date | Partial | Mandatory within the cluster; not MS |
 | EP | 1.6.3.3.2 | Record entry author | Partial | Mandatory within the cluster; not MS |
 | EP | 1.6.4.3.2 | Record entry author | Partial | Mandatory within the cluster; not MS |
-| EP | 2.2 | Forename | Partial | HIQA Mandatory 1..1; IG 0..* |
-| EP | 2.6 | Health practitioner registration (cluster) | Partial | HIQA Mandatory 1..1; only an IMC slice 0..1; requester may be an Organization (H-07) |
-| EP | 2.6.1 | Health Professional body registration – type | Partial | no PSI / NMBI / Dental Council slices |
-| EP | 2.6.2 | Health Professional body registration – value | Partial |  |
-| EP | 2.9 | Healthcare facility address (cluster) | Partial | HIQA Mandatory 1..1; IG 0..* |
-| EP | 2.9.1 | Postcode | Partial | HIQA Mandatory 1..1 |
-| EP | 2.9.2 | Address line(s) | Partial | HIQA Mandatory 1..1 |
-| EP | 2.9.4 | District/ County | Partial | HIQA Mandatory 1..1 |
-| EP | 2.9.5 | Country | Partial | HIQA Mandatory 1..1 |
-| EP | 2.10 | Communication details (cluster) | Partial | HIQA Mandatory 1..*; IG 0..* |
-| EP | 2.10.1 | Telephone Number | Partial | telephone Mandatory; no phone slice |
-| EP | 3.1 | Electronic prescription identifier (cluster) | Partial | groupIdentifier is 0..1; identifier 1..* covers single-item prescriptions only |
-| EP | 3.1.1 | Electronic prescription identifier – type | Partial | type not MS or typed |
-| EP | 3.1.2 | Electronic prescription identifier – value | Partial | value not constrained |
-| EP | 3.3 | Prescription Status (cluster) | Partial | HIQA prescription-level status (whole prescription) has no container in the IG; only item-level status exists |
-| EP | 3.3.1 | Status | Partial | item-level only |
-| EP | 4.7.2 | Ingredient in medication item (cluster) | Partial | HIQA Mandatory 1..* within the item; IG 0..* |
-| EP | 4.8.1 | Device type | Gap |  |
-| EP | 4.8.2 | Device quantity value | Gap |  |
+| EP | 2.9 | Healthcare facility address (cluster) | Partial | Mandatory; enforced in the base only as MS (Bundle-level enforcement deferred: see open issues) |
+| EP | 2.9.1 | Postcode | Partial | Mandatory within the facility address; not yet enforced |
+| EP | 2.9.2 | Address line(s) | Partial | Mandatory within the facility address; not yet enforced |
+| EP | 2.9.4 | District/ County | Partial | Mandatory within the facility address; not yet enforced |
+| EP | 2.9.5 | Country | Partial | Mandatory within the facility address; not yet enforced |
+| EP | 3.1.1 | Electronic prescription identifier – type | Partial | identifier type not constrained (no HIQA value set) |
+| EP | 3.3 | Prescription Status (cluster) | Partial | prescription-level status DERIVED from item statuses (ADR-003); no container resource |
+| EP | 3.3.1 | Status | Partial | derived from items (ADR-003) |
 | EP | 4.9.1 | Characteristic type | Gap |  |
-| EP | 5.2.4.3.1 | Frequency of administration | Partial | Mandatory within the cluster; not MS |
-| EP | 5.2.4.3.2 | Period | Partial | Mandatory within the cluster; not MS (period + periodUnit) |
-| EP | 6.2 | Date and time of issuing the dispense record | Gap | HIQA Mandatory; EU MPD extension:recorded 1..1 covers it (M-01) |
-| EP | 6.8 | Date of dispensation | Partial | HIQA Mandatory 1..1; IG 0..1 |
 | PS | 1.2.6 | Address type | Partial | use 1..1 MS; no HL7 code for homelessness (Requires Clarification) |
 | PS | 2.2 | Forename | Partial | HIQA Mandatory 1..1 |
 | PS | 2.5 | Health practitioner role and speciality (cluster) | Partial | HIQA Mandatory 1..*; the PS has no mandatory GP / practitioner participant |
@@ -143,12 +128,12 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 1.5.3 | Other Communication details (cluster) (PD) | Optional | 0..* | IECorePatientEPrescription | `Patient.telecom` | Y | Aligned |  |
 | 1.5.3.1 | Communication details – Type (PD) | Optional | 0..* | IECorePatientEPrescription | `Patient.telecom.system` | Y | Aligned |  |
 | 1.5.3.2 | Communication Details – Value (PD) | Optional | 0..* | IECorePatientEPrescription | `Patient.telecom.value` | Y | Aligned |  |
-| 1.6.1 | Reason for not recording allergies and intolerances (P) | Required | 0..1 | IECoreMedicationRequestEPrescription |  | N | Gap | no 'reason for not recording allergies' (H-03) |
-| 1.6.2 | Allergies and intolerances (record entry) (P) | Required | 0..* | IECoreAllergyIntolerance | `AllergyIntolerance` | Y | Partial | profile exists but is not linked to the prescription (H-03) |
+| 1.6.1 | Reason for not recording allergies and intolerances (P) | Required | 0..1 | IECoreListAllergiesAtPrescribing | `List.emptyReason` | Y | Aligned | allergy statement 1..1 per ePrescription Bundle; entry xor emptyReason (ie-list-allergy-1); list-empty-reason (nilknown = no known allergies) |
+| 1.6.2 | Allergies and intolerances (record entry) (P) | Required | 0..* | IECoreListAllergiesAtPrescribing | `List.entry` | Y | Aligned | entries → IECoreAllergyIntolerance; referenced from each item (ie-bnd-rx-2) |
 | 1.6.2.1 | Allergies or intolerances (P) | Required | 0..* | IECoreAllergyIntolerance | `AllergyIntolerance.code` | Y | Aligned |  |
 | 1.6.2.2 | Causative agent or allergen (P) | Required | 0..1 | IECoreAllergyIntolerance | `AllergyIntolerance.reaction.substance` | N | Partial | Required but not MS |
 | 1.6.2.3 | Additional information (P) | Optional | 0..1 | IECoreAllergyIntolerance | `AllergyIntolerance.note` | N | Aligned |  |
-| 1.6.2.4 | Record entry provenance data for allergies and intolerances (cluster) (P) | Required | 0..* | IECoreAllergyIntolerance | `AllergyIntolerance` | N | Partial | provenance cluster: recorder/recordedDate not MS |
+| 1.6.2.4 | Record entry provenance data for allergies and intolerances (cluster) (P) | Required | 0..* | IECoreListAllergiesAtPrescribing | `List.source` | Y | Aligned | statement author/date on the List; entry-level provenance on AllergyIntolerance |
 | 1.6.2.4.1 | Record entry identifier (P) | Optional | 0..* | IECoreAllergyIntolerance | `AllergyIntolerance.identifier` | N | Aligned |  |
 | 1.6.2.4.2 | Record entry author (P) | Mandatory | 0..* | IECoreAllergyIntolerance | `AllergyIntolerance.recorder` | N | Partial | Mandatory within the cluster; not MS |
 | 1.6.2.4.3 | Record entry date (P) | Mandatory | 0..1 | IECoreAllergyIntolerance | `AllergyIntolerance.recordedDate` | N | Partial | Mandatory within the cluster; not MS |
@@ -174,103 +159,103 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 1.6.4.3.5 | Record entry language (PD) | Optional | 0..1 | IECoreBodyHeight | `Observation.language` | N | Aligned |  |
 | 1.6.5 | Additional notes (PD) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.note` | Y | Aligned |  |
 | 2.1 | Name title (PD) | Optional | 0..* | IECorePractitioner | `Practitioner.name.prefix` | Y | Aligned |  |
-| 2.2 | Forename (PD) | Mandatory | 1..1 | IECorePractitioner | `Practitioner.name.given` | Y | Partial | HIQA Mandatory 1..1; IG 0..* |
+| 2.2 | Forename (PD) | Mandatory | 1..1 | IECorePractitioner | `Practitioner.name.given` | Y | Aligned | given 1..* |
 | 2.3 | Surname (PD) | Mandatory | 1..1 | IECorePractitioner | `Practitioner.name.family` | Y | Aligned |  |
 | 2.4 | Name suffix (PD) | Optional | 0..* | IECorePractitioner | `Practitioner.name.suffix` | Y | Aligned |  |
-| 2.5 | Health practitioner role and speciality (cluster) (PD) | Required | 0..* | IECorePractitionerRole | `PractitionerRole` | Y | Partial | requester may reference Practitioner directly so a role is not guaranteed |
+| 2.5 | Health practitioner role and speciality (cluster) (PD) | Required | 0..* | IECorePractitionerRole | `PractitionerRole` | Y | Aligned | requester Reference(PractitionerRole \| Practitioner); role preferred |
 | 2.5.1 | Health practitioner role (PD) | Required | 0..* | IECorePractitionerRole | `PractitionerRole.code` | Y | Aligned | binding ie-core-provider-taxonomy; HIQA roles (RNP/RMP/CCS pharmacist) not verified in it |
 | 2.5.2 | Health practitioner specialty (PD) | Optional | 0..* | IECorePractitionerRole | `PractitionerRole.specialty` | Y | Aligned |  |
-| 2.6 | Health practitioner registration (cluster) (PD) | Mandatory | 1..1 | IECorePractitioner | `Practitioner.identifier` | Y | Partial | HIQA Mandatory 1..1; only an IMC slice 0..1; requester may be an Organization (H-07) |
-| 2.6.1 | Health Professional body registration – type (PD) | Mandatory | 1..1 | IECorePractitioner | `Practitioner.identifier.system` | Y | Partial | no PSI / NMBI / Dental Council slices |
-| 2.6.2 | Health Professional body registration – value (PD) | Mandatory | 1..1 | IECorePractitioner | `Practitioner.identifier.value` | Y | Partial |  |
+| 2.6 | Health practitioner registration (cluster) (PD) | Mandatory | 1..1 | IECorePractitioner | `Practitioner.identifier` | Y | Aligned | identifier 1..*; registration slices IMC, PSI, NMBI, DentalCouncil |
+| 2.6.1 | Health Professional body registration – type (PD) | Mandatory | 1..1 | IECorePractitioner | `Practitioner.identifier.system` | Y | Aligned | registration body = identifier system (placeholder URIs, OI-003) |
+| 2.6.2 | Health Professional body registration – value (PD) | Mandatory | 1..1 | IECorePractitioner | `Practitioner.identifier.value` | Y | Aligned | PSI format warning (up to 8 digits); MCRN six-digit is an example only |
 | 2.7 | Healthcare facility name (PD) | Required | 0..1 | IECoreOrganization | `Organization.name` | Y | Aligned |  |
-| 2.8 | Healthcare facility identifier (PD) | Required | 0..1 | IECoreOrganization | `Organization.identifier` | Y | Partial | no PSI Retail Pharmacy Business registration number slice (H-09) |
-| 2.9 | Healthcare facility address (cluster) (PD) | Mandatory | 1..1 | IECoreOrganization | `Organization.address` | Y | Partial | HIQA Mandatory 1..1; IG 0..* |
-| 2.9.1 | Postcode (PD) | Mandatory | 1..1 | IECoreOrganization | `Organization.address.postalCode` | Y | Partial | HIQA Mandatory 1..1 |
-| 2.9.2 | Address line(s) (PD) | Mandatory | 1..1 | IECoreOrganization | `Organization.address.line` | Y | Partial | HIQA Mandatory 1..1 |
+| 2.8 | Healthcare facility identifier (PD) | Required | 0..1 | IECoreOrganization | `Organization.identifier:PSIRPB` | Y | Aligned | PSI Retail Pharmacy Business registration number |
+| 2.9 | Healthcare facility address (cluster) (PD) | Mandatory | 1..1 | IECoreOrganization | `Organization.address` | Y | Partial | Mandatory; enforced in the base only as MS (Bundle-level enforcement deferred: see open issues) |
+| 2.9.1 | Postcode (PD) | Mandatory | 1..1 | IECoreOrganization | `Organization.address.postalCode` | Y | Partial | Mandatory within the facility address; not yet enforced |
+| 2.9.2 | Address line(s) (PD) | Mandatory | 1..1 | IECoreOrganization | `Organization.address.line` | Y | Partial | Mandatory within the facility address; not yet enforced |
 | 2.9.3 | Suburb/Town/ Townland/Locality (PD) | Required | 0..1 | IECoreOrganization | `Organization.address.city` | Y | Aligned |  |
-| 2.9.4 | District/ County (PD) | Mandatory | 1..1 | IECoreOrganization | `Organization.address.state` | Y | Partial | HIQA Mandatory 1..1 |
-| 2.9.5 | Country (PD) | Mandatory | 1..1 | IECoreOrganization | `Organization.address.country` | Y | Partial | HIQA Mandatory 1..1 |
-| 2.10 | Communication details (cluster) (PD) | Mandatory | 1..* | IECorePractitionerRole | `PractitionerRole.telecom` | Y | Partial | HIQA Mandatory 1..*; IG 0..* |
-| 2.10.1 | Telephone Number (PD) | Mandatory | 1..1 | IECorePractitionerRole | `PractitionerRole.telecom` | Y | Partial | telephone Mandatory; no phone slice |
-| 2.10.2 | Email address (PD) | Required | 0..* | IECorePractitionerRole | `PractitionerRole.telecom` | Y | Partial | Required; a legal requirement cross-border but not enforced (H-08) |
+| 2.9.4 | District/ County (PD) | Mandatory | 1..1 | IECoreOrganization | `Organization.address.state` | Y | Partial | Mandatory within the facility address; not yet enforced |
+| 2.9.5 | Country (PD) | Mandatory | 1..1 | IECoreOrganization | `Organization.address.country` | Y | Partial | Mandatory within the facility address; not yet enforced |
+| 2.10 | Communication details (cluster) (PD) | Mandatory | 1..* | IECoreBundleEPrescription | `Bundle.entry` | Y | Aligned | prescriber or facility telephone required (ie-bnd-rx-4) |
+| 2.10.1 | Telephone Number (PD) | Mandatory | 1..1 | IECoreBundleEPrescription | `Bundle.entry` | Y | Aligned | ie-bnd-rx-4: telecom system=phone on the prescriber, role or facility |
+| 2.10.2 | Email address (PD) | Required | 0..* | IECoreBundleEPrescriptionCrossBorder | `Bundle.entry` | Y | Aligned | email required cross-border (ie-bnd-xb-1); Required (MS) otherwise |
 | 2.10.3 | Other Communication details (cluster) (PD) | Optional | 0..* | IECorePractitionerRole | `PractitionerRole.telecom` | Y | Aligned |  |
 | 2.10.3.1 | Communication details – Type (PD) | Optional | 0..* | IECorePractitionerRole | `PractitionerRole.telecom.system` | Y | Aligned |  |
 | 2.10.3.2 | Communication Details – Value (PD) | Optional | 0..* | IECorePractitionerRole | `PractitionerRole.telecom.value` | Y | Aligned |  |
-| 2.11 | Location ID (GLN) (PD) | Required | 0..1 | IECoreLocation | `Location.identifier` | Y | Partial | no GLN slice or GS1 check-digit rule (H-09) |
-| 2.12 | GMS Panel ID | Optional | 0..1 | IECoreOrganization |  | N | Gap | would sit under Organization.identifier; no GMS Panel ID identifier system |
-| 2.13 | Signature (P) | Required | 0..1 | IECoreMedicationRequestEPrescription |  | N | Gap | no signature; a legal requirement for inbound cross-border prescriptions (H-08) |
-| 3.1 | Electronic prescription identifier (cluster) (P) | Mandatory | 1..* | IECoreMedicationRequestEPrescription | `MedicationRequest.groupIdentifier` | Y | Partial | groupIdentifier is 0..1; identifier 1..* covers single-item prescriptions only |
-| 3.1.1 | Electronic prescription identifier – type (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.identifier.type` | N | Partial | type not MS or typed |
-| 3.1.2 | Electronic prescription identifier – value (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.identifier.value` | N | Partial | value not constrained |
+| 2.11 | Location ID (GLN) (PD) | Required | 0..1 | IECoreLocation | `Location.identifier:GLN` | Y | Aligned | system http://www.gs1.org/gln (THO); 13 digits + GS1 check digit (ie-loc-gln-1) |
+| 2.12 | GMS Panel ID | Optional | 0..1 | IECoreOrganization | `Organization.identifier:GMSPanel` | N | Aligned | Optional; no format enforced |
+| 2.13 | Signature (P) | Required | 0..1 | IECoreProvenanceEPrescriptionSignature | `Provenance.signature` | Y | Aligned | Provenance signature over the items; required cross-border (ie-bnd-xb-2); format Requires Clarification (OI-009) |
+| 3.1 | Electronic prescription identifier (cluster) (P) | Mandatory | 1..* | IECoreMedicationRequestEPrescription | `MedicationRequest.groupIdentifier` | Y | Aligned | enforced by invariant ie-bnd-rx-1 (shared group identifier for multi-item prescriptions); single item: identifier 1..* |
+| 3.1.1 | Electronic prescription identifier – type (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.identifier.type` | N | Partial | identifier type not constrained (no HIQA value set) |
+| 3.1.2 | Electronic prescription identifier – value (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.identifier.value` | N | Aligned |  |
 | 3.2 | Date and time of issuing the prescription (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.authoredOn` | Y | Aligned |  |
-| 3.3 | Prescription Status (cluster) (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.status` | Y | Partial | HIQA prescription-level status (whole prescription) has no container in the IG; only item-level status exists |
-| 3.3.1 | Status (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.status` | Y | Partial | item-level only |
-| 3.3.2 | Status reason (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.statusReason` | Y | Partial | item-level only |
-| 3.3.3 | Status reason (free text) (P) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.statusReason.text` | N | Partial | item-level only |
-| 3.4 | Presented form (P) | Optional | 0..* | IECoreMedicationRequestEPrescription |  | N | Gap | presented form (PDF) not modelled; Optional |
+| 3.3 | Prescription Status (cluster) (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.status` | Y | Partial | prescription-level status DERIVED from item statuses (ADR-003); no container resource |
+| 3.3.1 | Status (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.status` | Y | Partial | derived from items (ADR-003) |
+| 3.3.2 | Status reason (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.statusReason` | Y | Partial | item level (ie-rx-status-1) |
+| 3.3.3 | Status reason (free text) (P) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.statusReason.text` | N | Partial | item level |
+| 3.4 | Presented form (P) | Optional | 0..* | IECoreBundleEPrescription |  | N | Gap | presented form (PDF): may be added as a DocumentReference/Binary entry; not profiled (Optional) |
 | 3.5 | Prescription item (cluster) (P) | Mandatory | 1..* | IECoreMedicationRequestEPrescription | `MedicationRequest` | Y | Aligned |  |
 | 3.5.1 | Prescription item identifier (P) | Mandatory | 1..* | IECoreMedicationRequestEPrescription | `MedicationRequest.identifier` | Y | Aligned |  |
 | 3.5.2 | Prescription item status (cluster) (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.status` | Y | Aligned |  |
 | 3.5.2.1 | Prescription item status (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.status` | Y | Aligned |  |
-| 3.5.2.2 | Prescription item status reason (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.statusReason` | Y | Aligned |  |
+| 3.5.2.2 | Prescription item status reason (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.statusReason` | Y | Aligned | required unless active/completed/draft (ie-rx-status-1) |
 | 3.5.2.3 | Prescription item status reason (free text) (P) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.statusReason.text` | N | Aligned |  |
 | 3.5.3 | Prescribed Medication item (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.medication[x]` | Y | Aligned |  |
 | 3.5.4 | Indication for prescription item (cluster) (P) | Optional | 0..* | IECoreMedicationRequestEPrescription | `MedicationRequest.reasonCode` | Y | Aligned |  |
 | 3.5.4.1 | Indication for prescription item (P) | Optional | 0..* | IECoreMedicationRequestEPrescription | `MedicationRequest.reasonCode` | Y | Aligned |  |
 | 3.5.4.2 | Indication for prescription item (free text) (P) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.reasonCode.text` | N | Aligned |  |
 | 3.5.5 | Intended use of prescription item (P) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.category` | Y | Aligned |  |
-| 3.5.6 | Period of use (P) | Required | 0..1 | IECoreMedicationRequestEPrescription |  | N | Gap | EU MPD uses the R5 extension effectiveDosePeriod |
-| 3.5.7 | Quantity of prescription item prescribed (cluster) (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.quantity` | Y | Aligned |  |
-| 3.5.7.1 | Quantity prescribed (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.quantity` | Y | Aligned |  |
-| 3.5.7.2 | Quantity prescribed (free text) | Required | 0..1 | IECoreMedicationRequestEPrescription |  | N | Gap | words-and-figures quantity; a legal requirement for controlled drugs (H-05) |
-| 3.5.8 | Dosage instructions (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction` | Y | Aligned |  |
+| 3.5.6 | Period of use (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:effectiveDosePeriod` | Y | Aligned | HL7 Europe MPD R5 backport extension |
+| 3.5.7 | Quantity of prescription item prescribed (cluster) (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.extension:prescribedQuantity` | Y | Aligned | overall quantity (IHE via MPD); per-dispense quantity 1..1 (OI-012) |
+| 3.5.7.1 | Quantity prescribed (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.extension:prescribedQuantity` | Y | Aligned | IHE prescribedQuantity |
+| 3.5.7.2 | Quantity prescribed (free text) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:quantityInWordsAndFigures` | Y | Aligned | required for Schedule 2/3/4 Part 1 controlled drugs (ie-rx-cd-1) |
+| 3.5.8 | Dosage instructions (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction` | Y | Aligned | text 1..1; structured implies text (ie-rx-dosage-1) |
 | 3.5.9 | Validity period (cluster) (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.validityPeriod` | Y | Aligned |  |
-| 3.5.9.1 | Validity period (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.validityPeriod` | Y | Aligned | no 14-day controlled-drug rule (H-05) |
-| 3.5.9.2 | “Do Not Extend” | Optional | 0..1 | IECoreMedicationRequestEPrescription |  | N | Gap | 'Do Not Extend'; Optional |
+| 3.5.9.1 | Validity period (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.validityPeriod` | Y | Aligned | 14-day rule for Schedule 2/3 (ie-rx-cd-2) |
+| 3.5.9.2 | “Do Not Extend” | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.extension:doNotExtend` | N | Aligned | Optional |
 | 3.5.10 | Substitutions (cluster) (P) | Optional | 0..* | IECoreMedicationRequestEPrescription | `MedicationRequest.substitution` | Y | Aligned |  |
-| 3.5.10.1 | Medicinal Product is interchangeable (P) | Required | 0..1 | IECoreMedicationEPrescription |  | N | Gap | HPRA interchangeable-list flag; expected auto-populated from NMPC |
+| 3.5.10.1 | Medicinal Product is interchangeable (P) | Required | 0..1 | IECoreMedicationEPrescription | `Medication.extension:interchangeable` | Y | Aligned | HPRA List of Interchangeable Medicines flag (auto from NMPC) |
 | 3.5.10.2 | “Do Not Substitute” (P) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.substitution.allowed[x]` | Y | Aligned | 'Do Not Substitute' = allowedBoolean false |
-| 3.5.10.3 | Reason for not allowing substitution | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.substitution.reason.text` | Y | Aligned |  |
+| 3.5.10.3 | Reason for not allowing substitution | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.substitution.reason` | Y | Aligned | required when Do Not Substitute (ie-rx-subst-1) |
 | 3.5.11 | Repeats of prescription item allowed (P) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.numberOfRepeatsAllowed` | Y | Aligned |  |
-| 3.5.12 | Number of instalments (P) | Required | 0..1 | IECoreMedicationRequestEPrescription |  | N | Gap | number of instalments; a legal requirement for CD Schedules 2 / 3 / 4 part 1 (H-05) |
+| 3.5.12 | Number of instalments (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.extension:numberOfInstalments` | Y | Aligned | required for Schedule 2/3/4 Part 1 (ie-rx-cd-1) |
 | 3.5.13 | Minimum dispense interval (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.dispenseInterval` | Y | Aligned |  |
-| 3.5.14 | Off label (cluster) | Required | 0..* | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:offLabelUse` | Y | Partial | custom extension; EU MPD uses IHE ihe-ext-offLabel (M-01) |
-| 3.5.14.1 | Off label use in prescription (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:offLabelUse.extension:isOffLabelUse` | N | Aligned |  |
-| 3.5.14.2 | Reason for off label use (cluster) (P) | Required | 0..* | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:offLabelUse.extension:reason` | N | Aligned |  |
-| 3.5.14.2.1 | Reason for off label use (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:offLabelUse.extension:reason.value[x]` | N | Aligned |  |
-| 3.5.14.2.2 | Reason for off label use (free text) (P) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:offLabelUse.extension:reason.value[x]` | N | Aligned |  |
+| 3.5.14 | Off label (cluster) | Required | 0..* | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:offLabelUse` | Y | Aligned | IHE ihe-ext-offLabel via HL7 Europe MPD (replaces IECoreOffLabelUse) |
+| 3.5.14.1 | Off label use in prescription (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:offLabelUse` | N | Aligned | Mandatory within the cluster: isOffLabelUse 1..1 |
+| 3.5.14.2 | Reason for off label use (cluster) (P) | Required | 0..* | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:offLabelUse` | N | Aligned | reason sub-extension |
+| 3.5.14.2.1 | Reason for off label use (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:offLabelUse` | N | Aligned | reason (coded) |
+| 3.5.14.2.2 | Reason for off label use (free text) (P) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:offLabelUse` | N | Aligned | reason text |
 | 3.6.1 | Note (P) | Optional | 0..* | IECoreMedicationRequestEPrescription | `MedicationRequest.note` | Y | Aligned |  |
 | 4.1 | Medication item identifier (PD) | Required | 0..* | IECoreMedicationEPrescription | `Medication.code` | Y | Aligned | NMPC code |
-| 4.2 | Classification (cluster) (PD) | Required | 0..* | IECoreMedicationEPrescription |  | N | Gap | classification cluster not modelled |
-| 4.2.1 | Anatomical Therapeutic Chemical (ATC) Classification (PD) | Required | 0..* | IECoreMedicationEPrescription | `Medication.code` | Y | Partial | ATC may be carried as an extra coding in code; no explicit element |
-| 4.2.2 | Supply Legal Status (PD) | Required | 0..1 | IECoreMedicationEPrescription |  | N | Gap | supply legal status |
-| 4.2.3 | Misuse of Drugs Act (MDA) Schedule (PD) | Required | 0..1 | IECoreMedicationEPrescription |  | N | Gap | MDA schedule (H-05) |
-| 4.2.4 | Other classification group (PD) | Optional | 0..* | IECoreMedicationEPrescription |  | N | Gap |  |
-| 4.3 | Medication product name (cluster) (P) | Required | 0..1 | IECoreMedicationEPrescription | `Medication.code` | Y | Aligned |  |
+| 4.2 | Classification (cluster) (PD) | Required | 0..* | IECoreMedicationEPrescription | `Medication.extension:classification` | Y | Aligned | IHE classification (EU Base slice) |
+| 4.2.1 | Anatomical Therapeutic Chemical (ATC) Classification (PD) | Required | 0..* | IECoreMedicationEPrescription | `Medication.extension:classification` | Y | Aligned | ATC coding |
+| 4.2.2 | Supply Legal Status (PD) | Required | 0..1 | IECoreMedicationEPrescription | `Medication.extension:classification` | Y | Partial | supply legal status: placeholder code system (OI-007) |
+| 4.2.3 | Misuse of Drugs Act (MDA) Schedule (PD) | Required | 0..1 | IECoreMedicationEPrescription | `Medication.extension:classification` | Y | Partial | MDA schedule: placeholder code system (OI-007); drives ie-rx-cd-1/2 |
+| 4.2.4 | Other classification group (PD) | Optional | 0..* | IECoreMedicationEPrescription | `Medication.extension:classification` | N | Aligned | Optional |
+| 4.3 | Medication product name (cluster) (P) | Required | 0..1 | IECoreMedicationEPrescription | `Medication.code` | Y | Aligned | code.text / productName |
 | 4.3.1 | Medication product name (coded) (P) | Required | 0..1 | IECoreMedicationEPrescription | `Medication.code` | Y | Aligned |  |
 | 4.3.2 | Medication product name (free text) (P) | Optional | 0..1 | IECoreMedicationEPrescription | `Medication.code.text` | N | Aligned |  |
 | 4.4 | Manufacturer/ Marketing authorisation holder (cluster) (D) | Optional | 0..1 | IECoreMedicationEPrescription | `Medication.manufacturer` | N | Aligned |  |
 | 4.4.1 | Manufacturer/ Marketing authorisation holder name (D) | Optional | 0..1 | IECoreMedicationEPrescription | `Medication.manufacturer.display` | N | Aligned |  |
 | 4.4.2 | Manufacturer/ Marketing authorisation holder identifier (D) | Optional | 0..* | IECoreMedicationEPrescription | `Medication.manufacturer.identifier` | N | Aligned |  |
-| 4.5 | Dose form (type) (D) | Required | 0..1 | IECoreMedicationEPrescription | `Medication.form` | Y | Partial | no EDQM binding |
-| 4.6 | Description of medicinal product (PD) | Optional | 0..1 | IECoreMedicationEPrescription |  | N | Gap | R4 Medication has no description element; Optional |
+| 4.5 | Dose form (type) (D) | Required | 0..1 | IECoreMedicationEPrescription | `Medication.form` | Y | Partial | EDQM binding pending (Phase 7) |
+| 4.6 | Description of medicinal product (PD) | Optional | 0..1 | IECoreMedicationEPrescription |  | N | Gap | no R4 element; code.text carries the description (Optional) |
 | 4.7 | Medication item (cluster) (PD) | Required | 0..* | IECoreMedicationEPrescription | `Medication.ingredient` | Y | Aligned |  |
-| 4.7.1 | Medication item Dose form (PD) | Required | 0..1 | IECoreMedicationEPrescription | `Medication.form` | Y | Partial | R4 has no item-level dose form (combination packs need contained Medications) |
-| 4.7.2 | Ingredient in medication item (cluster) (PD) | Mandatory | 1..* | IECoreMedicationEPrescription | `Medication.ingredient` | Y | Partial | HIQA Mandatory 1..* within the item; IG 0..* |
+| 4.7.1 | Medication item Dose form (PD) | Required | 0..1 | IECoreMedicationEPrescription | `Medication.form` | Y | Partial | R4 has no item-level dose form; EDQM binding pending (Phase 7) |
+| 4.7.2 | Ingredient in medication item (cluster) (PD) | Mandatory | 1..* | IECoreMedicationEPrescription | `Medication.ingredient` | Y | Aligned | ingredient 1..* |
 | 4.7.2.1 | Ingredient is active (PD) | Required | 0..1 | IECoreMedicationEPrescription | `Medication.ingredient.isActive` | Y | Aligned |  |
 | 4.7.2.2 | Active ingredient/ Substance (PD) | Mandatory | 1..1 | IECoreMedicationEPrescription | `Medication.ingredient.item[x]` | Y | Aligned |  |
 | 4.7.2.3 | Strength information (cluster) (PD) | Required | 0..* | IECoreMedicationEPrescription | `Medication.ingredient.strength` | Y | Aligned |  |
 | 4.7.2.3.1 | Strength (PD) | Mandatory | 1..1 | IECoreMedicationEPrescription | `Medication.ingredient.strength` | Y | Aligned | Mandatory within the strength cluster (4.7.2.3 = ingredient.strength 0..1) |
-| 4.7.2.3.2 | Basis of strength substance (PD) | Required | 0..1 | IECoreMedicationEPrescription |  | N | Gap | basis of strength substance |
-| 4.7.3 | Unit of presentation (D) | Optional | 0..1 | IECoreMedicationEPrescription |  | N | Gap | unit of presentation |
-| 4.7.4 | Contained quantity (D) | Optional | 0..1 | IECoreMedicationEPrescription |  | N | Gap | contained quantity |
+| 4.7.2.3.2 | Basis of strength substance (PD) | Required | 0..1 | IECoreMedicationEPrescription | `Medication.ingredient.strength` | N | Aligned | IHE strengthsubstance extension on strength |
+| 4.7.3 | Unit of presentation (D) | Optional | 0..1 | IECoreMedicationEPrescription | `Medication.extension:unitOfPresentation` | N | Aligned | IHE (EU Base slice) |
+| 4.7.4 | Contained quantity (D) | Optional | 0..1 | IECoreMedicationEPrescription | `Medication.extension:sizeOfItem` | N | Aligned | IHE sizeOfItem (EU Base slice) |
 | 4.7.5 | Pack size or Amount (PD) | Optional | 0..1 | IECoreMedicationEPrescription | `Medication.amount` | Y | Aligned |  |
-| 4.7.6 | Package type (D) | Optional | 0..1 | IECoreMedicationEPrescription |  | N | Gap | package type (EU extension medication-package-type is aliased but unused) |
-| 4.8 | Device (cluster) (D) | Optional | 0..* | IECoreMedicationEPrescription |  | N | Gap | device cluster |
-| 4.8.1 | Device type (D) | Mandatory | 1..1 | IECoreMedicationEPrescription |  | N | Gap |  |
-| 4.8.2 | Device quantity value (D) | Mandatory | 1..1 | IECoreMedicationEPrescription |  | N | Gap |  |
-| 4.9 | Characteristics (cluster) (D) | Optional | 0..* | IECoreMedicationEPrescription |  | N | Gap | characteristics |
+| 4.7.6 | Package type (D) | Optional | 0..1 | IECoreMedicationEPrescription | `Medication.extension:packageType` | N | Aligned | EU medication-package-type (EU Base slice) |
+| 4.8 | Device (cluster) (D) | Optional | 0..* | IECoreMedicationEPrescription | `Medication.extension:device` | N | Aligned | IHE device (EU Base slice) |
+| 4.8.1 | Device type (D) | Mandatory | 1..1 | IECoreMedicationEPrescription | `Medication.extension:device` | N | Aligned | Mandatory within the device cluster |
+| 4.8.2 | Device quantity value (D) | Mandatory | 1..1 | IECoreMedicationEPrescription | `Medication.extension:device` | N | Aligned | Mandatory within the device cluster |
+| 4.9 | Characteristics (cluster) (D) | Optional | 0..* | IECoreMedicationEPrescription | `Medication.extension:characteristic` | N | Aligned | IHE characteristic (EU Base slice) |
 | 4.9.1 | Characteristic type (D) | Mandatory | 1..1 | IECoreMedicationEPrescription |  | N | Gap |  |
 | 4.9.2 | Characteristic value (cluster) (D) | Optional | 0..1 | IECoreMedicationEPrescription |  | N | Gap |  |
 | 4.9.2.1 | Characteristic value (coded) (D) | Optional | 0..1 | IECoreMedicationEPrescription |  | N | Gap |  |
@@ -283,15 +268,15 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 4.10 | Batch (cluster) (D) | Required | 0..1 | IECoreMedicationEPrescription | `Medication.batch` | Y | Aligned |  |
 | 4.10.1 | Batch Lot number (D) | Required | 0..1 | IECoreMedicationEPrescription | `Medication.batch.lotNumber` | Y | Aligned |  |
 | 4.10.2 | Batch expiration date (D) | Required | 0..1 | IECoreMedicationEPrescription | `Medication.batch.expirationDate` | Y | Aligned |  |
-| 4.11 | Exempt medication item (PD) | Required | 0..1 | IECoreMedicationEPrescription |  | N | Gap | exempt medication item |
+| 4.11 | Exempt medication item (PD) | Required | 0..1 | IECoreMedicationEPrescription | `Medication.extension:exemptMedicationItem` | Y | Partial | meaning Requires Clarification |
 | 5.1 | Rendered dosage instruction (PD) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.text` | Y | Aligned | IG 1..1 (stricter; safety fallback) |
 | 5.2 | Dosage details (cluster) (PD) | Required | 0..* | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction` | Y | Aligned |  |
 | 5.2.1 | Sequence (if more than one dosaging scheme exists) (PD) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.sequence` | N | Aligned |  |
-| 5.2.2 | Note for patient (PD) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.patientInstruction` | N | Partial | Required; not MS |
+| 5.2.2 | Note for patient (PD) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.patientInstruction` | Y | Aligned |  |
 | 5.2.3 | Dose and rate (cluster) | Required | 0..* | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.doseAndRate` | Y | Aligned |  |
-| 5.2.3.1 | Dose of medication item (cluster) (PD) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.doseAndRate.dose[x]` | N | Partial | Required; not MS |
-| 5.2.3.1.1 | Dose of medication item - quantity (PD) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.doseAndRate.doseQuantity` | N | Partial | Required; not MS |
-| 5.2.3.1.2 | Dose of medication item - range (PD) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.doseAndRate.doseRange` | N | Partial | Required; not MS |
+| 5.2.3.1 | Dose of medication item (cluster) (PD) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.doseAndRate.dose[x]` | Y | Aligned |  |
+| 5.2.3.1.1 | Dose of medication item - quantity (PD) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.doseAndRate.dose[x]` | Y | Aligned | doseQuantity |
+| 5.2.3.1.2 | Dose of medication item - range (PD) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.doseAndRate.dose[x]` | Y | Aligned | doseRange |
 | 5.2.3.2 | Rate of administration (cluster) (PD) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.doseAndRate.rate[x]` | N | Aligned |  |
 | 5.2.3.2.1 | Rate of administration - quantity (PD) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.doseAndRate.rateQuantity` | N | Aligned |  |
 | 5.2.3.2.2 | Rate of administration - ratio (PD) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.doseAndRate.rateRatio` | N | Aligned |  |
@@ -300,9 +285,9 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 5.2.4.1.1 | Time bounds - quantity (PD) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.timing.repeat.boundsDuration` | N | Aligned |  |
 | 5.2.4.1.2 | Time bounds - period (PD) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.timing.repeat.boundsPeriod` | N | Aligned |  |
 | 5.2.4.2 | Duration of administration (PD) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.timing.repeat.duration` | N | Aligned |  |
-| 5.2.4.3 | Frequency (cluster) (PD) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.timing.repeat` | N | Partial | Required; not MS |
-| 5.2.4.3.1 | Frequency of administration (PD) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.timing.repeat.frequency` | N | Partial | Mandatory within the cluster; not MS |
-| 5.2.4.3.2 | Period (PD) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.timing.repeat.period` | N | Partial | Mandatory within the cluster; not MS (period + periodUnit) |
+| 5.2.4.3 | Frequency (cluster) (PD) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.timing.repeat.frequency` | Y | Aligned |  |
+| 5.2.4.3.1 | Frequency of administration (PD) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.timing.repeat.frequency` | Y | Aligned | Mandatory within the frequency cluster (MS) |
+| 5.2.4.3.2 | Period (PD) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.timing.repeat.period` | Y | Aligned | Mandatory within the frequency cluster (MS; with periodUnit) |
 | 5.2.4.4 | Day of the week | Optional | 0..* | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.timing.repeat.dayOfWeek` | N | Aligned |  |
 | 5.2.4.5 | Time of the day (PD) | Optional | 0..* | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.timing.repeat.timeOfDay` | N | Aligned |  |
 | 5.2.4.6 | Event or time period for administration (PD) | Optional | 0..* | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.timing.repeat.when` | N | Aligned |  |
@@ -313,44 +298,44 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 5.2.6.3 | Body site location qualifier (PD) | Optional | 0..* | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.site` | N | Aligned |  |
 | 5.2.6.4 | Laterality (PD) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.site` | N | Aligned |  |
 | 5.2.6.5 | Description (free text) (PD) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.site.text` | N | Aligned |  |
-| 5.2.7 | Route of administration (PD) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.route` | Y | Partial | no EDQM route binding |
+| 5.2.7 | Route of administration (PD) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction.route` | Y | Partial | EDQM route binding pending (Phase 7) |
 | 6.1 | Dispensation identifier (D) | Required | 0..* | IECoreMedicationDispenseEDispensation | `MedicationDispense.identifier` | Y | Aligned | IG 1..* (stricter than HIQA 0..*) |
-| 6.2 | Date and time of issuing the dispense record (D) | Mandatory | 1..1 | IECoreMedicationDispenseEDispensation |  | N | Gap | HIQA Mandatory; EU MPD extension:recorded 1..1 covers it (M-01) |
+| 6.2 | Date and time of issuing the dispense record (D) | Mandatory | 1..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.extension:recorded` | Y | Aligned | HL7 Europe MPD recorded 1..1 (R5 backport) |
 | 6.3 | Status (cluster) (D) | Mandatory | 1..* | IECoreMedicationDispenseEDispensation | `MedicationDispense.status` | Y | Aligned |  |
 | 6.3.1 | Dispensation Status (D) | Mandatory | 1..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.status` | Y | Aligned |  |
-| 6.3.2 | Dispensation Status Reason (cluster) (D) | Optional | 0..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.statusReasonCodeableConcept` | Y | Aligned |  |
-| 6.3.2.1 | Status reason (D) | Optional | 0..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.statusReasonCodeableConcept` | Y | Aligned |  |
-| 6.3.2.2 | Status reason (free text) (D) | Optional | 0..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.statusReasonCodeableConcept.text` | N | Aligned |  |
+| 6.3.2 | Dispensation Status Reason (cluster) (D) | Optional | 0..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.statusReason[x]` | Y | Aligned | required for a non-dispensation (ie-md-status-1) |
+| 6.3.2.1 | Status reason (D) | Optional | 0..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.statusReason[x]` | Y | Aligned |  |
+| 6.3.2.2 | Status reason (free text) (D) | Optional | 0..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.statusReason[x]` | N | Aligned | statusReasonCodeableConcept.text |
 | 6.4 | Receiver of the medication item (cluster) (D) | Optional | 0..* | IECoreMedicationDispenseEDispensation | `MedicationDispense.receiver` | N | Aligned |  |
 | 6.4.1 | Patient is the receiver (D) | Optional | 0..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.receiver` | N | Aligned | Reference(Patient) |
 | 6.4.2 | Health practitioner is the receiver (D) | Optional | 0..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.receiver` | N | Aligned | Reference(Practitioner) |
-| 6.4.3 | Related person is the receiver (cluster) (D) | Optional | 0..1 | IECoreMedicationDispenseEDispensation |  | N | Gap | would sit under MedicationDispense.receiver; R4 receiver allows only Patient or Practitioner; RelatedPerson needs an extension or R5 cross-version |
-| 6.4.3.1 | Name title (D) | Optional | 0..* | IECoreRelatedPerson | `RelatedPerson.name.prefix` | N | Partial | profile exists but cannot be referenced from the R4 receiver |
-| 6.4.3.2 | Forename of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.name.given` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.4.3.3 | Surname of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.name.family` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.4.3.4 | Name suffix (D) | Optional | 0..* | IECoreRelatedPerson | `RelatedPerson.name.suffix` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.4.3.5 | Receiver (related person) personal identifier (cluster) (D) | Optional | 0..* | IECoreRelatedPerson | `RelatedPerson.identifier` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.4.3.5.1 | Receiver personal identifier - type (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.identifier.type` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.4.3.5.2 | Receiver personal identifier - value (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.identifier.value` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.4.3.5.3 | Receiver personal identifier - time period (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.identifier.period` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.4.3.5.4 | Organisation who issued the Receiver’s (related person) personal identifier (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.identifier.assigner` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.4.3.6 | Role of receiver (related person) (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.relationship` | Y | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.4.3.7 | Relationship to the patient (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.relationship` | Y | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.4.3.8 | Address for receiver (related person) (cluster) (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.4.3.8.1 | Postcode (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.postalCode` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.4.3.8.2 | Address line(s) (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.line` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.4.3.8.3 | Suburb/Town/ Townland/ Locality (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.city` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.4.3.8.4 | District/ County (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.state` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.4.3.8.5 | Country (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.country` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.4.3.9 | Communication details for receiver (related person) (cluster) (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.telecom` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.4.3.9.1 | Mobile phone number of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.telecom` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.4.3.9.2 | Landline phone number of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.telecom` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.4.3.9.3 | Email address of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.telecom` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
-| 6.5 | Prescription item identifier with related request (D) | Required | 0..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.authorizingPrescription` | Y | Aligned | IG 1..* is stricter than HIQA Required 0..1 (M-03) |
+| 6.4.3 | Related person is the receiver (cluster) (D) | Optional | 0..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.extension:receiverRelatedPerson` | N | Aligned | IE extension → IECoreRelatedPerson |
+| 6.4.3.1 | Name title (D) | Optional | 0..* | IECoreRelatedPerson | `RelatedPerson.name.prefix` | N | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.2 | Forename of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.name.given` | N | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.3 | Surname of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.name.family` | N | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.4 | Name suffix (D) | Optional | 0..* | IECoreRelatedPerson | `RelatedPerson.name.suffix` | N | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.5 | Receiver (related person) personal identifier (cluster) (D) | Optional | 0..* | IECoreRelatedPerson | `RelatedPerson.identifier` | N | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.5.1 | Receiver personal identifier - type (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.identifier.type` | N | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.5.2 | Receiver personal identifier - value (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.identifier.value` | N | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.5.3 | Receiver personal identifier - time period (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.identifier.period` | N | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.5.4 | Organisation who issued the Receiver’s (related person) personal identifier (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.identifier.assigner` | N | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.6 | Role of receiver (related person) (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.relationship` | Y | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.7 | Relationship to the patient (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.relationship` | Y | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.8 | Address for receiver (related person) (cluster) (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address` | N | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.8.1 | Postcode (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.postalCode` | N | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.8.2 | Address line(s) (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.line` | N | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.8.3 | Suburb/Town/ Townland/ Locality (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.city` | N | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.8.4 | District/ County (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.state` | N | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.8.5 | Country (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.country` | N | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.9 | Communication details for receiver (related person) (cluster) (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.telecom` | N | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.9.1 | Mobile phone number of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.telecom` | N | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.9.2 | Landline phone number of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.telecom` | N | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.4.3.9.3 | Email address of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.telecom` | N | Aligned | Optional; linked via MedicationDispense extension:receiverRelatedPerson |
+| 6.5 | Prescription item identifier with related request (D) | Required | 0..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.authorizingPrescription` | Y | Aligned | 1..1: stricter than HIQA 0..1 (OI-012) |
 | 6.6 | Dispensed medication (D) | Mandatory | 1..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.medication[x]` | Y | Aligned |  |
 | 6.7 | Dispensed quantity value (D) | Mandatory | 1..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.quantity` | Y | Aligned |  |
-| 6.8 | Date of dispensation (D) | Mandatory | 1..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.whenHandedOver` | Y | Partial | HIQA Mandatory 1..1; IG 0..1 |
-| 6.9 | Time of dispensation (D) | Required | 0..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.whenHandedOver` | Y | Partial | time component of whenHandedOver |
+| 6.8 | Date of dispensation (D) | Mandatory | 1..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.whenHandedOver` | Y | Aligned | enforced by invariant ie-md-handover-1 (required when completed; a non-dispensation has no hand-over) |
+| 6.9 | Time of dispensation (D) | Required | 0..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.whenHandedOver` | Y | Aligned | time component |
 | 6.10 | Substitution occurred (D) | Optional | 0..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.substitution.wasSubstituted` | Y | Aligned |  |
 | 6.11 | Dosage instructions (D) | Required | 0..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.dosageInstruction` | Y | Aligned |  |
 | 6.12 | Additional information (D) | Optional | 0..* | IECoreMedicationDispenseEDispensation | `MedicationDispense.note` | N | Aligned |  |

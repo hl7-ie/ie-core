@@ -1,196 +1,266 @@
 // ╭──────────────────────────────────────────────────────────────────────╮
-// │  IE Core ePrescription Profiles                                    │
-// │  Aligned with: HL7 Europe MPD IG, Xt-EHR EHDSMedicationPrescription│
-// │  Updated to Xt-EHR v1.0.0: offLabel, statusReason,                │
-// │  minimumDispenseInterval, intendedUseType                          │
+// │  IE Core ePrescription / eDispensation profiles                     │
+// │  HIQA Draft National Standard for Electronic Prescriptions and      │
+// │  Electronic Dispensations (Sept 2026), Sections 3–6.                │
+// │  ADR-003: parents are HL7 Europe MPD 1.0.0. Constraints cite the    │
+// │  HIQA EP element ID in ^comment.                                    │
 // ╰──────────────────────────────────────────────────────────────────────╯
 
 Profile: IECoreMedicationRequestEPrescription
-Parent: IECoreMedicationRequest
+Parent: $EUMPDMedicationRequest
 Id: ie-core-medicationrequest-eprescription
 Title: "IE Core MedicationRequest (ePrescription)"
-Description: "Profile for electronic prescriptions in the Irish healthcare system, aligned with the HL7 Europe Medication Prescription and Dispense (MPD) IG and the Xt-EHR EHDSMedicationPrescription logical model v1.0.0. This profile extends the base IE Core MedicationRequest with constraints required for cross-border ePrescription exchange via MyHealth@EU. Additions in v1.0.0 alignment: offLabel block, statusReason, dispenseRequest.dispenseInterval (minimumDispenseInterval), and category for intendedUseType."
-
+Description: "One prescription item of an Irish electronic prescription (HIQA EP Section 3), derived from the HL7 Europe MPD MedicationRequest. A multi-item prescription is a set of MedicationRequests sharing groupIdentifier, exchanged in an IECoreBundleEPrescription together with the patient, prescriber and the allergy statement."
 * ^status = #draft
 
+// ── 3.1 / 3.5.1 Identifiers ────────────────────────────────────────────
 * identifier 1..* MS
-* identifier ^short = "Prescription line identifier"
-* identifier ^definition = "Unique identifier for this prescription item. In Ireland, this maps to the PCRS claim reference or the ePrescription reference number."
+* identifier ^comment = "HIQA EP 3.5.1 Prescription item identifier (Mandatory 1..*). For a single-item prescription this is typically the same as the electronic prescription identifier (EP 3.1)."
+* groupIdentifier MS
+* groupIdentifier ^comment = "HIQA EP 3.1 Electronic prescription (group) identifier (Mandatory 1..*): the NePS identifier used throughout the prescription and dispensation life cycle. Required when the prescription has more than one item (Bundle invariant ie-bnd-rx-1)."
 
-* status MS
-* intent MS
-* intent = #order
-
-// statusReason — added in Xt-EHR EHDSMedicationPrescription v1.0.0
-// Reason why the prescription has the current status (e.g. why it was cancelled or put on hold)
+// ── 3.3 / 3.5.2 Status ─────────────────────────────────────────────────
+* status 1..1 MS
+* status ^comment = "HIQA EP 3.5.2.1 Prescription item status (Mandatory 1..1): e.g. active, on-hold (inactive) or completed (dispensed). The status of the whole prescription (EP 3.3) is derived from its items: all completed = complete; any active = active; otherwise inactive."
 * statusReason MS
-* statusReason ^short = "Reason for the current prescription status (EHDSMedicationPrescription.header.statusReason)"
+* statusReason ^comment = "HIQA EP 3.5.2.2 (Required) and 3.5.2.3 (free text, in statusReason.text). Must be given unless the status is active or completed (invariant ie-rx-status-1)."
+* obeys ie-rx-status-1
+* intent = #order
+* category MS
+* category ^comment = "HIQA EP 3.5.5 Intended use of prescription item (Optional), e.g. prophylaxis, therapeutic or diagnostic."
+* courseOfTherapyType MS
+* courseOfTherapyType ^comment = "Acute or continuous (repeat) prescribing. Not a HIQA element; supports EP 3.5.11."
 
-* category 0..* MS
-* category ^short = "Prescription category — includes intendedUseType (e.g. prophylaxis, treatment, anaesthesia)"
-* category ^definition = "Categorisation of the prescription intent per Xt-EHR EHDSMedicationPrescription.prescriptionItem.intendedUseType (v1.0.0)."
-
-* priority MS
-
+// ── 3.5.3 Medication ───────────────────────────────────────────────────
 * medication[x] 1..1 MS
+* medication[x] ^comment = "HIQA EP 3.5.3 Prescribed medication item (Mandatory 1..1); see Section 4 (IECoreMedicationEPrescription). NMPC coding where available."
+* medication[x] from IECoreMedicationCodes (extensible)
+
+// ── Section 1 Patient ──────────────────────────────────────────────────
 * subject 1..1 MS
 * subject only Reference(IECorePatientEPrescription)
 * subject ^comment = "HIQA EP Section 1 Patient Details. The patient profile carries only the HIQA EP dataset (ADR-002)."
-
-// HIQA EP 1.4.2 Age: a legal requirement on the prescription when the patient is under 12
 * extension contains IECorePatientAgeAtPrescribing named ageAtPrescribing 0..1 MS
 * extension[ageAtPrescribing] ^short = "Patient age at prescribing (a legal requirement if under 12)"
-* extension[ageAtPrescribing] ^comment = "HIQA EP 1.4.2 Age (Required 0..1; 1.4.2.1 value and 1.4.2.2 type Mandatory within the cluster). Required when the patient is under 12 at authoredOn (invariant ie-rx-age-1)."
+* extension[ageAtPrescribing] ^comment = "HIQA EP 1.4.2 Age (Required 0..1; 1.4.2.1 value and 1.4.2.2 type Mandatory within the cluster). Required when the patient is under 12 at authoredOn (invariants ie-rx-age-1, ie-bnd-rx-3)."
 * obeys ie-rx-age-1
+* supportingInformation MS
+* supportingInformation ^comment = "HIQA EP 1.6 Clinical information: SHALL reference the allergy statement (IECoreListAllergiesAtPrescribing; EP 1.6.1/1.6.2, invariant ie-bnd-rx-2) and MAY reference weight (IECoreBodyWeight, EP 1.6.3) and height (IECoreBodyHeight, EP 1.6.4)."
 
+// ── Section 2 Prescriber ───────────────────────────────────────────────
 * requester 1..1 MS
-* requester only Reference(IECorePractitioner or IECorePractitionerRole or IECoreOrganization)
-* requester ^short = "Prescriber — the health professional who authored the prescription"
+* requester only Reference(IECorePractitionerRole or IECorePractitioner)
+* requester ^comment = "HIQA EP Section 2 Health Practitioner Details. The prescriber must be a registered health practitioner (EP 2.6, Mandatory), so an Organization is not allowed. Prefer PractitionerRole, which carries the role (2.5), facility (2.7–2.12) and contact details (2.10)."
 
+// ── 3.2 Date and time of issuing ───────────────────────────────────────
 * authoredOn 1..1 MS
-* authoredOn ^short = "Date the prescription was written"
+* authoredOn ^comment = "HIQA EP 3.2 Date and time of issuing the prescription (Mandatory 1..1)."
 
+// ── 3.5.4 Indication ───────────────────────────────────────────────────
 * reasonCode MS
-* reasonCode ^short = "Clinical reason/indication for the prescription (ICD-10, SNOMED CT, Orphacode)"
+* reasonCode ^comment = "HIQA EP 3.5.4.1 Indication (coded, Optional) and 3.5.4.2 (free text, in reasonCode.text)."
 
+// ── 3.5.6 Period of use (MPD extension) ────────────────────────────────
+* extension[effectiveDosePeriod] MS
+* extension[effectiveDosePeriod] ^comment = "HIQA EP 3.5.6 Period of use (Required 0..1): overall period of all dosage schemes."
+
+// ── 3.5.14 Off label (MPD / IHE extension) ─────────────────────────────
+* extension[offLabelUse] MS
+* extension[offLabelUse] ^comment = "HIQA EP 3.5.14 Off label (Required): 3.5.14.1 off-label use (Mandatory within the cluster) and 3.5.14.2 reason (coded or free text). IHE ihe-ext-offLabel, inherited from HL7 Europe MPD; replaces the retired IECoreOffLabelUse."
+
+// ── 3.5.8 / Section 5 Dosage ───────────────────────────────────────────
 * dosageInstruction 1..* MS
+* dosageInstruction ^comment = "HIQA EP 3.5.8 Dosage instructions (Mandatory 1..1) and Section 5 Dosaging."
+* dosageInstruction obeys ie-rx-dosage-1
 * dosageInstruction.text 1..1 MS
-* dosageInstruction.text ^short = "Human-readable dosage instructions"
+* dosageInstruction.text ^comment = "HIQA EP 5.1 Rendered dosage instruction (Optional). IE Core requires it (stricter than HIQA, OI-012) as a human-readable safety fallback for the structured dosage."
+* dosageInstruction.sequence ^comment = "HIQA EP 5.2.1 Sequence (Optional)."
+* dosageInstruction.patientInstruction MS
+* dosageInstruction.patientInstruction ^comment = "HIQA EP 5.2.2 Note for patient (Required)."
 * dosageInstruction.timing MS
+* dosageInstruction.timing ^comment = "HIQA EP 5.2.4 Repeat administration (Required): bounds (5.2.4.1), duration (5.2.4.2), frequency and period (5.2.4.3), day of week (5.2.4.4), time of day (5.2.4.5), event (5.2.4.6)."
+* dosageInstruction.timing.repeat.frequency MS
+* dosageInstruction.timing.repeat.frequency ^comment = "HIQA EP 5.2.4.3.1 Frequency of administration (Mandatory within the frequency cluster)."
+* dosageInstruction.timing.repeat.period MS
+* dosageInstruction.timing.repeat.period ^comment = "HIQA EP 5.2.4.3.2 Period (Mandatory within the frequency cluster), with periodUnit."
+* dosageInstruction.timing.repeat.periodUnit MS
+* dosageInstruction.asNeeded[x] ^comment = "HIQA EP 5.2.5 Administer as needed (Optional)."
+* dosageInstruction.site ^comment = "HIQA EP 5.2.6 Body site (Optional): morphology, location, qualifier and laterality post-coordinated in SNOMED CT, or described in site.text (5.2.6.5)."
 * dosageInstruction.route MS
+* dosageInstruction.route ^comment = "HIQA EP 5.2.7 Route of administration (Required); EDQM Standard Terms preferred."
 * dosageInstruction.doseAndRate MS
+* dosageInstruction.doseAndRate ^comment = "HIQA EP 5.2.3 Dose and rate (Required): dose quantity or range (5.2.3.1), rate (5.2.3.2)."
+* dosageInstruction.doseAndRate.dose[x] MS
+* dosageInstruction.maxDosePerPeriod MS
+* dosageInstruction.maxDosePerPeriod ^comment = "Maximum dose per period (not a distinct HIQA element; supports safe 'as needed' dosing)."
+* dosageInstruction.additionalInstruction MS
+* dosageInstruction.additionalInstruction ^comment = "Additional instructions (e.g. 'with food'); complements HIQA EP 5.2.2."
 
-* dispenseRequest MS
+// ── 3.5.7 / 3.5.9–3.5.13 Dispense request ──────────────────────────────
+* dispenseRequest 1..1 MS
+* dispenseRequest.extension[prescribedQuantity] MS
+* dispenseRequest.extension[prescribedQuantity] ^comment = "HIQA EP 3.5.7.1 Quantity prescribed (Required): overall quantity, independent of repeats (IHE extension via HL7 Europe MPD)."
+* dispenseRequest.extension contains
+    IECoreNumberOfInstalments named numberOfInstalments 0..1 MS and
+    IECoreDoNotExtend named doNotExtend 0..1
+* dispenseRequest.extension[numberOfInstalments] ^comment = "HIQA EP 3.5.12 Number of instalments (Required): a legal requirement for Schedule 2, 3 and 4 Part 1 controlled drugs (invariant ie-rx-cd-1)."
+* dispenseRequest.extension[doNotExtend] ^comment = "HIQA EP 3.5.9.2 'Do Not Extend' (Optional)."
+* dispenseRequest.quantity 1..1 MS
+* dispenseRequest.quantity ^comment = "Quantity to supply per dispense. IE Core requires it (1..1, stricter than HIQA EP 3.5.7 Required 0..1; OI-012)."
 * dispenseRequest.validityPeriod MS
-* dispenseRequest.validityPeriod ^short = "Period during which the prescription can be dispensed (EHDSMedicationPrescription.prescriptionItem.validityPeriod)"
+* dispenseRequest.validityPeriod ^comment = "HIQA EP 3.5.9.1 Validity period (Required). If no start is given, it is the date of issue. Up to 12 months for non-controlled drugs; 14 days for Schedule 2 and 3 controlled drugs (invariant ie-rx-cd-2)."
 * dispenseRequest.numberOfRepeatsAllowed MS
-* dispenseRequest.numberOfRepeatsAllowed ^short = "Number of refills allowed beyond the initial dispense (EHDSMedicationPrescription.prescriptionItem.numberOfRepeats)"
-* dispenseRequest.quantity MS
-* dispenseRequest.expectedSupplyDuration MS
-// dispenseRequest.dispenseInterval maps to EHDSMedicationPrescription.prescriptionItem.minimumDispenseInterval (v1.0.0)
+* dispenseRequest.numberOfRepeatsAllowed ^comment = "HIQA EP 3.5.11 Repeats of prescription item allowed (Optional); default 0. Repeats already dispensed are DERIVED from the completed MedicationDispense records that reference this request, not stored (ADR-003)."
 * dispenseRequest.dispenseInterval MS
-* dispenseRequest.dispenseInterval ^short = "Minimum interval between dispensations for a repeating prescription (EHDSMedicationPrescription.prescriptionItem.minimumDispenseInterval)"
+* dispenseRequest.dispenseInterval ^comment = "HIQA EP 3.5.13 Minimum dispense interval (Required); also the instalment interval for controlled drugs."
+* extension contains IECoreQuantityInWordsAndFigures named quantityInWordsAndFigures 0..1 MS
+* extension[quantityInWordsAndFigures] ^comment = "HIQA EP 3.5.7.2 Quantity prescribed (free text, words and figures): a legal requirement for controlled drugs (invariant ie-rx-cd-1)."
+* obeys ie-rx-cd-1 and ie-rx-cd-2
 
+// ── 3.5.10 Substitution ────────────────────────────────────────────────
 * substitution MS
 * substitution.allowed[x] MS
-* substitution.allowed[x] ^short = "Whether substitution is allowed under Irish pharmacy regulations"
+* substitution.allowed[x] ^comment = "HIQA EP 3.5.10.2 'Do Not Substitute' (Optional): allowedBoolean = false means 'Do Not Substitute'. A legal requirement to endorse the item if the prescriber invokes it."
 * substitution.reason MS
-* substitution.reason ^short = "Reason for the substitution requirement (e.g. biological product, patient allergy to excipient)"
+* substitution.reason ^comment = "HIQA EP 3.5.10.3 Reason for not allowing substitution (Required when 'Do Not Substitute'; free text in reason.text; invariant ie-rx-subst-1)."
+* obeys ie-rx-subst-1
 
-* groupIdentifier MS
-* groupIdentifier ^short = "Links multiple prescription items on the same prescription"
-
-// ── Off-label use (new in Xt-EHR EHDSMedicationPrescription v1.0.0) ───────
-// EHDSMedicationPrescription.prescriptionItem.offLabel is modelled here using
-// the FHIR R4 extension mechanism as there is no native R4 element.
-// When the EU MPD IG is published as STU, this should derive from
-// MedicationRequest-eu-mpd which may carry a formal offLabel extension.
-* extension contains IECoreOffLabelUse named offLabelUse 0..1 MS
-* extension[offLabelUse] ^short = "Off-label use indicator — prescriber has knowingly prescribed outside approved indications (EHDSMedicationPrescription.prescriptionItem.offLabel)"
-
-// ── Note ───────────────────────────────────────────────────────────────────
+// ── 3.6.1 Note ─────────────────────────────────────────────────────────
 * note MS
-* note ^short = "Additional information or message to the dispenser"
+* note ^comment = "HIQA EP 3.6.1 Note (Optional) and 1.6.5 Additional clinical notes (Optional): for the patient or the pharmacist."
 
 
 Profile: IECoreMedicationDispenseEDispensation
-Parent: IECoreMedicationDispense
+Parent: $EUMPDMedicationDispense
 Id: ie-core-medicationdispense-edispensation
 Title: "IE Core MedicationDispense (eDispensation)"
-Description: "Profile for electronic dispensation records in the Irish healthcare system, aligned with the HL7 Europe MPD IG and the Xt-EHR EHDSMedicationDispense logical model v1.0.0. This profile extends the base IE Core MedicationDispense with constraints for cross-border eDispensation exchange."
-
+Description: "An Irish electronic dispensation record (HIQA EP Section 6), derived from the HL7 Europe MPD MedicationDispense. Covers a completed dispense, a partial or instalment dispense, and a non-dispensation (declined or stopped, with a reason)."
 * ^status = #draft
 
 * identifier 1..* MS
-* identifier ^short = "Dispensation record identifier"
-
-* status MS
-
-// statusReason — added in Xt-EHR v1.0.0 alignment
-* statusReasonCodeableConcept MS
-* statusReasonCodeableConcept ^short = "Reason for the current dispense status"
-
+* identifier ^comment = "HIQA EP 6.1 Dispensation identifier (Required 0..*). IE Core requires at least one."
+* extension[recorded] MS
+* extension[recorded] ^comment = "HIQA EP 6.2 Date and time of issuing the dispense record (Mandatory 1..1); 1..1 inherited from HL7 Europe MPD."
+* status 1..1 MS
+* status ^comment = "HIQA EP 6.3.1 Dispensation status (Mandatory). A non-dispensation uses declined or stopped with a reason (invariant ie-md-status-1)."
+* statusReason[x] MS
+* statusReason[x] ^comment = "HIQA EP 6.3.2 Dispensation status reason (Optional): coded (6.3.2.1) or free text (6.3.2.2, in statusReasonCodeableConcept.text). IE Core requires a reason for a non-dispensation (safety: the prescriber needs to know why)."
+* obeys ie-md-status-1
 * medication[x] 1..1 MS
+* medication[x] ^comment = "HIQA EP 6.6 Dispensed medication (Mandatory 1..1); see Section 4."
+* medication[x] from IECoreMedicationCodes (extensible)
 * subject 1..1 MS
 * subject only Reference(IECorePatientEPrescription)
-
 * performer 1..* MS
 * performer.actor MS
 * performer.actor only Reference(IECorePractitioner or IECorePractitionerRole or IECoreOrganization)
-* performer ^short = "Dispensing pharmacist and pharmacy"
-
-* authorizingPrescription 1..* MS
-* authorizingPrescription only Reference(IECoreMedicationRequest or IECoreMedicationRequestEPrescription)
-* authorizingPrescription ^short = "Reference to the original prescription being dispensed"
-
+* performer ^comment = "HIQA EP Section 2 (dispenser and pharmacy). Dispensers are registered pharmacists or registered pharmaceutical assistants."
+* receiver ^comment = "HIQA EP 6.4 Receiver (Optional): the patient (6.4.1) or a health practitioner (6.4.2). A related person (6.4.3) goes in extension[receiverRelatedPerson]."
+* extension contains IECoreDispenseReceiverRelatedPerson named receiverRelatedPerson 0..1
+* authorizingPrescription 1..1 MS
+* authorizingPrescription only Reference(IECoreMedicationRequestEPrescription)
+* authorizingPrescription ^comment = "HIQA EP 6.5 Prescription item identifier with related request (Required 0..1). IE Core requires exactly one (stricter than HIQA, OI-012): this profile covers dispensing against an electronic prescription; emergency supply uses the base IECoreMedicationDispense."
 * quantity 1..1 MS
-* quantity ^short = "Quantity dispensed"
-
-* daysSupply MS
-* whenPrepared MS
+* quantity ^comment = "HIQA EP 6.7 Dispensed quantity (Mandatory 1..1)."
 * whenHandedOver MS
-* whenHandedOver ^short = "Date/time the medication was handed to the patient"
-
+* whenHandedOver ^comment = "HIQA EP 6.8 Date of dispensation (Mandatory) and 6.9 Time of dispensation (Required). Required when the status is completed (invariant ie-md-handover-1)."
+* obeys ie-md-handover-1
 * substitution MS
 * substitution.wasSubstituted MS
-* substitution.wasSubstituted ^short = "Whether a substitution was made during dispensing"
+* substitution.wasSubstituted ^comment = "HIQA EP 6.10 Substitution occurred (Optional)."
 * substitution.type MS
 * substitution.reason MS
-
 * dosageInstruction MS
+* dosageInstruction ^comment = "HIQA EP 6.11 Dosage instructions (Required); see Section 5."
 * dosageInstruction.text MS
+* note ^comment = "HIQA EP 6.12 Additional information (Optional)."
 
 
 Profile: IECoreMedicationEPrescription
-Parent: IECoreMedication
+Parent: $EUMPDMedication
 Id: ie-core-medication-eprescription
 Title: "IE Core Medication (ePrescription/eDispensation)"
-Description: "Medication profile for use in ePrescription and eDispensation, aligned with the HL7 Europe MPD Medication profile and the Xt-EHR EHDSMedication logical model v1.0.0. Supports both generic/virtual products and branded/packaged products as required by Irish pharmacy practice and EU cross-border exchange."
-
+Description: "The medicinal product in an Irish ePrescription or eDispensation (HIQA EP Section 4), derived from the HL7 Europe MPD Medication. Many elements are expected to be auto-populated from the National Medicinal Product Catalogue (NMPC)."
 * ^status = #draft
 
 * code 1..1 MS
-* code ^short = "Medication code. Use NMPC as the primary coding where available, with SNOMED CT Irish Edition as a secondary coding where available. ATC may be carried for cross-border classification."
-
-* form MS
-* form ^short = "Dose form (e.g. tablet, capsule, solution) — EDQM Standard Terms preferred"
-
-* amount MS
-* amount ^short = "Package size / amount of drug in package"
-
-* ingredient MS
-* ingredient.item[x] MS
-* ingredient.strength MS
-* ingredient.strength ^short = "Strength of the active ingredient"
-* ingredient.isActive MS
-
-* batch MS
-* batch.lotNumber MS
-* batch.expirationDate MS
-
-
-// ── Off-label extension definition ────────────────────────────────────────
-Extension: IECoreOffLabelUse
-Id: ie-core-off-label-use
-Title: "IE Core Off-Label Use"
-Description: "Indicates that the prescriber has knowingly prescribed the medication for an indication, age group, dosage, or route of administration that is not approved by the regulatory agencies. Corresponds to EHDSMedicationPrescription.prescriptionItem.offLabel in Xt-EHR v1.0.0."
-
-* ^status = #draft
-* ^context[+].type = #element
-* ^context[=].expression = "MedicationRequest"
-
+* code ^comment = "HIQA EP 4.1 Medication item identifier (Required 0..*) and 4.3 Medication product name (4.3.1 coded, 4.3.2 free text in code.text). NMPC (SNOMED CT Irish Extension) where available; see Terminology Services."
+* code from IECoreMedicationCodes (extensible)
+// EU Base medication-eu-core already slices (IHE / EU extensions): productName, classification,
+// sizeOfItem, characteristic, unitOfPresentation, packageType, device. They are reused, not re-declared.
+* extension[classification] MS
 * extension contains
-    isOffLabelUse 1..1 and
-    reason 0..*
+    IECoreMedicationInterchangeable named interchangeable 0..1 MS and
+    IECoreExemptMedicationItem named exemptMedicationItem 0..1 MS
+* extension[classification] ^comment = "HIQA EP 4.2 Classification (Required 0..*): ATC (4.2.1), supply legal status (4.2.2, IECoreSupplyLegalStatus placeholder), MDA schedule (4.2.3, IECoreMDASchedule placeholder), other classification group (4.2.4)."
+* extension[productName] ^comment = "HIQA EP 4.3 Medication product name (brand or trade name), when it differs from code.text."
+* extension[unitOfPresentation] ^comment = "HIQA EP 4.7.3 Unit of presentation (Optional, dispensation)."
+* extension[device] ^comment = "HIQA EP 4.8 Device (Optional, dispensation): 4.8.1 device type and 4.8.2 quantity."
+* extension[characteristic] ^comment = "HIQA EP 4.9 Characteristics (Optional, dispensation)."
+* extension[packageType] ^comment = "HIQA EP 4.7.6 Package type (Optional, dispensation); EDQM package terms."
+* extension[interchangeable] ^comment = "HIQA EP 3.5.10.1 Medicinal product is interchangeable (Required; HPRA List of Interchangeable Medicines)."
+* extension[exemptMedicationItem] ^comment = "HIQA EP 4.11 Exempt medication item (Required). Meaning Requires Clarification."
+* form MS
+* form ^comment = "HIQA EP 4.5 Dose form (Required, dispensation) and 4.7.1 Medication item dose form (Required). EDQM Standard Terms. For a controlled-drug preparation, the dose form is a legal requirement."
+* manufacturer ^comment = "HIQA EP 4.4 Manufacturer / marketing authorisation holder (Optional, dispensation)."
+* amount MS
+* amount ^comment = "HIQA EP 4.7.5 Pack size or amount (Optional)."
+* ingredient 1..* MS
+* ingredient ^comment = "HIQA EP 4.7.2 Ingredient in medication item (Mandatory 1..*)."
+* ingredient.item[x] MS
+* ingredient.item[x] ^comment = "HIQA EP 4.7.2.2 Active ingredient/substance (Mandatory 1..1); SNOMED CT substance."
+* ingredient.isActive MS
+* ingredient.isActive ^comment = "HIQA EP 4.7.2.1 Ingredient is active (Required)."
+* ingredient.strength MS
+* ingredient.strength ^comment = "HIQA EP 4.7.2.3 Strength (Required; 4.7.2.3.1 Ratio Mandatory within the cluster), UCUM units. A legal requirement on a dispensation record, and on a controlled-drug prescription for a preparation. Basis of strength substance (4.7.2.3.2) via the IHE strengthsubstance extension."
+* batch MS
+* batch ^comment = "HIQA EP 4.10 Batch (Required, dispensation)."
+* batch.lotNumber MS
+* batch.lotNumber ^comment = "HIQA EP 4.10.1 Batch lot number (Required)."
+* batch.expirationDate MS
+* batch.expirationDate ^comment = "HIQA EP 4.10.2 Batch expiration date (Required)."
 
-* extension[isOffLabelUse].value[x] only boolean
-* extension[isOffLabelUse] ^short = "True when the prescriber knowingly uses the medication off-label"
 
-* extension[reason].value[x] only CodeableConcept or string
-* extension[reason] ^short = "Reason or clarification for the off-label use"
-
+// ╭──────────────────────────────────────────────────────────────────────╮
+// │  Invariants                                                          │
+// ╰──────────────────────────────────────────────────────────────────────╯
 
 Invariant: ie-rx-age-1
 Description: "If the patient is under 12 years old at the date of prescribing, the patient's age SHALL be recorded on the prescription (HIQA EP 1.4.2; a legal requirement in Ireland)"
 Expression: "subject.resolve().ofType(Patient).birthDate.empty() or authoredOn.empty() or (subject.resolve().ofType(Patient).birthDate <= (authoredOn.toString().substring(0,10).toDate() - 12 years)) or extension('https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient-age-at-prescribing').exists()"
+Severity: #error
+
+Invariant: ie-rx-status-1
+Description: "A status reason SHALL be given unless the prescription item is active, completed or draft (HIQA EP 3.5.2.2 / 3.5.2.3)"
+Expression: "(status = 'active' or status = 'completed' or status = 'draft') or statusReason.exists()"
+Severity: #error
+
+Invariant: ie-rx-dosage-1
+Description: "A structured dosage SHALL be accompanied by a human-readable dosage text (safety fallback; HIQA EP 5.1 / 5.2)"
+Expression: "(timing.exists() or doseAndRate.exists()) implies text.exists()"
+Severity: #error
+
+Invariant: ie-rx-subst-1
+Description: "When substitution is not allowed ('Do Not Substitute'), a reason SHALL be given (HIQA EP 3.5.10.3)"
+Expression: "substitution.allowed.ofType(boolean).where($this = false).exists() implies substitution.reason.exists()"
+Severity: #error
+
+Invariant: ie-rx-cd-1
+Description: "A prescription for a Schedule 2, 3 or 4 Part 1 controlled drug SHALL state the quantity in words and figures and the number of instalments (HIQA EP 3.5.7.2, 3.5.12; Misuse of Drugs Regulations 2017)"
+Expression: "(medication.ofType(Reference).resolve().extension('https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-classification').value.ofType(CodeableConcept).coding.where(system = 'https://hl7-ie.github.io/ie-core/fhir/ie/core/CodeSystem/ie-core-mda-schedule' and (code = 'schedule-2' or code = 'schedule-3' or code = 'schedule-4-part-1')).exists()) implies (extension('https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-quantity-in-words-and-figures').exists() and dispenseRequest.extension('https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-number-of-instalments').exists())"
+Severity: #error
+
+Invariant: ie-rx-cd-2
+Description: "A prescription for a Schedule 2 or 3 controlled drug SHALL have a validity period ending no later than 14 days after the date of issue (HIQA EP 3.5.9.1; Misuse of Drugs Regulations 2017)"
+Expression: "(medication.ofType(Reference).resolve().extension('https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-classification').value.ofType(CodeableConcept).coding.where(system = 'https://hl7-ie.github.io/ie-core/fhir/ie/core/CodeSystem/ie-core-mda-schedule' and (code = 'schedule-2' or code = 'schedule-3')).exists()) implies (dispenseRequest.validityPeriod.end.exists() and dispenseRequest.validityPeriod.end <= (authoredOn + 14 days))"
+Severity: #error
+
+Invariant: ie-md-status-1
+Description: "A non-dispensation (declined, stopped, cancelled or on-hold) SHALL state the reason (HIQA EP 6.3.2)"
+Expression: "(status = 'declined' or status = 'stopped' or status = 'cancelled' or status = 'on-hold') implies statusReason.exists()"
+Severity: #error
+
+Invariant: ie-md-handover-1
+Description: "A completed dispense SHALL record when the medication was handed over (HIQA EP 6.8 Date of dispensation, Mandatory)"
+Expression: "status = 'completed' implies whenHandedOver.exists()"
 Severity: #error

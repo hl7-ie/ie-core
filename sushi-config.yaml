@@ -33,6 +33,8 @@ publisher:
 
 dependencies:
   hl7.fhir.uv.extensions.r4: 5.1.0
+  # SUSHI cross-version support: resolves R5 extensions (e.g. extension-MedicationDispense.recorded) used by HL7 Europe MPD
+  hl7.fhir.extensions.r5: 4.0.1
   hl7.fhir.eu.base:
     id: hl7fhireubase
     uri: http://hl7.eu/fhir/base/ImplementationGuide/hl7.fhir.eu.base
@@ -56,6 +58,12 @@ dependencies:
     id: hl7fhireuropempd
     uri: http://hl7.eu/fhir/mpd/ImplementationGuide/hl7.fhir.eu.mpd
     version: 1.0.0
+  # IHE Pharmacy MPD (R4): already a transitive dependency of hl7.fhir.eu.mpd 1.0.0. Declared explicitly
+  # so SUSHI can resolve the IHE medication extensions reused for HIQA EP Section 4 (ADR-003).
+  ihe.pharm.mpd.r4:
+    id: ihepharmmpdr4
+    uri: https://profiles.ihe.net/PHARM/MPD/ImplementationGuide/ihe.pharm.mpd
+    version: 1.0.0-comment-2
   # HL7 Europe Patient Summary (EPS) 1.0.0-ballot: parent of the IE Patient Summary (ADR-004).
   # Ballot dependency, pinned; fallback is IPS 2.0.x if EPS has not reached STU.
   hl7.fhir.eu.eps:
@@ -223,12 +231,15 @@ groups:
       - StructureDefinition/ie-core-immunization
   EPrescriptionProfiles:
     name: ePrescription & eDispensation (EHDS)
-    description: Profiles for cross-border ePrescription and eDispensation, aligned with HL7 Europe MPD IG and Xt-EHR
+    description: Profiles for ePrescription and eDispensation per the HIQA draft national standard (Sept 2026), derived from HL7 Europe MPD 1.0.0
     resources:
       - StructureDefinition/ie-core-medication-eprescription
       - StructureDefinition/ie-core-medicationrequest-eprescription
       - StructureDefinition/ie-core-medicationdispense-edispensation
-      - StructureDefinition/ie-core-off-label-use
+      - StructureDefinition/ie-core-bundle-eprescription
+      - StructureDefinition/ie-core-bundle-eprescription-crossborder
+      - StructureDefinition/ie-core-list-allergies-at-prescribing
+      - StructureDefinition/ie-core-provenance-eprescription-signature
   DiagnosticProfiles:
     name: Diagnostics
     description: Diagnostic reporting profiles

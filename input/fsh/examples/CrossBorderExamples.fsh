@@ -553,6 +553,7 @@ Description: "German pharmacy dispensation of Metformin 500mg Filmtabletten (Rat
 * identifier[0].system = "http://fhir.de/sid/apothekenVerzeichnis"
 * identifier[=].value = "DE-DISP-2025-XB-001-MET"
 * status = #completed
+* extension[recorded].valueDateTime = "2025-01-20T10:15:00+01:00"
 
 * medicationCodeableConcept = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
 * medicationCodeableConcept.coding[+] = $SCT#372567009 "Metformin"
@@ -588,6 +589,7 @@ Description: "German pharmacy dispensation of Lisinopril 10mg Tabletten (Hexal, 
 * identifier[0].system = "http://fhir.de/sid/apothekenVerzeichnis"
 * identifier[=].value = "DE-DISP-2025-XB-001-LIS"
 * status = #completed
+* extension[recorded].valueDateTime = "2025-01-20T10:15:00+01:00"
 
 * medicationCodeableConcept = $NMPC#NMPC-LIS10TAB "Lisinopril 10mg tablets"
 * medicationCodeableConcept.coding[+] = $SCT#386873009 "Lisinopril"
@@ -674,6 +676,7 @@ Description: "Latvian pharmacy dispensation of Metformins 500mg tabletes (ZRA co
 * identifier[0].system = "http://www.zva.gov.lv/fhir/sid/dispensation"
 * identifier[=].value = "LV-DISP-2025-XB-001"
 * status = #completed
+* extension[recorded].valueDateTime = "2025-06-15T11:00:00+03:00"
 
 * medicationCodeableConcept = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
 * medicationCodeableConcept.coding[+] = $SCT#372567009 "Metformin"
@@ -748,6 +751,7 @@ Description: "Irish ePrescription for Sertraline 50mg for Seán Murphy, transmit
 * substitution.allowedBoolean = false
 
 
+* substitution.reason.text = "Patient stabilised on this product; switching risks loss of symptom control."
 Instance: ie-dispense-pt-sertraline
 InstanceOf: IECoreMedicationDispenseEDispensation
 Usage: #example
@@ -757,6 +761,7 @@ Description: "Portuguese pharmacy dispensation of Sertralina 50mg Comprimidos (I
 * identifier[0].system = "http://www.infarmed.pt/fhir/sid/dispensacao"
 * identifier[=].value = "PT-DISP-2025-XB-001"
 * status = #completed
+* extension[recorded].valueDateTime = "2025-06-20T10:30:00+01:00"
 * medicationCodeableConcept = $NMPC#NMPC-SER50TAB "Sertraline 50mg tablets"
 * medicationCodeableConcept.coding[+] = $SCT#372594008 "Sertraline"
 * medicationCodeableConcept.coding[+].system = "http://www.infarmed.pt"
@@ -827,6 +832,7 @@ Description: "Irish ePrescription for Warfarin 5mg for Seán Murphy, transmitted
 * substitution.allowedBoolean = false
 
 
+* substitution.reason.text = "Narrow therapeutic index: product continuity required to keep INR stable."
 // ====================================================================
 // SCENARIO 8 (IE→SE) – Insulin Glargine + Aspart in Sweden
 // ====================================================================
@@ -881,6 +887,7 @@ Description: "Irish ePrescription for Insulin Glargine 100u/ml for Seán Murphy,
 * substitution.allowedBoolean = false
 
 
+* substitution.reason.text = "Biological medicine: excluded from the HPRA List of Interchangeable Medicines (HIQA EP 3.5.10)."
 // ====================================================================
 // SCENARIO 9 (IE→AT) – Atorvastatin 80mg + Ramipril 10mg in Austria
 // ====================================================================
@@ -1024,6 +1031,7 @@ Description: "Hickey's Pharmacy, Dublin dispenses Metformin 500mg for Finnish pa
 * identifier[+].system = "http://www.kela.fi/fhir/sid/prescription"
 * identifier[=].value = "FI-RX-2025-NEPS-001"
 * status = #completed
+* extension[recorded].valueDateTime = "2025-08-01T14:00:00+01:00"
 
 * medicationCodeableConcept = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
 * medicationCodeableConcept.coding[+] = $SCT#372567009 "Metformin"
@@ -1134,6 +1142,7 @@ Description: "McCauley's Pharmacy, Dublin dispenses Atorvastatin 40mg for Belgia
 * identifier[+].system = "http://www.cnpv.be/fhir/sid/prescription"
 * identifier[=].value = "BE-RX-2025-NEPS-001"
 * status = #completed
+* extension[recorded].valueDateTime = "2025-08-05T11:30:00+01:00"
 
 * medicationCodeableConcept = $NMPC#NMPC-ATV40TAB "Atorvastatin 40mg tablets"
 * medicationCodeableConcept.coding[+] = $SCT#373444002 "Atorvastatin"
