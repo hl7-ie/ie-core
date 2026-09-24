@@ -37,6 +37,12 @@ repository). The HIQA element IDs are cited as EP x.y / PS x.y.
   `recorded` (HIQA EP 6.2). `authorizingPrescription` is exactly 1..1. `requester` must be a
   Practitioner or PractitionerRole (registration is Mandatory, EP 2.6).
 - `IECorePractitioner` requires at least one registration identifier (EP/PS 2.6) and a given name.
+- **Patient Summary re-parented on HL7 Europe EPS 1.0.0-ballot (ADR-004).**
+  `IECoreCompositionPatientSummary` now derives from `composition-eu-eps` (which imposes the IPS
+  Composition). The IE section slices are replaced by the EPS slices (`medications` →
+  `sectionMedications`, `alerts` → `sectionAlert`, `travelHistory` → `sectionTravelHx`, …).
+  Medical devices are DeviceUseStatement entries. `IECoreProcedure.performed[x]` is relaxed from
+  1..1 to 0..1 (HIQA PS 9.3.1 Required).
 
 #### Changed
 
@@ -48,6 +54,12 @@ repository). The HIQA element IDs are cited as EP x.y / PS x.y.
 
 #### Added
 
+- `IECoreBundlePatientSummary` (parent EPS Bundle; identifier 1..1 for HIQA PS 19.1.2; IE Coverage
+  entries for PS 1.3.4). Invariants `ie-ps-1` (entries or emptyReason in every section HIQA gives
+  an empty reason to) and `ie-ps-attester-1`.
+- HIQA PS Required elements marked MustSupport on the IE clinical profiles (AllergyIntolerance,
+  MedicationStatement, Condition, Procedure, Immunization, CarePlan); `ie-cond-1` (condition status
+  required unless entered-in-error).
 - `IECoreBundleEPrescription` (+ `IECoreBundleEPrescriptionCrossBorder`, claimed in `meta.profile`
   to flag a cross-border prescription), `IECoreListAllergiesAtPrescribing` (the allergy statement
   sent with every prescription, EP 1.6.1/1.6.2) and `IECoreProvenanceEPrescriptionSignature`

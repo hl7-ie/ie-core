@@ -47,3 +47,9 @@ Description: "Profile for substantial medical alerts or warnings in the Irish he
 * author MS
 * author only Reference(IECorePractitioner or IECorePractitionerRole or IECoreOrganization)
 * author ^short = "Author or recorder of the alert"
+
+// ── HIQA PS Section 4 Alerts ───────────────────────────────────────────
+* status ^comment = "HIQA PS 4.3.2 Alert status (Mandatory)."
+* code ^comment = "HIQA PS 4.3.3 Alert (Optional, coded) and 4.3.4 Description of alert (Required, in code.text)."
+* period ^comment = "HIQA PS 4.3.1 Time period of alert (Required)."
+* author ^comment = "HIQA PS 4.4.6 Source of alert information (Optional; numbering as published)."

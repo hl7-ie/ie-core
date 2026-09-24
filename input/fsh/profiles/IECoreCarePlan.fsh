@@ -21,3 +21,12 @@ Description: "The IE Core CarePlan profile sets minimum expectations for the Car
 * category[AssessPlan] = https://hl7-ie.github.io/ie-core/fhir/ie/core/CodeSystem/ie-core-codesystem#assess-plan "Assessment and Plan of Treatment"
 * subject 1..1 MS
 * subject only Reference(IECorePatient)
+
+// ── HIQA PS Section 18 Care Plan ───────────────────────────────────────
+* title MS
+* title ^comment = "HIQA PS 18.2.1 Name of care plan (Required)."
+* description MS
+* description ^comment = "HIQA PS 18.2.2 Description of the care plan (Required)."
+* period ^comment = "HIQA PS 18.2.3 Care plan period (Optional)."
+* addresses ^comment = "HIQA PS 18.2.4 Condition related to the care plan (Optional)."
+* goal ^comment = "HIQA PS 18.2.6 Care plan goal (Optional)."

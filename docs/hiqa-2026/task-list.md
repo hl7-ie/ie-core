@@ -9,7 +9,7 @@ Branch: `feat/hiqa-2026-alignment-c8ff80`. One commit per phase (Conventional Co
 | 3 | Design and ADRs | ✅ approved 2026-09-24 | ADR-001–006, `checkpoint-1-plan.md`; parent trials: MPD 38 errors (36 examples), IPS 1, EPS 1 |
 | 4 | Demographics and data minimisation | ✅ done | IECorePatientEPrescription, IECorePatientSummaryPatient, ADR-006 identifiers; Mandatory aligned EP 25/54, PS 32/68; 15 prohibited rows enforced |
 | 5 | ePrescription / eDispensation | ✅ done | EU MPD parents; Bundle, allergy List, signature Provenance; 14 invariants; registration/facility/GLN identifiers; EP Mandatory aligned 40/54 |
-| 6 | Patient Summary | ⏸ | |
+| 6 | Patient Summary | ✅ done | EPS parent; PS Bundle; clinical MS; PS Mandatory aligned 46/68 |
 | 7 | Terminology | ⏸ | |
 | 8 | Examples, tests, payloads | ⏸ | |
 | 9 | Pages, R5, CI | ⏸ | |

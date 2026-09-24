@@ -20,7 +20,7 @@ hiqa_id,profile,path,ms,status,notes
 1.3.3.2,IECorePatientSummaryPatient,Patient.identifier.value,Y,Aligned,
 1.3.3.3,IECorePatientSummaryPatient,Patient.identifier.period,Y,Aligned,
 1.3.3.4,IECorePatientSummaryPatient,Patient.identifier.assigner,Y,Aligned,
-1.3.4,IECoreCoverage,Coverage,Y,Partial,Coverage profile exists but is not referenced from the Patient Summary
+1.3.4,IECoreBundlePatientSummary,Bundle.entry:coverage,Y,Aligned,IECoreCoverage entries in the PS Bundle
 1.3.4.1,IECoreCoverage,Coverage.type,Y,Aligned,
 1.3.4.2,IECoreCoverage,Coverage.subscriberId,Y,Aligned,
 1.3.4.3,IECoreCoverage,Coverage.payor,Y,Aligned,
@@ -88,19 +88,19 @@ hiqa_id,profile,path,ms,status,notes
 3.6.4,IECorePatientSummaryPatient,Patient.contact.address.state,N,Aligned,Mandatory within the contact-address cluster: state 1..1
 3.6.5,IECorePatientSummaryPatient,Patient.contact.address.country,Y,Aligned,
 3.7,IECorePatientSummaryPatient,Patient.contact.telecom.rank,Y,Aligned,preferred communication type: rank = 1
-4.1,IECoreCompositionPatientSummary,Composition.section:alerts.text,Y,Aligned,
-4.2,IECoreCompositionPatientSummary,Composition.section:alerts.emptyReason,N,Partial,Required; not MS for alerts
-4.3,IECoreCompositionPatientSummary,Composition.section:alerts.entry,Y,Aligned,IECoreFlag
+4.1,IECoreCompositionPatientSummary,Composition.section:sectionAlert.text,Y,Aligned,
+4.2,IECoreCompositionPatientSummary,Composition.section:sectionAlert.emptyReason,Y,Aligned,entries or emptyReason (ie-ps-1)
+4.3,IECoreCompositionPatientSummary,Composition.section:sectionAlert.entry,Y,Aligned,IECoreFlag
 4.3.1,IECoreFlag,Flag.period,Y,Aligned,
 4.3.2,IECoreFlag,Flag.status,Y,Aligned,
 4.3.3,IECoreFlag,Flag.code,Y,Aligned,
 4.3.4,IECoreFlag,Flag.code.text,N,Aligned,
 4.3.5,IECoreFlag,,N,Gap,priority (flag-priority extension); Optional
 4.4.6,IECoreFlag,Flag.author,Y,Partial,HIQA numbering anomaly (probably 4.3.6). HIQA 0..* sources; Flag.author is 0..1
-4.5,IECoreCompositionPatientSummary,Composition.section:alerts.text,Y,Aligned,
-5.1,IECoreCompositionPatientSummary,Composition.section:allergies.text,Y,Aligned,
-5.2,IECoreCompositionPatientSummary,Composition.section:allergies.emptyReason,Y,Aligned,
-5.3,IECoreCompositionPatientSummary,Composition.section:allergies.entry,Y,Aligned,
+4.5,IECoreCompositionPatientSummary,Composition.section:sectionAlert.text,Y,Aligned,
+5.1,IECoreCompositionPatientSummary,Composition.section:sectionAllergies.text,Y,Aligned,
+5.2,IECoreCompositionPatientSummary,Composition.section:sectionAllergies.emptyReason,Y,Aligned,
+5.3,IECoreCompositionPatientSummary,Composition.section:sectionAllergies.entry,Y,Aligned,
 5.3.1,IECoreAllergyIntolerance,AllergyIntolerance.clinicalStatus,Y,Aligned,
 5.3.2,IECoreAllergyIntolerance,AllergyIntolerance.code,Y,Aligned,
 5.3.3,IECoreAllergyIntolerance,AllergyIntolerance.onset[x],Y,Aligned,
@@ -108,20 +108,20 @@ hiqa_id,profile,path,ms,status,notes
 5.3.5,IECoreAllergyIntolerance,AllergyIntolerance.verificationStatus,Y,Aligned,
 5.3.6,IECoreAllergyIntolerance,AllergyIntolerance.note,N,Aligned,
 5.3.7,IECoreAllergyIntolerance,AllergyIntolerance.reaction,Y,Aligned,
-5.3.7.1,IECoreAllergyIntolerance,AllergyIntolerance.reaction.substance,N,Partial,Mandatory within the cluster; not MS
-5.3.7.2,IECoreAllergyIntolerance,AllergyIntolerance.reaction.description,N,Partial,Required; not MS
+5.3.7.1,IECoreAllergyIntolerance,AllergyIntolerance.reaction.substance,Y,Aligned,Mandatory within the reaction cluster (MS) (IE profile; PS entries SHOULD claim it: OI-016)
+5.3.7.2,IECoreAllergyIntolerance,AllergyIntolerance.reaction.description,Y,Aligned,MS (IE profile; PS entries SHOULD claim it: OI-016)
 5.3.7.3,IECoreAllergyIntolerance,AllergyIntolerance.type,N,Aligned,
 5.3.7.4,IECoreAllergyIntolerance,AllergyIntolerance.reaction.severity,Y,Aligned,
 5.3.7.5,IECoreAllergyIntolerance,,N,Gap,evidence: not in R4 reaction; Optional
 5.3.7.6,IECoreAllergyIntolerance,AllergyIntolerance.reaction.onset,N,Aligned,
 5.3.7.7,IECoreAllergyIntolerance,AllergyIntolerance.reaction.note,N,Aligned,
-6.1,IECoreCompositionPatientSummary,Composition.section:medications.text,Y,Aligned,
-6.2,IECoreCompositionPatientSummary,Composition.section:medications.emptyReason,Y,Aligned,
-6.3,IECoreCompositionPatientSummary,Composition.section:medications.entry,Y,Aligned,HIQA record entry 0..1 looks like a source error (OI-006)
+6.1,IECoreCompositionPatientSummary,Composition.section:sectionMedications.text,Y,Aligned,
+6.2,IECoreCompositionPatientSummary,Composition.section:sectionMedications.emptyReason,Y,Aligned,
+6.3,IECoreCompositionPatientSummary,Composition.section:sectionMedications.entry,Y,Aligned,HIQA record entry 0..1 looks like a source error (OI-006)
 6.3.1,IECoreMedicationStatement,MedicationStatement.status,Y,Aligned,
 6.3.1.1,IECoreMedicationStatement,MedicationStatement.status,Y,Aligned,
-6.3.1.2,IECoreMedicationStatement,MedicationStatement.statusReason,N,Partial,Required; not MS
-6.3.2,IECoreMedicationStatement,MedicationStatement.identifier,N,Partial,Required; not MS
+6.3.1.2,IECoreMedicationStatement,MedicationStatement.statusReason,Y,Aligned,MS (IE profile; PS entries SHOULD claim it: OI-016)
+6.3.2,IECoreMedicationStatement,MedicationStatement.identifier,Y,Aligned,MS (IE profile; PS entries SHOULD claim it: OI-016)
 6.3.3,IECoreMedicationStatement,,N,Gap,classification
 6.3.4,IECoreMedicationStatement,MedicationStatement.medication[x],Y,Aligned,
 6.3.5,IECoreMedicationStatement,MedicationStatement.reasonCode,Y,Aligned,
@@ -129,37 +129,37 @@ hiqa_id,profile,path,ms,status,notes
 6.3.5.2,IECoreMedicationStatement,MedicationStatement.reasonCode.text,N,Aligned,
 6.3.6,IECoreMedicationStatement,MedicationStatement.medication[x],Y,Partial,dose form only via a referenced Medication.form
 6.3.7,IECoreMedicationStatement,MedicationStatement.dosage.route,Y,Aligned,
-6.3.8,IECoreMedicationStatement,MedicationStatement.dosage.site,N,Partial,Required; not MS
-6.3.9,IECoreMedicationStatement,MedicationStatement.dosage.doseAndRate,Y,Partial,HIQA Mandatory; dose[x] not required
+6.3.8,IECoreMedicationStatement,MedicationStatement.dosage.site,Y,Aligned,MS (IE profile; PS entries SHOULD claim it: OI-016)
+6.3.9,IECoreMedicationStatement,MedicationStatement.dosage.doseAndRate,Y,Partial,"dose[x] MS but not 1..1: enforcing it would reject ""as directed"" statements (Requires Clarification; feedback)"
 6.3.10,IECoreMedicationStatement,MedicationStatement.dosage.timing,Y,Aligned,
-6.3.10.1,IECoreMedicationStatement,MedicationStatement.dosage.timing.repeat.frequency,N,Partial,Mandatory within the cluster; not MS
-6.3.10.2,IECoreMedicationStatement,MedicationStatement.dosage.timing.repeat.period,N,Partial,Mandatory within the cluster; not MS
+6.3.10.1,IECoreMedicationStatement,MedicationStatement.dosage.timing.repeat.frequency,Y,Aligned,Mandatory within the frequency cluster (MS)
+6.3.10.2,IECoreMedicationStatement,MedicationStatement.dosage.timing.repeat.period,Y,Aligned,Mandatory within the frequency cluster (MS)
 6.3.10.3,IECoreMedicationStatement,MedicationStatement.dosage.timing.repeat.dayOfWeek,N,Aligned,
 6.3.10.4,IECoreMedicationStatement,MedicationStatement.dosage.timing.repeat.timeOfDay,N,Aligned,
 6.3.10.5,IECoreMedicationStatement,MedicationStatement.dosage.timing.repeat.when,N,Aligned,
-6.3.11.1,IECoreMedicationStatement,MedicationStatement.dosage.additionalInstruction,N,Partial,Required; not MS. HIQA parent 6.3.11 is missing (OI-006)
+6.3.11.1,IECoreMedicationStatement,MedicationStatement.dosage.additionalInstruction,Y,Aligned,MS; HIQA parent 6.3.11 missing (OI-006)
 6.4,IECoreMedicationStatement,,N,Gap,aids to compliance; Optional
 6.5,IECoreMedicationStatement,MedicationStatement.informationSource,Y,Aligned,non-prescribed medication and supplements as MedicationStatement
 6.6,IECoreMedicationStatement,MedicationStatement.note,Y,Aligned,
-7.1,IECoreCompositionPatientSummary,Composition.section:problems.text,Y,Aligned,
-7.2,IECoreCompositionPatientSummary,Composition.section:problems.emptyReason,Y,Aligned,
-7.3,IECoreCompositionPatientSummary,Composition.section:problems.entry,Y,Aligned,
+7.1,IECoreCompositionPatientSummary,Composition.section:sectionProblems.text,Y,Aligned,
+7.2,IECoreCompositionPatientSummary,Composition.section:sectionProblems.emptyReason,Y,Aligned,
+7.3,IECoreCompositionPatientSummary,Composition.section:sectionProblems.entry,Y,Aligned,
 7.3.1,IECoreConditionProblemsHealthConcerns,Condition.code,Y,Aligned,
-7.3.2,IECoreConditionProblemsHealthConcerns,Condition.clinicalStatus,Y,Partial,HIQA Mandatory; IG 0..1 MS
+7.3.2,IECoreConditionProblemsHealthConcerns,Condition.clinicalStatus,Y,Aligned,enforced by invariant ie-cond-1 (1..1 would break FHIR con-5 for entered-in-error)
 7.3.3,IECoreConditionProblemsHealthConcerns,Condition.recordedDate,Y,Partial,date of diagnosis vs recorded date; condition-assertedDate is closer
 7.3.4,IECoreConditionProblemsHealthConcerns,Condition.onset[x],Y,Aligned,
 7.3.5,IECoreConditionProblemsHealthConcerns,Condition.abatement[x],Y,Aligned,
 7.3.6,IECoreConditionProblemsHealthConcerns,Condition.category,Y,Aligned,
-7.3.7,IECoreConditionProblemsHealthConcerns,Condition.severity,N,Partial,Required; not MS
-7.3.8,IECoreConditionProblemsHealthConcerns,Condition.bodySite,N,Partial,Required; not MS
-7.3.9,IECoreConditionProblemsHealthConcerns,Condition.stage.summary,N,Partial,Required; not MS
+7.3.7,IECoreConditionProblemsHealthConcerns,Condition.severity,Y,Aligned,MS (IE profile; PS entries SHOULD claim it: OI-016)
+7.3.8,IECoreConditionProblemsHealthConcerns,Condition.bodySite,Y,Aligned,MS (IE profile; PS entries SHOULD claim it: OI-016)
+7.3.9,IECoreConditionProblemsHealthConcerns,Condition.stage.summary,Y,Aligned,MS (IE profile; PS entries SHOULD claim it: OI-016)
 7.3.10,IECoreConditionProblemsHealthConcerns,Condition.verificationStatus,Y,Aligned,
 7.3.11,IECoreConditionProblemsHealthConcerns,,N,Gap,resolution circumstances; Optional
 7.3.12,IECoreConditionProblemsHealthConcerns,,N,Gap,specialist contact details; Required
-7.3.13,IECoreConditionProblemsHealthConcerns,Condition.evidence.detail,N,Partial,attachment via DocumentReference; not MS
+7.3.13,IECoreConditionProblemsHealthConcerns,Condition.evidence.detail,Y,Aligned,MS (IE profile; PS entries SHOULD claim it: OI-016)
 7.4,IECoreConditionProblemsHealthConcerns,Condition.note,N,Aligned,
-8.1,IECoreCompositionPatientSummary,Composition.section:observationResults.text,Y,Aligned,
-8.2,IECoreCompositionPatientSummary,Composition.section:observationResults.entry,Y,Aligned,
+8.1,IECoreCompositionPatientSummary,Composition.section:sectionResults.text,Y,Aligned,
+8.2,IECoreCompositionPatientSummary,Composition.section:sectionResults.entry,Y,Aligned,
 8.2.1,IECoreObservationClinicalResult,Observation.effective[x],Y,Partial,HIQA Mandatory; IG 0..1
 8.2.2,IECoreObservationClinicalResult,Observation.code,Y,Aligned,
 8.2.3,IECoreObservationClinicalResult,Observation.status,Y,Aligned,
@@ -170,92 +170,92 @@ hiqa_id,profile,path,ms,status,notes
 8.2.4.4,IECoreObservationClinicalResult,Observation.valueRange,Y,Aligned,
 8.2.4.5,IECoreObservationClinicalResult,Observation.valueRatio,Y,Aligned,
 8.3,IECoreObservationClinicalResult,Observation.note,N,Aligned,
-9.1,IECoreCompositionPatientSummary,Composition.section:procedures.text,Y,Aligned,
-9.2,IECoreCompositionPatientSummary,Composition.section:procedures.emptyReason,Y,Aligned,
-9.3,IECoreCompositionPatientSummary,Composition.section:procedures.entry,Y,Aligned,
-9.3.1,IECoreProcedure,Procedure.performed[x],Y,Aligned,IG 1..1 is stricter than HIQA Required 0..1: blocks procedures with an unknown date
+9.1,IECoreCompositionPatientSummary,Composition.section:sectionProceduresHx.text,Y,Aligned,
+9.2,IECoreCompositionPatientSummary,Composition.section:sectionProceduresHx.emptyReason,Y,Aligned,
+9.3,IECoreCompositionPatientSummary,Composition.section:sectionProceduresHx.entry,Y,Aligned,
+9.3.1,IECoreProcedure,Procedure.performed[x],Y,Aligned,relaxed to 0..1 MS (was 1..1)
 9.3.2,IECoreProcedure,Procedure.code,Y,Aligned,
-9.3.3,IECoreProcedure,Procedure.reasonCode,N,Partial,Required; not MS
+9.3.3,IECoreProcedure,Procedure.reasonCode,Y,Aligned,MS (IE profile; PS entries SHOULD claim it: OI-016)
 9.3.4,IECoreProcedure,Procedure.status,Y,Aligned,
-9.3.5,IECoreProcedure,Procedure.bodySite,N,Partial,Required; not MS
+9.3.5,IECoreProcedure,Procedure.bodySite,Y,Aligned,MS (IE profile; PS entries SHOULD claim it: OI-016)
 9.3.5.1,IECoreProcedure,Procedure.bodySite,N,Aligned,
-9.3.5.2,IECoreProcedure,Procedure.bodySite,N,Partial,Required; not MS
+9.3.5.2,IECoreProcedure,Procedure.bodySite,Y,Aligned,"location, post-coordinated in SNOMED CT"
 9.3.5.3,IECoreProcedure,Procedure.bodySite,N,Aligned,
-9.3.5.4,IECoreProcedure,Procedure.bodySite,N,Partial,Required; not MS
+9.3.5.4,IECoreProcedure,Procedure.bodySite,Y,Aligned,"laterality, post-coordinated in SNOMED CT"
 9.3.5.5,IECoreProcedure,Procedure.bodySite.text,N,Aligned,
 9.3.6,IECoreProcedure,Procedure.outcome,N,Aligned,
-9.3.7,IECoreProcedure,Procedure.complication,N,Partial,Required; not MS
+9.3.7,IECoreProcedure,Procedure.complication,Y,Aligned,MS (IE profile; PS entries SHOULD claim it: OI-016)
 9.3.8,IECoreProcedure,Procedure.focalDevice,N,Aligned,
 9.3.8.1,IECoreProcedure,Procedure.usedCode,N,Aligned,
 9.3.8.2,IECoreProcedure,Procedure.focalDevice.manipulated,N,Aligned,
 9.4,IECoreProcedure,Procedure.note,N,Aligned,
-10.1,IECoreCompositionPatientSummary,Composition.section:medicalDevices.text,Y,Aligned,
-10.2,IECoreCompositionPatientSummary,Composition.section:medicalDevices.emptyReason,Y,Aligned,
-10.3,IECoreCompositionPatientSummary,Composition.section:medicalDevices.entry,Y,Partial,"entries are Device (IECoreImplantableDevice), not DeviceUseStatement, so period, status of use and body site cannot be expressed"
-10.3.1,IECoreImplantableDevice,,N,Gap,needs DeviceUseStatement.timing
-10.3.2,IECoreImplantableDevice,Device.status,N,Partial,device record status is not status of use
-10.3.3,IECoreImplantableDevice,Device.deviceName,N,Partial,Required; not MS
+10.1,IECoreCompositionPatientSummary,Composition.section:sectionMedicalDevices.text,Y,Aligned,
+10.2,IECoreCompositionPatientSummary,Composition.section:sectionMedicalDevices.emptyReason,Y,Aligned,
+10.3,IECoreCompositionPatientSummary,Composition.section:sectionMedicalDevices.entry,Y,Aligned,EPS deviceStatement entries (DeviceUseStatement)
+10.3.1,deviceUseStatement-eu-eps,DeviceUseStatement.timing[x],N,Aligned,timing 1..1 in the EPS entry profile
+10.3.2,deviceUseStatement-eu-eps,DeviceUseStatement.status,N,Aligned,status 1..1 (status of use) in the EPS entry profile
+10.3.3,deviceUseStatement-eu-eps,DeviceUseStatement.device,N,Aligned,device 1..1 → Device.deviceName / type
 10.3.3.1,IECoreImplantableDevice,Device.deviceName.type,N,Partial,
 10.3.3.2,IECoreImplantableDevice,Device.type,Y,Aligned,
-10.3.3.3,IECoreImplantableDevice,,N,Gap,body site needs DeviceUseStatement.bodySite
-10.3.3.3.1,IECoreImplantableDevice,,N,Gap,
-10.3.3.3.2,IECoreImplantableDevice,,N,Gap,
-10.3.3.3.3,IECoreImplantableDevice,,N,Gap,
-10.3.3.3.4,IECoreImplantableDevice,,N,Gap,
-10.3.3.3.5,IECoreImplantableDevice,,N,Gap,
-10.4,IECoreImplantableDevice,,N,Gap,reason needs DeviceUseStatement.reasonCode
-10.5,IECoreImplantableDevice,,N,Gap,attachment
+10.3.3.3,deviceUseStatement-eu-eps,DeviceUseStatement.bodySite,N,Partial,"bodySite available; EPS uses obligations, not MS"
+10.3.3.3.1,deviceUseStatement-eu-eps,DeviceUseStatement.bodySite,N,Partial,post-coordinated; EPS obligations
+10.3.3.3.2,deviceUseStatement-eu-eps,DeviceUseStatement.bodySite,N,Partial,EPS obligations
+10.3.3.3.3,deviceUseStatement-eu-eps,DeviceUseStatement.bodySite,N,Partial,EPS obligations
+10.3.3.3.4,deviceUseStatement-eu-eps,DeviceUseStatement.bodySite,N,Partial,EPS obligations
+10.3.3.3.5,deviceUseStatement-eu-eps,DeviceUseStatement.bodySite.text,N,Aligned,Optional
+10.4,deviceUseStatement-eu-eps,DeviceUseStatement.reasonCode,N,Partial,"available; EPS obligations, not MS"
+10.5,deviceUseStatement-eu-eps,DeviceUseStatement.derivedFrom,N,Partial,attachment via a DocumentReference in derivedFrom
 10.6,IECoreImplantableDevice,Device.note,N,Aligned,
-11.1,IECoreCompositionPatientSummary,Composition.section:patientStory.text,Y,Aligned,
-11.2,IECoreCompositionPatientSummary,Composition.section:patientStory.text,Y,Aligned,
-12.1,IECoreCompositionPatientSummary,Composition.section:socialHistory.text,Y,Aligned,
-12.2,IECoreCompositionPatientSummary,Composition.section:socialHistory.entry,Y,Partial,free text in HIQA; no coded observation defined
-12.3,IECoreCompositionPatientSummary,Composition.section:socialHistory.entry,Y,Partial,free text in HIQA; no coded observation or narrative-only convention defined
-12.4,IECoreCompositionPatientSummary,Composition.section:socialHistory.entry,Y,Partial,free text in HIQA; no coded observation or narrative-only convention defined
-12.5,IECoreCompositionPatientSummary,Composition.section:socialHistory.entry,Y,Partial,free text in HIQA; no coded observation or narrative-only convention defined
-12.6,IECoreCompositionPatientSummary,Composition.section:socialHistory.text,Y,Aligned,
-13.1,IECoreCompositionPatientSummary,Composition.section:advanceDirectives.text,Y,Aligned,
-13.2,IECoreCompositionPatientSummary,Composition.section:advanceDirectives.emptyReason,N,Partial,Required; not MS
-13.3,IECoreCompositionPatientSummary,Composition.section:advanceDirectives.entry,Y,Aligned,IECoreADIDocumentReference
+11.1,IECoreCompositionPatientSummary,Composition.section:sectionPatientStory.text,Y,Aligned,
+11.2,IECoreCompositionPatientSummary,Composition.section:sectionPatientStory.text,Y,Aligned,
+12.1,IECoreCompositionPatientSummary,Composition.section:sectionSocialHistory.text,Y,Aligned,
+12.2,IECoreCompositionPatientSummary,Composition.section:sectionSocialHistory.text,Y,Aligned,HIQA free text carried in the section narrative
+12.3,IECoreCompositionPatientSummary,Composition.section:sectionSocialHistory.text,Y,Aligned,section narrative
+12.4,IECoreCompositionPatientSummary,Composition.section:sectionSocialHistory.text,Y,Aligned,section narrative
+12.5,IECoreCompositionPatientSummary,Composition.section:sectionSocialHistory.text,Y,Aligned,section narrative
+12.6,IECoreCompositionPatientSummary,Composition.section:sectionSocialHistory.text,Y,Aligned,
+13.1,IECoreCompositionPatientSummary,Composition.section:sectionAdvanceDirectives.text,Y,Aligned,
+13.2,IECoreCompositionPatientSummary,Composition.section:sectionAdvanceDirectives.emptyReason,Y,Aligned,entries or emptyReason (ie-ps-1)
+13.3,IECoreCompositionPatientSummary,Composition.section:sectionAdvanceDirectives.entry,Y,Aligned,IECoreADIDocumentReference
 13.3.1,IECoreADIDocumentReference,DocumentReference.type,Y,Partial,AHD categories under the Assisted Decision-Making (Capacity) Act 2015 are not bound
 13.3.2,IECoreADIDocumentReference,DocumentReference.content.attachment,Y,Aligned,
-13.4,IECoreCompositionPatientSummary,Composition.section:advanceDirectives.text,Y,Aligned,
-14.1,IECoreCompositionPatientSummary,Composition.section:travelHistory.text,Y,Aligned,
-14.2,IECoreCompositionPatientSummary,Composition.section:travelHistory.entry,Y,Partial,generic IECoreSimpleObservation
-14.2.1,IECoreSimpleObservation,,N,Gap,infectious agent
-14.2.2,IECoreSimpleObservation,Observation.effective[x],Y,Partial,generic observation; no travel-history profile to carry the travel period
-14.2.3,IECoreSimpleObservation,,N,Gap,country visited: Mandatory within the record entry
-14.2.4,IECoreSimpleObservation,,N,Gap,proximity
-14.2.5,IECoreSimpleObservation,,N,Gap,infection control status
-14.3,IECoreCompositionPatientSummary,Composition.section:travelHistory.text,Y,Aligned,
-15.1,IECoreCompositionPatientSummary,Composition.section:pregnancyHistory.text,Y,Aligned,
+13.4,IECoreCompositionPatientSummary,Composition.section:sectionAdvanceDirectives.text,Y,Aligned,
+14.1,IECoreCompositionPatientSummary,Composition.section:sectionTravelHx.text,Y,Aligned,
+14.2,IECoreCompositionPatientSummary,Composition.section:sectionTravelHx.entry,Y,Aligned,EPS travelObservation entries
+14.2.1,observation-travel-eu-eps,Observation.component,N,Partial,infectious agent: not constrained by EPS
+14.2.2,observation-travel-eu-eps,Observation.effective[x],N,Partial,"period available; EPS obligations, not MS"
+14.2.3,observation-travel-eu-eps,Observation.value[x],N,Aligned,country visited: value 1..1 in the EPS travel profile
+14.2.4,observation-travel-eu-eps,Observation.component,N,Partial,proximity: not constrained (Optional)
+14.2.5,observation-travel-eu-eps,Observation.component,N,Partial,infection control status: not constrained
+14.3,IECoreCompositionPatientSummary,Composition.section:sectionTravelHx.text,Y,Aligned,
+15.1,IECoreCompositionPatientSummary,Composition.section:sectionPregnancyHx.text,Y,Aligned,
 15.2,IECoreObservationPregnancyStatus,Observation,Y,Aligned,
 15.2.1,IECoreObservationPregnancyStatus,Observation.effective[x],N,Partial,not MS in the pregnancy profile
 15.2.2,IECoreObservationPregnancyStatus,Observation.value[x],N,Partial,value[x] 1..1 but not MS in the pregnancy-status profile
-15.2.3,IECoreObservationPregnancyStatus,,N,Gap,expected delivery date
-15.2.4,IECoreObservationPregnancyStatus,,N,Gap,gestational age
+15.2.3,Observation-pregnancy-edd-uv-ips,Observation.value[x],N,Aligned,IPS EDD observation (hasMember of pregnancy status)
+15.2.4,observation-pregnancy-gestationalAge-eu-eps,Observation.value[x],N,Aligned,EPS gestationalAge entry
 15.2.5,IECoreObservationPregnancyStatus,Observation.note,N,Aligned,
-15.3,IECoreCompositionPatientSummary,Composition.section:pregnancyHistory.entry,Y,Partial,generic observation; no pregnancy-outcome profile
-15.3.1,IECoreSimpleObservation,,N,Gap,
-15.3.2,IECoreSimpleObservation,,N,Gap,
-15.3.3,IECoreSimpleObservation,,N,Gap,
+15.3,IECoreCompositionPatientSummary,Composition.section:sectionPregnancyHx.entry,Y,Aligned,EPS pregnancyOutcome entries
+15.3.1,Observation-pregnancy-outcome-uv-ips,Observation.effective[x],N,Partial,end date of pregnancy: IPS outcome observation
+15.3.2,Observation-pregnancy-outcome-uv-ips,Observation.value[x],N,Aligned,IPS pregnancy outcome
+15.3.3,Observation-pregnancy-outcome-uv-ips,Observation.value[x],N,Partial,number of foetuses: not explicitly modelled
 15.3.4,IECoreSimpleObservation,Observation.note,N,Aligned,
-16.1,IECoreCompositionPatientSummary,Composition.section:immunizations.text,Y,Aligned,
-16.2,IECoreCompositionPatientSummary,Composition.section:immunizations.emptyReason,N,Partial,HIQA 'Required 1..1' (OI-006); not MS
-16.3,IECoreCompositionPatientSummary,Composition.section:immunizations.entry,Y,Aligned,
+16.1,IECoreCompositionPatientSummary,Composition.section:sectionImmunizations.text,Y,Aligned,
+16.2,IECoreCompositionPatientSummary,Composition.section:sectionImmunizations.emptyReason,Y,Aligned,"entries or emptyReason (ie-ps-1); HIQA ""Required 1..1"" anomaly (OI-006)"
+16.3,IECoreCompositionPatientSummary,Composition.section:sectionImmunizations.entry,Y,Aligned,
 16.3.1,IECoreImmunization,Immunization.status,Y,Aligned,
 16.3.2,IECoreImmunization,Immunization.occurrence[x],Y,Aligned,
 16.3.3,IECoreImmunization,Immunization.vaccineCode,Y,Aligned,administered product
-16.3.4,IECoreImmunization,Immunization.protocolApplied.targetDisease,N,Partial,Required; not MS
+16.3.4,IECoreImmunization,Immunization.protocolApplied.targetDisease,Y,Aligned,MS (IE profile; PS entries SHOULD claim it: OI-016)
 16.3.5,IECoreImmunization,Immunization.vaccineCode,Y,Partial,HIQA separates product (16.3.3) from vaccine code (16.3.5); R4 has one vaccineCode
-16.3.6,IECoreImmunization,Immunization.protocolApplied.doseNumber[x],N,Partial,Required; not MS
-16.3.7,IECoreImmunization,Immunization.performer.actor,N,Partial,Required; not MS
-16.3.8,IECoreImmunization,Immunization.location,N,Partial,Required; not MS
+16.3.6,IECoreImmunization,Immunization.protocolApplied.doseNumber[x],Y,Aligned,MS (IE profile; PS entries SHOULD claim it: OI-016)
+16.3.7,IECoreImmunization,Immunization.performer.actor,Y,Aligned,MS (IE profile; PS entries SHOULD claim it: OI-016)
+16.3.8,IECoreImmunization,Immunization.location,Y,Aligned,MS (IE profile; PS entries SHOULD claim it: OI-016)
 16.4,IECoreImmunization,Immunization.note,N,Aligned,
-17.1,IECoreCompositionPatientSummary,Composition.section:functionalStatus.text,Y,Aligned,
-17.2,IECoreCompositionPatientSummary,Composition.section:functionalStatus.entry,Y,Partial,entries allowed (Condition or Observation) but no functional-status profile
-17.3,IECoreConditionProblemsHealthConcerns,Condition,Y,Partial,
-17.4,IECoreSimpleObservation,Observation,Y,Partial,
+17.1,IECoreCompositionPatientSummary,Composition.section:sectionFunctionalStatus.text,Y,Aligned,
+17.2,IECoreCompositionPatientSummary,Composition.section:sectionFunctionalStatus.entry,Y,Aligned,EPS disability (Condition) entries
+17.3,IECoreCompositionPatientSummary,Composition.section:sectionFunctionalStatus.entry,Y,Aligned,EPS disability (Condition) entries
+17.4,IECoreCompositionPatientSummary,Composition.section:sectionFunctionalStatus.entry,Y,Partial,EPS functionalAssessment is a ClinicalImpression; HIQA result values map to finding
 17.4.1,IECoreSimpleObservation,Observation.effective[x],Y,Partial,Mandatory within the record entry; 0..1
 17.4.2,IECoreSimpleObservation,Observation.code,Y,Aligned,
 17.4.3,IECoreSimpleObservation,Observation.value[x],Y,Partial,Mandatory within the record entry; 0..1
@@ -265,22 +265,22 @@ hiqa_id,profile,path,ms,status,notes
 17.4.3.4,IECoreSimpleObservation,Observation.valueRange,Y,Aligned,
 17.4.3.5,IECoreSimpleObservation,Observation.valueRatio,Y,Aligned,
 17.5,IECoreSimpleObservation,Observation.note,N,Aligned,
-18.1,IECoreCompositionPatientSummary,Composition.section:carePlans.text,Y,Aligned,
-18.2,IECoreCompositionPatientSummary,Composition.section:carePlans.entry,Y,Aligned,IECoreCarePlan
-18.2.1,IECoreCarePlan,CarePlan.title,N,Partial,Required; not MS (HIQA coded name)
-18.2.2,IECoreCarePlan,CarePlan.description,N,Partial,Required; not MS
+18.1,IECoreCompositionPatientSummary,Composition.section:sectionPlanOfCare.text,Y,Aligned,
+18.2,IECoreCompositionPatientSummary,Composition.section:sectionPlanOfCare.entry,Y,Aligned,IECoreCarePlan
+18.2.1,IECoreCarePlan,CarePlan.title,Y,Aligned,MS (IE profile; PS entries SHOULD claim it: OI-016)
+18.2.2,IECoreCarePlan,CarePlan.description,Y,Aligned,MS (IE profile; PS entries SHOULD claim it: OI-016)
 18.2.3,IECoreCarePlan,CarePlan.period,N,Aligned,
 18.2.4,IECoreCarePlan,CarePlan.addresses,N,Aligned,
 18.2.5,IECoreCarePlan,CarePlan.activity,N,Aligned,
 18.2.5.1,IECoreCarePlan,CarePlan.activity.detail.code,N,Aligned,
 18.2.5.2,IECoreCarePlan,CarePlan.activity.detail.description,N,Aligned,
 18.2.6,IECoreCarePlan,CarePlan.goal,N,Aligned,
-18.3,IECoreCompositionPatientSummary,Composition.section:carePlans.text,Y,Aligned,
+18.3,IECoreCompositionPatientSummary,Composition.section:sectionPlanOfCare.text,Y,Aligned,
 18.4,IECoreCarePlan,,N,Gap,patient home supports; Required
-18.5,IECoreCompositionPatientSummary,Composition.section:carePlans.text,Y,Aligned,
+18.5,IECoreCompositionPatientSummary,Composition.section:sectionPlanOfCare.text,Y,Aligned,
 18.6,IECoreCarePlan,CarePlan.note,N,Aligned,
 19.1.1,IECoreCompositionPatientSummary,Composition.subject,Y,Aligned,
-19.1.2,IECoreCompositionPatientSummary,Composition.identifier,N,Partial,HIQA Mandatory 1..*; R4 Composition.identifier is 0..1 (Bundle.identifier 1..1 is needed)
+19.1.2,IECoreBundlePatientSummary,Bundle.identifier,Y,Aligned,Bundle.identifier 1..1 (R4 Composition.identifier is 0..1)
 19.1.3,IECoreCompositionPatientSummary,Composition.author,Y,Aligned,
 19.1.4,IECoreCompositionPatientSummary,Composition.date,Y,Aligned,
 19.1.5,IECoreCompositionPatientSummary,Composition.status,Y,Aligned,
@@ -290,19 +290,19 @@ hiqa_id,profile,path,ms,status,notes
 19.1.9,IECoreCompositionPatientSummary,Composition.event.period,N,Aligned,
 19.1.10,IECoreCompositionPatientSummary,,N,Gap,business version; Optional
 19.1.11,IECoreCompositionPatientSummary,Composition.attester,N,Aligned,
-19.1.11.1,IECoreCompositionPatientSummary,Composition.attester.party,N,Partial,Mandatory within the cluster
-19.1.11.2,IECoreCompositionPatientSummary,Composition.attester.time,N,Partial,Mandatory within the cluster
+19.1.11.1,IECoreCompositionPatientSummary,Composition.attester.party,Y,Aligned,enforced by invariant ie-ps-attester-1
+19.1.11.2,IECoreCompositionPatientSummary,Composition.attester.time,Y,Aligned,enforced by invariant ie-ps-attester-1
 19.1.12,IECoreCompositionPatientSummary,Composition.attester,N,Aligned,attester.mode = legal
-19.1.12.1,IECoreCompositionPatientSummary,Composition.attester.party,N,Partial,"Mandatory within the legal-authentication cluster; attester.party 0..1, not MS"
-19.1.12.2,IECoreCompositionPatientSummary,Composition.attester.time,N,Partial,"Mandatory within the legal-authentication cluster; attester.time 0..1, not MS"
+19.1.12.1,IECoreCompositionPatientSummary,Composition.attester.party,Y,Aligned,enforced by invariant ie-ps-attester-1
+19.1.12.2,IECoreCompositionPatientSummary,Composition.attester.time,Y,Aligned,enforced by invariant ie-ps-attester-1
 19.1.13,IECoreCompositionPatientSummary,Composition.event.code,N,Aligned,
 19.1.14,IECoreCompositionPatientSummary,,N,Gap,service speciality; Optional
 19.1.15,IECoreCompositionPatientSummary,Composition.custodian,Y,Aligned,
 19.1.16,IECoreCompositionPatientSummary,,N,Gap,presented form; Optional
 19.2.1,IECoreCompositionPatientSummary,Composition.section.entry,Y,Aligned,every entry profile has subject/patient 1..1
 19.2.2,IECoreCompositionPatientSummary,Composition.section.entry,N,Aligned,Resource.identifier
-19.2.3,IECoreCompositionPatientSummary,Composition.section.entry,N,Partial,recorder/asserter/performer not consistently MS
-19.2.4,IECoreCompositionPatientSummary,Composition.section.entry,N,Partial,recordedDate not consistently MS
+19.2.3,IECoreCompositionPatientSummary,Composition.section.entry,N,Aligned,recorder/asserter MS on the IE entry profiles (IE profile; PS entries SHOULD claim it: OI-016)
+19.2.4,IECoreCompositionPatientSummary,Composition.section.entry,N,Aligned,recordedDate MS on the IE entry profiles (IE profile; PS entries SHOULD claim it: OI-016)
 19.2.5,IECoreCompositionPatientSummary,Composition.section.entry,N,Aligned,
 19.2.6,IECoreCompositionPatientSummary,Composition.section.entry,N,Aligned,Resource.language
 NA-maritalStatus,IECorePatientSummaryPatient,Patient.maritalStatus,N,Prohibited (enforced),0..0

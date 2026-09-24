@@ -33,9 +33,9 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 
 | Conformance | Aligned | Partial | Gap | Prohibited (violated) | Prohibited (enforced) | N/A |
 |---|---|---|---|---|---|---|
-| Mandatory | 32 | 30 | 6 | 0 | 0 | 0 |
-| Required | 79 | 46 | 15 | 0 | 0 | 0 |
-| Optional | 84 | 1 | 13 | 0 | 0 | 0 |
+| Mandatory | 46 | 22 | 0 | 0 | 0 | 0 |
+| Required | 116 | 19 | 5 | 0 | 0 | 0 |
+| Optional | 85 | 2 | 11 | 0 | 0 | 0 |
 | Not in dataset | 0 | 0 | 0 | 0 | 3 | 0 |
 
 ### Mandatory elements not yet aligned
@@ -67,31 +67,17 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | PS | 2.9.2 | Address line(s) | Partial | HIQA Mandatory |
 | PS | 2.9.4 | District/ County | Partial | HIQA Mandatory |
 | PS | 2.9.5 | Country | Partial | HIQA Mandatory |
-| PS | 5.3.7.1 | Allergen | Partial | Mandatory within the cluster; not MS |
-| PS | 6.3.9 | Dose | Partial | HIQA Mandatory; dose[x] not required |
-| PS | 6.3.10.1 | Frequency of administration | Partial | Mandatory within the cluster; not MS |
-| PS | 6.3.10.2 | Period | Partial | Mandatory within the cluster; not MS |
-| PS | 7.3.2 | Health condition status | Partial | HIQA Mandatory; IG 0..1 MS |
+| PS | 6.3.9 | Dose | Partial | dose[x] MS but not 1..1: enforcing it would reject "as directed" statements (Requires Clarification; feedback) |
 | PS | 8.2.1 | Date of observation result | Partial | HIQA Mandatory; IG 0..1 |
 | PS | 8.2.4 | Result (cluster) | Partial | HIQA Mandatory; IG 0..1 (dataAbsentReason allowed) |
-| PS | 10.3.2 | Device status | Partial | device record status is not status of use |
 | PS | 10.3.3.1 | Device name type | Partial |  |
-| PS | 14.2.3 | Country visited | Gap | country visited: Mandatory within the record entry |
 | PS | 15.2.1 | Date of status | Partial | not MS in the pregnancy profile |
 | PS | 15.2.2 | Pregnancy Status | Partial | value[x] 1..1 but not MS in the pregnancy-status profile |
-| PS | 15.2.3 | Expected delivery date (EDD) | Gap | expected delivery date |
-| PS | 15.2.4 | Gestational age | Gap | gestational age |
-| PS | 15.3.1 | End date of the pregnancy | Gap |  |
-| PS | 15.3.2 | Outcome of the pregnancy | Gap |  |
-| PS | 15.3.3 | Number of foetuses in specific pregnancy | Gap |  |
+| PS | 15.3.1 | End date of the pregnancy | Partial | end date of pregnancy: IPS outcome observation |
+| PS | 15.3.3 | Number of foetuses in specific pregnancy | Partial | number of foetuses: not explicitly modelled |
 | PS | 16.3.5 | Vaccine code | Partial | HIQA separates product (16.3.3) from vaccine code (16.3.5); R4 has one vaccineCode |
 | PS | 17.4.1 | Date of functional assessment | Partial | Mandatory within the record entry; 0..1 |
 | PS | 17.4.3 | Functional Assessment Result (cluster) | Partial | Mandatory within the record entry; 0..1 |
-| PS | 19.1.2 | Document identifier | Partial | HIQA Mandatory 1..*; R4 Composition.identifier is 0..1 (Bundle.identifier 1..1 is needed) |
-| PS | 19.1.11.1 | Attester | Partial | Mandatory within the cluster |
-| PS | 19.1.11.2 | Attestation date and time | Partial | Mandatory within the cluster |
-| PS | 19.1.12.1 | Legal authenticator | Partial | Mandatory within the legal-authentication cluster; attester.party 0..1, not MS |
-| PS | 19.1.12.2 | Authentication date and time | Partial | Mandatory within the legal-authentication cluster; attester.time 0..1, not MS |
 
 ### ePrescription / eDispensation: full matrix
 
@@ -377,7 +363,7 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 1.3.3.2 | Other identifiers used in health and social care- value | Required | 0..1 | IECorePatientSummaryPatient | `Patient.identifier.value` | Y | Aligned |  |
 | 1.3.3.3 | Other identifier used in health and social care - time period | Required | 0..1 | IECorePatientSummaryPatient | `Patient.identifier.period` | Y | Aligned |  |
 | 1.3.3.4 | Organisation who issued the other identifier used in health and social care | Required | 0..1 | IECorePatientSummaryPatient | `Patient.identifier.assigner` | Y | Aligned |  |
-| 1.3.4 | Health insurance information (cluster) | Required | 0..* | IECoreCoverage | `Coverage` | Y | Partial | Coverage profile exists but is not referenced from the Patient Summary |
+| 1.3.4 | Health insurance information (cluster) | Required | 0..* | IECoreBundlePatientSummary | `Bundle.entry:coverage` | Y | Aligned | IECoreCoverage entries in the PS Bundle |
 | 1.3.4.1 | Health insurance- type | Required | 0..1 | IECoreCoverage | `Coverage.type` | Y | Aligned |  |
 | 1.3.4.2 | Health insurance- value | Required | 0..1 | IECoreCoverage | `Coverage.subscriberId` | Y | Aligned |  |
 | 1.3.4.3 | Name of organisation providing health insurance | Required | 0..1 | IECoreCoverage | `Coverage.payor` | Y | Aligned |  |
@@ -445,19 +431,19 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 3.6.4 | District/ County/ City (if outside Ireland). | Mandatory | 1..1 | IECorePatientSummaryPatient | `Patient.contact.address.state` | N | Aligned | Mandatory within the contact-address cluster: state 1..1 |
 | 3.6.5 | Country | Required | 0..1 | IECorePatientSummaryPatient | `Patient.contact.address.country` | Y | Aligned |  |
 | 3.7 | Preferred communication type for nominated contact person | Required | 0..1 | IECorePatientSummaryPatient | `Patient.contact.telecom.rank` | Y | Aligned | preferred communication type: rank = 1 |
-| 4.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:alerts.text` | Y | Aligned |  |
-| 4.2 | Alerts empty reason | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:alerts.emptyReason` | N | Partial | Required; not MS for alerts |
-| 4.3 | Alerts (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:alerts.entry` | Y | Aligned | IECoreFlag |
+| 4.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionAlert.text` | Y | Aligned |  |
+| 4.2 | Alerts empty reason | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionAlert.emptyReason` | Y | Aligned | entries or emptyReason (ie-ps-1) |
+| 4.3 | Alerts (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionAlert.entry` | Y | Aligned | IECoreFlag |
 | 4.3.1 | Time period of alert | Required | 0..1 | IECoreFlag | `Flag.period` | Y | Aligned |  |
 | 4.3.2 | Alert status | Mandatory | 1..1 | IECoreFlag | `Flag.status` | Y | Aligned |  |
 | 4.3.3 | Alert | Optional | 0..1 | IECoreFlag | `Flag.code` | Y | Aligned |  |
 | 4.3.4 | Description of alert | Required | 0..1 | IECoreFlag | `Flag.code.text` | N | Aligned |  |
 | 4.3.5 | Alert priority | Optional | 0..1 | IECoreFlag |  | N | Gap | priority (flag-priority extension); Optional |
 | 4.4.6 | Source of alert information | Optional | 0..* | IECoreFlag | `Flag.author` | Y | Partial | HIQA numbering anomaly (probably 4.3.6). HIQA 0..* sources; Flag.author is 0..1 |
-| 4.5 | Note | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:alerts.text` | Y | Aligned |  |
-| 5.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:allergies.text` | Y | Aligned |  |
-| 5.2 | Allergies and intolerances empty reason | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:allergies.emptyReason` | Y | Aligned |  |
-| 5.3 | Allergies and intolerances (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:allergies.entry` | Y | Aligned |  |
+| 4.5 | Note | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionAlert.text` | Y | Aligned |  |
+| 5.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionAllergies.text` | Y | Aligned |  |
+| 5.2 | Allergies and intolerances empty reason | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionAllergies.emptyReason` | Y | Aligned |  |
+| 5.3 | Allergies and intolerances (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionAllergies.entry` | Y | Aligned |  |
 | 5.3.1 | Allergies or intolerances status | Mandatory | 1..1 | IECoreAllergyIntolerance | `AllergyIntolerance.clinicalStatus` | Y | Aligned |  |
 | 5.3.2 | Causative agent or allergen | Mandatory | 1..1 | IECoreAllergyIntolerance | `AllergyIntolerance.code` | Y | Aligned |  |
 | 5.3.3 | Onset date | Required | 0..1 | IECoreAllergyIntolerance | `AllergyIntolerance.onset[x]` | Y | Aligned |  |
@@ -465,20 +451,20 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 5.3.5 | Certainty | Optional | 0..1 | IECoreAllergyIntolerance | `AllergyIntolerance.verificationStatus` | Y | Aligned |  |
 | 5.3.6 | Note | Optional | 0..1 | IECoreAllergyIntolerance | `AllergyIntolerance.note` | N | Aligned |  |
 | 5.3.7 | Reaction (Cluster) | Required | 0..* | IECoreAllergyIntolerance | `AllergyIntolerance.reaction` | Y | Aligned |  |
-| 5.3.7.1 | Allergen | Mandatory | 1..1 | IECoreAllergyIntolerance | `AllergyIntolerance.reaction.substance` | N | Partial | Mandatory within the cluster; not MS |
-| 5.3.7.2 | Description of reaction | Required | 0..* | IECoreAllergyIntolerance | `AllergyIntolerance.reaction.description` | N | Partial | Required; not MS |
+| 5.3.7.1 | Allergen | Mandatory | 1..1 | IECoreAllergyIntolerance | `AllergyIntolerance.reaction.substance` | Y | Aligned | Mandatory within the reaction cluster (MS) (IE profile; PS entries SHOULD claim it: OI-016) |
+| 5.3.7.2 | Description of reaction | Required | 0..* | IECoreAllergyIntolerance | `AllergyIntolerance.reaction.description` | Y | Aligned | MS (IE profile; PS entries SHOULD claim it: OI-016) |
 | 5.3.7.3 | Type of reaction | Optional | 0..1 | IECoreAllergyIntolerance | `AllergyIntolerance.type` | N | Aligned |  |
 | 5.3.7.4 | Severity | Required | 0..1 | IECoreAllergyIntolerance | `AllergyIntolerance.reaction.severity` | Y | Aligned |  |
 | 5.3.7.5 | Evidence | Optional | 0..1 | IECoreAllergyIntolerance |  | N | Gap | evidence: not in R4 reaction; Optional |
 | 5.3.7.6 | Onset date | Optional | 0..1 | IECoreAllergyIntolerance | `AllergyIntolerance.reaction.onset` | N | Aligned |  |
 | 5.3.7.7 | Note | Optional | 0..1 | IECoreAllergyIntolerance | `AllergyIntolerance.reaction.note` | N | Aligned |  |
-| 6.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:medications.text` | Y | Aligned |  |
-| 6.2 | Medications prescribed (empty reason) | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:medications.emptyReason` | Y | Aligned |  |
-| 6.3 | Medication (record entry) | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:medications.entry` | Y | Aligned | HIQA record entry 0..1 looks like a source error (OI-006) |
+| 6.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionMedications.text` | Y | Aligned |  |
+| 6.2 | Medications prescribed (empty reason) | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionMedications.emptyReason` | Y | Aligned |  |
+| 6.3 | Medication (record entry) | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionMedications.entry` | Y | Aligned | HIQA record entry 0..1 looks like a source error (OI-006) |
 | 6.3.1 | Medication status (cluster) 6.3.1 Medication status (cluster) | Required | 0..1 | IECoreMedicationStatement | `MedicationStatement.status` | Y | Aligned |  |
 | 6.3.1.1 | Medication status | Mandatory | 1..1 | IECoreMedicationStatement | `MedicationStatement.status` | Y | Aligned |  |
-| 6.3.1.2 | Medication status reason | Required | 0..1 | IECoreMedicationStatement | `MedicationStatement.statusReason` | N | Partial | Required; not MS |
-| 6.3.2 | Medication identifier | Required | 0..1 | IECoreMedicationStatement | `MedicationStatement.identifier` | N | Partial | Required; not MS |
+| 6.3.1.2 | Medication status reason | Required | 0..1 | IECoreMedicationStatement | `MedicationStatement.statusReason` | Y | Aligned | MS (IE profile; PS entries SHOULD claim it: OI-016) |
+| 6.3.2 | Medication identifier | Required | 0..1 | IECoreMedicationStatement | `MedicationStatement.identifier` | Y | Aligned | MS (IE profile; PS entries SHOULD claim it: OI-016) |
 | 6.3.3 | Medication Classification | Required | 0..* | IECoreMedicationStatement |  | N | Gap | classification |
 | 6.3.4 | Medication name | Mandatory | 1..1 | IECoreMedicationStatement | `MedicationStatement.medication[x]` | Y | Aligned |  |
 | 6.3.5 | Indication for medication (cluster) | Optional | 0..* | IECoreMedicationStatement | `MedicationStatement.reasonCode` | Y | Aligned |  |
@@ -486,37 +472,37 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 6.3.5.2 | Indication for medication in text format | Optional | 0..1 | IECoreMedicationStatement | `MedicationStatement.reasonCode.text` | N | Aligned |  |
 | 6.3.6 | Form | Required | 0..1 | IECoreMedicationStatement | `MedicationStatement.medication[x]` | Y | Partial | dose form only via a referenced Medication.form |
 | 6.3.7 | Route | Required | 0..1 | IECoreMedicationStatement | `MedicationStatement.dosage.route` | Y | Aligned |  |
-| 6.3.8 | Site | Required | 0..1 | IECoreMedicationStatement | `MedicationStatement.dosage.site` | N | Partial | Required; not MS |
-| 6.3.9 | Dose | Mandatory | 1..1 | IECoreMedicationStatement | `MedicationStatement.dosage.doseAndRate` | Y | Partial | HIQA Mandatory; dose[x] not required |
+| 6.3.8 | Site | Required | 0..1 | IECoreMedicationStatement | `MedicationStatement.dosage.site` | Y | Aligned | MS (IE profile; PS entries SHOULD claim it: OI-016) |
+| 6.3.9 | Dose | Mandatory | 1..1 | IECoreMedicationStatement | `MedicationStatement.dosage.doseAndRate` | Y | Partial | dose[x] MS but not 1..1: enforcing it would reject "as directed" statements (Requires Clarification; feedback) |
 | 6.3.10 | Frequency (cluster) | Required | 0..1 | IECoreMedicationStatement | `MedicationStatement.dosage.timing` | Y | Aligned |  |
-| 6.3.10.1 | Frequency of administration | Mandatory | 1..1 | IECoreMedicationStatement | `MedicationStatement.dosage.timing.repeat.frequency` | N | Partial | Mandatory within the cluster; not MS |
-| 6.3.10.2 | Period | Mandatory | 1..1 | IECoreMedicationStatement | `MedicationStatement.dosage.timing.repeat.period` | N | Partial | Mandatory within the cluster; not MS |
+| 6.3.10.1 | Frequency of administration | Mandatory | 1..1 | IECoreMedicationStatement | `MedicationStatement.dosage.timing.repeat.frequency` | Y | Aligned | Mandatory within the frequency cluster (MS) |
+| 6.3.10.2 | Period | Mandatory | 1..1 | IECoreMedicationStatement | `MedicationStatement.dosage.timing.repeat.period` | Y | Aligned | Mandatory within the frequency cluster (MS) |
 | 6.3.10.3 | Day of the week | Optional | 0..* | IECoreMedicationStatement | `MedicationStatement.dosage.timing.repeat.dayOfWeek` | N | Aligned |  |
 | 6.3.10.4 | Time of the day | Optional | 0..* | IECoreMedicationStatement | `MedicationStatement.dosage.timing.repeat.timeOfDay` | N | Aligned |  |
 | 6.3.10.5 | Event or time period for administration | Optional | 0..* | IECoreMedicationStatement | `MedicationStatement.dosage.timing.repeat.when` | N | Aligned |  |
-| 6.3.11.1 | Additional instructions | Required | 0..* | IECoreMedicationStatement | `MedicationStatement.dosage.additionalInstruction` | N | Partial | Required; not MS. HIQA parent 6.3.11 is missing (OI-006) |
+| 6.3.11.1 | Additional instructions | Required | 0..* | IECoreMedicationStatement | `MedicationStatement.dosage.additionalInstruction` | Y | Aligned | MS; HIQA parent 6.3.11 missing (OI-006) |
 | 6.4 | Aids to compliance | Optional | 0..* | IECoreMedicationStatement |  | N | Gap | aids to compliance; Optional |
 | 6.5 | Non-prescribed medication/supplements | Optional | 0..* | IECoreMedicationStatement | `MedicationStatement.informationSource` | Y | Aligned | non-prescribed medication and supplements as MedicationStatement |
 | 6.6 | Note | Optional | 0..1 | IECoreMedicationStatement | `MedicationStatement.note` | Y | Aligned |  |
-| 7.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:problems.text` | Y | Aligned |  |
-| 7.2 | Health condition (empty reason) | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:problems.emptyReason` | Y | Aligned |  |
-| 7.3 | Health condition (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:problems.entry` | Y | Aligned |  |
+| 7.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionProblems.text` | Y | Aligned |  |
+| 7.2 | Health condition (empty reason) | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionProblems.emptyReason` | Y | Aligned |  |
+| 7.3 | Health condition (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionProblems.entry` | Y | Aligned |  |
 | 7.3.1 | Problems /Health condition | Mandatory | 1..1 | IECoreConditionProblemsHealthConcerns | `Condition.code` | Y | Aligned |  |
-| 7.3.2 | Health condition status | Mandatory | 1..1 | IECoreConditionProblemsHealthConcerns | `Condition.clinicalStatus` | Y | Partial | HIQA Mandatory; IG 0..1 MS |
+| 7.3.2 | Health condition status | Mandatory | 1..1 | IECoreConditionProblemsHealthConcerns | `Condition.clinicalStatus` | Y | Aligned | enforced by invariant ie-cond-1 (1..1 would break FHIR con-5 for entered-in-error) |
 | 7.3.3 | Date of diagnosis | Required | 0..1 | IECoreConditionProblemsHealthConcerns | `Condition.recordedDate` | Y | Partial | date of diagnosis vs recorded date; condition-assertedDate is closer |
 | 7.3.4 | Onset date | Required | 0..1 | IECoreConditionProblemsHealthConcerns | `Condition.onset[x]` | Y | Aligned |  |
 | 7.3.5 | End date | Required | 0..1 | IECoreConditionProblemsHealthConcerns | `Condition.abatement[x]` | Y | Aligned |  |
 | 7.3.6 | Category of problem, condition or diagnosis | Optional | 0..* | IECoreConditionProblemsHealthConcerns | `Condition.category` | Y | Aligned |  |
-| 7.3.7 | Severity | Required | 0..1 | IECoreConditionProblemsHealthConcerns | `Condition.severity` | N | Partial | Required; not MS |
-| 7.3.8 | Anatomical location | Required | 0..* | IECoreConditionProblemsHealthConcerns | `Condition.bodySite` | N | Partial | Required; not MS |
-| 7.3.9 | Clinical stage/grade | Required | 0..1 | IECoreConditionProblemsHealthConcerns | `Condition.stage.summary` | N | Partial | Required; not MS |
+| 7.3.7 | Severity | Required | 0..1 | IECoreConditionProblemsHealthConcerns | `Condition.severity` | Y | Aligned | MS (IE profile; PS entries SHOULD claim it: OI-016) |
+| 7.3.8 | Anatomical location | Required | 0..* | IECoreConditionProblemsHealthConcerns | `Condition.bodySite` | Y | Aligned | MS (IE profile; PS entries SHOULD claim it: OI-016) |
+| 7.3.9 | Clinical stage/grade | Required | 0..1 | IECoreConditionProblemsHealthConcerns | `Condition.stage.summary` | Y | Aligned | MS (IE profile; PS entries SHOULD claim it: OI-016) |
 | 7.3.10 | Diagnosis assertion status | Optional | 0..1 | IECoreConditionProblemsHealthConcerns | `Condition.verificationStatus` | Y | Aligned |  |
 | 7.3.11 | Resolution circumstances | Optional | 0..1 | IECoreConditionProblemsHealthConcerns |  | N | Gap | resolution circumstances; Optional |
 | 7.3.12 | Specialist Contact details | Required | 0..* | IECoreConditionProblemsHealthConcerns |  | N | Gap | specialist contact details; Required |
-| 7.3.13 | Attachment | Required | 0..* | IECoreConditionProblemsHealthConcerns | `Condition.evidence.detail` | N | Partial | attachment via DocumentReference; not MS |
+| 7.3.13 | Attachment | Required | 0..* | IECoreConditionProblemsHealthConcerns | `Condition.evidence.detail` | Y | Aligned | MS (IE profile; PS entries SHOULD claim it: OI-016) |
 | 7.4 | Note | Optional | 0..1 | IECoreConditionProblemsHealthConcerns | `Condition.note` | N | Aligned |  |
-| 8.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:observationResults.text` | Y | Aligned |  |
-| 8.2 | Observation result (Record Entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:observationResults.entry` | Y | Aligned |  |
+| 8.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionResults.text` | Y | Aligned |  |
+| 8.2 | Observation result (Record Entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionResults.entry` | Y | Aligned |  |
 | 8.2.1 | Date of observation result | Mandatory | 1..1 | IECoreObservationClinicalResult | `Observation.effective[x]` | Y | Partial | HIQA Mandatory; IG 0..1 |
 | 8.2.2 | Observation requested | Mandatory | 1..1 | IECoreObservationClinicalResult | `Observation.code` | Y | Aligned |  |
 | 8.2.3 | Observation Status | Mandatory | 1..1 | IECoreObservationClinicalResult | `Observation.status` | Y | Aligned |  |
@@ -527,92 +513,92 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 8.2.4.4 | Result value range | Required | 0..1 | IECoreObservationClinicalResult | `Observation.valueRange` | Y | Aligned |  |
 | 8.2.4.5 | Result value ratio | Required | 0..1 | IECoreObservationClinicalResult | `Observation.valueRatio` | Y | Aligned |  |
 | 8.3 | Note | Optional | 0..1 | IECoreObservationClinicalResult | `Observation.note` | N | Aligned |  |
-| 9.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:procedures.text` | Y | Aligned |  |
-| 9.2 | Procedures, operations or treatment (Empty reason) | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:procedures.emptyReason` | Y | Aligned |  |
-| 9.3 | Procedures, operations or treatment (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:procedures.entry` | Y | Aligned |  |
-| 9.3.1 | Date of procedure, operation or treatment | Required | 0..1 | IECoreProcedure | `Procedure.performed[x]` | Y | Aligned | IG 1..1 is stricter than HIQA Required 0..1: blocks procedures with an unknown date |
+| 9.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionProceduresHx.text` | Y | Aligned |  |
+| 9.2 | Procedures, operations or treatment (Empty reason) | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionProceduresHx.emptyReason` | Y | Aligned |  |
+| 9.3 | Procedures, operations or treatment (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionProceduresHx.entry` | Y | Aligned |  |
+| 9.3.1 | Date of procedure, operation or treatment | Required | 0..1 | IECoreProcedure | `Procedure.performed[x]` | Y | Aligned | relaxed to 0..1 MS (was 1..1) |
 | 9.3.2 | Procedure, operation or treatment name | Mandatory | 1..1 | IECoreProcedure | `Procedure.code` | Y | Aligned |  |
-| 9.3.3 | Reason for procedure, operation or treatment | Required | 0..* | IECoreProcedure | `Procedure.reasonCode` | N | Partial | Required; not MS |
+| 9.3.3 | Reason for procedure, operation or treatment | Required | 0..* | IECoreProcedure | `Procedure.reasonCode` | Y | Aligned | MS (IE profile; PS entries SHOULD claim it: OI-016) |
 | 9.3.4 | Status | Mandatory | 1..1 | IECoreProcedure | `Procedure.status` | Y | Aligned |  |
-| 9.3.5 | Anatomical location (cluster) | Required | 0..* | IECoreProcedure | `Procedure.bodySite` | N | Partial | Required; not MS |
+| 9.3.5 | Anatomical location (cluster) | Required | 0..* | IECoreProcedure | `Procedure.bodySite` | Y | Aligned | MS (IE profile; PS entries SHOULD claim it: OI-016) |
 | 9.3.5.1 | Morphology | Optional | 0..1 | IECoreProcedure | `Procedure.bodySite` | N | Aligned |  |
-| 9.3.5.2 | Location | Required | 0..1 | IECoreProcedure | `Procedure.bodySite` | N | Partial | Required; not MS |
+| 9.3.5.2 | Location | Required | 0..1 | IECoreProcedure | `Procedure.bodySite` | Y | Aligned | location, post-coordinated in SNOMED CT |
 | 9.3.5.3 | Location qualifier | Optional | 0..* | IECoreProcedure | `Procedure.bodySite` | N | Aligned |  |
-| 9.3.5.4 | Laterality | Required | 0..1 | IECoreProcedure | `Procedure.bodySite` | N | Partial | Required; not MS |
+| 9.3.5.4 | Laterality | Required | 0..1 | IECoreProcedure | `Procedure.bodySite` | Y | Aligned | laterality, post-coordinated in SNOMED CT |
 | 9.3.5.5 | Description of anatomical location | Optional | 0..1 | IECoreProcedure | `Procedure.bodySite.text` | N | Aligned |  |
 | 9.3.6 | Outcome of procedure, operation or treatment | Optional | 0..1 | IECoreProcedure | `Procedure.outcome` | N | Aligned |  |
-| 9.3.7 | Complications relating to procedure, operation or treatment | Required | 0..* | IECoreProcedure | `Procedure.complication` | N | Partial | Required; not MS |
+| 9.3.7 | Complications relating to procedure, operation or treatment | Required | 0..* | IECoreProcedure | `Procedure.complication` | Y | Aligned | MS (IE profile; PS entries SHOULD claim it: OI-016) |
 | 9.3.8 | Device use (cluster) | Optional | 0..1 | IECoreProcedure | `Procedure.focalDevice` | N | Aligned |  |
 | 9.3.8.1 | Device used | Optional | 0..* | IECoreProcedure | `Procedure.usedCode` | N | Aligned |  |
 | 9.3.8.2 | Focal device | Optional | 0..* | IECoreProcedure | `Procedure.focalDevice.manipulated` | N | Aligned |  |
 | 9.4 | Note | Optional | 0..1 | IECoreProcedure | `Procedure.note` | N | Aligned |  |
-| 10.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:medicalDevices.text` | Y | Aligned |  |
-| 10.2 | Medical devices or implants (empty reason) | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:medicalDevices.emptyReason` | Y | Aligned |  |
-| 10.3 | Medical devices or implants (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:medicalDevices.entry` | Y | Partial | entries are Device (IECoreImplantableDevice), not DeviceUseStatement, so period, status of use and body site cannot be expressed |
-| 10.3.1 | Device/ implant period of use | Required | 0..1 | IECoreImplantableDevice |  | N | Gap | needs DeviceUseStatement.timing |
-| 10.3.2 | Device status | Mandatory | 1..1 | IECoreImplantableDevice | `Device.status` | N | Partial | device record status is not status of use |
-| 10.3.3 | Device name (cluster) | Required | 0..1 | IECoreImplantableDevice | `Device.deviceName` | N | Partial | Required; not MS |
+| 10.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionMedicalDevices.text` | Y | Aligned |  |
+| 10.2 | Medical devices or implants (empty reason) | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionMedicalDevices.emptyReason` | Y | Aligned |  |
+| 10.3 | Medical devices or implants (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionMedicalDevices.entry` | Y | Aligned | EPS deviceStatement entries (DeviceUseStatement) |
+| 10.3.1 | Device/ implant period of use | Required | 0..1 | deviceUseStatement-eu-eps | `DeviceUseStatement.timing[x]` | N | Aligned | timing 1..1 in the EPS entry profile |
+| 10.3.2 | Device status | Mandatory | 1..1 | deviceUseStatement-eu-eps | `DeviceUseStatement.status` | N | Aligned | status 1..1 (status of use) in the EPS entry profile |
+| 10.3.3 | Device name (cluster) | Required | 0..1 | deviceUseStatement-eu-eps | `DeviceUseStatement.device` | N | Aligned | device 1..1 → Device.deviceName / type |
 | 10.3.3.1 | Device name type | Mandatory | 1..1 | IECoreImplantableDevice | `Device.deviceName.type` | N | Partial |  |
 | 10.3.3.2 | Device name value | Mandatory | 1..1 | IECoreImplantableDevice | `Device.type` | Y | Aligned |  |
-| 10.3.3.3 | Body site (cluster) | Required | 0..1 | IECoreImplantableDevice |  | N | Gap | body site needs DeviceUseStatement.bodySite |
-| 10.3.3.3.1 | Morphology | Required | 0..1 | IECoreImplantableDevice |  | N | Gap |  |
-| 10.3.3.3.2 | Body site location | Required | 0..1 | IECoreImplantableDevice |  | N | Gap |  |
-| 10.3.3.3.3 | Body site location qualifier | Required | 0..1 | IECoreImplantableDevice |  | N | Gap |  |
-| 10.3.3.3.4 | Laterality | Required | 0..1 | IECoreImplantableDevice |  | N | Gap |  |
-| 10.3.3.3.5 | Description in text format | Optional | 0..1 | IECoreImplantableDevice |  | N | Gap |  |
-| 10.4 | Reason for device/implant insertion or removal | Required | 0..1 | IECoreImplantableDevice |  | N | Gap | reason needs DeviceUseStatement.reasonCode |
-| 10.5 | Attachment | Required | 0..* | IECoreImplantableDevice |  | N | Gap | attachment |
+| 10.3.3.3 | Body site (cluster) | Required | 0..1 | deviceUseStatement-eu-eps | `DeviceUseStatement.bodySite` | N | Partial | bodySite available; EPS uses obligations, not MS |
+| 10.3.3.3.1 | Morphology | Required | 0..1 | deviceUseStatement-eu-eps | `DeviceUseStatement.bodySite` | N | Partial | post-coordinated; EPS obligations |
+| 10.3.3.3.2 | Body site location | Required | 0..1 | deviceUseStatement-eu-eps | `DeviceUseStatement.bodySite` | N | Partial | EPS obligations |
+| 10.3.3.3.3 | Body site location qualifier | Required | 0..1 | deviceUseStatement-eu-eps | `DeviceUseStatement.bodySite` | N | Partial | EPS obligations |
+| 10.3.3.3.4 | Laterality | Required | 0..1 | deviceUseStatement-eu-eps | `DeviceUseStatement.bodySite` | N | Partial | EPS obligations |
+| 10.3.3.3.5 | Description in text format | Optional | 0..1 | deviceUseStatement-eu-eps | `DeviceUseStatement.bodySite.text` | N | Aligned | Optional |
+| 10.4 | Reason for device/implant insertion or removal | Required | 0..1 | deviceUseStatement-eu-eps | `DeviceUseStatement.reasonCode` | N | Partial | available; EPS obligations, not MS |
+| 10.5 | Attachment | Required | 0..* | deviceUseStatement-eu-eps | `DeviceUseStatement.derivedFrom` | N | Partial | attachment via a DocumentReference in derivedFrom |
 | 10.6 | Note | Optional | 0..1 | IECoreImplantableDevice | `Device.note` | N | Aligned |  |
-| 11.1 | Patient story | Optional | 0..* | IECoreCompositionPatientSummary | `Composition.section:patientStory.text` | Y | Aligned |  |
-| 11.2 | Note | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:patientStory.text` | Y | Aligned |  |
-| 12.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:socialHistory.text` | Y | Aligned |  |
-| 12.2 | Living situation | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:socialHistory.entry` | Y | Partial | free text in HIQA; no coded observation defined |
-| 12.3 | What matters to the patient | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:socialHistory.entry` | Y | Partial | free text in HIQA; no coded observation or narrative-only convention defined |
-| 12.4 | Family situation | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:socialHistory.entry` | Y | Partial | free text in HIQA; no coded observation or narrative-only convention defined |
-| 12.5 | Other determinants of health observations | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:socialHistory.entry` | Y | Partial | free text in HIQA; no coded observation or narrative-only convention defined |
-| 12.6 | Note | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:socialHistory.text` | Y | Aligned |  |
-| 13.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:advanceDirectives.text` | Y | Aligned |  |
-| 13.2 | Advance Healthcare Directive (empty reason) | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:advanceDirectives.emptyReason` | N | Partial | Required; not MS |
-| 13.3 | Advance Healthcare Directive (AHD) (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:advanceDirectives.entry` | Y | Aligned | IECoreADIDocumentReference |
+| 11.1 | Patient story | Optional | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionPatientStory.text` | Y | Aligned |  |
+| 11.2 | Note | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionPatientStory.text` | Y | Aligned |  |
+| 12.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionSocialHistory.text` | Y | Aligned |  |
+| 12.2 | Living situation | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionSocialHistory.text` | Y | Aligned | HIQA free text carried in the section narrative |
+| 12.3 | What matters to the patient | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionSocialHistory.text` | Y | Aligned | section narrative |
+| 12.4 | Family situation | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionSocialHistory.text` | Y | Aligned | section narrative |
+| 12.5 | Other determinants of health observations | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionSocialHistory.text` | Y | Aligned | section narrative |
+| 12.6 | Note | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionSocialHistory.text` | Y | Aligned |  |
+| 13.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionAdvanceDirectives.text` | Y | Aligned |  |
+| 13.2 | Advance Healthcare Directive (empty reason) | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionAdvanceDirectives.emptyReason` | Y | Aligned | entries or emptyReason (ie-ps-1) |
+| 13.3 | Advance Healthcare Directive (AHD) (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionAdvanceDirectives.entry` | Y | Aligned | IECoreADIDocumentReference |
 | 13.3.1 | Category of AHD | Required | 0..* | IECoreADIDocumentReference | `DocumentReference.type` | Y | Partial | AHD categories under the Assisted Decision-Making (Capacity) Act 2015 are not bound |
 | 13.3.2 | Attachment | Mandatory | 0..1 | IECoreADIDocumentReference | `DocumentReference.content.attachment` | Y | Aligned |  |
-| 13.4 | Note | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:advanceDirectives.text` | Y | Aligned |  |
-| 14.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:travelHistory.text` | Y | Aligned |  |
-| 14.2 | Travel and communicable disease history (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:travelHistory.entry` | Y | Partial | generic IECoreSimpleObservation |
-| 14.2.1 | Infectious agent | Required | 0..* | IECoreSimpleObservation |  | N | Gap | infectious agent |
-| 14.2.2 | Time period | Required | 0..* | IECoreSimpleObservation | `Observation.effective[x]` | Y | Partial | generic observation; no travel-history profile to carry the travel period |
-| 14.2.3 | Country visited | Mandatory | 1..* | IECoreSimpleObservation |  | N | Gap | country visited: Mandatory within the record entry |
-| 14.2.4 | Proximity | Optional | 0..* | IECoreSimpleObservation |  | N | Gap | proximity |
-| 14.2.5 | Current Infection control status | Required | 0..* | IECoreSimpleObservation |  | N | Gap | infection control status |
-| 14.3 | Note | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:travelHistory.text` | Y | Aligned |  |
-| 15.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:pregnancyHistory.text` | Y | Aligned |  |
+| 13.4 | Note | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionAdvanceDirectives.text` | Y | Aligned |  |
+| 14.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionTravelHx.text` | Y | Aligned |  |
+| 14.2 | Travel and communicable disease history (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionTravelHx.entry` | Y | Aligned | EPS travelObservation entries |
+| 14.2.1 | Infectious agent | Required | 0..* | observation-travel-eu-eps | `Observation.component` | N | Partial | infectious agent: not constrained by EPS |
+| 14.2.2 | Time period | Required | 0..* | observation-travel-eu-eps | `Observation.effective[x]` | N | Partial | period available; EPS obligations, not MS |
+| 14.2.3 | Country visited | Mandatory | 1..* | observation-travel-eu-eps | `Observation.value[x]` | N | Aligned | country visited: value 1..1 in the EPS travel profile |
+| 14.2.4 | Proximity | Optional | 0..* | observation-travel-eu-eps | `Observation.component` | N | Partial | proximity: not constrained (Optional) |
+| 14.2.5 | Current Infection control status | Required | 0..* | observation-travel-eu-eps | `Observation.component` | N | Partial | infection control status: not constrained |
+| 14.3 | Note | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionTravelHx.text` | Y | Aligned |  |
+| 15.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionPregnancyHx.text` | Y | Aligned |  |
 | 15.2 | Current Pregnancy (record entry) | Required | 0..* | IECoreObservationPregnancyStatus | `Observation` | Y | Aligned |  |
 | 15.2.1 | Date of status | Mandatory | 0..1 | IECoreObservationPregnancyStatus | `Observation.effective[x]` | N | Partial | not MS in the pregnancy profile |
 | 15.2.2 | Pregnancy Status | Mandatory | 1..1 | IECoreObservationPregnancyStatus | `Observation.value[x]` | N | Partial | value[x] 1..1 but not MS in the pregnancy-status profile |
-| 15.2.3 | Expected delivery date (EDD) | Mandatory | 1..1 | IECoreObservationPregnancyStatus |  | N | Gap | expected delivery date |
-| 15.2.4 | Gestational age | Mandatory | 1..1 | IECoreObservationPregnancyStatus |  | N | Gap | gestational age |
+| 15.2.3 | Expected delivery date (EDD) | Mandatory | 1..1 | Observation-pregnancy-edd-uv-ips | `Observation.value[x]` | N | Aligned | IPS EDD observation (hasMember of pregnancy status) |
+| 15.2.4 | Gestational age | Mandatory | 1..1 | observation-pregnancy-gestationalAge-eu-eps | `Observation.value[x]` | N | Aligned | EPS gestationalAge entry |
 | 15.2.5 | Note | Optional | 0..1 | IECoreObservationPregnancyStatus | `Observation.note` | N | Aligned |  |
-| 15.3 | Pregnancy History (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:pregnancyHistory.entry` | Y | Partial | generic observation; no pregnancy-outcome profile |
-| 15.3.1 | End date of the pregnancy | Mandatory | 1..1 | IECoreSimpleObservation |  | N | Gap |  |
-| 15.3.2 | Outcome of the pregnancy | Mandatory | 1..1 | IECoreSimpleObservation |  | N | Gap |  |
-| 15.3.3 | Number of foetuses in specific pregnancy | Mandatory | 1..1 | IECoreSimpleObservation |  | N | Gap |  |
+| 15.3 | Pregnancy History (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionPregnancyHx.entry` | Y | Aligned | EPS pregnancyOutcome entries |
+| 15.3.1 | End date of the pregnancy | Mandatory | 1..1 | Observation-pregnancy-outcome-uv-ips | `Observation.effective[x]` | N | Partial | end date of pregnancy: IPS outcome observation |
+| 15.3.2 | Outcome of the pregnancy | Mandatory | 1..1 | Observation-pregnancy-outcome-uv-ips | `Observation.value[x]` | N | Aligned | IPS pregnancy outcome |
+| 15.3.3 | Number of foetuses in specific pregnancy | Mandatory | 1..1 | Observation-pregnancy-outcome-uv-ips | `Observation.value[x]` | N | Partial | number of foetuses: not explicitly modelled |
 | 15.3.4 | Note | Optional | 0..1 | IECoreSimpleObservation | `Observation.note` | N | Aligned |  |
-| 16.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:immunizations.text` | Y | Aligned |  |
-| 16.2 | Immunisations administered empty reason | Required | 1..1 | IECoreCompositionPatientSummary | `Composition.section:immunizations.emptyReason` | N | Partial | HIQA 'Required 1..1' (OI-006); not MS |
-| 16.3 | Immunisations (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:immunizations.entry` | Y | Aligned |  |
+| 16.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionImmunizations.text` | Y | Aligned |  |
+| 16.2 | Immunisations administered empty reason | Required | 1..1 | IECoreCompositionPatientSummary | `Composition.section:sectionImmunizations.emptyReason` | Y | Aligned | entries or emptyReason (ie-ps-1); HIQA "Required 1..1" anomaly (OI-006) |
+| 16.3 | Immunisations (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionImmunizations.entry` | Y | Aligned |  |
 | 16.3.1 | Immunisation status | Mandatory | 1..1 | IECoreImmunization | `Immunization.status` | Y | Aligned |  |
 | 16.3.2 | Date and time of Immunisation | Mandatory | 1..1 | IECoreImmunization | `Immunization.occurrence[x]` | Y | Aligned |  |
 | 16.3.3 | Administered product | Mandatory | 1..1 | IECoreImmunization | `Immunization.vaccineCode` | Y | Aligned | administered product |
-| 16.3.4 | Target disease of immunisation | Required | 0..* | IECoreImmunization | `Immunization.protocolApplied.targetDisease` | N | Partial | Required; not MS |
+| 16.3.4 | Target disease of immunisation | Required | 0..* | IECoreImmunization | `Immunization.protocolApplied.targetDisease` | Y | Aligned | MS (IE profile; PS entries SHOULD claim it: OI-016) |
 | 16.3.5 | Vaccine code | Mandatory | 1..1 | IECoreImmunization | `Immunization.vaccineCode` | Y | Partial | HIQA separates product (16.3.3) from vaccine code (16.3.5); R4 has one vaccineCode |
-| 16.3.6 | Number of doses | Required | 0..1 | IECoreImmunization | `Immunization.protocolApplied.doseNumber[x]` | N | Partial | Required; not MS |
-| 16.3.7 | Immunisation administrator | Required | 0..1 | IECoreImmunization | `Immunization.performer.actor` | N | Partial | Required; not MS |
-| 16.3.8 | Administering Centre | Required | 0..1 | IECoreImmunization | `Immunization.location` | N | Partial | Required; not MS |
+| 16.3.6 | Number of doses | Required | 0..1 | IECoreImmunization | `Immunization.protocolApplied.doseNumber[x]` | Y | Aligned | MS (IE profile; PS entries SHOULD claim it: OI-016) |
+| 16.3.7 | Immunisation administrator | Required | 0..1 | IECoreImmunization | `Immunization.performer.actor` | Y | Aligned | MS (IE profile; PS entries SHOULD claim it: OI-016) |
+| 16.3.8 | Administering Centre | Required | 0..1 | IECoreImmunization | `Immunization.location` | Y | Aligned | MS (IE profile; PS entries SHOULD claim it: OI-016) |
 | 16.4 | Note | Optional | 0..1 | IECoreImmunization | `Immunization.note` | N | Aligned |  |
-| 17.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:functionalStatus.text` | Y | Aligned |  |
-| 17.2 | Functional status | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:functionalStatus.entry` | Y | Partial | entries allowed (Condition or Observation) but no functional-status profile |
-| 17.3 | Condition related to functional status | Required | 0..* | IECoreConditionProblemsHealthConcerns | `Condition` | Y | Partial |  |
-| 17.4 | Functional Assessment (record entry) | Required | 0..* | IECoreSimpleObservation | `Observation` | Y | Partial |  |
+| 17.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionFunctionalStatus.text` | Y | Aligned |  |
+| 17.2 | Functional status | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionFunctionalStatus.entry` | Y | Aligned | EPS disability (Condition) entries |
+| 17.3 | Condition related to functional status | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionFunctionalStatus.entry` | Y | Aligned | EPS disability (Condition) entries |
+| 17.4 | Functional Assessment (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionFunctionalStatus.entry` | Y | Partial | EPS functionalAssessment is a ClinicalImpression; HIQA result values map to finding |
 | 17.4.1 | Date of functional assessment | Mandatory | 1..1 | IECoreSimpleObservation | `Observation.effective[x]` | Y | Partial | Mandatory within the record entry; 0..1 |
 | 17.4.2 | Functional assessment type | Mandatory | 1..1 | IECoreSimpleObservation | `Observation.code` | Y | Aligned |  |
 | 17.4.3 | Functional Assessment Result (cluster) | Mandatory | 1..1 | IECoreSimpleObservation | `Observation.value[x]` | Y | Partial | Mandatory within the record entry; 0..1 |
@@ -622,22 +608,22 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 17.4.3.4 | Result value range | Required | 0..1 | IECoreSimpleObservation | `Observation.valueRange` | Y | Aligned |  |
 | 17.4.3.5 | Result value ratio | Required | 0..1 | IECoreSimpleObservation | `Observation.valueRatio` | Y | Aligned |  |
 | 17.5 | Note | Optional | 0..1 | IECoreSimpleObservation | `Observation.note` | N | Aligned |  |
-| 18.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:carePlans.text` | Y | Aligned |  |
-| 18.2 | Care Plan (record entry) | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:carePlans.entry` | Y | Aligned | IECoreCarePlan |
-| 18.2.1 | Name of care plan | Required | 0..1 | IECoreCarePlan | `CarePlan.title` | N | Partial | Required; not MS (HIQA coded name) |
-| 18.2.2 | Description of the care plan | Required | 0..* | IECoreCarePlan | `CarePlan.description` | N | Partial | Required; not MS |
+| 18.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionPlanOfCare.text` | Y | Aligned |  |
+| 18.2 | Care Plan (record entry) | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionPlanOfCare.entry` | Y | Aligned | IECoreCarePlan |
+| 18.2.1 | Name of care plan | Required | 0..1 | IECoreCarePlan | `CarePlan.title` | Y | Aligned | MS (IE profile; PS entries SHOULD claim it: OI-016) |
+| 18.2.2 | Description of the care plan | Required | 0..* | IECoreCarePlan | `CarePlan.description` | Y | Aligned | MS (IE profile; PS entries SHOULD claim it: OI-016) |
 | 18.2.3 | Care plan period | Optional | 0..1 | IECoreCarePlan | `CarePlan.period` | N | Aligned |  |
 | 18.2.4 | Condition related to the care plan | Optional | 0..* | IECoreCarePlan | `CarePlan.addresses` | N | Aligned |  |
 | 18.2.5 | Care plan activity (cluster) 18.2.5 Care plan activity (cluster) | Optional | 0..* | IECoreCarePlan | `CarePlan.activity` | N | Aligned |  |
 | 18.2.5.1 | Care plan activity type | Optional | 0..* | IECoreCarePlan | `CarePlan.activity.detail.code` | N | Aligned |  |
 | 18.2.5.2 | Care plan specific activity | Optional | 0..* | IECoreCarePlan | `CarePlan.activity.detail.description` | N | Aligned |  |
 | 18.2.6 | Care plan goal | Optional | 0..* | IECoreCarePlan | `CarePlan.goal` | N | Aligned |  |
-| 18.3 | Education, advice and recommendations for patient | Optional | 0..* | IECoreCompositionPatientSummary | `Composition.section:carePlans.text` | Y | Aligned |  |
+| 18.3 | Education, advice and recommendations for patient | Optional | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionPlanOfCare.text` | Y | Aligned |  |
 | 18.4 | Patient home supports identified | Required | 0..* | IECoreCarePlan |  | N | Gap | patient home supports; Required |
-| 18.5 | Patient concerns, expectations and wishes | Optional | 0..* | IECoreCompositionPatientSummary | `Composition.section:carePlans.text` | Y | Aligned |  |
+| 18.5 | Patient concerns, expectations and wishes | Optional | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionPlanOfCare.text` | Y | Aligned |  |
 | 18.6 | Note | Optional | 0..1 | IECoreCarePlan | `CarePlan.note` | N | Aligned |  |
 | 19.1.1 | Document subject (Patient) | Mandatory | 1..1 | IECoreCompositionPatientSummary | `Composition.subject` | Y | Aligned |  |
-| 19.1.2 | Document identifier | Mandatory | 1..* | IECoreCompositionPatientSummary | `Composition.identifier` | N | Partial | HIQA Mandatory 1..*; R4 Composition.identifier is 0..1 (Bundle.identifier 1..1 is needed) |
+| 19.1.2 | Document identifier | Mandatory | 1..* | IECoreBundlePatientSummary | `Bundle.identifier` | Y | Aligned | Bundle.identifier 1..1 (R4 Composition.identifier is 0..1) |
 | 19.1.3 | Document author | Mandatory | 1..* | IECoreCompositionPatientSummary | `Composition.author` | Y | Aligned |  |
 | 19.1.4 | Document date | Mandatory | 1..1 | IECoreCompositionPatientSummary | `Composition.date` | Y | Aligned |  |
 | 19.1.5 | Document status | Mandatory | 1..1 | IECoreCompositionPatientSummary | `Composition.status` | Y | Aligned |  |
@@ -647,19 +633,19 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 19.1.9 | Document period | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.event.period` | N | Aligned |  |
 | 19.1.10 | Version | Optional | 0..1 | IECoreCompositionPatientSummary |  | N | Gap | business version; Optional |
 | 19.1.11 | Attestation (Cluster) | Optional | 0..* | IECoreCompositionPatientSummary | `Composition.attester` | N | Aligned |  |
-| 19.1.11.1 | Attester | Mandatory | 1..1 | IECoreCompositionPatientSummary | `Composition.attester.party` | N | Partial | Mandatory within the cluster |
-| 19.1.11.2 | Attestation date and time | Mandatory | 1..1 | IECoreCompositionPatientSummary | `Composition.attester.time` | N | Partial | Mandatory within the cluster |
+| 19.1.11.1 | Attester | Mandatory | 1..1 | IECoreCompositionPatientSummary | `Composition.attester.party` | Y | Aligned | enforced by invariant ie-ps-attester-1 |
+| 19.1.11.2 | Attestation date and time | Mandatory | 1..1 | IECoreCompositionPatientSummary | `Composition.attester.time` | Y | Aligned | enforced by invariant ie-ps-attester-1 |
 | 19.1.12 | Legal authentication (Cluster) | Optional | 0..* | IECoreCompositionPatientSummary | `Composition.attester` | N | Aligned | attester.mode = legal |
-| 19.1.12.1 | Legal authenticator | Mandatory | 0..1 | IECoreCompositionPatientSummary | `Composition.attester.party` | N | Partial | Mandatory within the legal-authentication cluster; attester.party 0..1, not MS |
-| 19.1.12.2 | Authentication date and time | Mandatory | 0..1 | IECoreCompositionPatientSummary | `Composition.attester.time` | N | Partial | Mandatory within the legal-authentication cluster; attester.time 0..1, not MS |
+| 19.1.12.1 | Legal authenticator | Mandatory | 0..1 | IECoreCompositionPatientSummary | `Composition.attester.party` | Y | Aligned | enforced by invariant ie-ps-attester-1 |
+| 19.1.12.2 | Authentication date and time | Mandatory | 0..1 | IECoreCompositionPatientSummary | `Composition.attester.time` | Y | Aligned | enforced by invariant ie-ps-attester-1 |
 | 19.1.13 | Event type | Optional | 0..* | IECoreCompositionPatientSummary | `Composition.event.code` | N | Aligned |  |
 | 19.1.14 | Service speciality | Optional | 0..* | IECoreCompositionPatientSummary |  | N | Gap | service speciality; Optional |
 | 19.1.15 | Custodian | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.custodian` | Y | Aligned |  |
 | 19.1.16 | Attachment | Optional | 0..* | IECoreCompositionPatientSummary |  | N | Gap | presented form; Optional |
 | 19.2.1 | Entry subject (Patient) | Mandatory | 1..1 | IECoreCompositionPatientSummary | `Composition.section.entry` | Y | Aligned | every entry profile has subject/patient 1..1 |
 | 19.2.2 | Entry identifier | Optional | 0..* | IECoreCompositionPatientSummary | `Composition.section.entry` | N | Aligned | Resource.identifier |
-| 19.2.3 | Entry author | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section.entry` | N | Partial | recorder/asserter/performer not consistently MS |
-| 19.2.4 | Entry date | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section.entry` | N | Partial | recordedDate not consistently MS |
+| 19.2.3 | Entry author | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section.entry` | N | Aligned | recorder/asserter MS on the IE entry profiles (IE profile; PS entries SHOULD claim it: OI-016) |
+| 19.2.4 | Entry date | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section.entry` | N | Aligned | recordedDate MS on the IE entry profiles (IE profile; PS entries SHOULD claim it: OI-016) |
 | 19.2.5 | Entry source | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section.entry` | N | Aligned |  |
 | 19.2.6 | Entry language | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section.entry` | N | Aligned | Resource.language |
 | — | maritalStatus | Not in dataset | 0..0 | IECorePatientSummaryPatient | `Patient.maritalStatus` | N | Prohibited (enforced) | 0..0 |

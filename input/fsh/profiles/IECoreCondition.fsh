@@ -53,3 +53,20 @@ Description: "The IE Core Condition Problems and Health Concerns profile sets mi
 * onset[x] MS
 * abatement[x] MS
 * recordedDate MS
+
+// ── HIQA PS Section 7 Health Conditions (IECoreConditionProblemsHealthConcerns) ─
+* obeys ie-cond-1
+* severity MS
+* severity ^comment = "HIQA PS 7.3.7 Severity (Required)."
+* bodySite MS
+* bodySite ^comment = "HIQA PS 7.3.8 Anatomical location (Required)."
+* stage.summary MS
+* stage.summary ^comment = "HIQA PS 7.3.9 Clinical stage/grade (Required)."
+* evidence.detail MS
+* evidence.detail ^comment = "HIQA PS 7.3.13 Attachment (Required), e.g. a DocumentReference."
+* note ^comment = "HIQA PS 7.4 Note (Optional)."
+
+Invariant: ie-cond-1
+Description: "A health condition SHALL have a clinical status unless it was entered in error (HIQA PS 7.3.2 Health condition status, Mandatory; FHIR con-5 forbids clinicalStatus when entered-in-error)"
+Expression: "verificationStatus.coding.where(code = 'entered-in-error').exists() or clinicalStatus.exists()"
+Severity: #error

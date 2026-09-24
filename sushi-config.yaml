@@ -278,6 +278,7 @@ groups:
     description: Patient Summary and Hospital Discharge Report profiles aligned with Xt-EHR
     resources:
       - StructureDefinition/ie-core-composition-patient-summary
+      - StructureDefinition/ie-core-bundle-patient-summary
       - StructureDefinition/ie-core-composition-discharge-report
   DocumentProfiles:
     name: Document & Provenance
