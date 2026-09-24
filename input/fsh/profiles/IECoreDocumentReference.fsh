@@ -5,7 +5,6 @@ Title: "IE Core DocumentReference"
 Description: "The IE Core DocumentReference profile sets minimum expectations for the DocumentReference resource to record, search, and fetch documents associated with a patient, based on Irish requirements."
 
 * ^url = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-documentreference"
-* ^version = "0.1.0"
 * ^status = #draft
 
 * identifier MS
@@ -32,7 +31,6 @@ Title: "IE Core ADI DocumentReference"
 Description: "The IE Core ADI (Advance Directive Interoperability) DocumentReference profile sets minimum expectations for the DocumentReference resource to record, search, and fetch advance directive documents associated with a patient, based on Irish requirements."
 
 * ^url = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-adi-documentreference"
-* ^version = "0.1.0"
 * ^status = #draft
 
 * type 1..1 MS

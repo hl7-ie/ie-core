@@ -2,12 +2,15 @@
 
 This page documents changes to the IE Core Implementation Guide.
 
-### Version 0.2.0 (unreleased, draft): HIQA draft national standards (Sept 2026)
+### Version 0.2.0 (draft, 24 September 2026): HIQA draft national standards (Sept 2026)
 
 Aligns IE Core with the HIQA *Draft National Standard for Electronic Prescriptions and Electronic
 Dispensations* and the *Draft National Standard for a Patient Summary* (both public consultation
 drafts, September 2026). Decisions are recorded in ADR-001 to ADR-007 (`docs/adr/` in the source
 repository). The HIQA element IDs are cited as EP x.y / PS x.y.
+
+Release notes: `docs/release-notes-0.2.0.md`. Consultation feedback prepared from this work (individual submission):
+`docs/hiqa-2026/consultation-feedback.md`. Not tagged or published.
 
 #### BREAKING
 

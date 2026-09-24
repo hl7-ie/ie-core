@@ -26,13 +26,35 @@
 
 **Canonical URL**: `https://hl7-ie.github.io/ie-core/fhir/ie/core`  
 **Package**: `hl7.fhir.ie.core`  
-**Version**: 0.1.1  
+**Version**: 0.2.0 (draft, aligned with the HIQA draft national standards, Sept 2026)  
 **FHIR Version**: R4 (4.0.1)  
 **Status**: Draft (CI Build)
 
 > **Naming provenance:** The package ID `hl7.fhir.ie.core` follows the standard HL7 FHIR package-naming convention `hl7.fhir.<ISO-3166-country-code>.core` used by every national Core IG (e.g. `hl7.fhir.us.core`, `hl7.fhir.au.core`, `hl7.fhir.uk.core`). It is not derived from, and has no relationship to, any third-party domain. The canonical URL above is a **GitHub Pages placeholder** hosted under the `hl7-ie` GitHub organization while this IG remains a Proof of Concept; it will be replaced with an HL7-registered namespace if and when a formal national governance body is established (see [Recommendations for Further National Alignment](#recommendations-for-further-national-alignment) and the [HL7 Registry & Publication Guidance](https://hl7-ie.github.io/ie-core/hl7-registry-guidance.html) page).
 
 [![Build IE Core FHIR IG](https://github.com/hl7-ie/ie-core/actions/workflows/build-ig.yml/badge.svg)](https://github.com/nithinmohantk/ie-core/actions/workflows/build-ig.yml)
+
+## HIQA 2026 alignment (version 0.2.0)
+
+Version 0.2.0 realigns IE Core with two HIQA **consultation drafts** (September 2026): *Electronic Prescriptions and
+Electronic Dispensations* and *Patient Summary*. It is a proof of concept, not endorsed by HIQA, and not for
+clinical use.
+
+| What | Where |
+|---|---|
+| Overview, diagrams and the eight scenario examples | `input/pagecontent/hiqa-2026-alignment.md` (IG page *HIQA 2026 Alignment*) |
+| Element-by-element traceability (548 HIQA elements) | `docs/hiqa-2026/traceability-matrix.csv`, IG page *HIQA Traceability* |
+| Design decisions | `docs/adr/` (ADR-001 to ADR-007) |
+| Requires Clarification | `docs/hiqa-2026/open-issues.md` |
+| Clinical-safety hazards and mitigations | `docs/hiqa-2026/clinical-safety-log.md` |
+| Independent review and responses | `docs/audit/review-hiqa-2026.md`, `docs/audit/review-hiqa-2026-responses.md` |
+| Consultation feedback (individual submission) | `docs/hiqa-2026/consultation-feedback.md` |
+| Release notes | `docs/release-notes-0.2.0.md` |
+
+Checks (all run in CI): `python scripts/hiqa/generate_traceability.py --check`,
+`python scripts/hiqa/check_mapping_against_snapshots.py`, `python scripts/qa/check_ep_data_minimisation.py`,
+`python scripts/terminology/verify_codes.py`, `python scripts/qa/check_page_links.py`, and in `tests/`:
+`npm run test:bdd`, `npm run test:quality`, `node validator/run-validation.js --tx`.
 
 ## Overview
 
@@ -153,8 +175,8 @@ chmod +x build-ig-with-config.sh
 ./build-ig-with-config.sh
 
 # Or override with command-line argument
-./build-ig-with-config.sh https://hl7-ie.org
-./build-ig-with-config.sh https://fhir.health.ie
+./build-ig-with-config.sh https://fhir.example.org/ie/core
+./build-ig-with-config.sh https://fhir.hl7.studio/ie/core
 ```
 
 **Windows (PowerShell):**
@@ -163,7 +185,7 @@ chmod +x build-ig-with-config.sh
 # Then run standard build process
 
 # Or use environment variable
-$env:IE_CORE_BASE_URL="https://hl7-ie.org"
+$env:IE_CORE_BASE_URL="https://fhir.example.org/ie/core"
 # Then run sushi . and _genonce.bat
 ```
 
@@ -173,7 +195,7 @@ For CI/CD pipelines (GitHub Actions, etc.), set the base URL via environment var
 
 ```bash
 # In GitHub Actions or shell
-export IE_CORE_BASE_URL=https://hl7-ie.org
+export IE_CORE_BASE_URL=https://fhir.example.org/ie/core
 
 # Then run the build
 ./build-ig-with-config.sh
@@ -188,8 +210,8 @@ Edit `build-config.env` to set the default base URL:
 IE_CORE_BASE_URL=https://hl7-ie.github.io/ie-core
 
 # Examples for different environments:
-# IE_CORE_BASE_URL=https://hl7-ie.org
-# IE_CORE_BASE_URL=https://fhir.health.ie
+# IE_CORE_BASE_URL=https://fhir.example.org/ie/core
+# IE_CORE_BASE_URL=https://fhir.hl7.studio/ie/core   (conceptual; OI-025)
 # IE_CORE_BASE_URL=https://my-institution.ie/fhir
 ```
 
@@ -319,7 +341,7 @@ Alternatively, use the **HL7 FHIR Community Process** for initial publication wi
 
 Once a governing body is established, coordinate infrastructure deployment:
 
-1. Register a national domain (e.g., `hl7-ie.org` or similar)
+1. Register a national domain through the future governance body (the author's `fhir.hl7.studio/ie` is conceptual only; OI-025)
 2. Configure DNS (CNAME to hosting platform)
 3. Obtain SSL/TLS certificate
 4. Deploy the built IG (`output/` directory)

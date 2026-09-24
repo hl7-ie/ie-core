@@ -5,7 +5,6 @@ Title: "IE Core CarePlan"
 Description: "The IE Core CarePlan profile sets minimum expectations for the CarePlan resource to record, search, and fetch care plan data associated with a patient, based on Irish requirements."
 
 * ^url = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-careplan"
-* ^version = "0.1.0"
 * ^status = #draft
 
 * text MS

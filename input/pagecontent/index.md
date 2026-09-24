@@ -46,7 +46,7 @@ The IE Core Implementation Guide, based on [FHIR Version R4](http://hl7.org/fhir
 
 IE Core profiles are built on top of the [HL7 Europe Base and Core FHIR profiles](https://hl7.eu/fhir/base), ensuring conformance with the [European Health Data Space (EHDS)](https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space_en) regulation. This layered approach means that every IE Core resource instance automatically satisfies EU Core constraints and is interoperable with other EU Member State implementations. The profiles also align with the [International Patient Summary (IPS)](https://hl7.org/fhir/uv/ips/) standard for cross-border care scenarios via [MyHealth@EU](https://health.ec.europa.eu/ehealth-digital-health-and-care/electronic-cross-border-health-services_en).
 
-IE Core v0.1.1 is aligned with the **XT-EHR logical model v1.0.0**, which introduced a formal Obligations Framework, new base models (`EHDSDocument`, `EHDSDataSet`), mandatory section updates to the Patient Summary and Hospital Discharge Report, and additional ePrescription elements. See the [EHDS & EU Conformance](ehds-conformance.html) page for the full alignment matrix and FHIR R4/R5 compatibility analysis.
+IE Core 0.2.0 is aligned with the HIQA draft national standards (September 2026); since v0.1.1 it has also been aligned with the **XT-EHR logical model v1.0.0**, which introduced a formal Obligations Framework, new base models (`EHDSDocument`, `EHDSDataSet`), mandatory section updates to the Patient Summary and Hospital Discharge Report, and additional ePrescription elements. See the [EHDS & EU Conformance](ehds-conformance.html) page for the full alignment matrix and FHIR R4/R5 compatibility analysis.
 
 There are two ways to implement IE Core:
 
