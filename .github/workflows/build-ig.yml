@@ -623,7 +623,7 @@ jobs:
   deploy-pages:
     name: Deploy to GitHub Pages
     needs: [ig-publish-r4, ig-publish-r5, bdd-tests, quality-checks, fhir-validation-collect, bdd-tests-r5, quality-checks-r5, fhir-validation-r5]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     environment:
       name: github-pages
