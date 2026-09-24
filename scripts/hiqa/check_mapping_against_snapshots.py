@@ -28,6 +28,11 @@ def load_snapshots():
     by_url, names = {}, {}
     cache = os.path.join(os.path.expanduser('~'), '.fhir', 'packages')
     files = glob.glob(os.path.join(ROOT, 'fsh-generated', 'resources', 'StructureDefinition-*.json'))
+    missing = [p for p in PACKAGES if not os.path.isdir(os.path.join(cache, p, 'package'))]
+    if missing:
+        # Without the parent packages, inherited cardinality/MustSupport cannot be seen and every inherited
+        # constraint would look like an over-claim. Fail loudly instead (run `sushi .` to fill the cache).
+        sys.exit(f'FHIR packages missing from {cache}: {", ".join(missing)}. Run `sushi .` first.')
     for p in PACKAGES:
         files += glob.glob(os.path.join(cache, p, 'package', 'StructureDefinition-*.json'))
     for f in files:
