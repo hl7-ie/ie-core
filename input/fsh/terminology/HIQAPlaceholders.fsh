@@ -61,3 +61,25 @@ Description: "PLACEHOLDER. Legal supply status of a medicinal product, HIQA EP 4
 * ^content = #fragment
 * #prescription-only "Prescription only medicine" "Prescription only medicine (HIQA EP 4.2.2 example)."
 * #general-sale "General sales list" "General sales list (HIQA EP 4.2.2 example)."
+
+CodeSystem: IECoreNMPCPlaceholder
+Id: ie-core-nmpc-placeholder
+Title: "IE Core NMPC Placeholder (illustrative codes only)"
+Description: "PLACEHOLDER. Illustrative medication codes used in the IE Core examples. This is NOT the National Medicinal Product Catalogue (NMPC). Real NMPC codes are SNOMED CT Irish Extension concepts served by the HSE Central Terminology Server (see Terminology Services); the NMPC does not publish a separate FHIR code system URI that this IG can use (Requires Clarification, OI-018). Do not use these codes in production."
+* ^status = #draft
+* ^experimental = true
+* ^caseSensitive = true
+* ^content = #complete
+* #NMPC-AML5TAB "Amlodipine 5mg tablets"
+* #NMPC-ATV20TAB "Atorvastatin 20mg film-coated tablets"
+* #NMPC-ATV40TAB "Atorvastatin 40mg tablets"
+* #NMPC-ATV80TAB "Atorvastatin 80mg tablets"
+* #NMPC-INSASP100 "Insulin aspart 100 units/ml solution for injection"
+* #NMPC-INSGLAR100 "Insulin glargine 100 units/ml solution for injection"
+* #NMPC-LIS10TAB "Lisinopril 10mg tablets"
+* #NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
+* #NMPC-OME20CAP "Omeprazole 20mg gastro-resistant capsules"
+* #NMPC-RAM10CAP "Ramipril 10mg capsules"
+* #NMPC-RAM5CAP "Ramipril 5mg capsules"
+* #NMPC-SER50TAB "Sertraline 50mg tablets"
+* #NMPC-WAR5TAB "Warfarin 5mg tablets"

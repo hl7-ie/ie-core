@@ -30,12 +30,12 @@ Description: "The IE Core PractitionerRole Profile is based upon the core FHIR P
 // ── Code (Role) ─────────────────────────────────────────────────────────
 * code MS
 * code ^short = "Roles which this practitioner may perform"
-* code from https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-provider-taxonomy (extensible)
+* code from https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-healthcare-provider-taxonomy (extensible)
 
 // ── Specialty ───────────────────────────────────────────────────────────
 * specialty MS
 * specialty ^short = "Specific specialty of the practitioner"
-* specialty from https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-provider-specialty (extensible)
+* specialty from http://hl7.org/fhir/ValueSet/c80-practice-codes (preferred)
 
 // ── Location ────────────────────────────────────────────────────────────
 * location MS

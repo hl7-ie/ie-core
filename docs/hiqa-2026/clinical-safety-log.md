@@ -107,3 +107,18 @@ been reviewed by a clinical safety officer.
 - **Mitigation:** invariant `ie-md-status-1` (reason required for declined, stopped, cancelled or
   on-hold; HIQA EP 6.3.2).
 - **Residual:** Low. Notifying the prescriber is a workflow matter outside the IG.
+
+## HZ-09. Codes whose meaning contradicts the IG's label
+
+- **Status:** Mitigated (Phase 7, ADR-007).
+- **Hazard:** a system records or displays the opposite of the clinical truth (e.g. "Heavy drinker"
+  stored as *Light drinker*, "Patient deceased" as *Patient discharged alive*), or a medication
+  example teaches implementers the wrong product code (Omeprazole coded as **Imipramine**).
+- **Cause:** 37 codes had labels that did not match their official meaning; 13 codes did not exist; 6
+  were inactive; 6 bindings pointed to ValueSets that did not exist. Probably inherited from an
+  unverified source.
+- **Mitigation:** every explicit external code is verified on tx.fhir.org; wrong-meaning codes are
+  removed or replaced only with verified codes; a CI check (Phase 9) fails the build on a wrong,
+  unknown or inactive code.
+- **Residual:** Low for the explicit codes. The intensional SNOMED CT Irish-edition ValueSets can only
+  be checked against the HSE CTS (OI-004).

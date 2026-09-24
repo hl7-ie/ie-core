@@ -35,7 +35,7 @@ Description: "The IE Core Organization Profile is based upon the core FHIR Organ
 // ── Type ────────────────────────────────────────────────────────────────
 * type MS
 * type ^short = "Kind of organization"
-* type from https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-organization-type (extensible)
+* type from http://hl7.org/fhir/ValueSet/organization-type (preferred)
 
 // ── Name ────────────────────────────────────────────────────────────────
 * name 1..1 MS

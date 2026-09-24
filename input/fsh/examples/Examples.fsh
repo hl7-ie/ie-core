@@ -314,7 +314,7 @@ Description: "An example IE Core Condition representing a confirmed diagnosis of
 * clinicalStatus = http://terminology.hl7.org/CodeSystem/condition-clinical#active "Active"
 * verificationStatus = $CondVerStatus#confirmed "Confirmed"
 * category[ProblemListItem] = $CondCat#problem-list-item "Problem List Item"
-* code = $SCT#44054006 "Diabetes mellitus type 2"
+* code = $SCT#44054006 "Type 2 diabetes mellitus"
 * code.text = "Type 2 Diabetes Mellitus"
 
 * subject = Reference(ie-core-patient-example) "John Murphy"

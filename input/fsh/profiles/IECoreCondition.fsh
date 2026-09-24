@@ -45,7 +45,8 @@ Description: "The IE Core Condition Problems and Health Concerns profile sets mi
     ProblemListItem 0..1 MS and
     HealthConcern 0..1 MS
 * category[ProblemListItem] = $CondCat#problem-list-item "Problem List Item"
-* category[HealthConcern] = $CondCat#health-concern "Health Concern"
+* category[HealthConcern] = $IE-CONDITION-CAT#health-concern "Health Concern"
+* category[HealthConcern] ^comment = "health-concern is not in the HL7 condition-category code system (it is a US Core code); IE Core defines it in ie-core-condition-category (fixed in Phase 7)."
 * code 1..1 MS
 * code from IECoreConditionCode (extensible)
 * subject 1..1 MS

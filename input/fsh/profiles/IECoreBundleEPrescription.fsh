@@ -117,7 +117,7 @@ Severity: #error
 
 Invariant: ie-bnd-rx-3
 Description: "If the patient is under 12 years old at the date of prescribing, every prescription item SHALL record the patient's age (HIQA EP 1.4.2; a legal requirement)"
-Expression: "entry.resource.ofType(MedicationRequest).all(extension('https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient-age-at-prescribing').exists() or (%resource.entry.resource.ofType(Patient).first().birthDate <= (authoredOn.toString().substring(0,10).toDate() - 12 years)))"
+Expression: "entry.resource.ofType(MedicationRequest).all(extension('https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient-age-at-prescribing').exists() or ((%resource.entry.resource.ofType(Patient).first().birthDate + 12 years).toString() <= authoredOn.toString().substring(0,10)))"
 Severity: #error
 
 Invariant: ie-bnd-rx-4

@@ -41,7 +41,7 @@ Description: "The IE Core ADI (Advance Directive Interoperability) DocumentRefer
 * category ^slicing.discriminator.path = "$this"
 * category ^slicing.rules = #open
 * category contains adi 1..1 MS
-* category[adi] = $LOINC#42348-3 "Advance directives"
+* category[adi] = $LOINC#42348-3 "Advance healthcare directives"
 * subject 1..1 MS
 * content.attachment.contentType 1..1 MS
 * content.attachment.url 1..1 MS

@@ -36,7 +36,8 @@ Alias: $PCRS_CATEGORY = https://nmpc.hse.ie/PCRS/Category
 // HPRA (Health Products Regulatory Authority) drug catalogue (mapped via SNOMED ConceptMap):
 Alias: $HPRA = https://www.hpra.ie/drug-catalogue
 // Legacy/local NMPC placeholder (used in illustrative examples; real codes are SNOMED CT concepts):
-Alias: $NMPC = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/nmpc
+// Placeholder code system for illustrative example codes only (NOT the NMPC; OI-018)
+Alias: $NMPC = https://hl7-ie.github.io/ie-core/fhir/ie/core/CodeSystem/ie-core-nmpc-placeholder
 Alias: $V2-0203 = http://terminology.hl7.org/CodeSystem/v2-0203
 Alias: $V3-NullFlavor = http://terminology.hl7.org/CodeSystem/v3-NullFlavor
 Alias: $V3-ActCode = http://terminology.hl7.org/CodeSystem/v3-ActCode

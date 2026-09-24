@@ -188,8 +188,8 @@ groups:
     name: HIQA Logical Models (draft standards, Sept 2026)
     description: Logical models of the HIQA draft national standards, with mappings to IE Core profiles. Not endorsed by HIQA.
     resources:
-      - StructureDefinition/hiqa-eprescription-lm
-      - StructureDefinition/hiqa-patient-summary-lm
+      - StructureDefinition/HIQAEPrescriptionLM
+      - StructureDefinition/HIQAPatientSummaryLM
   PatientProfiles:
     name: Patient Demographics
     description: Profiles related to patient demographics and identification

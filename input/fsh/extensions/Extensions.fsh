@@ -52,7 +52,7 @@ Description: "Indicates whether the patient requires an interpreter for communic
 Context: Patient, Encounter
 * value[x] only Coding
 * value[x] 1..1
-* valueCoding from https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-yes-no-unknown (required)
+* valueCoding from https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-yes-no-unknowns (required)
 
 // ╭──────────────────────────────────────────────────────────────────────╮
 // │  IE Core IHI Status                                                 │
@@ -111,7 +111,7 @@ Context: MedicationRequest
 * extension[informationSource] ^short = "Source of adherence information"
 * extension[informationSource].value[x] only CodeableConcept
 * extension[informationSource].value[x] 1..1
-* extension[informationSource].valueCodeableConcept from https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-information-source (extensible)
+* extension[informationSource].valueCodeableConcept from https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-information-source-for-medication-adherence (extensible)
 * value[x] 0..0
 
 // ╭──────────────────────────────────────────────────────────────────────╮

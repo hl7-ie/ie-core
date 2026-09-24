@@ -50,7 +50,7 @@
         "status": "completed",
         "medicationCodeableConcept": {
           "coding": [
-            {"system": "http://snomed.info/sct", "code": "372718005", "display": "Omeprazole"},
+            {"system": "http://snomed.info/sct", "code": "317291008", "display": "Omeprazole 20 mg oral capsule"},
             {"system": "http://www.infarmed.pt", "code": "INF-00056789", "display": "Omeprazol 20mg Cápsulas"}
           ],
           "text": "Omeprazol 20mg Cápsulas (INFARMED: INF-00056789)"

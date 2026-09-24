@@ -26,7 +26,7 @@ STATUSES = ['Aligned', 'Partial', 'Gap', 'Prohibited (violated)', 'Prohibited (e
 
 STANDARDS = {
     'ep': dict(
-        prefix='EP', name='HIQAEPrescriptionLM', id='hiqa-eprescription-lm',
+        prefix='EP', name='HIQAEPrescriptionLM', id='HIQAEPrescriptionLM',
         title='HIQA ePrescription and eDispensation Dataset (draft, Sept 2026)',
         doc='Draft National Standard for Electronic Prescriptions and Electronic Dispensations, v1.1 draft for public consultation, September 2026',
         headings={
@@ -58,7 +58,7 @@ STANDARDS = {
         },
     ),
     'ps': dict(
-        prefix='PS', name='HIQAPatientSummaryLM', id='hiqa-patient-summary-lm',
+        prefix='PS', name='HIQAPatientSummaryLM', id='HIQAPatientSummaryLM',
         title='HIQA Patient Summary Dataset (draft, Sept 2026)',
         doc='Draft National Standard for a Patient Summary, draft for public consultation, September 2026',
         headings={
@@ -219,6 +219,7 @@ def element_rule(std, node, by_heading_name):
     if ftype.startswith('@'):
         target = by_heading_name[ftype[1:]]
         # The fragment is an element id; SUSHI roots logical-model element ids at the Id, not the Name.
+        # Ids are alphanumeric so element paths satisfy eld-20.
         return (f'* {node.path} {card} contentReference {CANONICAL}/StructureDefinition/{std["id"]}#{std["id"]}.{target} '
                 f'{fsh_str(short)} {fsh_str(definition)}')
     return f'* {node.path} {card} {ftype} {fsh_str(short)} {fsh_str(definition)}'
@@ -348,8 +349,8 @@ def render_page(matrix):
       'and so must not be sent; "violated" means the IG still allows or encourages it. '
       '*N/A*: not applicable to a FHIR exchange.\n\n')
     w('**Conformance convention:** HIQA Mandatory → `min ≥ 1` + MustSupport; Required → MustSupport; Optional → allowed, no MustSupport.\n\n')
-    w('Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-eprescription-lm.html) · '
-      '[HIQA Patient Summary](StructureDefinition-hiqa-patient-summary-lm.html). '
+    w('Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-HIQAEPrescriptionLM.html) · '
+      '[HIQA Patient Summary](StructureDefinition-HIQAPatientSummaryLM.html). '
       'Machine-readable matrix: `docs/hiqa-2026/traceability-matrix.csv` in the source repository.\n\n')
     w('### Summary\n\n')
     for std, label in [('EP', 'ePrescription / eDispensation'), ('PS', 'Patient Summary')]:

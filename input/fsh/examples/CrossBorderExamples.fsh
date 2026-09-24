@@ -173,7 +173,7 @@ Description: "Type 2 Diabetes Mellitus (ICD-10: E11 / SNOMED: 44054006). Active 
 * severity = $SCT#6736007 "Moderate"
 * code.coding[0].system = $SCT
 * code.coding[=].code = #44054006
-* code.coding[=].display = "Diabetes mellitus type 2"
+* code.coding[=].display = "Type 2 diabetes mellitus"
 * code.coding[+].system = "http://hl7.org/fhir/sid/icd-10"
 * code.coding[=].code = #E11
 * code.coding[=].display = "Type 2 diabetes mellitus"
@@ -364,8 +364,8 @@ Description: "Omeprazole 20mg gastro-resistant capsules, proton pump inhibitor. 
 * code.coding[=].code = #NMPC-OME20CAP
 * code.coding[=].display = "Omeprazole 20mg gastro-resistant capsules"
 * code.coding[+].system = $SCT
-* code.coding[=].code = #372718005
-* code.coding[=].display = "Omeprazole"
+* code.coding[=].code = #317291008
+* code.coding[=].display = "Omeprazole 20 mg oral capsule"
 * code.coding[+].system = $ATC
 * code.coding[=].code = #A02BC01
 * code.coding[=].display = "Omeprazole"
@@ -373,7 +373,7 @@ Description: "Omeprazole 20mg gastro-resistant capsules, proton pump inhibitor. 
 * form = $SCT#385049006 "Capsule"
 * amount.numerator = 28 '{capsule}' "capsules"
 * amount.denominator = 1 '{pack}' "pack"
-* ingredient[0].itemCodeableConcept = $SCT#372718005 "Omeprazole"
+* ingredient[0].itemCodeableConcept = $SCT#387137007 "Omeprazole"
 * ingredient[=].isActive = true
 * ingredient[=].strength.numerator = 20 'mg' "mg"
 * ingredient[=].strength.denominator = 1 '{capsule}' "capsule"
@@ -478,7 +478,7 @@ Description: "Irish ePrescription for Metformin 500mg for Seán Murphy, transmit
 * requester = Reference(ie-core-practitioner-aoife-obrien) "Dr. Aoife O'Brien"
 * authoredOn = "2025-01-15"
 
-* reasonCode = $SCT#44054006 "Diabetes mellitus type 2"
+* reasonCode = $SCT#44054006 "Type 2 diabetes mellitus"
 * reasonCode.coding[+].system = $ATC
 * reasonCode.coding[=].code = #A10BA02
 * reasonCode.coding[=].display = "Metformin"
@@ -555,12 +555,7 @@ Description: "German pharmacy dispensation of Metformin 500mg Filmtabletten (Rat
 * status = #completed
 * extension[recorded].valueDateTime = "2025-01-20T10:15:00+01:00"
 
-* medicationCodeableConcept = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
-* medicationCodeableConcept.coding[+] = $SCT#372567009 "Metformin"
-* medicationCodeableConcept.coding[+].system = "http://fhir.de/CodeSystem/ifa/pzn"
-* medicationCodeableConcept.coding[=].code = #04823246
-* medicationCodeableConcept.coding[=].display = "Metformin 500mg Filmtabletten (Ratiopharm)"
-* medicationCodeableConcept.text = "Metformin 500mg Filmtabletten (Ratiopharm)"
+* medicationReference = Reference(ie-medication-dispensed-de-metformin) "Metformin 500mg Filmtabletten (Ratiopharm)"
 
 * subject = Reference(ie-core-patient-sean-murphy) "Seán Murphy"
 * performer[0].actor = Reference(ie-org-de-apotheke-brandenburger) "Apotheke am Brandenburger Tor"
@@ -591,12 +586,7 @@ Description: "German pharmacy dispensation of Lisinopril 10mg Tabletten (Hexal, 
 * status = #completed
 * extension[recorded].valueDateTime = "2025-01-20T10:15:00+01:00"
 
-* medicationCodeableConcept = $NMPC#NMPC-LIS10TAB "Lisinopril 10mg tablets"
-* medicationCodeableConcept.coding[+] = $SCT#386873009 "Lisinopril"
-* medicationCodeableConcept.coding[+].system = "http://fhir.de/CodeSystem/ifa/pzn"
-* medicationCodeableConcept.coding[=].code = #03990693
-* medicationCodeableConcept.coding[=].display = "Lisinopril 10mg Tabletten (Hexal)"
-* medicationCodeableConcept.text = "Lisinopril 10mg Tabletten (Hexal)"
+* medicationReference = Reference(ie-medication-dispensed-de-lisinopril) "Lisinopril 10mg Tabletten (Hexal)"
 
 * subject = Reference(ie-core-patient-sean-murphy) "Seán Murphy"
 * performer[0].actor = Reference(ie-org-de-apotheke-brandenburger) "Apotheke am Brandenburger Tor"
@@ -654,7 +644,7 @@ Description: "Irish ePrescription for Metformin 500mg for Seán Murphy, transmit
 * subject = Reference(ie-core-patient-sean-murphy) "Seán Murphy"
 * requester = Reference(ie-core-practitioner-aoife-obrien) "Dr. Aoife O'Brien"
 * authoredOn = "2025-06-10"
-* reasonCode = $SCT#44054006 "Diabetes mellitus type 2"
+* reasonCode = $SCT#44054006 "Type 2 diabetes mellitus"
 * dosageInstruction[0].text = "Take one 500mg tablet twice daily with meals"
 * dosageInstruction[=].timing.repeat.frequency = 2
 * dosageInstruction[=].timing.repeat.period = 1
@@ -678,12 +668,7 @@ Description: "Latvian pharmacy dispensation of Metformins 500mg tabletes (ZRA co
 * status = #completed
 * extension[recorded].valueDateTime = "2025-06-15T11:00:00+03:00"
 
-* medicationCodeableConcept = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
-* medicationCodeableConcept.coding[+] = $SCT#372567009 "Metformin"
-* medicationCodeableConcept.coding[+].system = "http://www.zva.gov.lv/zalu-registrs"
-* medicationCodeableConcept.coding[=].code = #ZRA-00098432
-* medicationCodeableConcept.coding[=].display = "Metformins 500mg tabletes"
-* medicationCodeableConcept.text = "Metformins 500mg tabletes"
+* medicationReference = Reference(ie-medication-dispensed-lv-metformin) "Metformins 500mg tabletes"
 
 * subject = Reference(ie-core-patient-sean-murphy) "Seán Murphy"
 * performer[0].actor = Reference(ie-org-lv-mes-aptieka) "Mēs atdot Aptieka"
@@ -762,12 +747,7 @@ Description: "Portuguese pharmacy dispensation of Sertralina 50mg Comprimidos (I
 * identifier[=].value = "PT-DISP-2025-XB-001"
 * status = #completed
 * extension[recorded].valueDateTime = "2025-06-20T10:30:00+01:00"
-* medicationCodeableConcept = $NMPC#NMPC-SER50TAB "Sertraline 50mg tablets"
-* medicationCodeableConcept.coding[+] = $SCT#372594008 "Sertraline"
-* medicationCodeableConcept.coding[+].system = "http://www.infarmed.pt"
-* medicationCodeableConcept.coding[=].code = #INF-00012345
-* medicationCodeableConcept.coding[=].display = "Sertralina 50mg Comprimidos"
-* medicationCodeableConcept.text = "Sertralina 50mg Comprimidos"
+* medicationReference = Reference(ie-medication-dispensed-pt-sertraline) "Sertralina 50mg Comprimidos"
 * subject = Reference(ie-core-patient-sean-murphy) "Seán Murphy"
 * performer[0].actor = Reference(ie-org-pt-farmacia-central-lisbon) "Farmácia Central"
 * authorizingPrescription = Reference(ie-rx-sean-pt-sertraline) "PCRS-RX-2025-IE-PT-001"
@@ -874,7 +854,7 @@ Description: "Irish ePrescription for Insulin Glargine 100u/ml for Seán Murphy,
 * subject = Reference(ie-core-patient-sean-murphy) "Seán Murphy"
 * requester = Reference(ie-core-practitioner-aoife-obrien) "Dr. Aoife O'Brien"
 * authoredOn = "2025-07-05"
-* reasonCode = $SCT#44054006 "Diabetes mellitus type 2"
+* reasonCode = $SCT#44054006 "Type 2 diabetes mellitus"
 * dosageInstruction[0].text = "Inject 20 units subcutaneously once daily at bedtime"
 * dosageInstruction[=].timing.repeat.frequency = 1
 * dosageInstruction[=].timing.repeat.period = 1
@@ -1007,7 +987,7 @@ Description: "Finnish ePrescription for Metformin 500mg for Mikko Korhonen, rece
 * subject = Reference(ie-patient-fi-mikko-korhonen) "Mikko Korhonen"
 * requester = Reference(ie-core-practitioner-aoife-obrien) "Dr. Aoife O'Brien"
 * authoredOn = "2025-07-20"
-* reasonCode = $SCT#44054006 "Diabetes mellitus type 2"
+* reasonCode = $SCT#44054006 "Type 2 diabetes mellitus"
 * dosageInstruction[0].text = "Take one 500mg tablet twice daily with meals"
 * dosageInstruction[=].timing.repeat.frequency = 2
 * dosageInstruction[=].timing.repeat.period = 1
@@ -1033,12 +1013,7 @@ Description: "Hickey's Pharmacy, Dublin dispenses Metformin 500mg for Finnish pa
 * status = #completed
 * extension[recorded].valueDateTime = "2025-08-01T14:00:00+01:00"
 
-* medicationCodeableConcept = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
-* medicationCodeableConcept.coding[+] = $SCT#372567009 "Metformin"
-* medicationCodeableConcept.coding[+].system = "http://www.kela.fi"
-* medicationCodeableConcept.coding[=].code = #FIN-XXXX
-* medicationCodeableConcept.coding[=].display = "Metformin 500mg tablets (Kela/FIN)"
-* medicationCodeableConcept.text = "Metformin 500mg tablets"
+* medicationReference = Reference(ie-medication-dispensed-fi-to-ie-neps) "Metformin 500mg tablets"
 
 * subject = Reference(ie-patient-fi-mikko-korhonen) "Mikko Korhonen"
 * performer[0].actor = Reference(ie-org-ie-hickeys-pharmacy) "Hickey's Pharmacy"
@@ -1144,12 +1119,7 @@ Description: "McCauley's Pharmacy, Dublin dispenses Atorvastatin 40mg for Belgia
 * status = #completed
 * extension[recorded].valueDateTime = "2025-08-05T11:30:00+01:00"
 
-* medicationCodeableConcept = $NMPC#NMPC-ATV40TAB "Atorvastatin 40mg tablets"
-* medicationCodeableConcept.coding[+] = $SCT#373444002 "Atorvastatin"
-* medicationCodeableConcept.coding[+].system = "http://www.cnpv.be"
-* medicationCodeableConcept.coding[=].code = #BE-CNPV-XXXX
-* medicationCodeableConcept.coding[=].display = "Atorvastatin 40mg tablets (CNPV)"
-* medicationCodeableConcept.text = "Atorvastatin 40mg tablets"
+* medicationReference = Reference(ie-medication-dispensed-be-to-ie-neps) "Atorvastatin 40mg tablets"
 
 * subject = Reference(ie-patient-be-lars-janssen) "Lars Janssen"
 * performer[0].actor = Reference(ie-org-ie-mccauleys-pharmacy) "McCauley's Pharmacy"
@@ -1161,3 +1131,86 @@ Description: "McCauley's Pharmacy, Dublin dispenses Atorvastatin 40mg for Belgia
 * whenHandedOver = "2025-08-05T11:30:00+01:00"
 * dosageInstruction[0].text = "Take one 40mg tablet once daily at night"
 * substitution.wasSubstituted = false
+
+Instance: ie-medication-dispensed-de-metformin
+InstanceOf: IECoreMedicationEPrescription
+Usage: #example
+Title: "Medication – Metformin 500mg Filmtabletten (Ratiopharm) (as dispensed)"
+Description: "The product actually dispensed in ie-dispense-de-metformin. HL7 Europe MPD requires a dispense to reference a Medication resource."
+* code = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
+* code.coding[+].system = "http://fhir.de/CodeSystem/ifa/pzn"
+* code.coding[=].code = #04823246
+* code.coding[=].display = "Metformin 500mg Filmtabletten (Ratiopharm)"
+* code.text = "Metformin 500mg Filmtabletten (Ratiopharm)"
+* ingredient[0].itemCodeableConcept = $SCT#372567009 "Metformin"
+* ingredient[=].isActive = true
+
+
+Instance: ie-medication-dispensed-de-lisinopril
+InstanceOf: IECoreMedicationEPrescription
+Usage: #example
+Title: "Medication – Lisinopril 10mg Tabletten (Hexal) (as dispensed)"
+Description: "The product actually dispensed in ie-dispense-de-lisinopril. HL7 Europe MPD requires a dispense to reference a Medication resource."
+* code = $NMPC#NMPC-LIS10TAB "Lisinopril 10mg tablets"
+* code.coding[+].system = "http://fhir.de/CodeSystem/ifa/pzn"
+* code.coding[=].code = #03990693
+* code.coding[=].display = "Lisinopril 10mg Tabletten (Hexal)"
+* code.text = "Lisinopril 10mg Tabletten (Hexal)"
+* ingredient[0].itemCodeableConcept = $SCT#386873009 "Lisinopril"
+* ingredient[=].isActive = true
+
+
+Instance: ie-medication-dispensed-lv-metformin
+InstanceOf: IECoreMedicationEPrescription
+Usage: #example
+Title: "Medication – Metformins 500mg tabletes (as dispensed)"
+Description: "The product actually dispensed in ie-dispense-lv-metformin. HL7 Europe MPD requires a dispense to reference a Medication resource."
+* code = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
+* code.coding[+].system = "http://www.zva.gov.lv/zalu-registrs"
+* code.coding[=].code = #ZRA-00098432
+* code.coding[=].display = "Metformins 500mg tabletes"
+* code.text = "Metformins 500mg tabletes"
+* ingredient[0].itemCodeableConcept = $SCT#372567009 "Metformin"
+* ingredient[=].isActive = true
+
+
+Instance: ie-medication-dispensed-pt-sertraline
+InstanceOf: IECoreMedicationEPrescription
+Usage: #example
+Title: "Medication – Sertralina 50mg Comprimidos (as dispensed)"
+Description: "The product actually dispensed in ie-dispense-pt-sertraline. HL7 Europe MPD requires a dispense to reference a Medication resource."
+* code = $NMPC#NMPC-SER50TAB "Sertraline 50mg tablets"
+* code.coding[+].system = "http://www.infarmed.pt"
+* code.coding[=].code = #INF-00012345
+* code.coding[=].display = "Sertralina 50mg Comprimidos"
+* code.text = "Sertralina 50mg Comprimidos"
+* ingredient[0].itemCodeableConcept = $SCT#372594008 "Sertraline"
+* ingredient[=].isActive = true
+
+
+Instance: ie-medication-dispensed-fi-to-ie-neps
+InstanceOf: IECoreMedicationEPrescription
+Usage: #example
+Title: "Medication – Metformin 500mg tablets (as dispensed)"
+Description: "The product actually dispensed in ie-dispense-fi-to-ie-neps. HL7 Europe MPD requires a dispense to reference a Medication resource."
+* code = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
+* code.coding[+].system = "http://www.kela.fi"
+* code.coding[=].code = #FIN-XXXX
+* code.coding[=].display = "Metformin 500mg tablets (Kela/FIN)"
+* code.text = "Metformin 500mg tablets"
+* ingredient[0].itemCodeableConcept = $SCT#372567009 "Metformin"
+* ingredient[=].isActive = true
+
+
+Instance: ie-medication-dispensed-be-to-ie-neps
+InstanceOf: IECoreMedicationEPrescription
+Usage: #example
+Title: "Medication – Atorvastatin 40mg tablets (as dispensed)"
+Description: "The product actually dispensed in ie-dispense-be-to-ie-neps. HL7 Europe MPD requires a dispense to reference a Medication resource."
+* code = $NMPC#NMPC-ATV40TAB "Atorvastatin 40mg tablets"
+* code.coding[+].system = "http://www.cnpv.be"
+* code.coding[=].code = #BE-CNPV-XXXX
+* code.coding[=].display = "Atorvastatin 40mg tablets (CNPV)"
+* code.text = "Atorvastatin 40mg tablets"
+* ingredient[0].itemCodeableConcept = $SCT#373444002 "Atorvastatin"
+* ingredient[=].isActive = true

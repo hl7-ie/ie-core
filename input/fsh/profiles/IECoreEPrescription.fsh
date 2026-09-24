@@ -227,7 +227,7 @@ Description: "The medicinal product in an Irish ePrescription or eDispensation (
 
 Invariant: ie-rx-age-1
 Description: "If the patient is under 12 years old at the date of prescribing, the patient's age SHALL be recorded on the prescription (HIQA EP 1.4.2; a legal requirement in Ireland)"
-Expression: "subject.resolve().ofType(Patient).birthDate.empty() or authoredOn.empty() or (subject.resolve().ofType(Patient).birthDate <= (authoredOn.toString().substring(0,10).toDate() - 12 years)) or extension('https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient-age-at-prescribing').exists()"
+Expression: "subject.resolve().ofType(Patient).birthDate.empty() or authoredOn.empty() or ((subject.resolve().ofType(Patient).birthDate + 12 years).toString() <= authoredOn.toString().substring(0,10)) or extension('https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient-age-at-prescribing').exists()"
 Severity: #error
 
 Invariant: ie-rx-status-1

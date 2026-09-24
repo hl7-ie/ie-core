@@ -1,0 +1,11 @@
+
+== WRONG (0 codes)
+
+== NOT-FOUND (0 codes)
+
+== INACTIVE (0 codes)
+
+== COSMETIC (1 codes)
+  Instance ie-core-practitioner-aoife-obrien                 62247001           FSH="General practitioner"  TX="Family medicine specialist"
+  Instance ie-core-practitioner-es-example                   62247001           FSH="General practitioner"  TX="Family medicine specialist"
+  Instance ie-core-practitionerrole-example                  62247001           FSH="General practitioner"  TX="Family medicine specialist"

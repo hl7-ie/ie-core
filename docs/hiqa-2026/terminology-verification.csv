@@ -1,0 +1,278 @@
+system,code,display_in_fsh,found_on_tx,tx_display,inactive,files
+http://hl7.org/fhir/narrative-status,additional,Additional,yes,Additional,False,ValueSets.fsh
+http://hl7.org/fhir/narrative-status,empty,Empty,yes,Empty,False,ValueSets.fsh
+http://hl7.org/fhir/narrative-status,extensions,Extensions,yes,Extensions,False,ValueSets.fsh
+http://hl7.org/fhir/narrative-status,generated,Generated,yes,Generated,False,ValueSets.fsh
+http://hl7.org/fhir/observation-status,entered-in-error,Entered in Error,yes,Entered in Error,False,ValueSets.fsh
+http://hl7.org/fhir/observation-status,final,Final,yes,Final,False,ValueSets.fsh
+http://hl7.org/fhir/sid/cvx,208,"SARS-COV-2 (COVID-19) vaccine, mRNA, spike protein, LNP, preservative free, 30 mcg/0.3mL dose",yes,"COVID-19, mRNA, LNP-S, PF, 30 mcg/0.3 mL dose",False,Examples.fsh
+http://loinc.org,10160-0,History of Medication use Narrative,yes,History of Medication use Narrative,False,IECoreHospitalDischarge.fsh
+http://loinc.org,104605-1,Alerts,yes,Alert,False,IECoreHospitalDischarge.fsh
+http://loinc.org,11329-0,History general Narrative - Reported,yes,History general Narrative - Reported,False,IECoreHospitalDischarge.fsh
+http://loinc.org,11341-5,History of occupation,yes,History of Occupation,False,IECoreObservation.fsh
+http://loinc.org,11367-0,History of Tobacco use,yes,History of Tobacco use,False,ValueSets.fsh
+http://loinc.org,11488-4,Consult note,yes,Consult note,False,ValueSets.fsh
+http://loinc.org,11502-2,Laboratory report,yes,Laboratory report,False,ValueSets.fsh
+http://loinc.org,11506-3,Progress note,yes,Progress note,False,ValueSets.fsh
+http://loinc.org,11535-2,Hospital discharge diagnosis note,yes,Hospital discharge diagnosis note,False,IECoreHospitalDischarge.fsh
+http://loinc.org,18745-0,Cardiac catheterization study,yes,Cardiac catheterization study,False,ValueSets.fsh
+http://loinc.org,18748-4,Diagnostic imaging study,yes,Diagnostic imaging study,False,ValueSets.fsh
+http://loinc.org,18761-7,Transfer summary note,yes,Transfer summary note,False,ValueSets.fsh
+http://loinc.org,18776-5,Plan of care note,yes,Plan of care note,False,IECoreHospitalDischarge.fsh
+http://loinc.org,18842-5,Discharge summary,yes,Discharge summary,False,IECoreHospitalDischarge.fsh;ValueSets.fsh
+http://loinc.org,28570-0,Procedure note,yes,Procedure note,False,ValueSets.fsh
+http://loinc.org,29463-7,Body weight,yes,Body weight,False,IECoreVitalSigns.fsh;ValueSets.fsh
+http://loinc.org,30954-2,Relevant diagnostic tests/laboratory data note,yes,Relevant diagnostic tests/laboratory data note,False,IECoreHospitalDischarge.fsh
+http://loinc.org,3150-0,Inhaled oxygen concentration,yes,Inhaled oxygen concentration,False,IECoreVitalSigns.fsh
+http://loinc.org,3151-8,Inhaled oxygen flow rate,yes,Inhaled oxygen flow rate,False,IECoreVitalSigns.fsh
+http://loinc.org,34117-2,History and physical note,yes,History and physical note,False,ValueSets.fsh
+http://loinc.org,34133-9,Summary of episode note,yes,Summary of episode note,False,ValueSets.fsh
+http://loinc.org,34746-8,Nurse Note,yes,Nurse Note,False,ValueSets.fsh
+http://loinc.org,39156-5,Body mass index (BMI) [Ratio],yes,Body mass index (BMI) [Ratio],False,IECoreVitalSigns.fsh;ValueSets.fsh
+http://loinc.org,42348-3,Advance healthcare directives,yes,Advance healthcare directives,False,IECoreDocumentReference.fsh;ValueSets.fsh
+http://loinc.org,44249-1,PHQ-9 quick depression assessment panel,yes,PHQ-9 quick depression assessment panel [Reported.PHQ],False,ValueSets.fsh
+http://loinc.org,45473-6,Advance healthcare directive completed,yes,Advance healthcare directive completed,False,IECoreObservation.fsh
+http://loinc.org,4548-4,Hemoglobin A1c/Hemoglobin.total in Blood,yes,Hemoglobin A1c/Hemoglobin.total in Blood,False,Examples.fsh
+http://loinc.org,46241-6,Hospital admission diagnosis Narrative - Reported,yes,Hospital admission diagnosis Narrative - Reported,False,IECoreHospitalDischarge.fsh
+http://loinc.org,47039-3,Hospital Admission history and physical note,yes,Hospital Admission history and physical note,False,ValueSets.fsh
+http://loinc.org,47519-4,History of Procedures Document,yes,History of Procedures Document,False,IECoreHospitalDischarge.fsh
+http://loinc.org,48765-2,Allergies and adverse reactions Document,yes,Allergies and adverse reactions Document,False,IECoreBundleEPrescription.fsh
+http://loinc.org,57016-8,Privacy policy acknowledgment Document,yes,Privacy policy acknowledgment Document,False,ValueSets.fsh
+http://loinc.org,57017-6,Privacy policy Organization Document,yes,Privacy policy Organization Document,False,ValueSets.fsh
+http://loinc.org,57133-1,Referral note,yes,Referral note,False,ValueSets.fsh
+http://loinc.org,57852-6,Problem list Narrative - Reported,yes,Problem list Narrative - Reported,False,IECoreHospitalDischarge.fsh
+http://loinc.org,59408-5,Oxygen saturation in Arterial blood by Pulse oximetry,yes,Oxygen saturation in Arterial blood by Pulse oximetry,False,IECoreVitalSigns.fsh;ValueSets.fsh
+http://loinc.org,59576-9,Body mass index (BMI) [Percentile] Per age and sex,yes,Body mass index (BMI) [Percentile] Per age and sex,False,IECoreVitalSigns.fsh;ValueSets.fsh
+http://loinc.org,62199-5,PROMIS short form - physical function 10a - version 1.0,yes,PROMIS short form - physical function 10a - version 1.0,False,ValueSets.fsh
+http://loinc.org,64290-0,Health insurance card,yes,Health insurance card,False,ValueSets.fsh
+http://loinc.org,69725-0,"Feeling nervous, anxious or on edge in last 2 weeks",yes,"Feeling nervous, anxious or on edge in last 2 weeks",False,ValueSets.fsh
+http://loinc.org,71354-5,Edinburgh Postnatal Depression Scale [EPDS],yes,Edinburgh Postnatal Depression Scale [EPDS],False,ValueSets.fsh
+http://loinc.org,72109-2,Alcohol Use Disorder Identification Test - Consumption,yes,Alcohol Use Disorder Identification Test - Consumption [AUDIT-C],False,ValueSets.fsh
+http://loinc.org,72166-2,Tobacco smoking status,yes,Tobacco smoking status,False,IECoreObservation.fsh;ValueSets.fsh
+http://loinc.org,73831-0,Adolescent depression screening assessment,yes,Adolescent depression screening assessment,False,ValueSets.fsh
+http://loinc.org,75311-1,Discharge medications,yes,Discharge medications note,False,IECoreHospitalDischarge.fsh
+http://loinc.org,75320-2,Advance directive,yes,Advance directive,False,ValueSets.fsh
+http://loinc.org,75773-2,"Goals, preferences, and priorities for medical treatment Narrative - Reported",yes,"Goals, preferences, and priorities for medical treatment Narrative - Reported",False,IECoreObservation.fsh
+http://loinc.org,76504-0,Total score [HARK],yes,Total score [HARK],False,ValueSets.fsh
+http://loinc.org,76689-9,Sex assigned at birth,yes,Sex assigned at birth,False,ExampleRuleSets.fsh;IECorePatient.fsh;IECorePatientSummaryPatient.fsh
+http://loinc.org,76690-7,Sexual orientation,yes,Sexual orientation,False,IECoreObservation.fsh
+http://loinc.org,77599-9,Additional documentation,yes,Additional documentation,False,ValueSets.fsh
+http://loinc.org,77606-2,Weight-for-length Per age and sex,yes,Weight-for-length Per age and sex,False,IECoreVitalSigns.fsh;ValueSets.fsh
+http://loinc.org,81334-5,Patient Personal advance care plan,yes,Patient Personal advance care plan,False,ValueSets.fsh
+http://loinc.org,81335-2,Patient Healthcare agent,yes,Patient Healthcare agent,False,ValueSets.fsh
+http://loinc.org,81336-0,"Patient Goals, preferences, and priorities under certain health conditions",yes,"Patient Goals, preferences, and priorities under certain health conditions",False,ValueSets.fsh
+http://loinc.org,81340-2,Goals AndOr preferences in order of priority - Reported,yes,Goals AndOr preferences in order of priority - Reported,False,ValueSets.fsh
+http://loinc.org,82810-3,Pregnancy status,yes,Pregnancy status,False,IECoreObservation.fsh
+http://loinc.org,8287-5,Head Occipital-frontal circumference by Tape measure,yes,Head Occipital-frontal circumference by Tape measure,False,ValueSets.fsh
+http://loinc.org,8289-1,Head Occipital-frontal circumference Percentile,yes,Head Occipital-frontal circumference Percentile,False,IECoreVitalSigns.fsh
+http://loinc.org,8302-2,Body height,yes,Body height,False,IECoreVitalSigns.fsh;ValueSets.fsh
+http://loinc.org,8310-5,Body temperature,yes,Body temperature,False,IECoreVitalSigns.fsh;ValueSets.fsh
+http://loinc.org,8462-4,Diastolic blood pressure,yes,Diastolic blood pressure,False,Examples.fsh;IECoreVitalSigns.fsh;ValueSets.fsh
+http://loinc.org,8480-6,Systolic blood pressure,yes,Systolic blood pressure,False,Examples.fsh;IECoreVitalSigns.fsh;ValueSets.fsh
+http://loinc.org,85354-9,Blood pressure panel with all children optional,yes,Blood pressure panel with all children optional,False,Examples.fsh;IECoreVitalSigns.fsh;ValueSets.fsh
+http://loinc.org,8648-8,Hospital course,yes,Hospital course note,False,IECoreHospitalDischarge.fsh
+http://loinc.org,86533-7,Patient Living will,yes,Patient Living will,False,ValueSets.fsh
+http://loinc.org,86645-9,Pregnancy intention in the next year - Reported,yes,Pregnancy intention in the next year - Reported,False,IECoreObservation.fsh
+http://loinc.org,8867-4,Heart rate,yes,Heart rate,False,IECoreVitalSigns.fsh;ValueSets.fsh
+http://loinc.org,89206-7,Patient Health Questionnaire-9: Modified for Teens [Reported.PHQ.Teen],yes,Patient Health Questionnaire-9: Modified for Teens [Reported.PHQ.Teen],False,ValueSets.fsh
+http://loinc.org,92664-2,Power of attorney,yes,Power of attorney and Living will,False,ValueSets.fsh
+http://loinc.org,9279-1,Respiratory rate,yes,Respiratory rate,False,IECoreVitalSigns.fsh;ValueSets.fsh
+http://loinc.org,95541-9,Care experience preference,yes,Care experience preference,False,IECoreObservation.fsh
+http://loinc.org,96607-7,Blood pressure panel mean systolic and mean diastolic,yes,Blood pressure panel mean systolic and mean diastolic,False,IECoreObservation.fsh;ValueSets.fsh
+http://loinc.org,96608-5,Systolic blood pressure mean,yes,Systolic blood pressure mean,False,IECoreObservation.fsh
+http://loinc.org,96609-3,Diastolic blood pressure mean,yes,Diastolic blood pressure mean,False,IECoreObservation.fsh
+http://loinc.org,96777-8,Accountable health communities (AHC) health-related social needs screening (HRSN) tool,yes,Accountable health communities (AHC) health-related social needs screening (HRSN) tool,False,ValueSets.fsh
+http://loinc.org,97023-6,Accountable health communities (AHC) health-related social needs (HRSN) supplemental questions,yes,Accountable health communities (AHC) health-related social needs (HRSN) supplemental questions,False,ValueSets.fsh
+http://loinc.org,9843-4,Head Occipital-frontal circumference,yes,Head Occipital-frontal circumference,False,IECoreVitalSigns.fsh
+http://loinc.org,LP29684-5,Radiology,yes,RAD,False,ValueSets.fsh
+http://loinc.org,LP29708-2,Cardiology,yes,Card,False,ValueSets.fsh
+http://loinc.org,LP7839-6,Pathology,yes,PATH,False,ValueSets.fsh
+http://snomed.info/sct,105542008,Current non-drinker of alcohol,yes,Non - drinker,False,ValueSets.fsh
+http://snomed.info/sct,106289002,Dentist,yes,Dentist,False,ValueSets.fsh
+http://snomed.info/sct,108252007,Laboratory procedure,yes,Laboratory procedure,False,ValueSets.fsh
+http://snomed.info/sct,11429006,Consultation,yes,Consultation,False,Examples.fsh;ValueSets.fsh
+http://snomed.info/sct,116154003,Patient,yes,Patient,False,ValueSets.fsh
+http://snomed.info/sct,125677006,Relative,yes,Relative,False,ValueSets.fsh
+http://snomed.info/sct,126485001,Urticaria,yes,Urticaria,False,Examples.fsh
+http://snomed.info/sct,13644009,Hypercholesterolemia,yes,Hypercholesterolemia,False,CrossBorderExamples.fsh
+http://snomed.info/sct,158965000,Medical practitioner,yes,Medical practitioner,False,ValueSets.fsh
+http://snomed.info/sct,159026005,Speech and language therapist,yes,Speech and language therapist,False,ValueSets.fsh
+http://snomed.info/sct,159033005,Dietitian,yes,Dietitian,False,ValueSets.fsh
+http://snomed.info/sct,160616005,Trying to give up smoking,yes,Trying to give up smoking,False,ValueSets.fsh
+http://snomed.info/sct,182834008,Drug course completed,yes,Drug course completed,False,ValueSets.fsh
+http://snomed.info/sct,182840001,Drug treatment stopped - medical advice,yes,Drug treatment stopped - medical advice,False,ValueSets.fsh
+http://snomed.info/sct,185347001,Encounter for problem,yes,Encounter for problem,False,Examples.fsh;ValueSets.fsh
+http://snomed.info/sct,185349003,Encounter for check up,yes,Encounter for check up,False,ValueSets.fsh
+http://snomed.info/sct,19712007,"Patient transfer, to another health care facility",yes,"Patient transfer, to another health care facility",False,ValueSets.fsh
+http://snomed.info/sct,20430005,Heterosexual,yes,Heterosexual,False,ValueSets.fsh
+http://snomed.info/sct,21450003,Neuropsychiatrist,yes,Neuropsychiatrist,False,ValueSets.fsh
+http://snomed.info/sct,219006,Current drinker of alcohol,yes,Current drinker,False,ValueSets.fsh
+http://snomed.info/sct,22232009,Hospital,yes,Hospital,False,ValueSets.fsh
+http://snomed.info/sct,224529009,Clinical assistant,yes,Clinical assistant,False,ValueSets.fsh
+http://snomed.info/sct,224535009,Registered nurse,yes,Registered nurse,False,ValueSets.fsh
+http://snomed.info/sct,224540001,Community nurse,yes,Community nurse,False,ValueSets.fsh
+http://snomed.info/sct,224570006,Clinical nurse specialist,yes,Clinical nurse specialist,False,ValueSets.fsh
+http://snomed.info/sct,224587008,Occupational therapy helper,yes,Occupational therapy helper,False,ValueSets.fsh
+http://snomed.info/sct,225728007,Accident and Emergency department,yes,Accident and Emergency department,False,ValueSets.fsh
+http://snomed.info/sct,225928004,Patient self-discharge against medical advice,yes,Patient self-discharge against medical advice,False,ValueSets.fsh
+http://snomed.info/sct,228276006,Occasional drinker,yes,Occasional drinker,False,ValueSets.fsh
+http://snomed.info/sct,228277002,Light drinker,yes,Light drinker,False,ValueSets.fsh
+http://snomed.info/sct,228278007,Fairly heavy drinker,yes,Fairly heavy drinker,False,ValueSets.fsh
+http://snomed.info/sct,257622000,Healthcare facility,yes,Healthcare facility,False,ValueSets.fsh
+http://snomed.info/sct,261665006,Unknown,yes,Unknown,False,ValueSets.fsh
+http://snomed.info/sct,264372000,Pharmacy,yes,Pharmacy,False,ValueSets.fsh
+http://snomed.info/sct,26643006,Oral route,yes,Oral route,False,CrossBorderExamples.fsh;Examples.fsh;MedicationExamples.fsh
+http://snomed.info/sct,266710000,Drugs not taken/completed,yes,Drugs not taken/completed,False,ValueSets.fsh
+http://snomed.info/sct,266919005,Never smoked tobacco,yes,Never smoked tobacco,False,ValueSets.fsh
+http://snomed.info/sct,266927001,Tobacco smoking consumption unknown,yes,Tobacco smoking consumption unknown,False,ValueSets.fsh
+http://snomed.info/sct,270427003,Patient-initiated encounter,yes,Patient-initiated encounter,False,ValueSets.fsh
+http://snomed.info/sct,275928001,Drugs - partial non-compliance,yes,Drugs - partial non-compliance,False,ValueSets.fsh
+http://snomed.info/sct,281036007,Follow-up consultation,yes,Follow-up consultation,False,ValueSets.fsh
+http://snomed.info/sct,28229004,Optometrist,yes,Optometrist,False,ValueSets.fsh
+http://snomed.info/sct,306689006,Discharge to home,yes,Discharge to home,False,ValueSets.fsh
+http://snomed.info/sct,306691003,Discharge to residential home,yes,Discharge to residential home,False,ValueSets.fsh
+http://snomed.info/sct,306694006,Discharge to nursing home,yes,Discharge to nursing home,False,ValueSets.fsh
+http://snomed.info/sct,306705005,Discharge to police custody,yes,Discharge to police custody,False,ValueSets.fsh
+http://snomed.info/sct,306706006,Discharge to ward,yes,Discharge to ward,False,ValueSets.fsh
+http://snomed.info/sct,307988006,Medical technician,yes,Medical technician,False,ValueSets.fsh
+http://snomed.info/sct,309343006,Physician,yes,Physician,False,Examples.fsh;ValueSets.fsh
+http://snomed.info/sct,309898008,Psychogeriatric day hospital,yes,Psychogeriatric day hospital,False,ValueSets.fsh
+http://snomed.info/sct,317291008,Omeprazole 20 mg oral capsule,yes,Omeprazole 20 mg oral capsule,False,CrossBorderExamples.fsh
+http://snomed.info/sct,325072002,Insulin aspart,yes,Insulin aspart,False,CrossBorderExamples.fsh
+http://snomed.info/sct,33791000087105,Identifies as nonbinary gender,yes,Identifies as nonbinary gender,False,ValueSets.fsh
+http://snomed.info/sct,34206005,Subcutaneous route,yes,Subcutaneous route,False,CrossBorderExamples.fsh
+http://snomed.info/sct,3457005,Patient referral,yes,Patient referral,False,ValueSets.fsh
+http://snomed.info/sct,35489007,Depressive disorder,yes,Depressive disorder,False,CrossBorderExamples.fsh
+http://snomed.info/sct,363679005,Imaging,yes,Imaging,False,ValueSets.fsh
+http://snomed.info/sct,36682004,Physiotherapist,yes,Physiotherapist,False,ValueSets.fsh
+http://snomed.info/sct,368208006,Left upper arm structure,yes,Left upper arm structure,False,Examples.fsh
+http://snomed.info/sct,371827001,Patient discharged alive,yes,Patient discharged alive,False,ValueSets.fsh
+http://snomed.info/sct,372567009,Metformin,yes,Metformin,False,CrossBorderExamples.fsh;Examples.fsh;MedicationExamples.fsh
+http://snomed.info/sct,372594008,Sertraline,yes,Sertraline,False,CrossBorderExamples.fsh
+http://snomed.info/sct,372687004,Amoxicillin,yes,Amoxicillin,False,CrossBorderExamples.fsh
+http://snomed.info/sct,372756006,Warfarin,yes,Warfarin,False,CrossBorderExamples.fsh
+http://snomed.info/sct,373444002,Atorvastatin,yes,Atorvastatin,False,CrossBorderExamples.fsh;MedicationExamples.fsh
+http://snomed.info/sct,373873005,Pharmaceutical / biologic product,yes,Pharmaceutical / biologic product,False,CrossBorderExamples.fsh;MedicationExamples.fsh
+http://snomed.info/sct,38341003,Hypertensive disorder,yes,Hypertensive disorder,False,CrossBorderExamples.fsh;MedicationExamples.fsh
+http://snomed.info/sct,385049006,Capsule,yes,Capsule,False,CrossBorderExamples.fsh;MedicationExamples.fsh
+http://snomed.info/sct,385055001,Tablet,yes,Tablet,False,CrossBorderExamples.fsh;MedicationExamples.fsh
+http://snomed.info/sct,385219001,Solution for injection,yes,Solution for injection,False,CrossBorderExamples.fsh
+http://snomed.info/sct,386053000,Evaluation procedure,yes,Evaluation procedure,False,ValueSets.fsh
+http://snomed.info/sct,38628009,Gay,yes,Gay,False,ValueSets.fsh
+http://snomed.info/sct,386864001,Amlodipine,yes,Amlodipine,False,MedicationExamples.fsh
+http://snomed.info/sct,386872004,Ramipril,yes,Ramipril,False,CrossBorderExamples.fsh;MedicationExamples.fsh
+http://snomed.info/sct,386873009,Lisinopril,yes,Lisinopril,False,CrossBorderExamples.fsh
+http://snomed.info/sct,387137007,Omeprazole,yes,Omeprazole,False,CrossBorderExamples.fsh
+http://snomed.info/sct,387713003,Surgical procedure,yes,Surgical procedure,False,ValueSets.fsh
+http://snomed.info/sct,394572006,Medical secretary,yes,Medical secretary,False,ValueSets.fsh
+http://snomed.info/sct,394743007,Gender unknown,yes,Gender unknown,False,ValueSets.fsh
+http://snomed.info/sct,394814009,General practice (specialty),yes,General practice (specialty),False,Examples.fsh
+http://snomed.info/sct,394863008,Non-family member,yes,Non-family member,False,ValueSets.fsh
+http://snomed.info/sct,39579001,Anaphylaxis,yes,Anaphylaxis,False,CrossBorderExamples.fsh
+http://snomed.info/sct,409063005,Counseling,yes,Counseling,False,ValueSets.fsh
+http://snomed.info/sct,409073007,Education,yes,Education,False,ValueSets.fsh
+http://snomed.info/sct,411529005,Insulin glargine,yes,Insulin glargine,False,CrossBorderExamples.fsh
+http://snomed.info/sct,42035005,Bisexual,yes,Bisexual,False,ValueSets.fsh
+http://snomed.info/sct,428041000124106,Occasional tobacco smoker,yes,Occasional tobacco smoker,False,ValueSets.fsh
+http://snomed.info/sct,439740005,Postoperative follow-up visit,yes,Postoperative follow-up visit,False,ValueSets.fsh
+http://snomed.info/sct,44054006,Type 2 diabetes mellitus,yes,Type 2 diabetes mellitus,False,CrossBorderExamples.fsh;Examples.fsh;MedicationExamples.fsh
+http://snomed.info/sct,446050000,Primary care physician,yes,Primary care physician,False,ValueSets.fsh
+http://snomed.info/sct,446141000124107,Identifies as female gender,yes,Identifies as female gender,False,ValueSets.fsh
+http://snomed.info/sct,446151000124109,Identifies as male gender,yes,Identifies as male gender,False,ValueSets.fsh
+http://snomed.info/sct,449868002,Smokes tobacco daily,yes,Smokes tobacco daily,False,ValueSets.fsh
+http://snomed.info/sct,46255001,Pharmacist,yes,Pharmacist,False,MedicationExamples.fsh;ValueSets.fsh
+http://snomed.info/sct,49436004,Atrial fibrillation,yes,Atrial fibrillation,False,CrossBorderExamples.fsh
+http://snomed.info/sct,50849002,Emergency room admission,yes,Emergency room admission,False,ValueSets.fsh
+http://snomed.info/sct,55822004,Hyperlipidemia,yes,Hyperlipidemia,False,MedicationExamples.fsh
+http://snomed.info/sct,58000006,"Patient discharge, alive",yes,Patient discharge,False,ValueSets.fsh
+http://snomed.info/sct,60001007,Not pregnant,yes,Not pregnant,False,ValueSets.fsh
+http://snomed.info/sct,62247001,General practitioner,yes,Family medicine specialist,False,CrossBorderExamples.fsh;Examples.fsh;MedicationExamples.fsh
+http://snomed.info/sct,6736007,Moderate,yes,Moderate severity,False,CrossBorderExamples.fsh
+http://snomed.info/sct,702871004,Infertility clinic,yes,Infertility clinic,False,ValueSets.fsh
+http://snomed.info/sct,735128000,Ex-smoker for less than 1 year,yes,Ex-smoker for less than 1 year,False,ValueSets.fsh
+http://snomed.info/sct,764146007,Penicillin,yes,Penicillin,False,Examples.fsh
+http://snomed.info/sct,768819009,Medically responsible investigator,yes,Medically responsible investigator,False,ValueSets.fsh
+http://snomed.info/sct,77176002,"Smoker, current status unknown",yes,Smoker,False,ValueSets.fsh
+http://snomed.info/sct,77386006,Pregnancy,yes,Pregnancy,False,ValueSets.fsh
+http://snomed.info/sct,78421000,Intramuscular route,yes,Intramuscular route,False,Examples.fsh
+http://snomed.info/sct,80546007,Occupational therapist,yes,Occupational therapist,False,ValueSets.fsh
+http://snomed.info/sct,82581004,Ex-drinker,yes,Ex-drinker,False,ValueSets.fsh
+http://snomed.info/sct,8517006,Ex-smoker,yes,Ex-smoker,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical,active,Active,yes,Active,False,CrossBorderExamples.fsh;Examples.fsh
+http://terminology.hl7.org/CodeSystem/allergyintolerance-verification,confirmed,Confirmed,yes,Confirmed,False,CrossBorderExamples.fsh;Examples.fsh
+http://terminology.hl7.org/CodeSystem/condition-category,encounter-diagnosis,Encounter Diagnosis,yes,Encounter Diagnosis,False,IECoreCondition.fsh
+http://terminology.hl7.org/CodeSystem/condition-category,problem-list-item,Problem List Item,yes,Problem List Item,False,CrossBorderExamples.fsh;Examples.fsh;IECoreCondition.fsh;ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/condition-clinical,active,Active,yes,Active,False,CrossBorderExamples.fsh;Examples.fsh
+http://terminology.hl7.org/CodeSystem/condition-ver-status,confirmed,Confirmed,yes,Confirmed,False,CrossBorderExamples.fsh;Examples.fsh
+http://terminology.hl7.org/CodeSystem/coverage-selfpay,pay,Pay,yes,Pay,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/data-absent-reason,asked-declined,Asked But Declined,yes,Asked But Declined,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/data-absent-reason,asked-unknown,Asked But Unknown,yes,Asked But Unknown,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/data-absent-reason,not-asked,Not Asked,yes,Not Asked,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/data-absent-reason,temp-unknown,Temporarily Unknown,yes,Temporarily Unknown,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/medicationrequest-category,community,Community,yes,Community,False,CrossBorderExamples.fsh;MedicationExamples.fsh
+http://terminology.hl7.org/CodeSystem/observation-category,activity,Activity,yes,Activity,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/observation-category,exam,Exam,yes,Exam,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/observation-category,imaging,Imaging,yes,Imaging,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/observation-category,laboratory,Laboratory,yes,Laboratory,False,Examples.fsh;IECoreObservation.fsh;ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/observation-category,procedure,Procedure,yes,Procedure,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/observation-category,social-history,Social History,yes,Social History,False,IECoreObservation.fsh;ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/observation-category,survey,Survey,yes,Survey,False,IECoreObservation.fsh;ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/observation-category,therapy,Therapy,yes,Therapy,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/observation-category,vital-signs,Vital Signs,yes,Vital Signs,False,Examples.fsh;ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/organization-type,prov,Healthcare Provider,yes,Healthcare Provider,False,CrossBorderExamples.fsh;Examples.fsh;MedicationExamples.fsh
+http://terminology.hl7.org/CodeSystem/provenance-participant-type,author,Author,yes,Author,False,Examples.fsh
+http://terminology.hl7.org/CodeSystem/testscript-operation-codes,read,,yes,Read,False,TestScripts.fsh
+http://terminology.hl7.org/CodeSystem/testscript-operation-codes,search,,yes,Search,False,TestScripts.fsh
+http://terminology.hl7.org/CodeSystem/v2-0074,CT,CAT Scan,yes,CAT Scan,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0074,CUS,Cardiac Ultrasound,yes,Cardiac Ultrasound,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0074,LAB,Laboratory,yes,Laboratory,False,IECoreDiagnosticReport.fsh;IECoreLaboratoryReport.fsh;ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0074,MYC,Mycology,yes,Mycology,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0074,NMR,Nuclear Magnetic Resonance,yes,Nuclear Magnetic Resonance,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0074,NMS,Nuclear Medicine Scan,yes,Nuclear Medicine Scan,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0074,PAT,Pathology,yes,"Pathology (gross & histopath, not surgical)",False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0074,RAD,Radiology,yes,Radiology,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0074,SP,Surgical Pathology,yes,Surgical Pathology,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0131,N,Next-of-Kin,yes,Next-of-Kin,False,Examples.fsh
+http://terminology.hl7.org/CodeSystem/v2-0136,N,No,yes,No,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0136,Y,Yes,yes,Yes,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0203,DL,Driver's license number,yes,Driver's license number,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0203,DR,Donor Registration Number,yes,Donor Registration Number,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0203,EN,Employer number,yes,Employer number,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0203,MD,Medical License number,yes,Medical License number,False,CrossBorderExamples.fsh;Examples.fsh;IECorePractitioner.fsh;MedicationExamples.fsh;ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0203,MR,Medical record number,yes,Medical record number,False,Identifiers.fsh;ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0203,NI,National unique individual identifier,yes,National unique individual identifier,False,CrossBorderExamples.fsh;Examples.fsh;IECorePatient.fsh;Identifiers.fsh;MedicationExamples.fsh;ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0203,PN,Person number,yes,Person number,False,MedicationExamples.fsh
+http://terminology.hl7.org/CodeSystem/v2-0203,PPN,Passport number,yes,Passport number,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0203,SS,Social Security number,yes,Social Security number,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0203,TAX,Tax ID number,yes,Tax ID number,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0443,AP,Administering Provider,yes,Administering Provider,False,Examples.fsh
+http://terminology.hl7.org/CodeSystem/v3-ActCode,AMB,ambulatory,yes,ambulatory,False,Examples.fsh
+http://terminology.hl7.org/CodeSystem/v3-ActCode,DF,Daily Fill,yes,Daily Fill,False,CrossBorderExamples.fsh;MedicationExamples.fsh
+http://terminology.hl7.org/CodeSystem/v3-ActCode,EHCPOL,Extended healthcare,yes,extended healthcare,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v3-ActCode,FF,First Fill,yes,First Fill,False,MedicationExamples.fsh
+http://terminology.hl7.org/CodeSystem/v3-ActCode,FFP,First Fill - Part Fill,yes,First Fill - Part Fill,False,MedicationExamples.fsh
+http://terminology.hl7.org/CodeSystem/v3-ActCode,PUBLICPOL,Public healthcare,yes,public healthcare,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v3-ActCode,RF,Refill,yes,Refill,False,MedicationExamples.fsh
+http://terminology.hl7.org/CodeSystem/v3-ActCode,SUBSIDIZ,Subsidized health program,yes,subsidized health program,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v3-NullFlavor,ASKU,Asked but unknown,yes,asked but unknown,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v3-NullFlavor,OTH,Other,yes,other,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v3-NullFlavor,UNK,Unknown,yes,unknown,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation,H,High,yes,High,False,Examples.fsh
+http://terminology.hl7.org/CodeSystem/v3-ParticipationType,ATND,attender,yes,attender,False,Examples.fsh
+http://terminology.hl7.org/CodeSystem/v3-RoleCode,HOSP,Hospital,yes,Hospital,False,Examples.fsh
+http://terminology.hl7.org/CodeSystem/v3-substanceAdminSubstitution,G,Generic composition,yes,generic composition,False,CrossBorderExamples.fsh;MedicationExamples.fsh
+http://unitsofmeasure.org,L,,yes,L,False,IECoreVitalSigns.fsh
+http://unitsofmeasure.org,a,year,yes,a,False,HIQAExtensions.fsh
+http://unitsofmeasure.org,d,day,yes,d,False,HIQAExtensions.fsh
+http://unitsofmeasure.org,kg,,yes,kg,False,IECoreVitalSigns.fsh
+http://unitsofmeasure.org,mm,,yes,mm,False,IECoreObservation.fsh;IECoreVitalSigns.fsh
+http://unitsofmeasure.org,mo,month,yes,mo,False,HIQAExtensions.fsh
+http://www.whocc.no/atc,A02BC01,Omeprazole,yes,omeprazole,False,CrossBorderExamples.fsh
+http://www.whocc.no/atc,A10AB05,Insulin aspart,yes,insulin aspart,False,CrossBorderExamples.fsh
+http://www.whocc.no/atc,A10AE04,Insulin glargine,yes,insulin glargine,False,CrossBorderExamples.fsh
+http://www.whocc.no/atc,A10BA02,Metformin,yes,metformin,False,CrossBorderExamples.fsh
+http://www.whocc.no/atc,B01AA03,Warfarin,yes,warfarin,False,CrossBorderExamples.fsh
+http://www.whocc.no/atc,C09AA03,Lisinopril,yes,lisinopril,False,CrossBorderExamples.fsh
+http://www.whocc.no/atc,C09AA05,Ramipril,yes,ramipril,False,CrossBorderExamples.fsh
+http://www.whocc.no/atc,C10AA05,Atorvastatin,yes,atorvastatin,False,CrossBorderExamples.fsh
+http://www.whocc.no/atc,N06AB06,Sertraline,yes,sertraline,False,CrossBorderExamples.fsh

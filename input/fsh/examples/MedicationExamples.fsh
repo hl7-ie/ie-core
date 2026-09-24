@@ -321,7 +321,7 @@ Description: "A standard Irish GP prescription for Metformin 500mg tablets. Auth
 * authoredOn = "2024-06-15"
 * requester = Reference(ie-core-practitioner-example) "Dr. Sarah O'Brien"
 
-* reasonCode = $SCT#44054006 "Diabetes mellitus type 2"
+* reasonCode = $SCT#44054006 "Type 2 diabetes mellitus"
 
 * dosageInstruction[0].sequence = 1
 * dosageInstruction[=].text = "Take one 500mg tablet twice daily with meals"
@@ -535,7 +535,7 @@ Description: "First of three prescriptions in a multi-prescription bundle for Jo
 * authoredOn = "2024-06-20"
 * requester = Reference(ie-core-practitioner-example) "Dr. Sarah O'Brien"
 
-* reasonCode = $SCT#44054006 "Diabetes mellitus type 2"
+* reasonCode = $SCT#44054006 "Type 2 diabetes mellitus"
 
 * dosageInstruction[0].text = "Take one 500mg tablet twice daily with meals"
 * dosageInstruction[=].timing.repeat.frequency = 2
@@ -932,7 +932,7 @@ Description: "A GMS repeat prescription for Metformin 500mg tablets, valid for 6
 * authoredOn = "2024-01-10"
 * requester = Reference(ie-core-practitioner-example) "Dr. Sarah O'Brien"
 
-* reasonCode = $SCT#44054006 "Diabetes mellitus type 2"
+* reasonCode = $SCT#44054006 "Type 2 diabetes mellitus"
 
 * dosageInstruction[0].text = "Take one 500mg tablet twice daily with meals"
 * dosageInstruction[=].timing.repeat.frequency = 2

@@ -10,7 +10,7 @@ Branch: `feat/hiqa-2026-alignment-c8ff80`. One commit per phase (Conventional Co
 | 4 | Demographics and data minimisation | ✅ done | IECorePatientEPrescription, IECorePatientSummaryPatient, ADR-006 identifiers; Mandatory aligned EP 25/54, PS 32/68; 15 prohibited rows enforced |
 | 5 | ePrescription / eDispensation | ✅ done | EU MPD parents; Bundle, allergy List, signature Provenance; 14 invariants; registration/facility/GLN identifiers; EP Mandatory aligned 40/54 |
 | 6 | Patient Summary | ✅ done | EPS parent; PS Bundle; clinical MS; PS Mandatory aligned 46/68 |
-| 7 | Terminology | ⏸ | |
+| 7 | Terminology | ✅ done | ADR-007: 277 codes verified on tx.fhir.org (0 invalid); 37 wrong-meaning, 13 non-existent, 6 inactive codes and 6 dangling bindings fixed; CSO ethnicity v1.0; validator QA 30 errors (main 48) |
 | 8 | Examples, tests, payloads | ⏸ | |
 | 9 | Pages, R5, CI | ⏸ | |
 | 10 | Independent review | ⏸ | **⛔ CHECKPOINT 2** |

@@ -44,8 +44,17 @@ repository). The HIQA element IDs are cited as EP x.y / PS x.y.
   Medical devices are DeviceUseStatement entries. `IECoreProcedure.performed[x]` is relaxed from
   1..1 to 0..1 (HIQA PS 9.3.1 Required).
 
+- **Terminology integrity (ADR-007).** 37 codes whose meaning contradicted the IG's label were
+  corrected or removed (e.g. "Omeprazole" was coded as Imipramine); 13 non-existent and 6 inactive
+  codes were removed; 6 dangling ValueSet bindings were fixed. See `docs/hiqa-2026/terminology-remediation.csv`.
+- **Ethnicity CodeSystem** now uses the CSO Data Standard for Ethnicity v1.0 (7 Feb 2025) codes
+  (10–36, 99). The previous slug codes (`white-irish`, …) are removed.
+
 #### Changed
 
+- SNOMED CT Irish edition ValueSets now use `system` http://snomed.info/sct with the edition as
+  `version`. Previously the edition URI was used as the system, so nothing could match.
+- `$NMPC` example codes live in an explicit placeholder CodeSystem (`IECoreNMPCPlaceholder`), clearly not the NMPC.
 - IHI invariant `ie-pat-1` accepts **18 or 10 digits** (EP/PS 1.3.1). It previously rejected valid 10-digit IHIs.
 - Sex assigned at birth (EP 1.4.3 / PS 1.4.4, Mandatory) is modelled with `individual-recordedSexOrGender`
   (type LOINC 76689-9) and is separate from administrative gender and gender identity.

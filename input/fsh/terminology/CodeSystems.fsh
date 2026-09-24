@@ -126,23 +126,35 @@ Description: "Codes representing the 26 counties of the Republic of Ireland."
 // ----------------------------------------------------------------------------
 CodeSystem: IECoreEthnicityCodes
 Id: ie-core-ethnicity-codes
-Title: "IE Core Ethnicity Codes"
-Description: "Ethnicity codes based on the Central Statistics Office (CSO) census categories for the Republic of Ireland."
+Title: "IE Core Ethnicity Codes (CSO Data Standard for Ethnicity v1.0)"
+Description: "Ethnic group/background categories and codes of the Central Statistics Office (CSO) Data Standard for Ethnicity, version 1.0 (released 7 February 2025): https://www.cso.ie/en/methods/classifications/csodatastandardsandclassifications/csodatastandards/csodatastandardforethnicity/ . Codes and category names are the CSO's; groupings (White, Black, Asian, Arab, Mixed, Other) are expressed as a hierarchy. Open categories ('please specify') carry the patient's own description in CodeableConcept.text. GDPR Art. 9 special-category data: used only in the Patient Summary (HIQA PS 1.4.10), never in ePrescription/eDispensation (ADR-002). This IE Core representation will be replaced if the CSO publishes a FHIR CodeSystem."
 * ^status = #draft
 * ^experimental = false
+* ^version = "CSO-1.0-2025-02-07"
 * ^caseSensitive = true
 * ^content = #complete
-* #irish-traveller "Irish Traveller" "Irish Traveller ethnic group."
-* #roma "Roma" "Roma ethnic group."
-* #white-irish "White Irish" "White Irish ethnic group."
-* #white-irish-traveller "White Irish Traveller" "White Irish Traveller ethnic group."
-* #any-other-white "Any other White background" "Any other White background ethnic group."
-* #black-african "Black or Black Irish - African" "Black or Black Irish – African ethnic group."
-* #black-other "Black or Black Irish - any other Black background" "Black or Black Irish – any other Black background ethnic group."
-* #asian-chinese "Asian or Asian Irish - Chinese" "Asian or Asian Irish – Chinese ethnic group."
-* #asian-other "Asian or Asian Irish - any other Asian background" "Asian or Asian Irish – any other Asian background ethnic group."
-* #other-mixed "Other including mixed background" "Other including mixed background ethnic group."
-* #not-stated "Not stated" "Ethnicity not stated."
+* ^hierarchyMeaning = #grouped-by
+* #white "White" "Grouping: White (CSO)."
+  * #10 "White Irish" "CSO code 10."
+  * #12 "Irish Traveller" "CSO code 12."
+  * #14 "Roma" "CSO code 14."
+  * #16 "Any other White background" "CSO code 16 (please specify)."
+* #black "Black" "Grouping: Black (CSO)."
+  * #18 "Black Irish" "CSO code 18."
+  * #20 "Black African" "CSO code 20."
+  * #22 "Any other Black background" "CSO code 22 (please specify)."
+* #asian "Asian" "Grouping: Asian (CSO)."
+  * #24 "Asian Irish" "CSO code 24."
+  * #26 "Asian Indian" "CSO code 26."
+  * #28 "Chinese" "CSO code 28."
+  * #30 "Any other Asian background" "CSO code 30 (please specify)."
+* #arab "Arab" "Grouping: Arab (CSO)."
+  * #32 "Arab" "CSO code 32."
+* #mixed "Mixed" "Grouping: Mixed (CSO)."
+  * #34 "Mixed group/background" "CSO code 34 (please specify)."
+* #other "Other" "Grouping: Other (CSO)."
+  * #36 "Other group/background" "CSO code 36 (please specify)."
+* #99 "Not applicable" "CSO reference classification code 99."
 
 // ----------------------------------------------------------------------------
 // 9. IE Core IHI Status Codes

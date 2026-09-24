@@ -16,7 +16,7 @@ Department of Health.
 
 **Conformance convention:** HIQA Mandatory → `min ≥ 1` + MustSupport; Required → MustSupport; Optional → allowed, no MustSupport.
 
-Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-eprescription-lm.html) · [HIQA Patient Summary](StructureDefinition-hiqa-patient-summary-lm.html). Machine-readable matrix: `docs/hiqa-2026/traceability-matrix.csv` in the source repository.
+Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-HIQAEPrescriptionLM.html) · [HIQA Patient Summary](StructureDefinition-HIQAPatientSummaryLM.html). Machine-readable matrix: `docs/hiqa-2026/traceability-matrix.csv` in the source repository.
 
 ### Summary
 
