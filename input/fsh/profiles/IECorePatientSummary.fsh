@@ -16,7 +16,7 @@ Description: "Profile for the Irish Patient Summary document, aligned with the I
 * type = $LOINC#60591-5 "Patient summary Document"
 
 * subject 1..1 MS
-* subject only Reference(IECorePatient)
+* subject only Reference(IECorePatientSummaryPatient)
 
 * date 1..1 MS
 * author 1..* MS

@@ -1,6 +1,6 @@
 # ADR-004: Patient Summary parent profile
 
-- **Status:** Proposed (Checkpoint 1). **BREAKING** (section slice names change).
+- **Status:** Accepted (Checkpoint 1, 2026-09-24). **BREAKING** (section slice names change).
 - **Date:** 2026-09-24
 - **Related:** baseline M-02; ADR-002 (`IECorePatientSummaryPatient`); HIQA PS sections 1–19
 

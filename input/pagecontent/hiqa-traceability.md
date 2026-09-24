@@ -24,32 +24,25 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 
 | Conformance | Aligned | Partial | Gap | Prohibited (violated) | Prohibited (enforced) | N/A |
 |---|---|---|---|---|---|---|
-| Mandatory | 18 | 30 | 6 | 0 | 0 | 0 |
-| Required | 34 | 26 | 13 | 0 | 0 | 0 |
+| Mandatory | 25 | 25 | 4 | 0 | 0 | 0 |
+| Required | 41 | 21 | 11 | 0 | 0 | 0 |
 | Optional | 74 | 22 | 19 | 0 | 0 | 0 |
-| Not in dataset | 0 | 0 | 0 | 7 | 0 | 0 |
+| Not in dataset | 0 | 0 | 0 | 0 | 12 | 0 |
 
 **Patient Summary** (306 HIQA elements)
 
 | Conformance | Aligned | Partial | Gap | Prohibited (violated) | Prohibited (enforced) | N/A |
 |---|---|---|---|---|---|---|
-| Mandatory | 25 | 37 | 6 | 0 | 0 | 0 |
-| Required | 56 | 64 | 20 | 0 | 0 | 0 |
+| Mandatory | 32 | 30 | 6 | 0 | 0 | 0 |
+| Required | 79 | 46 | 15 | 0 | 0 | 0 |
 | Optional | 84 | 1 | 13 | 0 | 0 | 0 |
-| Not in dataset | 0 | 0 | 0 | 3 | 0 | 0 |
+| Not in dataset | 0 | 0 | 0 | 0 | 3 | 0 |
 
 ### Mandatory elements not yet aligned
 
 | Std | HIQA ID | Element | Status | Notes |
 |---|---|---|---|---|
-| EP | 1.1.2 | Forename | Partial | HIQA Mandatory 1..1; IG given is 0..* (name is 1..*) |
-| EP | 1.1.3 | Surname | Partial | HIQA Mandatory 1..1; IG family is 0..1 |
-| EP | 1.2.2 | Address line(s) | Partial | HIQA Mandatory 1..1; IG address and line are 0..* |
-| EP | 1.2.4 | District/ County | Partial | HIQA Mandatory 1..1; IG 0..1. Dublin postal districts go in 1.2.3 per HIQA; district may also map to Address.district |
-| EP | 1.2.6 | Address type | Partial | HIQA Mandatory 1..1 (type/purpose incl. temporary accommodation and homelessness); Address.use (home\|temp) not MS and has no homelessness value |
-| EP | 1.4.2.1 | Age if less than 12 years – value | Gap |  |
-| EP | 1.4.2.2 | Age if less than 12 years - type | Gap |  |
-| EP | 1.4.3 | Sex | Partial | Patient.gender is administrative gender, not sex assigned at birth (H-01) |
+| EP | 1.2.6 | Address type | Partial | use 1..1 MS; no HL7 code for homelessness (Requires Clarification) |
 | EP | 1.6.2.4.2 | Record entry author | Partial | Mandatory within the cluster; not MS |
 | EP | 1.6.2.4.3 | Record entry date | Partial | Mandatory within the cluster; not MS |
 | EP | 1.6.3.3.2 | Record entry author | Partial | Mandatory within the cluster; not MS |
@@ -78,12 +71,7 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | EP | 5.2.4.3.2 | Period | Partial | Mandatory within the cluster; not MS (period + periodUnit) |
 | EP | 6.2 | Date and time of issuing the dispense record | Gap | HIQA Mandatory; EU MPD extension:recorded 1..1 covers it (M-01) |
 | EP | 6.8 | Date of dispensation | Partial | HIQA Mandatory 1..1; IG 0..1 |
-| PS | 1.1.2 | Forename | Partial | HIQA Mandatory 1..1; IG 0..* |
-| PS | 1.1.4 | Surname | Partial | HIQA Mandatory 1..1; IG 0..1 |
-| PS | 1.2.2 | Address line(s) | Partial | HIQA Mandatory 1..1 |
-| PS | 1.2.4 | District/ County | Partial | HIQA Mandatory 1..1 |
-| PS | 1.2.6 | Address type | Partial | HIQA Mandatory; no homelessness value; not MS |
-| PS | 1.4.4 | Sex | Partial | administrative gender, not sex assigned at birth (H-01) |
+| PS | 1.2.6 | Address type | Partial | use 1..1 MS; no HL7 code for homelessness (Requires Clarification) |
 | PS | 2.2 | Forename | Partial | HIQA Mandatory 1..1 |
 | PS | 2.5 | Health practitioner role and speciality (cluster) | Partial | HIQA Mandatory 1..*; the PS has no mandatory GP / practitioner participant |
 | PS | 2.6 | Health practitioner registration (cluster) | Partial | HIQA Mandatory; IMC slice only (H-07) |
@@ -94,8 +82,6 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | PS | 2.9.2 | Address line(s) | Partial | HIQA Mandatory |
 | PS | 2.9.4 | District/ County | Partial | HIQA Mandatory |
 | PS | 2.9.5 | Country | Partial | HIQA Mandatory |
-| PS | 3.6.2 | Address line(s) | Partial | Mandatory within an Optional cluster |
-| PS | 3.6.4 | District/ County/ City (if outside Ireland). | Partial | Mandatory within an Optional cluster |
 | PS | 5.3.7.1 | Allergen | Partial | Mandatory within the cluster; not MS |
 | PS | 6.3.9 | Dose | Partial | HIQA Mandatory; dose[x] not required |
 | PS | 6.3.10.1 | Frequency of administration | Partial | Mandatory within the cluster; not MS |
@@ -126,37 +112,37 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 
 | HIQA ID | Element | Conf. | Card. | Profile | Path | MS | Status | Notes |
 |---|---|---|---|---|---|---|---|---|
-| 1.1.1 | Name title (PD) | Optional | 0..* | IECorePatient | `Patient.name.prefix` | Y | Aligned |  |
-| 1.1.2 | Forename (PD) | Mandatory | 1..1 | IECorePatient | `Patient.name.given` | Y | Partial | HIQA Mandatory 1..1; IG given is 0..* (name is 1..*) |
-| 1.1.3 | Surname (PD) | Mandatory | 1..1 | IECorePatient | `Patient.name.family` | Y | Partial | HIQA Mandatory 1..1; IG family is 0..1 |
-| 1.1.4 | Name suffix (PD) | Optional | 0..* | IECorePatient | `Patient.name.suffix` | Y | Aligned |  |
-| 1.2.1 | Postcode (PD) | Required | 0..1 | IECorePatient | `Patient.address.postalCode` | Y | Aligned | Eircode format XXX XXXX per HIQA guidance; no invariant |
-| 1.2.2 | Address line(s) (PD) | Mandatory | 1..1 | IECorePatient | `Patient.address.line` | Y | Partial | HIQA Mandatory 1..1; IG address and line are 0..* |
-| 1.2.3 | Suburb/ Town/ Townland/ Locality (PD) | Required | 0..1 | IECorePatient | `Patient.address.city` | Y | Aligned |  |
-| 1.2.4 | District/ County (PD) | Mandatory | 1..1 | IECorePatient | `Patient.address.state` | Y | Partial | HIQA Mandatory 1..1; IG 0..1. Dublin postal districts go in 1.2.3 per HIQA; district may also map to Address.district |
-| 1.2.5 | Country (PD) | Required | 0..1 | IECorePatient | `Patient.address.country` | Y | Aligned |  |
-| 1.2.6 | Address type (PD) | Mandatory | 1..1 | IECorePatient | `Patient.address.use` | N | Partial | HIQA Mandatory 1..1 (type/purpose incl. temporary accommodation and homelessness); Address.use (home\|temp) not MS and has no homelessness value |
-| 1.2.7 | Address use (PD) | Optional | 0..1 | IECorePatient | `Patient.address.type` | N | Aligned | postal\|physical\|both; Optional in HIQA |
-| 1.3.1 | Individual Health Identifier (IHI) (PD) | Required | 0..1 | IECorePatient | `Patient.identifier:IHI` | Y | Partial | invariant ie-pat-1 allows 18 digits only; HIQA says 18 or 10 (H-02) |
-| 1.3.2 | Personal Public Service Number (PD) | Required | 0..1 | IECorePatient |  | N | Gap | would sit under Patient.identifier; no PPSN slice; legal basis Requires Clarification (OI-008) |
-| 1.3.3 | Other identifiers used in health and social care details (cluster) (PD) | Required | 0..* | IECorePatient | `Patient.identifier` | Y | Aligned | open slicing |
-| 1.3.3.1 | Other identifier used in health and social care – Type (PD) | Required | 0..1 | IECorePatient | `Patient.identifier.type` | N | Partial | type not MS on the unsliced identifier |
-| 1.3.3.2 | Other identifier used in health and social care-Value (PD) | Required | 0..1 | IECorePatient | `Patient.identifier.value` | N | Partial | value not MS on the unsliced identifier |
-| 1.3.3.3 | Other identifier used in health and social care - Time period (PD) | Required | 0..1 | IECorePatient | `Patient.identifier.period` | N | Partial | not MS |
-| 1.3.3.4 | Organisation who issued the other identifier used in health and social care (PD) | Required | 0..1 | IECorePatient | `Patient.identifier.assigner` | N | Partial | not MS; HIQA value is free text (assigner.display) |
-| 1.4.1 | Date of birth (PD) | Mandatory | 1..1 | IECorePatient | `Patient.birthDate` | Y | Aligned | birthDate 1..1 inherited from EU Base patient-eu-core; a legal requirement on cross-border prescriptions |
-| 1.4.2 | Age (cluster) (P) | Required | 0..1 | IECoreMedicationRequestEPrescription |  | N | Gap | no age element; legal requirement when the patient is under 12 (H-04) |
-| 1.4.2.1 | Age if less than 12 years – value (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription |  | N | Gap |  |
-| 1.4.2.2 | Age if less than 12 years - type (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription |  | N | Gap |  |
-| 1.4.3 | Sex (PD) | Mandatory | 1..1 | IECorePatient | `Patient.gender` | Y | Partial | Patient.gender is administrative gender, not sex assigned at birth (H-01) |
-| 1.4.4 | Gender (cluster) (PD) | Required | 0..1 | IECorePatient | `Patient.extension:genderIdentity` | Y | Partial | cluster modelled as one extension; no 'other gender' code verified |
-| 1.4.4.1 | Gender | Required | 0..1 | IECorePatient | `Patient.extension:genderIdentity.value[x]` | Y | Partial | binding to ie-core-gender-identity not verified against a HIQA value set (none published) |
-| 1.4.4.2 | Other gender identity (PD) | Optional | 0..1 | IECorePatient | `Patient.extension:genderIdentity.value[x].text` | N | Aligned |  |
-| 1.5.1 | Mobile phone number | Required | 0..* | IECorePatient | `Patient.telecom` | Y | Aligned | no mobile slice (system=phone & use=mobile) |
-| 1.5.2 | Email address (PD) | Required | 0..* | IECorePatient | `Patient.telecom` | Y | Aligned | no email slice |
-| 1.5.3 | Other Communication details (cluster) (PD) | Optional | 0..* | IECorePatient | `Patient.telecom` | Y | Aligned |  |
-| 1.5.3.1 | Communication details – Type (PD) | Optional | 0..* | IECorePatient | `Patient.telecom.system` | Y | Aligned |  |
-| 1.5.3.2 | Communication Details – Value (PD) | Optional | 0..* | IECorePatient | `Patient.telecom.value` | Y | Aligned |  |
+| 1.1.1 | Name title (PD) | Optional | 0..* | IECorePatientEPrescription | `Patient.name.prefix` | Y | Aligned |  |
+| 1.1.2 | Forename (PD) | Mandatory | 1..1 | IECorePatientEPrescription | `Patient.name.given` | Y | Aligned | given 1..* in the ePrescription patient |
+| 1.1.3 | Surname (PD) | Mandatory | 1..1 | IECorePatientEPrescription | `Patient.name.family` | Y | Aligned | family 1..1 in the ePrescription patient |
+| 1.1.4 | Name suffix (PD) | Optional | 0..* | IECorePatientEPrescription | `Patient.name.suffix` | Y | Aligned |  |
+| 1.2.1 | Postcode (PD) | Required | 0..1 | IECorePatientEPrescription | `Patient.address.postalCode` | Y | Aligned | Eircode format XXX XXXX (guidance only) |
+| 1.2.2 | Address line(s) (PD) | Mandatory | 1..1 | IECorePatientEPrescription | `Patient.address.line` | Y | Aligned | address 1..* and line 1..* |
+| 1.2.3 | Suburb/ Town/ Townland/ Locality (PD) | Required | 0..1 | IECorePatientEPrescription | `Patient.address.city` | Y | Aligned | Dublin postal districts go here per HIQA |
+| 1.2.4 | District/ County (PD) | Mandatory | 1..1 | IECorePatientEPrescription | `Patient.address.state` | Y | Aligned | state 1..1; IE county binding (extensible) |
+| 1.2.5 | Country (PD) | Required | 0..1 | IECorePatientEPrescription | `Patient.address.country` | Y | Aligned |  |
+| 1.2.6 | Address type (PD) | Mandatory | 1..1 | IECorePatientEPrescription | `Patient.address.use` | Y | Partial | use 1..1 MS; no HL7 code for homelessness (Requires Clarification) |
+| 1.2.7 | Address use (PD) | Optional | 0..1 | IECorePatientEPrescription | `Patient.address.type` | N | Aligned | postal\|physical\|both |
+| 1.3.1 | Individual Health Identifier (IHI) (PD) | Required | 0..1 | IECorePatientEPrescription | `Patient.identifier:IHI` | Y | Aligned | ie-pat-1 accepts 18 or 10 digits; system URI placeholder (OI-003) |
+| 1.3.2 | Personal Public Service Number (PD) | Required | 0..1 | IECorePatientEPrescription | `Patient.identifier:PPSN` | N | Partial | deliberately NOT MustSupport: legal basis Requires Clarification (OI-008); warning format rule |
+| 1.3.3 | Other identifiers used in health and social care details (cluster) (PD) | Required | 0..* | IECorePatientEPrescription | `Patient.identifier` | Y | Aligned | open slicing; PCRS scheme numbers typed with the IE Core PCRS scheme placeholder |
+| 1.3.3.1 | Other identifier used in health and social care – Type (PD) | Required | 0..1 | IECorePatientEPrescription | `Patient.identifier.type` | Y | Aligned |  |
+| 1.3.3.2 | Other identifier used in health and social care-Value (PD) | Required | 0..1 | IECorePatientEPrescription | `Patient.identifier.value` | Y | Aligned |  |
+| 1.3.3.3 | Other identifier used in health and social care - Time period (PD) | Required | 0..1 | IECorePatientEPrescription | `Patient.identifier.period` | Y | Aligned |  |
+| 1.3.3.4 | Organisation who issued the other identifier used in health and social care (PD) | Required | 0..1 | IECorePatientEPrescription | `Patient.identifier.assigner` | Y | Aligned | assigner.display, e.g. HSE |
+| 1.4.1 | Date of birth (PD) | Mandatory | 1..1 | IECorePatientEPrescription | `Patient.birthDate` | Y | Aligned | birthDate 1..1; a legal requirement cross-border |
+| 1.4.2 | Age (cluster) (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:ageAtPrescribing` | Y | Aligned | required when under 12 at authoredOn (invariant ie-rx-age-1; resolved within the Bundle) |
+| 1.4.2.1 | Age if less than 12 years – value (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:ageAtPrescribing.value[x]` | N | Aligned | Mandatory within the age cluster: valueAge.value 1..1 |
+| 1.4.2.2 | Age if less than 12 years - type (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:ageAtPrescribing.value[x]` | N | Aligned | Mandatory within the age cluster: valueAge.code 1..1 (UCUM a\|mo\|d) |
+| 1.4.3 | Sex (PD) | Mandatory | 1..1 | IECorePatientEPrescription | `Patient.extension:sexAssignedAtBirth` | Y | Aligned | individual-recordedSexOrGender with type LOINC 76689-9 (1..1 MS) |
+| 1.4.4 | Gender (cluster) (PD) | Required | 0..1 | IECorePatientEPrescription | `Patient.extension:gender-identity` | Y | Aligned | individual-genderIdentity (EU Base slice), 0..1 MS |
+| 1.4.4.1 | Gender | Required | 0..1 | IECorePatientEPrescription | `Patient.extension:gender-identity` | Y | Partial | binding to ie-core-gender-identity not yet verified; no 'other gender' code (Phase 7) |
+| 1.4.4.2 | Other gender identity (PD) | Optional | 0..1 | IECorePatientEPrescription | `Patient.extension:gender-identity` | N | Aligned | valueCodeableConcept.text |
+| 1.5.1 | Mobile phone number | Required | 0..* | IECorePatientEPrescription | `Patient.telecom` | Y | Aligned |  |
+| 1.5.2 | Email address (PD) | Required | 0..* | IECorePatientEPrescription | `Patient.telecom` | Y | Aligned |  |
+| 1.5.3 | Other Communication details (cluster) (PD) | Optional | 0..* | IECorePatientEPrescription | `Patient.telecom` | Y | Aligned |  |
+| 1.5.3.1 | Communication details – Type (PD) | Optional | 0..* | IECorePatientEPrescription | `Patient.telecom.system` | Y | Aligned |  |
+| 1.5.3.2 | Communication Details – Value (PD) | Optional | 0..* | IECorePatientEPrescription | `Patient.telecom.value` | Y | Aligned |  |
 | 1.6.1 | Reason for not recording allergies and intolerances (P) | Required | 0..1 | IECoreMedicationRequestEPrescription |  | N | Gap | no 'reason for not recording allergies' (H-03) |
 | 1.6.2 | Allergies and intolerances (record entry) (P) | Required | 0..* | IECoreAllergyIntolerance | `AllergyIntolerance` | Y | Partial | profile exists but is not linked to the prescription (H-03) |
 | 1.6.2.1 | Allergies or intolerances (P) | Required | 0..* | IECoreAllergyIntolerance | `AllergyIntolerance.code` | Y | Aligned |  |
@@ -368,66 +354,71 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 6.10 | Substitution occurred (D) | Optional | 0..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.substitution.wasSubstituted` | Y | Aligned |  |
 | 6.11 | Dosage instructions (D) | Required | 0..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.dosageInstruction` | Y | Aligned |  |
 | 6.12 | Additional information (D) | Optional | 0..* | IECoreMedicationDispenseEDispensation | `MedicationDispense.note` | N | Aligned |  |
-| — | ethnicity | Not in dataset | 0..0 | IECorePatient | `Patient.extension:ethnicity` | Y | Prohibited (violated) | not in the EP dataset; currently MustSupport on the prescription subject (C-01). GDPR Art. 9 special-category data |
-| — | mothersMaidenName | Not in dataset | 0..0 | IECorePatient | `Patient.extension:mothersMaidenName` | Y | Prohibited (violated) | not in the EP dataset; currently MustSupport (C-01) |
-| — | nationality | Not in dataset | 0..0 | IECorePatient | `Patient.extension` | N | Prohibited (violated) | not in the EP dataset; not constrained (open extension slicing allows patient-nationality) |
-| — | maritalStatus | Not in dataset | 0..0 | IECorePatient | `Patient.maritalStatus` | N | Prohibited (violated) | not in the EP dataset; allowed (base 0..1) |
-| — | religion | Not in dataset | 0..0 | IECorePatient | `Patient.extension` | N | Prohibited (violated) | not in the EP dataset; not constrained (patient-religion allowed); GDPR Art. 9 |
-| — | pronouns | Not in dataset | 0..0 | IECorePatient | `Patient.extension:personalPronouns` | Y | Prohibited (violated) | not in the EP dataset; currently MustSupport |
-| — | birthPlace | Not in dataset | 0..0 | IECorePatient | `Patient.extension` | N | Prohibited (violated) | not in the EP dataset (it is PS 1.4.3) |
+| — | ethnicity | Not in dataset | 0..0 | IECorePatientEPrescription | `Patient.extension:ethnicity` | N | Prohibited (enforced) | 0..0 in the ePrescription patient (ADR-002); GDPR Art. 9 |
+| — | mothersMaidenName | Not in dataset | 0..0 | IECorePatientEPrescription | `Patient.extension:mothersMaidenName` | N | Prohibited (enforced) | 0..0 (ADR-002); identity: HZ-06 |
+| — | nationality | Not in dataset | 0..0 | IECorePatientEPrescription | `Patient.extension:patient-nationality` | N | Prohibited (enforced) | 0..0 (EU Base slice constrained) |
+| — | maritalStatus | Not in dataset | 0..0 | IECorePatientEPrescription | `Patient.maritalStatus` | N | Prohibited (enforced) | 0..0 |
+| — | religion | Not in dataset | 0..0 | IECorePatientEPrescription | `Patient.extension:religion` | N | Prohibited (enforced) | 0..0; GDPR Art. 9 |
+| — | pronouns | Not in dataset | 0..0 | IECorePatientEPrescription | `Patient.extension:pronouns` | N | Prohibited (enforced) | 0..0 (EU Base slice constrained) |
+| — | birthPlace | Not in dataset | 0..0 | IECorePatientEPrescription | `Patient.extension:birthPlace` | N | Prohibited (enforced) | 0..0 (EU Base slice constrained) |
+| — | citizenship | Not in dataset | 0..0 | IECorePatientEPrescription | `Patient.extension:patient-citizenship` | N | Prohibited (enforced) | 0..0 |
+| — | mothersFormerSurname | Not in dataset | 0..0 | IECorePatientEPrescription | `Patient.extension:mothersFormerSurname` | N | Prohibited (enforced) | 0..0 |
+| — | countryOfAffiliation | Not in dataset | 0..0 | IECorePatientEPrescription | `Patient.extension:countryOfAffiliation` | N | Prohibited (enforced) | 0..0 |
+| — | interpreterRequired | Not in dataset | 0..0 | IECorePatientEPrescription | `Patient.extension:interpreterRequired` | N | Prohibited (enforced) | 0..0 |
+| — | contact | Not in dataset | 0..0 | IECorePatientEPrescription | `Patient.contact` | N | Prohibited (enforced) | 0..0: third-party data; the receiver is on the dispense (EP 6.4) |
 
 ### Patient Summary: full matrix
 
 | HIQA ID | Element | Conf. | Card. | Profile | Path | MS | Status | Notes |
 |---|---|---|---|---|---|---|---|---|
-| 1.1.1 | Name title | Optional | 0..* | IECorePatient | `Patient.name.prefix` | Y | Aligned |  |
-| 1.1.2 | Forename | Mandatory | 1..1 | IECorePatient | `Patient.name.given` | Y | Partial | HIQA Mandatory 1..1; IG 0..* |
-| 1.1.3 | Middle name (s) | Required | 0..1 | IECorePatient | `Patient.name.given` | Y | Aligned | second and later given names |
-| 1.1.4 | Surname | Mandatory | 1..1 | IECorePatient | `Patient.name.family` | Y | Partial | HIQA Mandatory 1..1; IG 0..1 |
-| 1.1.5 | Name suffix | Optional | 0..* | IECorePatient | `Patient.name.suffix` | Y | Aligned |  |
-| 1.1.6 | Former names | Required | 0..* | IECorePatient | `Patient.name` | Y | Aligned | name.use = old |
-| 1.1.7 | Preferred name | Required | 0..1 | IECorePatient | `Patient.name` | Y | Aligned | name.use = usual |
-| 1.2.1 | Postcode | Required | 0..1 | IECorePatient | `Patient.address.postalCode` | Y | Aligned |  |
-| 1.2.2 | Address line(s) | Mandatory | 1..1 | IECorePatient | `Patient.address.line` | Y | Partial | HIQA Mandatory 1..1 |
-| 1.2.3 | Suburb/ Town/ Townland/ Locality | Required | 0..1 | IECorePatient | `Patient.address.city` | Y | Aligned |  |
-| 1.2.4 | District/ County | Mandatory | 1..1 | IECorePatient | `Patient.address.state` | Y | Partial | HIQA Mandatory 1..1 |
-| 1.2.5 | Country | Required | 0..1 | IECorePatient | `Patient.address.country` | Y | Aligned |  |
-| 1.2.6 | Address type | Mandatory | 1..1 | IECorePatient | `Patient.address.use` | N | Partial | HIQA Mandatory; no homelessness value; not MS |
-| 1.2.7 | Address use | Optional | 0..1 | IECorePatient | `Patient.address.type` | N | Aligned |  |
-| 1.3.1 | Individual Health Identifier (IHI) | Required | 0..1 | IECorePatient | `Patient.identifier:IHI` | Y | Partial | 18-digit-only invariant (H-02) |
-| 1.3.2 | Personal Public Service Number | Required | 0..1 | IECorePatient |  | N | Gap | would sit under Patient.identifier; no PPSN slice (OI-008) |
-| 1.3.3 | Other identifiers used in health and social care details (cluster) | Required | 0..* | IECorePatient | `Patient.identifier` | Y | Aligned |  |
-| 1.3.3.1 | Other identifiers used in health and social care – type | Required | 0..1 | IECorePatient | `Patient.identifier.type` | N | Partial | not MS |
-| 1.3.3.2 | Other identifiers used in health and social care- value | Required | 0..1 | IECorePatient | `Patient.identifier.value` | N | Partial | not MS |
-| 1.3.3.3 | Other identifier used in health and social care - time period | Required | 0..1 | IECorePatient | `Patient.identifier.period` | N | Partial | not MS |
-| 1.3.3.4 | Organisation who issued the other identifier used in health and social care | Required | 0..1 | IECorePatient | `Patient.identifier.assigner` | N | Partial | not MS |
+| 1.1.1 | Name title | Optional | 0..* | IECorePatientSummaryPatient | `Patient.name.prefix` | Y | Aligned |  |
+| 1.1.2 | Forename | Mandatory | 1..1 | IECorePatientSummaryPatient | `Patient.name.given` | Y | Aligned | given 1..* |
+| 1.1.3 | Middle name (s) | Required | 0..1 | IECorePatientSummaryPatient | `Patient.name.given` | Y | Aligned | second and later given names |
+| 1.1.4 | Surname | Mandatory | 1..1 | IECorePatientSummaryPatient | `Patient.name.family` | Y | Aligned | family 1..1 |
+| 1.1.5 | Name suffix | Optional | 0..* | IECorePatientSummaryPatient | `Patient.name.suffix` | Y | Aligned |  |
+| 1.1.6 | Former names | Required | 0..* | IECorePatientSummaryPatient | `Patient.name.use` | Y | Aligned | name.use = old |
+| 1.1.7 | Preferred name | Required | 0..1 | IECorePatientSummaryPatient | `Patient.name.use` | Y | Aligned | name.use = usual |
+| 1.2.1 | Postcode | Required | 0..1 | IECorePatientSummaryPatient | `Patient.address.postalCode` | Y | Aligned |  |
+| 1.2.2 | Address line(s) | Mandatory | 1..1 | IECorePatientSummaryPatient | `Patient.address.line` | Y | Aligned | address 1..*, line 1..* |
+| 1.2.3 | Suburb/ Town/ Townland/ Locality | Required | 0..1 | IECorePatientSummaryPatient | `Patient.address.city` | Y | Aligned |  |
+| 1.2.4 | District/ County | Mandatory | 1..1 | IECorePatientSummaryPatient | `Patient.address.state` | Y | Aligned | state 1..1 |
+| 1.2.5 | Country | Required | 0..1 | IECorePatientSummaryPatient | `Patient.address.country` | Y | Aligned |  |
+| 1.2.6 | Address type | Mandatory | 1..1 | IECorePatientSummaryPatient | `Patient.address.use` | Y | Partial | use 1..1 MS; no HL7 code for homelessness (Requires Clarification) |
+| 1.2.7 | Address use | Optional | 0..1 | IECorePatientSummaryPatient | `Patient.address.type` | N | Aligned |  |
+| 1.3.1 | Individual Health Identifier (IHI) | Required | 0..1 | IECorePatientSummaryPatient | `Patient.identifier` | Y | Aligned | IHI slice (18 or 10 digits) imposed by IECorePatient |
+| 1.3.2 | Personal Public Service Number | Required | 0..1 | IECorePatientSummaryPatient | `Patient.identifier:PPSN` | N | Partial | deliberately NOT MustSupport (OI-008) |
+| 1.3.3 | Other identifiers used in health and social care details (cluster) | Required | 0..* | IECorePatientSummaryPatient | `Patient.identifier` | Y | Aligned |  |
+| 1.3.3.1 | Other identifiers used in health and social care – type | Required | 0..1 | IECorePatientSummaryPatient | `Patient.identifier.type` | Y | Aligned |  |
+| 1.3.3.2 | Other identifiers used in health and social care- value | Required | 0..1 | IECorePatientSummaryPatient | `Patient.identifier.value` | Y | Aligned |  |
+| 1.3.3.3 | Other identifier used in health and social care - time period | Required | 0..1 | IECorePatientSummaryPatient | `Patient.identifier.period` | Y | Aligned |  |
+| 1.3.3.4 | Organisation who issued the other identifier used in health and social care | Required | 0..1 | IECorePatientSummaryPatient | `Patient.identifier.assigner` | Y | Aligned |  |
 | 1.3.4 | Health insurance information (cluster) | Required | 0..* | IECoreCoverage | `Coverage` | Y | Partial | Coverage profile exists but is not referenced from the Patient Summary |
 | 1.3.4.1 | Health insurance- type | Required | 0..1 | IECoreCoverage | `Coverage.type` | Y | Aligned |  |
 | 1.3.4.2 | Health insurance- value | Required | 0..1 | IECoreCoverage | `Coverage.subscriberId` | Y | Aligned |  |
 | 1.3.4.3 | Name of organisation providing health insurance | Required | 0..1 | IECoreCoverage | `Coverage.payor` | Y | Aligned |  |
-| 1.4.1 | Date of birth | Mandatory | 1..1 | IECorePatient | `Patient.birthDate` | Y | Aligned | birthDate 1..1 inherited from EU Base patient-eu-core. HIQA: unknown DOB recorded as 1900-01-01 |
+| 1.4.1 | Date of birth | Mandatory | 1..1 | IECorePatientSummaryPatient | `Patient.birthDate` | Y | Aligned | HIQA: unknown DOB = 1900-01-01 |
 | 1.4.2 | Estimated age (cluster) | Optional | 0..1 | IECorePatient |  | N | Gap | estimated age; Optional |
 | 1.4.2.1 | Estimated age - value | Optional | 0..1 | IECorePatient |  | N | Gap |  |
 | 1.4.2.2 | Estimated age - type | Optional | 0..1 | IECorePatient |  | N | Gap |  |
-| 1.4.3 | Place of birth | Required | 0..1 | IECorePatient |  | N | Gap | would sit under Patient.extension; place of birth (county or city) not modelled; patient-birthPlace available |
-| 1.4.4 | Sex | Mandatory | 1..1 | IECorePatient | `Patient.gender` | Y | Partial | administrative gender, not sex assigned at birth (H-01) |
-| 1.4.5 | Gender (cluster) | Required | 0..1 | IECorePatient | `Patient.extension:genderIdentity` | Y | Partial | cluster modelled as one extension; no 'other gender' code verified |
-| 1.4.5.1 | Gender | Required | 0..1 | IECorePatient | `Patient.extension:genderIdentity.value[x]` | Y | Partial | binding to ie-core-gender-identity not verified against a HIQA value set (none published) |
-| 1.4.5.2 | Other gender identity | Optional | 0..1 | IECorePatient | `Patient.extension:genderIdentity.value[x].text` | N | Aligned |  |
-| 1.4.6 | Mother's former surnames | Required | 0..* | IECorePatient | `Patient.extension:mothersMaidenName` | Y | Partial | HIQA 0..* 'former surnames'; IG 0..1 maiden name |
-| 1.4.7 | Nationality | Required | 0..* | IECorePatient |  | N | Gap | would sit under Patient.extension; nationality not modelled; patient-nationality available |
-| 1.4.8 | Country of affiliation | Required | 0..1 | IECorePatient |  | N | Gap | would sit under Patient.extension; country of affiliation not modelled |
-| 1.4.9 | Preferred language | Optional | 0..* | IECorePatient | `Patient.communication.language` | Y | Aligned |  |
-| 1.4.10 | Ethnicity | Required | 0..* | IECorePatient | `Patient.extension:ethnicity` | Y | Partial | HIQA 0..* coded; IG 0..1 code with a required binding to an unverified CSO list (M-04) |
-| 1.4.11 | Date of death | Required | 0..1 | IECorePatient | `Patient.deceased[x]` | Y | Aligned | deceasedDateTime |
-| 1.4.12 | Cause of death | Required | 0..1 | IECorePatient |  | N | Gap | cause of death not modelled |
-| 1.5.1 | Mobile phone number | Required | 0..* | IECorePatient | `Patient.telecom` | Y | Aligned |  |
-| 1.5.2 | Email address | Required | 0..* | IECorePatient | `Patient.telecom` | Y | Aligned |  |
-| 1.5.3 | Other communication details (cluster) | Optional | 0..* | IECorePatient | `Patient.telecom` | Y | Aligned |  |
-| 1.5.3.1 | Other communication details - type | Optional | 0..* | IECorePatient | `Patient.telecom.system` | Y | Aligned |  |
-| 1.5.3.2 | Other communication details - value | Optional | 0..* | IECorePatient | `Patient.telecom.value` | Y | Aligned |  |
-| 1.5.3.3 | Other communication details - use | Optional | 0..* | IECorePatient | `Patient.telecom.use` | Y | Aligned |  |
-| 1.5.4 | Preferred communication method | Required | 0..* | IECorePatient | `Patient.telecom.rank` | N | Partial | Required; not MS; rank expresses preference order only |
+| 1.4.3 | Place of birth | Required | 0..1 | IECorePatientSummaryPatient | `Patient.extension:birthPlace` | Y | Aligned | patient-birthPlace (EU Base slice), MS |
+| 1.4.4 | Sex | Mandatory | 1..1 | IECorePatientSummaryPatient | `Patient.extension:sexAssignedAtBirth` | Y | Aligned | recordedSexOrGender, type LOINC 76689-9, 1..1 MS |
+| 1.4.5 | Gender (cluster) | Required | 0..1 | IECorePatientSummaryPatient | `Patient.extension:gender-identity` | Y | Aligned | 0..1 MS |
+| 1.4.5.1 | Gender | Required | 0..1 | IECorePatientSummaryPatient | `Patient.extension:gender-identity` | Y | Partial | binding not yet verified (Phase 7) |
+| 1.4.5.2 | Other gender identity | Optional | 0..1 | IECorePatientSummaryPatient | `Patient.extension:gender-identity` | N | Aligned | valueCodeableConcept.text |
+| 1.4.6 | Mother's former surnames | Required | 0..* | IECorePatientSummaryPatient | `Patient.extension:mothersFormerSurname` | Y | Aligned | IECoreMothersFormerSurname 0..* MS (OI-011) |
+| 1.4.7 | Nationality | Required | 0..* | IECorePatientSummaryPatient | `Patient.extension:patient-nationality` | Y | Aligned | patient-nationality (EU Base slice), MS |
+| 1.4.8 | Country of affiliation | Required | 0..1 | IECorePatientSummaryPatient | `Patient.extension:countryOfAffiliation` | Y | Aligned | IECoreCountryOfAffiliation (ISO 3166) |
+| 1.4.9 | Preferred language | Optional | 0..* | IECorePatientSummaryPatient | `Patient.communication.language` | Y | Aligned |  |
+| 1.4.10 | Ethnicity | Required | 0..* | IECorePatientSummaryPatient | `Patient.extension:ethnicity` | Y | Partial | 0..* MS CodeableConcept; CSO classification to verify (OI-005, Phase 7) |
+| 1.4.11 | Date of death | Required | 0..1 | IECorePatientSummaryPatient | `Patient.deceased[x]` | Y | Aligned | deceasedDateTime |
+| 1.4.12 | Cause of death | Required | 0..1 | IECorePatientSummaryPatient |  | N | Gap | cause of death: no Patient element (Requires Clarification) |
+| 1.5.1 | Mobile phone number | Required | 0..* | IECorePatientSummaryPatient | `Patient.telecom` | Y | Aligned |  |
+| 1.5.2 | Email address | Required | 0..* | IECorePatientSummaryPatient | `Patient.telecom` | Y | Aligned |  |
+| 1.5.3 | Other communication details (cluster) | Optional | 0..* | IECorePatientSummaryPatient | `Patient.telecom` | Y | Aligned |  |
+| 1.5.3.1 | Other communication details - type | Optional | 0..* | IECorePatientSummaryPatient | `Patient.telecom.system` | Y | Aligned |  |
+| 1.5.3.2 | Other communication details - value | Optional | 0..* | IECorePatientSummaryPatient | `Patient.telecom.value` | Y | Aligned |  |
+| 1.5.3.3 | Other communication details - use | Optional | 0..* | IECorePatientSummaryPatient | `Patient.telecom.use` | Y | Aligned |  |
+| 1.5.4 | Preferred communication method | Required | 0..* | IECorePatientSummaryPatient | `Patient.telecom.rank` | Y | Aligned | preferred method: rank = 1 |
 | 2.1 | Name title | Optional | 0..* | IECorePractitioner | `Practitioner.name.prefix` | Y | Aligned |  |
 | 2.2 | Forename | Mandatory | 1..1 | IECorePractitioner | `Practitioner.name.given` | Y | Partial | HIQA Mandatory 1..1 |
 | 2.3 | Surname | Mandatory | 1..1 | IECorePractitioner | `Practitioner.name.family` | Y | Aligned |  |
@@ -454,21 +445,21 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 2.10.3.2 | Communication Details – Value | Optional | 0..* | IECorePractitionerRole | `PractitionerRole.telecom.value` | Y | Aligned |  |
 | 2.11 | Location ID (GLN) | Required | 0..1 | IECoreLocation | `Location.identifier` | Y | Partial | no GLN slice |
 | 2.12 | GMS Panel ID | Optional | 0..1 | IECoreOrganization |  | N | Gap | would sit under Organization.identifier; no GMS Panel ID system |
-| 3.1 | Forename of nominated contact person | Required | 0..1 | IECorePatient | `Patient.contact.name.given` | N | Partial | nominated contact person: Patient.contact is not MS |
-| 3.2 | Surname of nominated contact person | Required | 0..1 | IECorePatient | `Patient.contact.name.family` | N | Partial |  |
-| 3.3 | Role of the nominated contact person | Required | 0..* | IECorePatient | `Patient.contact.relationship` | N | Partial |  |
-| 3.4 | Relationship | Required | 0..1 | IECorePatient | `Patient.contact.relationship` | N | Partial |  |
-| 3.5 | Communication details of nominated contact person (cluster) | Required | 0..1 | IECorePatient | `Patient.contact.telecom` | N | Partial |  |
-| 3.5.1 | Mobile phone number of nominated contact person | Required | 0..1 | IECorePatient | `Patient.contact.telecom` | N | Partial |  |
-| 3.5.2 | Landline phone number of nominated contact person | Required | 0..1 | IECorePatient | `Patient.contact.telecom` | N | Partial |  |
-| 3.5.3 | Email address of nominated contact person | Required | 0..1 | IECorePatient | `Patient.contact.telecom` | N | Partial |  |
-| 3.6 | Address of nominated contact person (cluster) | Optional | 0..1 | IECorePatient | `Patient.contact.address` | N | Aligned |  |
-| 3.6.1 | Postcode | Required | 0..1 | IECorePatient | `Patient.contact.address.postalCode` | N | Partial |  |
-| 3.6.2 | Address line(s) | Mandatory | 1..1 | IECorePatient | `Patient.contact.address.line` | N | Partial | Mandatory within an Optional cluster |
-| 3.6.3 | Suburb/ Town/ Townland/ Locality | Required | 0..1 | IECorePatient | `Patient.contact.address.city` | N | Partial |  |
-| 3.6.4 | District/ County/ City (if outside Ireland). | Mandatory | 1..1 | IECorePatient | `Patient.contact.address.state` | N | Partial | Mandatory within an Optional cluster |
-| 3.6.5 | Country | Required | 0..1 | IECorePatient | `Patient.contact.address.country` | N | Partial |  |
-| 3.7 | Preferred communication type for nominated contact person | Required | 0..1 | IECorePatient |  | N | Gap | preferred communication type for the contact |
+| 3.1 | Forename of nominated contact person | Required | 0..1 | IECorePatientSummaryPatient | `Patient.contact.name.given` | Y | Aligned |  |
+| 3.2 | Surname of nominated contact person | Required | 0..1 | IECorePatientSummaryPatient | `Patient.contact.name.family` | Y | Aligned |  |
+| 3.3 | Role of the nominated contact person | Required | 0..* | IECorePatientSummaryPatient | `Patient.contact.relationship` | Y | Aligned | role |
+| 3.4 | Relationship | Required | 0..1 | IECorePatientSummaryPatient | `Patient.contact.relationship` | Y | Aligned | relationship |
+| 3.5 | Communication details of nominated contact person (cluster) | Required | 0..1 | IECorePatientSummaryPatient | `Patient.contact.telecom` | Y | Aligned |  |
+| 3.5.1 | Mobile phone number of nominated contact person | Required | 0..1 | IECorePatientSummaryPatient | `Patient.contact.telecom` | Y | Aligned | mobile |
+| 3.5.2 | Landline phone number of nominated contact person | Required | 0..1 | IECorePatientSummaryPatient | `Patient.contact.telecom` | Y | Aligned | landline |
+| 3.5.3 | Email address of nominated contact person | Required | 0..1 | IECorePatientSummaryPatient | `Patient.contact.telecom` | Y | Aligned | email |
+| 3.6 | Address of nominated contact person (cluster) | Optional | 0..1 | IECorePatientSummaryPatient | `Patient.contact.address` | N | Aligned |  |
+| 3.6.1 | Postcode | Required | 0..1 | IECorePatientSummaryPatient | `Patient.contact.address.postalCode` | Y | Aligned |  |
+| 3.6.2 | Address line(s) | Mandatory | 1..1 | IECorePatientSummaryPatient | `Patient.contact.address.line` | N | Aligned | Mandatory within the contact-address cluster: line 1..* |
+| 3.6.3 | Suburb/ Town/ Townland/ Locality | Required | 0..1 | IECorePatientSummaryPatient | `Patient.contact.address.city` | Y | Aligned |  |
+| 3.6.4 | District/ County/ City (if outside Ireland). | Mandatory | 1..1 | IECorePatientSummaryPatient | `Patient.contact.address.state` | N | Aligned | Mandatory within the contact-address cluster: state 1..1 |
+| 3.6.5 | Country | Required | 0..1 | IECorePatientSummaryPatient | `Patient.contact.address.country` | Y | Aligned |  |
+| 3.7 | Preferred communication type for nominated contact person | Required | 0..1 | IECorePatientSummaryPatient | `Patient.contact.telecom.rank` | Y | Aligned | preferred communication type: rank = 1 |
 | 4.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:alerts.text` | Y | Aligned |  |
 | 4.2 | Alerts empty reason | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:alerts.emptyReason` | N | Partial | Required; not MS for alerts |
 | 4.3 | Alerts (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:alerts.entry` | Y | Aligned | IECoreFlag |
@@ -686,6 +677,6 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 19.2.4 | Entry date | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section.entry` | N | Partial | recordedDate not consistently MS |
 | 19.2.5 | Entry source | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section.entry` | N | Aligned |  |
 | 19.2.6 | Entry language | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section.entry` | N | Aligned | Resource.language |
-| — | maritalStatus | Not in dataset | 0..0 | IECorePatient | `Patient.maritalStatus` | N | Prohibited (violated) | not in the PS dataset; allowed (base 0..1) |
-| — | religion | Not in dataset | 0..0 | IECorePatient | `Patient.extension` | N | Prohibited (violated) | not in the PS dataset; GDPR Art. 9; patient-religion allowed |
-| — | pronouns | Not in dataset | 0..0 | IECorePatient | `Patient.extension:personalPronouns` | Y | Prohibited (violated) | not in the PS dataset; currently MustSupport |
+| — | maritalStatus | Not in dataset | 0..0 | IECorePatientSummaryPatient | `Patient.maritalStatus` | N | Prohibited (enforced) | 0..0 |
+| — | religion | Not in dataset | 0..0 | IECorePatientSummaryPatient | `Patient.extension:religion` | N | Prohibited (enforced) | 0..0; GDPR Art. 9 |
+| — | pronouns | Not in dataset | 0..0 | IECorePatientSummaryPatient | `Patient.extension:pronouns` | N | Prohibited (enforced) | 0..0 (EU Base slice constrained) |

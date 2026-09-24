@@ -52,21 +52,17 @@ Alias: $CondVerStatus = http://terminology.hl7.org/CodeSystem/condition-ver-stat
 // IE Core Canonical Base
 Alias: $IEBase = https://hl7-ie.github.io/ie-core/fhir/ie/core
 
-// IE Core Identifier Systems
+// IE Core Identifier Systems (ADR-006). All are PLACEHOLDERS pending HSE-published URIs (OI-003);
+// see NamingSystems.fsh. GMS/DPS/LTI/HAA are PCRS scheme numbers carried as HIQA "other identifiers".
 Alias: $IHI = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/ihi
-Alias: $HPI = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/hpi
-Alias: $MRN = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/mrn
 Alias: $IMC = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/imc
 Alias: $GMS = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/gms
 Alias: $DPS = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dps
 Alias: $LTI = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/lti
 Alias: $HAA = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/haa
-Alias: $CRN = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/crn
-Alias: $IMN = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/imn
 
 // Irish Government Identifier Systems
 Alias: $PPS = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/pps
-Alias: $Eircode = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/eircode
 
 // HL7 FHIR Extension URLs
 Alias: $DAR = http://hl7.org/fhir/StructureDefinition/data-absent-reason
@@ -126,7 +122,7 @@ Alias: $EUExtMedicationPackageType = http://hl7.eu/fhir/extensions/StructureDefi
 //   Format: Origin/Destination/NationalID (e.g. IE/DE/1234567T)
 //   Used in: Patient.identifier.system for cross-border PID (eHDSI / MyHealth@EU)
 //   Basis: eIDAS Regulation 2014/910/EU; eIDAS 2.0 Regulation 2024/1183/EU
-Alias: $EIDASPatientID = urn:oid:1.3.6.1.4.1.12559.11.10.1.3.1.42.1
+// removed (ADR-006): unverified OID alias
 
 // EUDI Wallet Namespace (ARF v2.x)
 //   Base namespace for EU Digital Identity Wallet attestation types
@@ -136,7 +132,26 @@ Alias: $EUDIWalletNamespace = https://identity.eudi.ec.europa.eu/claims
 
 // eHDSI / MyHealth@EU system identifiers
 //   NCPeH organisation identifier system (eHDSI OID)
-Alias: $NCPeHOrgID = urn:oid:1.3.6.1.4.1.12559.11.10.1.3.1.2.1
+// removed (ADR-006): unverified OID alias
 
 // Irish National ePrescription Service (NePS) identifier system
 Alias: $NePS = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/neps
+
+// ── HL7 extensions used for HIQA demographics (ADR-002) ───────────────────────
+Alias: $RecordedSexOrGender = http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender
+Alias: $GenderIdentity = http://hl7.org/fhir/StructureDefinition/individual-genderIdentity
+Alias: $PatientMothersMaidenName = http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName
+Alias: $PatientNationality = http://hl7.org/fhir/StructureDefinition/patient-nationality
+Alias: $PatientCitizenship = http://hl7.org/fhir/StructureDefinition/patient-citizenship
+Alias: $PatientBirthPlace = http://hl7.org/fhir/StructureDefinition/patient-birthPlace
+Alias: $PatientReligion = http://hl7.org/fhir/StructureDefinition/patient-religion
+Alias: $PatientInterpreterRequired = http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired
+Alias: $ImposeProfile = http://hl7.org/fhir/StructureDefinition/structuredefinition-imposeProfile
+
+// HL7 Europe Patient Summary (hl7.fhir.eu.eps 1.0.0-ballot, ADR-004)
+Alias: $EUPatientEPS = http://hl7.eu/fhir/eps/StructureDefinition/patient-eu-eps
+Alias: $EUCompositionEPS = http://hl7.eu/fhir/eps/StructureDefinition/composition-eu-eps
+Alias: $EUBundleEPS = http://hl7.eu/fhir/eps/StructureDefinition/bundle-eu-eps
+
+// GS1 Global Location Number: preferred URI of HL7 Terminology NamingSystem/GLN (THO 7.4.0)
+Alias: $GLN = http://www.gs1.org/gln

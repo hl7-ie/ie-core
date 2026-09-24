@@ -12,21 +12,19 @@
 // ====================================================================
 
 Instance: ie-core-patient-sean-murphy
-InstanceOf: IECorePatient
+InstanceOf: IECorePatientEPrescription
 Usage: #example
 Title: "Patient – Seán Patrick Murphy (Irish, cross-border scenarios)"
-Description: "Seán Patrick Murphy, an Irish patient with Type 2 Diabetes, Essential Hypertension, and Hypercholesterolaemia. Carries an Irish PPS number, IHI, GMS number and eIDAS identity used in cross-border ePrescription exchange via MyHealth@EU."
+Description: "Seán Patrick Murphy, an Irish patient with Type 2 Diabetes, Essential Hypertension, and Hypercholesterolaemia. Carries an Irish PPS number, IHI, medical card number and eIDAS identity used in cross-border ePrescription exchange via MyHealth@EU."
 
 * identifier[0].system = $IHI
 * identifier[=].type = $V2-0203#NI "National unique individual identifier"
 * identifier[=].value = "210000000099887766"
 
-* identifier[+].system = $GMS
-* identifier[=].type = $V2-0203#MC "Patient's Medicare number"
-* identifier[=].value = "1234567T"
+* insert PCRSIdentifier($GMS, medical-card, Medical card scheme number, MC-0099887)
 
+// PPSN (HIQA EP 1.3.2): not MustSupport; legal basis Requires Clarification (OI-008)
 * identifier[+].system = $PPS
-* identifier[=].type = $V2-0203#JHN "Jurisdictional health number"
 * identifier[=].value = "1234567T"
 
 // eIDAS cross-border identifiers (one per destination country)
@@ -42,6 +40,7 @@ Description: "Seán Patrick Murphy, an Irish patient with Type 2 Diabetes, Essen
 * name[=].prefix = "Mr."
 
 * gender = #male
+* insert SexAssignedAtBirth(male, Male)
 * birthDate = "1975-03-15"
 
 * address[0].use = #home
@@ -108,10 +107,6 @@ Usage: #example
 Title: "Organization – Grafton Street Medical Practice"
 Description: "Grafton Street Medical Practice, Dublin 2 — GP practice from which Seán Murphy's prescriptions are issued."
 
-* identifier[0].system = $CRN
-* identifier[=].value = "IE-GP-GSMP-001"
-* identifier[+].system = $HPI
-* identifier[=].value = "HPI-IE-ORG-GP-0001"
 
 * active = true
 * type = http://terminology.hl7.org/CodeSystem/organization-type#prov "Healthcare Provider"
@@ -945,7 +940,7 @@ Description: "Irish ePrescription for Atorvastatin 80mg for Seán Murphy, transm
 // ====================================================================
 
 Instance: ie-patient-fi-mikko-korhonen
-InstanceOf: IECorePatient
+InstanceOf: IECorePatientEPrescription
 Usage: #example
 Title: "Patient – Mikko Korhonen (Finnish citizen visiting Ireland)"
 Description: "Finnish patient Mikko Korhonen visiting Dublin. His Finnish prescription for Metformin 500mg is dispensed at Hickey's Pharmacy, O'Connell Street via NePS."
@@ -962,9 +957,12 @@ Description: "Finnish patient Mikko Korhonen visiting Dublin. His Finnish prescr
 * name[=].given[0] = "Mikko"
 * name[=].given[+] = "Tapani"
 * gender = #male
+* insert SexAssignedAtBirth(male, Male)
 * birthDate = "1982-07-20"
 * address[0].use = #home
+* address[=].line = "Mannerheimintie 100 A 12"
 * address[=].city = "Helsinki"
+* address[=].state = "Uusimaa"
 * address[=].country = "FI"
 * communication[0].language = urn:ietf:bcp:47#fi "Finnish"
 * communication[=].preferred = true
@@ -977,8 +975,6 @@ Usage: #example
 Title: "Pharmacy – Hickey's Pharmacy, O'Connell Street, Dublin"
 Description: "Irish community pharmacy dispensing a Finnish cross-border prescription for Mikko Korhonen via NePS."
 
-* identifier[0].system = $CRN
-* identifier[=].value = "IE-PHARM-HCK-001"
 * active = true
 * type = http://terminology.hl7.org/CodeSystem/organization-type#prov "Healthcare Provider"
 * name = "Hickey's Pharmacy"
@@ -1053,7 +1049,7 @@ Description: "Hickey's Pharmacy, Dublin dispenses Metformin 500mg for Finnish pa
 // ====================================================================
 
 Instance: ie-patient-be-lars-janssen
-InstanceOf: IECorePatient
+InstanceOf: IECorePatientEPrescription
 Usage: #example
 Title: "Patient – Lars Janssen (Belgian citizen visiting Ireland)"
 Description: "Belgian patient Lars Janssen visiting Dublin. His Belgian prescription for Atorvastatin 40mg is dispensed at McCauley's Pharmacy via NePS."
@@ -1070,9 +1066,12 @@ Description: "Belgian patient Lars Janssen visiting Dublin. His Belgian prescrip
 * name[=].given = "Lars"
 * name[=].prefix = "Mr."
 * gender = #male
+* insert SexAssignedAtBirth(male, Male)
 * birthDate = "1970-05-10"
 * address[0].use = #home
+* address[=].line = "Rue de la Loi 200"
 * address[=].city = "Brussels"
+* address[=].state = "Brussels-Capital"
 * address[=].country = "BE"
 * communication[0].language = urn:ietf:bcp:47#nl "Dutch"
 * communication[=].preferred = true
@@ -1085,8 +1084,6 @@ Usage: #example
 Title: "Pharmacy – McCauley's Pharmacy, Grafton Street, Dublin"
 Description: "Irish community pharmacy dispensing a Belgian cross-border prescription for Lars Janssen via NePS."
 
-* identifier[0].system = $CRN
-* identifier[=].value = "IE-PHARM-MCC-001"
 * active = true
 * type = http://terminology.hl7.org/CodeSystem/organization-type#prov "Healthcare Provider"
 * name = "McCauley's Pharmacy"

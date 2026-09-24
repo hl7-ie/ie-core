@@ -116,7 +116,7 @@ Feature: IE Core Medication Request and Dispensing Scenarios
     Given I have the example resource "Patient-ie-core-patient-ciaran-walsh.json"
     Then the resource should have resourceType "Patient"
     When I extract identifiers with system "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/ihi"
-    Then each identifier value should match pattern "^[0-9]{18}$"
+    Then each identifier value should match pattern "^([0-9]{18}|[0-9]{10})$"
 
   # ──────────────────────────────────────────────
   # Scenario 5: Cross-border ES → IE

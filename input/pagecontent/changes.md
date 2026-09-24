@@ -2,6 +2,53 @@
 
 This page documents changes to the IE Core Implementation Guide.
 
+### Version 0.2.0 (unreleased, draft): HIQA draft national standards (Sept 2026)
+
+Aligns IE Core with the HIQA *Draft National Standard for Electronic Prescriptions and Electronic
+Dispensations* and the *Draft National Standard for a Patient Summary* (both public consultation
+drafts, September 2026). Decisions are recorded in ADR-001 to ADR-006 (`docs/adr/` in the source
+repository). The HIQA element IDs are cited as EP x.y / PS x.y.
+
+#### BREAKING
+
+- **Context-specific patient profiles (ADR-002).** `IECorePatient` is now a permissive base:
+  ethnicity, mother's maiden name, pronouns and interpreter-required are no longer MustSupport.
+  - New `IECorePatientEPrescription`: exactly the HIQA EP patient dataset. Ethnicity, mother's
+    maiden name, nationality, citizenship, place of birth, religion, marital status, pronouns,
+    photo and contact are **prohibited (0..0)** (GDPR Art. 5(1)(c); Art. 9).
+  - New `IECorePatientSummaryPatient` (parent HL7 Europe EPS patient; imposes `IECorePatient`):
+    HIQA PS demographics incl. ethnicity (PS 1.4.10), nationality (1.4.7), mother's former
+    surnames (1.4.6), place of birth (1.4.3), country of affiliation (1.4.8), and the
+    nominated contact person (PS 3).
+  - `IECoreMedicationRequestEPrescription.subject` and `IECoreMedicationDispenseEDispensation.subject`
+    → `IECorePatientEPrescription`; `IECoreCompositionPatientSummary.subject` → `IECorePatientSummaryPatient`.
+- **Identifier rationalisation (ADR-006).** Removed identifiers with no authoritative source:
+  HPI (practitioner and organisation), IMN, CRN, and the GMS/DPS/LTI/HAA slices, datatype profiles
+  and format invariants `ie-pat-2..5`. PCRS scheme numbers are now HIQA "other identifiers"
+  (EP/PS 1.3.3) typed with a placeholder code system. The "Hospital Appointment Access" label was wrong;
+  HIQA defines HAA as the Health (Amendment) Act card scheme.
+- **Ethnicity extension** value changed from `code` 0..1 (required binding) to `CodeableConcept`
+  (repeatable, extensible binding), per PS 1.4.10.
+
+#### Changed
+
+- IHI invariant `ie-pat-1` accepts **18 or 10 digits** (EP/PS 1.3.1). It previously rejected valid 10-digit IHIs.
+- Sex assigned at birth (EP 1.4.3 / PS 1.4.4, Mandatory) is modelled with `individual-recordedSexOrGender`
+  (type LOINC 76689-9) and is separate from administrative gender and gender identity.
+- EU Base patient extension slices (`gender-identity`, `pronouns`, `patient-nationality`,
+  `birthPlace`) are reused instead of being re-declared. The previous duplicate slices overlapped.
+
+#### Added
+
+- HIQA logical models `HIQAEPrescriptionLM` and `HIQAPatientSummaryLM` with mappings to IE Core,
+  and the [HIQA Traceability](hiqa-traceability.html) page (ADR-001).
+- Extensions: `IECorePatientAgeAtPrescribing` (EP 1.4.2; invariant `ie-rx-age-1`: age required on
+  prescriptions for children under 12), `IECoreMothersFormerSurname` (PS 1.4.6),
+  `IECoreCountryOfAffiliation` (PS 1.4.8).
+- PPSN identifier slice (EP/PS 1.3.2), deliberately not MustSupport (legal basis Requires Clarification).
+- NamingSystems that openly mark every IG-minted identifier URI as a placeholder.
+- Dependency `hl7.fhir.eu.eps` 1.0.0-ballot (ADR-004).
+
 ### Version 0.1.1 (May 2026) — XT-EHR 1.0.0 Alignment
 
 This release aligns IE Core with the XT-EHR logical model **v1.0.0** (released 2025). The XT-EHR 1.0.0 release introduced a formal Obligations Framework, new base models (`EHDSDocument`, `EHDSDataSet`), mandatory section updates to the Patient Summary and Hospital Discharge Report, and additional ePrescription elements.

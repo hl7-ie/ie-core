@@ -1,6 +1,6 @@
 # ADR-003: ePrescription/eDispensation parents, signature and cross-border flag
 
-- **Status:** Proposed (Checkpoint 1). **BREAKING.**
+- **Status:** Accepted (Checkpoint 1, 2026-09-24). **BREAKING.**
 - **Date:** 2026-09-24
 - **Related:** baseline M-01, M-03, H-03, H-05, H-08; hazards HZ-03, HZ-05; ADR-002
 

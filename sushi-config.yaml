@@ -56,6 +56,12 @@ dependencies:
     id: hl7fhireuropempd
     uri: http://hl7.eu/fhir/mpd/ImplementationGuide/hl7.fhir.eu.mpd
     version: 1.0.0
+  # HL7 Europe Patient Summary (EPS) 1.0.0-ballot: parent of the IE Patient Summary (ADR-004).
+  # Ballot dependency, pinned; fallback is IPS 2.0.x if EPS has not reached STU.
+  hl7.fhir.eu.eps:
+    id: hl7fhireueps
+    uri: http://hl7.eu/fhir/eps/ImplementationGuide/hl7.fhir.eu.eps
+    version: 1.0.0-ballot
   # HL7 Europe Hospital Discharge Report (published 0.1.0-ballot)
   hl7.fhir.eu.hdr:
     id: hl7fhireuropehdr
@@ -170,11 +176,19 @@ menu:
   HL7 Registry Guide: hl7-registry-guidance.html
 
 groups:
+  HIQALogicalModels:
+    name: HIQA Logical Models (draft standards, Sept 2026)
+    description: Logical models of the HIQA draft national standards, with mappings to IE Core profiles. Not endorsed by HIQA.
+    resources:
+      - StructureDefinition/hiqa-eprescription-lm
+      - StructureDefinition/hiqa-patient-summary-lm
   PatientProfiles:
     name: Patient Demographics
     description: Profiles related to patient demographics and identification
     resources:
       - StructureDefinition/ie-core-patient
+      - StructureDefinition/ie-core-patient-eprescription
+      - StructureDefinition/ie-core-patient-summary-patient
       - StructureDefinition/ie-core-relatedperson
   ProviderProfiles:
     name: Provider & Organization

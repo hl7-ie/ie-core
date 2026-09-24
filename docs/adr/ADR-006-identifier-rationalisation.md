@@ -1,6 +1,6 @@
 # ADR-006: Identifier rationalisation (remove unsourced identifiers)
 
-- **Status:** Proposed (Checkpoint 1). **BREAKING.**
+- **Status:** Accepted (Checkpoint 1, 2026-09-24). **BREAKING.**
 - **Date:** 2026-09-24
 - **Trigger:** the project owner (2026-09-24) flagged that the identifier set may have come from a
   cybersquatted hl7.ie website, and asked for the irrelevant ones to be removed.

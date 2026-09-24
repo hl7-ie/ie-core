@@ -91,10 +91,6 @@ Usage: #example
 Title: "Irish Pharmacy – Boots Pharmacy Grafton Street"
 Description: "An example Irish community pharmacy (Boots Pharmacy, Dublin), acting as dispenser."
 
-* identifier[0].system = $CRN
-* identifier[=].value = "IE-PHARM-BTS-001"
-* identifier[+].system = $HPI
-* identifier[=].value = "HPI-IE-ORG-PHARM-001"
 
 * active = true
 * type = http://terminology.hl7.org/CodeSystem/organization-type#prov "Healthcare Provider"
@@ -155,7 +151,7 @@ Description: "An example Irish registered pharmacist dispensing medication in Du
 // ====================================================================
 
 Instance: ie-core-patient-es-maria-garcia
-InstanceOf: IECorePatient
+InstanceOf: IECorePatientEPrescription
 Usage: #example
 Title: "Spanish Patient – María García López (visiting Ireland)"
 Description: "A Spanish patient visiting Ireland. Carries a Spanish CIP identifier and European Health Insurance Card (EHIC). Holds a prescription from a Spanish GP to be dispensed in Ireland."
@@ -175,6 +171,7 @@ Description: "A Spanish patient visiting Ireland. Carries a Spanish CIP identifi
 * name[=].given[+] = "Concepción"
 * name[=].prefix = "Sra."
 * gender = #female
+* insert SexAssignedAtBirth(female, Female)
 * birthDate = "1975-08-22"
 
 * address[0].use = #home
@@ -710,18 +707,16 @@ Description: "Full dispensation of Ramipril 28 capsules from the multi-prescript
 // ====================================================================
 
 Instance: ie-core-patient-ciaran-walsh
-InstanceOf: IECorePatient
+InstanceOf: IECorePatientEPrescription
 Usage: #example
 Title: "Irish Patient – Ciarán Walsh (traveling in Spain)"
 Description: "An Irish patient with a chronic prescription for Amlodipine who is visiting Spain and seeks dispensation at a Spanish pharmacy via MyHealth@EU."
 
-* identifier[IHI].system = $IHI
-* identifier[IHI].type = $V2-0203#NI "National unique individual identifier"
-* identifier[IHI].value = "210000000055667788"
+* identifier[0].system = $IHI
+* identifier[=].type = $V2-0203#NI "National unique individual identifier"
+* identifier[=].value = "210000000055667788"
 
-* identifier[GMS].system = $GMS
-* identifier[GMS].type = $V2-0203#MC "Patient's Medicare number"
-* identifier[GMS].value = "8765432C"
+* insert PCRSIdentifier($GMS, medical-card, Medical card scheme number, MC-0055667)
 
 * active = true
 * name[0].use = #official
@@ -730,6 +725,7 @@ Description: "An Irish patient with a chronic prescription for Amlodipine who is
 * name[=].given[+] = "Seamus"
 * name[=].prefix = "Mr."
 * gender = #male
+* insert SexAssignedAtBirth(male, Male)
 * birthDate = "1968-11-03"
 
 * address[0].use = #home

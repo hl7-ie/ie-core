@@ -7,22 +7,16 @@
 // ====================================================================
 
 Instance: ie-core-patient-example
-InstanceOf: IECorePatient
+InstanceOf: IECorePatientEPrescription
 Usage: #example
 Title: "IE Core Patient Example"
-Description: "An example IE Core Patient representing a male adult living in Dublin with IHI and GMS identifiers."
+Description: "An example IE Core Patient representing a male adult living in Dublin with an IHI and a medical card number; conforms to the HIQA ePrescription patient dataset."
 
-* identifier[IHI].system = $IHI
-* identifier[IHI].type = $V2-0203#NI "National unique individual identifier"
-* identifier[IHI].value = "210000000012345678"
+* identifier[0].system = $IHI
+* identifier[=].type = $V2-0203#NI "National unique individual identifier"
+* identifier[=].value = "210000000012345678"
 
-* identifier[GMS].system = $GMS
-* identifier[GMS].type = $V2-0203#MC "Patient's Medicare number"
-* identifier[GMS].value = "1234567A"
-
-* identifier[MRN].system = $MRN
-* identifier[MRN].type = $V2-0203#MR "Medical record number"
-* identifier[MRN].value = "SJH-2024-001234"
+* insert PCRSIdentifier($GMS, medical-card, Medical card scheme number, MC-0012345)
 
 * active = true
 * name[0].use = #official
@@ -31,6 +25,7 @@ Description: "An example IE Core Patient representing a male adult living in Dub
 * name[=].given[+] = "Patrick"
 * name[=].prefix = "Mr."
 * gender = #male
+* insert SexAssignedAtBirth(male, Male)
 * birthDate = "1978-05-15"
 
 * address[0].use = #home
@@ -73,15 +68,13 @@ Description: "An example IE Core Patient representing a paediatric patient in Co
 * identifier[IHI].type = $V2-0203#NI "National unique individual identifier"
 * identifier[IHI].value = "210000000087654321"
 
-* identifier[IMN].system = $IMN
-* identifier[IMN].type = $V2-0203#NI "National unique individual identifier"
-* identifier[IMN].value = "IMN-2021-098765"
 
 * active = true
 * name[0].use = #official
 * name[=].family = "Kelly"
 * name[=].given = "Aoife"
 * gender = #female
+* insert SexAssignedAtBirth(female, Female)
 * birthDate = "2021-09-23"
 
 * address[0].use = #home
@@ -117,13 +110,11 @@ Usage: #example
 Title: "IE Core Patient Deceased Example"
 Description: "An example IE Core Patient representing a deceased patient from Galway with a deceasedDateTime."
 
-* identifier[IHI].system = $IHI
-* identifier[IHI].type = $V2-0203#NI "National unique individual identifier"
-* identifier[IHI].value = "210000000011223344"
+* identifier[0].system = $IHI
+* identifier[=].type = $V2-0203#NI "National unique individual identifier"
+* identifier[=].value = "210000000011223344"
 
-* identifier[GMS].system = $GMS
-* identifier[GMS].type = $V2-0203#MC "Patient's Medicare number"
-* identifier[GMS].value = "7654321B"
+* insert PCRSIdentifier($GMS, medical-card, Medical card scheme number, MC-0076543)
 
 * active = false
 * name[0].use = #official
@@ -132,6 +123,7 @@ Description: "An example IE Core Patient representing a deceased patient from Ga
 * name[=].given[+] = "Michael"
 * name[=].prefix = "Mr."
 * gender = #male
+* insert SexAssignedAtBirth(male, Male)
 * birthDate = "1945-03-12"
 * deceasedDateTime = "2024-11-15T10:30:00+00:00"
 
@@ -164,9 +156,6 @@ Description: "An example IE Core Practitioner representing a General Practitione
 * identifier[IMC].type = $V2-0203#MD "Medical License number"
 * identifier[IMC].value = "IMC-12345"
 
-* identifier[HPI].system = $HPI
-* identifier[HPI].type = $V2-0203#NPI "National provider identifier"
-* identifier[HPI].value = "HPI-IE-001234"
 
 * active = true
 * name[0].use = #official
@@ -234,11 +223,7 @@ Usage: #example
 Title: "IE Core Organization Example"
 Description: "An example IE Core Organization representing St. James's Hospital, Dublin — a major acute hospital under the HSE."
 
-* identifier[0].system = $CRN
-* identifier[=].value = "IE-SJH-001"
 
-* identifier[+].system = $HPI
-* identifier[=].value = "HPI-IE-ORG-SJH"
 
 * active = true
 * type = http://terminology.hl7.org/CodeSystem/organization-type#prov "Healthcare Provider"

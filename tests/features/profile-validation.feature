@@ -18,16 +18,16 @@ Feature: IE Core Profile Validation
     And the resource should have a gender value
 
   @patient @identifiers
-  Scenario: IE Core Patient IHI identifier format is valid
+  Scenario: IE Core Patient IHI identifier format is valid (HIQA 1.3.1: 18 or 10 digits)
     Given I have the example resource "Patient-ie-core-patient-example.json"
     When I extract identifiers with system "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/ihi"
-    Then each identifier value should match pattern "^[0-9]{18}$"
+    Then each identifier value should match pattern "^([0-9]{18}|[0-9]{10})$"
 
   @patient @identifiers
-  Scenario: IE Core Patient GMS identifier format is valid
+  Scenario: PCRS medical card number is carried as a typed HIQA "other identifier" (ADR-006)
     Given I have the example resource "Patient-ie-core-patient-example.json"
     When I extract identifiers with system "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/gms"
-    Then each identifier value should match pattern "^[0-9]{7}[A-Za-z]$"
+    Then each identifier value should match pattern "^.+$"
 
   @practitioner
   Scenario: IE Core Practitioner example validates against the profile

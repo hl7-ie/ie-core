@@ -33,7 +33,7 @@ Feature: Cross-Border ePrescription Workflow — Seán Murphy (IE) across EU
   Scenario: Seán Murphy IHI has 18-digit format
     Given I have the example resource "Patient-ie-core-patient-sean-murphy.json"
     When I extract identifiers with system "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/ihi"
-    Then each identifier value should match pattern "^[0-9]{18}$"
+    Then each identifier value should match pattern "^([0-9]{18}|[0-9]{10})$"
 
   @crossborder @patient-profile
   Scenario: Seán Murphy eIDAS identifier uses IE country code prefix
@@ -49,12 +49,13 @@ Feature: Cross-Border ePrescription Workflow — Seán Murphy (IE) across EU
     And one identifier should use system "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/imc"
 
   @crossborder @patient-profile
-  Scenario: Grafton Street Medical Practice has CRN identifier
+  Scenario: Grafton Street Medical Practice carries no unsourced identifiers (ADR-006)
     Given I have the example resource "Organization-ie-core-organization-grafton-medical.json"
     Then the resource should have resourceType "Organization"
     And the resource should have an active status
     And the resource should have a name value
-    And one identifier should use system "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/crn"
+    And no identifier should use system "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/crn"
+    And no identifier should use system "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/hpi"
 
   # ──────────────────────────────────────────────────────────────────────
   # ALLERGY — PENICILLIN / AMOXICILLIN (CRITICAL)

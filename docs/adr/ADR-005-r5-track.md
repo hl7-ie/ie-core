@@ -1,6 +1,6 @@
 # ADR-005: R5 track (continue, freeze or drop)
 
-- **Status:** Proposed (Checkpoint 1)
+- **Status:** Accepted (Checkpoint 1, 2026-09-24)
 - **Date:** 2026-09-24
 
 ## Context

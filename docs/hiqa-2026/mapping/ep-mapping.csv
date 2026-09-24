@@ -1,35 +1,35 @@
 hiqa_id,profile,path,ms,status,notes
-1.1.1,IECorePatient,Patient.name.prefix,Y,Aligned,
-1.1.2,IECorePatient,Patient.name.given,Y,Partial,HIQA Mandatory 1..1; IG given is 0..* (name is 1..*)
-1.1.3,IECorePatient,Patient.name.family,Y,Partial,HIQA Mandatory 1..1; IG family is 0..1
-1.1.4,IECorePatient,Patient.name.suffix,Y,Aligned,
-1.2.1,IECorePatient,Patient.address.postalCode,Y,Aligned,Eircode format XXX XXXX per HIQA guidance; no invariant
-1.2.2,IECorePatient,Patient.address.line,Y,Partial,HIQA Mandatory 1..1; IG address and line are 0..*
-1.2.3,IECorePatient,Patient.address.city,Y,Aligned,
-1.2.4,IECorePatient,Patient.address.state,Y,Partial,HIQA Mandatory 1..1; IG 0..1. Dublin postal districts go in 1.2.3 per HIQA; district may also map to Address.district
-1.2.5,IECorePatient,Patient.address.country,Y,Aligned,
-1.2.6,IECorePatient,Patient.address.use,N,Partial,HIQA Mandatory 1..1 (type/purpose incl. temporary accommodation and homelessness); Address.use (home|temp) not MS and has no homelessness value
-1.2.7,IECorePatient,Patient.address.type,N,Aligned,postal|physical|both; Optional in HIQA
-1.3.1,IECorePatient,Patient.identifier:IHI,Y,Partial,invariant ie-pat-1 allows 18 digits only; HIQA says 18 or 10 (H-02)
-1.3.2,IECorePatient,,N,Gap,would sit under Patient.identifier; no PPSN slice; legal basis Requires Clarification (OI-008)
-1.3.3,IECorePatient,Patient.identifier,Y,Aligned,open slicing
-1.3.3.1,IECorePatient,Patient.identifier.type,N,Partial,type not MS on the unsliced identifier
-1.3.3.2,IECorePatient,Patient.identifier.value,N,Partial,value not MS on the unsliced identifier
-1.3.3.3,IECorePatient,Patient.identifier.period,N,Partial,not MS
-1.3.3.4,IECorePatient,Patient.identifier.assigner,N,Partial,not MS; HIQA value is free text (assigner.display)
-1.4.1,IECorePatient,Patient.birthDate,Y,Aligned,birthDate 1..1 inherited from EU Base patient-eu-core; a legal requirement on cross-border prescriptions
-1.4.2,IECoreMedicationRequestEPrescription,,N,Gap,no age element; legal requirement when the patient is under 12 (H-04)
-1.4.2.1,IECoreMedicationRequestEPrescription,,N,Gap,
-1.4.2.2,IECoreMedicationRequestEPrescription,,N,Gap,
-1.4.3,IECorePatient,Patient.gender,Y,Partial,"Patient.gender is administrative gender, not sex assigned at birth (H-01)"
-1.4.4,IECorePatient,Patient.extension:genderIdentity,Y,Partial,cluster modelled as one extension; no 'other gender' code verified
-1.4.4.1,IECorePatient,Patient.extension:genderIdentity.value[x],Y,Partial,binding to ie-core-gender-identity not verified against a HIQA value set (none published)
-1.4.4.2,IECorePatient,Patient.extension:genderIdentity.value[x].text,N,Aligned,
-1.5.1,IECorePatient,Patient.telecom,Y,Aligned,no mobile slice (system=phone & use=mobile)
-1.5.2,IECorePatient,Patient.telecom,Y,Aligned,no email slice
-1.5.3,IECorePatient,Patient.telecom,Y,Aligned,
-1.5.3.1,IECorePatient,Patient.telecom.system,Y,Aligned,
-1.5.3.2,IECorePatient,Patient.telecom.value,Y,Aligned,
+1.1.1,IECorePatientEPrescription,Patient.name.prefix,Y,Aligned,
+1.1.2,IECorePatientEPrescription,Patient.name.given,Y,Aligned,given 1..* in the ePrescription patient
+1.1.3,IECorePatientEPrescription,Patient.name.family,Y,Aligned,family 1..1 in the ePrescription patient
+1.1.4,IECorePatientEPrescription,Patient.name.suffix,Y,Aligned,
+1.2.1,IECorePatientEPrescription,Patient.address.postalCode,Y,Aligned,Eircode format XXX XXXX (guidance only)
+1.2.2,IECorePatientEPrescription,Patient.address.line,Y,Aligned,address 1..* and line 1..*
+1.2.3,IECorePatientEPrescription,Patient.address.city,Y,Aligned,Dublin postal districts go here per HIQA
+1.2.4,IECorePatientEPrescription,Patient.address.state,Y,Aligned,state 1..1; IE county binding (extensible)
+1.2.5,IECorePatientEPrescription,Patient.address.country,Y,Aligned,
+1.2.6,IECorePatientEPrescription,Patient.address.use,Y,Partial,use 1..1 MS; no HL7 code for homelessness (Requires Clarification)
+1.2.7,IECorePatientEPrescription,Patient.address.type,N,Aligned,postal|physical|both
+1.3.1,IECorePatientEPrescription,Patient.identifier:IHI,Y,Aligned,ie-pat-1 accepts 18 or 10 digits; system URI placeholder (OI-003)
+1.3.2,IECorePatientEPrescription,Patient.identifier:PPSN,N,Partial,deliberately NOT MustSupport: legal basis Requires Clarification (OI-008); warning format rule
+1.3.3,IECorePatientEPrescription,Patient.identifier,Y,Aligned,open slicing; PCRS scheme numbers typed with the IE Core PCRS scheme placeholder
+1.3.3.1,IECorePatientEPrescription,Patient.identifier.type,Y,Aligned,
+1.3.3.2,IECorePatientEPrescription,Patient.identifier.value,Y,Aligned,
+1.3.3.3,IECorePatientEPrescription,Patient.identifier.period,Y,Aligned,
+1.3.3.4,IECorePatientEPrescription,Patient.identifier.assigner,Y,Aligned,"assigner.display, e.g. HSE"
+1.4.1,IECorePatientEPrescription,Patient.birthDate,Y,Aligned,birthDate 1..1; a legal requirement cross-border
+1.4.2,IECoreMedicationRequestEPrescription,MedicationRequest.extension:ageAtPrescribing,Y,Aligned,required when under 12 at authoredOn (invariant ie-rx-age-1; resolved within the Bundle)
+1.4.2.1,IECoreMedicationRequestEPrescription,MedicationRequest.extension:ageAtPrescribing.value[x],N,Aligned,Mandatory within the age cluster: valueAge.value 1..1
+1.4.2.2,IECoreMedicationRequestEPrescription,MedicationRequest.extension:ageAtPrescribing.value[x],N,Aligned,Mandatory within the age cluster: valueAge.code 1..1 (UCUM a|mo|d)
+1.4.3,IECorePatientEPrescription,Patient.extension:sexAssignedAtBirth,Y,Aligned,individual-recordedSexOrGender with type LOINC 76689-9 (1..1 MS)
+1.4.4,IECorePatientEPrescription,Patient.extension:gender-identity,Y,Aligned,"individual-genderIdentity (EU Base slice), 0..1 MS"
+1.4.4.1,IECorePatientEPrescription,Patient.extension:gender-identity,Y,Partial,binding to ie-core-gender-identity not yet verified; no 'other gender' code (Phase 7)
+1.4.4.2,IECorePatientEPrescription,Patient.extension:gender-identity,N,Aligned,valueCodeableConcept.text
+1.5.1,IECorePatientEPrescription,Patient.telecom,Y,Aligned,
+1.5.2,IECorePatientEPrescription,Patient.telecom,Y,Aligned,
+1.5.3,IECorePatientEPrescription,Patient.telecom,Y,Aligned,
+1.5.3.1,IECorePatientEPrescription,Patient.telecom.system,Y,Aligned,
+1.5.3.2,IECorePatientEPrescription,Patient.telecom.value,Y,Aligned,
 1.6.1,IECoreMedicationRequestEPrescription,,N,Gap,no 'reason for not recording allergies' (H-03)
 1.6.2,IECoreAllergyIntolerance,AllergyIntolerance,Y,Partial,profile exists but is not linked to the prescription (H-03)
 1.6.2.1,IECoreAllergyIntolerance,AllergyIntolerance.code,Y,Aligned,
@@ -241,10 +241,15 @@ hiqa_id,profile,path,ms,status,notes
 6.10,IECoreMedicationDispenseEDispensation,MedicationDispense.substitution.wasSubstituted,Y,Aligned,
 6.11,IECoreMedicationDispenseEDispensation,MedicationDispense.dosageInstruction,Y,Aligned,
 6.12,IECoreMedicationDispenseEDispensation,MedicationDispense.note,N,Aligned,
-NA-ethnicity,IECorePatient,Patient.extension:ethnicity,Y,Prohibited (violated),not in the EP dataset; currently MustSupport on the prescription subject (C-01). GDPR Art. 9 special-category data
-NA-mothersMaidenName,IECorePatient,Patient.extension:mothersMaidenName,Y,Prohibited (violated),not in the EP dataset; currently MustSupport (C-01)
-NA-nationality,IECorePatient,Patient.extension,N,Prohibited (violated),not in the EP dataset; not constrained (open extension slicing allows patient-nationality)
-NA-maritalStatus,IECorePatient,Patient.maritalStatus,N,Prohibited (violated),not in the EP dataset; allowed (base 0..1)
-NA-religion,IECorePatient,Patient.extension,N,Prohibited (violated),not in the EP dataset; not constrained (patient-religion allowed); GDPR Art. 9
-NA-pronouns,IECorePatient,Patient.extension:personalPronouns,Y,Prohibited (violated),not in the EP dataset; currently MustSupport
-NA-birthPlace,IECorePatient,Patient.extension,N,Prohibited (violated),not in the EP dataset (it is PS 1.4.3)
+NA-ethnicity,IECorePatientEPrescription,Patient.extension:ethnicity,N,Prohibited (enforced),0..0 in the ePrescription patient (ADR-002); GDPR Art. 9
+NA-mothersMaidenName,IECorePatientEPrescription,Patient.extension:mothersMaidenName,N,Prohibited (enforced),0..0 (ADR-002); identity: HZ-06
+NA-nationality,IECorePatientEPrescription,Patient.extension:patient-nationality,N,Prohibited (enforced),0..0 (EU Base slice constrained)
+NA-maritalStatus,IECorePatientEPrescription,Patient.maritalStatus,N,Prohibited (enforced),0..0
+NA-religion,IECorePatientEPrescription,Patient.extension:religion,N,Prohibited (enforced),0..0; GDPR Art. 9
+NA-pronouns,IECorePatientEPrescription,Patient.extension:pronouns,N,Prohibited (enforced),0..0 (EU Base slice constrained)
+NA-birthPlace,IECorePatientEPrescription,Patient.extension:birthPlace,N,Prohibited (enforced),0..0 (EU Base slice constrained)
+NA-citizenship,IECorePatientEPrescription,Patient.extension:patient-citizenship,N,Prohibited (enforced),0..0
+NA-mothersFormerSurname,IECorePatientEPrescription,Patient.extension:mothersFormerSurname,N,Prohibited (enforced),0..0
+NA-countryOfAffiliation,IECorePatientEPrescription,Patient.extension:countryOfAffiliation,N,Prohibited (enforced),0..0
+NA-interpreterRequired,IECorePatientEPrescription,Patient.extension:interpreterRequired,N,Prohibited (enforced),0..0
+NA-contact,IECorePatientEPrescription,Patient.contact,N,Prohibited (enforced),0..0: third-party data; the receiver is on the dispense (EP 6.4)

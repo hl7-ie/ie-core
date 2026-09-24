@@ -53,7 +53,7 @@ Description: "The 26 counties of the Republic of Ireland."
 // ============================================================================
 // 2. IE Core Ethnicity
 // ============================================================================
-ValueSet: IECoreEthnicity
+ValueSet: IECoreEthnicityVS
 Id: ie-core-ethnicity
 Title: "IE Core Ethnicity"
 Description: "Ethnicity categories for use in the Irish health system, based on CSO census categories."
@@ -63,7 +63,7 @@ Description: "Ethnicity categories for use in the Irish health system, based on 
 // ============================================================================
 // 3. IE Core Gender Identity
 // ============================================================================
-ValueSet: IECoreGenderIdentity
+ValueSet: IECoreGenderIdentityVS
 Id: ie-core-gender-identity
 Title: "IE Core Gender Identity"
 Description: "Gender identity concepts for use in the IE Core Implementation Guide."
@@ -94,7 +94,7 @@ Description: "Yes, No, and Unknown answer codes for use in the IE Core Implement
 // ============================================================================
 // 5. IHI Status
 // ============================================================================
-ValueSet: IECoreIHIStatus
+ValueSet: IECoreIHIStatusVS
 Id: ie-core-ihi-status
 Title: "IHI Status"
 Description: "Status values for Individual Health Identifiers (IHI)."
@@ -104,7 +104,7 @@ Description: "Status values for Individual Health Identifiers (IHI)."
 // ============================================================================
 // 6. IHI Record Status
 // ============================================================================
-ValueSet: IECoreIHIRecordStatus
+ValueSet: IECoreIHIRecordStatusVS
 Id: ie-core-ihi-record-status
 Title: "IHI Record Status"
 Description: "Record-level status values for Individual Health Identifier (IHI) records."
@@ -619,7 +619,7 @@ Description: "Category codes for ServiceRequest resources."
 // ============================================================================
 // 41. Medication Adherence
 // ============================================================================
-ValueSet: IECoreMedicationAdherence
+ValueSet: IECoreMedicationAdherenceVS
 Id: ie-core-medication-adherence
 Title: "IE Core Medication Adherence"
 Description: "Codes indicating a patient's medication adherence status."

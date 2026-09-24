@@ -1,6 +1,6 @@
 # ADR-001: HIQA logical models and the mapping approach
 
-- **Status:** Proposed (Checkpoint 1)
+- **Status:** Accepted (Checkpoint 1, 2026-09-24)
 - **Date:** 2026-09-24
 - **Deciders:** Nithin Mohan (IG author)
 - **Related:** baseline finding H-10; Phase 2 commit `40022a4`

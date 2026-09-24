@@ -1,6 +1,6 @@
 # ADR-002: Context-specific demographics and data minimisation
 
-- **Status:** Proposed (Checkpoint 1). **BREAKING.**
+- **Status:** Accepted (Checkpoint 1, 2026-09-24). **BREAKING.**
 - **Date:** 2026-09-24
 - **Related:** baseline C-01, H-01, H-02, H-04, L-01; hazards HZ-01, HZ-02, HZ-04, HZ-06; ADR-006
   (identifiers)

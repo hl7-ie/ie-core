@@ -34,6 +34,14 @@ Description: "Profile for electronic prescriptions in the Irish healthcare syste
 
 * medication[x] 1..1 MS
 * subject 1..1 MS
+* subject only Reference(IECorePatientEPrescription)
+* subject ^comment = "HIQA EP Section 1 Patient Details. The patient profile carries only the HIQA EP dataset (ADR-002)."
+
+// HIQA EP 1.4.2 Age: a legal requirement on the prescription when the patient is under 12
+* extension contains IECorePatientAgeAtPrescribing named ageAtPrescribing 0..1 MS
+* extension[ageAtPrescribing] ^short = "Patient age at prescribing (a legal requirement if under 12)"
+* extension[ageAtPrescribing] ^comment = "HIQA EP 1.4.2 Age (Required 0..1; 1.4.2.1 value and 1.4.2.2 type Mandatory within the cluster). Required when the patient is under 12 at authoredOn (invariant ie-rx-age-1)."
+* obeys ie-rx-age-1
 
 * requester 1..1 MS
 * requester only Reference(IECorePractitioner or IECorePractitionerRole or IECoreOrganization)
@@ -104,6 +112,7 @@ Description: "Profile for electronic dispensation records in the Irish healthcar
 
 * medication[x] 1..1 MS
 * subject 1..1 MS
+* subject only Reference(IECorePatientEPrescription)
 
 * performer 1..* MS
 * performer.actor MS
@@ -179,3 +188,9 @@ Description: "Indicates that the prescriber has knowingly prescribed the medicat
 
 * extension[reason].value[x] only CodeableConcept or string
 * extension[reason] ^short = "Reason or clarification for the off-label use"
+
+
+Invariant: ie-rx-age-1
+Description: "If the patient is under 12 years old at the date of prescribing, the patient's age SHALL be recorded on the prescription (HIQA EP 1.4.2; a legal requirement in Ireland)"
+Expression: "subject.resolve().ofType(Patient).birthDate.empty() or authoredOn.empty() or (subject.resolve().ofType(Patient).birthDate <= (authoredOn.toString().substring(0,10).toDate() - 12 years)) or extension('https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient-age-at-prescribing').exists()"
+Severity: #error

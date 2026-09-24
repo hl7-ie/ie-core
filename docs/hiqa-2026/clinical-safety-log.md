@@ -17,7 +17,7 @@ been reviewed by a clinical safety officer.
 
 ## HZ-01. Sex assigned at birth not reliably available to the dispenser
 
-- **Status:** Open. Identified in the Phase 1 baseline (H-01).
+- **Status:** Mitigated (Phase 4). `extension[sexAssignedAtBirth]` is 1..1 MS in both use-case patient profiles. Identified in the Phase 1 baseline (H-01).
 - **Hazard:** a dose or appropriateness check uses the wrong sex.
 - **Cause:** `IECorePatient.gender` (administrative gender) is the only sex/gender element. There is
   no separate "sex assigned at birth" (HIQA EP 1.4.3 / PS 1.4.4, Mandatory).
@@ -32,7 +32,7 @@ been reviewed by a clinical safety officer.
 
 ## HZ-02. Valid 10-digit IHI rejected, causing a fallback to demographic matching
 
-- **Status:** Open (H-02, OI-002).
+- **Status:** Mitigated (Phase 4): `ie-pat-1` accepts 18 or 10 digits. OI-002 is still open for the check-digit rule (H-02).
 - **Hazard:** the patient is misidentified at the pharmacy, or the prescription is attached to the
   wrong record.
 - **Cause:** invariant `ie-pat-1` accepts only 18 digits. HIQA EP/PS 1.3.1 allow 18 or 10.
@@ -55,7 +55,7 @@ been reviewed by a clinical safety officer.
 
 ## HZ-04. Paediatric age missing on prescriptions for children under 12
 
-- **Status:** Open (H-04).
+- **Status:** Partly mitigated (Phase 4): `IECorePatientAgeAtPrescribing` + invariant `ie-rx-age-1` on the prescription (resolves the subject within the Bundle). The Bundle-level enforcement lands in Phase 5 (H-04).
 - **Hazard:** a paediatric dosing error.
 - **Cause:** there is no age element or rule. HIQA EP 1.4.2 says age is a legal requirement when
   the patient is under 12.
@@ -78,7 +78,7 @@ been reviewed by a clinical safety officer.
 
 ## HZ-06. Identity matching after removing mother's maiden name from prescriptions
 
-- **Status:** Anticipated (created by the ADR-002 recommendation).
+- **Status:** Accepted residual risk (Phase 4): mother's maiden name is 0..0 in `IECorePatientEPrescription`.
 - **Hazard:** misidentification when no IHI is present.
 - **Cause:** mother's maiden name is a traditional disambiguator. HIQA EP does not include it, so it
   will be prohibited in the ePrescription profile.

@@ -78,6 +78,11 @@ Then('one identifier should use system {string}', function (system) {
   expect(found, `No identifier with system "${system}" found`).to.be.true;
 });
 
+Then('no identifier should use system {string}', function (system) {
+  const ids = this.resource.identifier || [];
+  expect(ids.some(id => id.system === system), `Unexpected identifier with system "${system}"`).to.be.false;
+});
+
 Then('at least one identifier should exist', function () {
   expect(this.identifiers).to.be.an('array').with.length.greaterThan(0);
 });

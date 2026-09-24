@@ -6,7 +6,7 @@ Profile: IECoreOrganization
 Parent: $EUOrganizationCore
 Id: ie-core-organization
 Title: "IE Core Organization"
-Description: "The IE Core Organization Profile is based upon the core FHIR Organization Resource and defines the minimum set of data required to query and retrieve organization information within the Irish healthcare system. It includes identifier slicing for the Company Registration Number (CRN) and Health Provider Index (HPI)."
+Description: "The IE Core Organization Profile is based upon the core FHIR Organization Resource and defines the minimum set of data required to query and retrieve organization information within the Irish healthcare system. Identifier slicing for HIQA-sourced facility identifiers is defined in the use-case context (HIQA EP/PS 2.8, 2.12)."
 
 // ── Identifier Slicing ──────────────────────────────────────────────────
 * identifier MS
@@ -14,28 +14,6 @@ Description: "The IE Core Organization Profile is based upon the core FHIR Organ
 * identifier ^slicing.discriminator.path = "system"
 * identifier ^slicing.rules = #open
 * identifier ^short = "Identifies this organization across multiple systems"
-* identifier contains
-    CRN 0..1 MS and
-    HPI 0..1 MS
-
-// CRN – Company Registration Number (CRO)
-* identifier[CRN] ^short = "Company Registration Number (CRN)"
-* identifier[CRN] ^definition = "The Company Registration Number assigned by the Companies Registration Office (CRO) in Ireland."
-* identifier[CRN].system 1..1 MS
-* identifier[CRN].system = $CRN
-* identifier[CRN].type = $V2-0203#TAX "Tax ID number"
-* identifier[CRN].value 1..1 MS
-* identifier[CRN].value ^short = "CRN value"
-
-// HPI – Health Provider Index
-* identifier[HPI] ^short = "Health Provider Index (HPI) Number"
-* identifier[HPI] ^definition = "The Health Provider Index number assigned to the organization. The HPI is the national identifier for healthcare organizations in Ireland."
-* identifier[HPI].system 1..1 MS
-* identifier[HPI].system = $HPI
-* identifier[HPI].type = $V2-0203#NPI "National provider identifier"
-* identifier[HPI].value 1..1 MS
-* identifier[HPI].value ^short = "HPI number"
-
 // ── Active ──────────────────────────────────────────────────────────────
 * active MS
 * active ^short = "Whether the organization's record is still in active use"

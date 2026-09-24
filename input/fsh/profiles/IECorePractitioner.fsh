@@ -6,7 +6,7 @@ Profile: IECorePractitioner
 Parent: $EUPractitionerCore
 Id: ie-core-practitioner
 Title: "IE Core Practitioner"
-Description: "The IE Core Practitioner Profile is based upon the core FHIR Practitioner Resource and defines the minimum set of data required to query and retrieve practitioner demographic information within the Irish healthcare system. It includes identifier slicing for the Health Practitioner Index (HPI) and Irish Medical Council (IMC) registration numbers."
+Description: "The IE Core Practitioner Profile is based upon the core FHIR Practitioner Resource and defines the minimum set of data required to query and retrieve practitioner demographic information within the Irish healthcare system. It includes identifier slicing for professional registration numbers (HIQA EP/PS 2.6)."
 
 // ── Identifier Slicing ──────────────────────────────────────────────────
 * identifier MS
@@ -15,17 +15,7 @@ Description: "The IE Core Practitioner Profile is based upon the core FHIR Pract
 * identifier ^slicing.rules = #open
 * identifier ^short = "An identifier for the practitioner"
 * identifier contains
-    HPI 0..1 MS and
     IMC 0..1 MS
-
-// HPI – Health Practitioner Index
-* identifier[HPI] ^short = "Health Practitioner Index (HPI) Number"
-* identifier[HPI] ^definition = "The Health Practitioner Index number assigned to the practitioner. The HPI is the national identifier for healthcare practitioners in Ireland."
-* identifier[HPI].system 1..1 MS
-* identifier[HPI].system = $HPI
-* identifier[HPI].type = $V2-0203#NPI "National provider identifier"
-* identifier[HPI].value 1..1 MS
-* identifier[HPI].value ^short = "HPI number"
 
 // IMC – Irish Medical Council Registration
 * identifier[IMC] ^short = "Irish Medical Council (IMC) Registration Number"
