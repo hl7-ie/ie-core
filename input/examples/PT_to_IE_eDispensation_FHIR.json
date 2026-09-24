@@ -11,10 +11,25 @@
         "resourceType": "Patient",
         "id": "patient-sean-murphy-pt",
         "identifier": [
-          {"system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "value": "IE/PT/1234567T"},
-          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/ihi", "value": "210000000099887766"}
+          {
+            "system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier",
+            "value": "IE/PT/1234567T"
+          },
+          {
+            "system": "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/ihi",
+            "value": "210000000099887766"
+          }
         ],
-        "name": [{"use": "official", "family": "Murphy", "given": ["Seán", "Patrick"]}],
+        "name": [
+          {
+            "use": "official",
+            "family": "Murphy",
+            "given": [
+              "Seán",
+              "Patrick"
+            ]
+          }
+        ],
         "gender": "male",
         "birthDate": "1975-03-15"
       }
@@ -24,21 +39,53 @@
       "resource": {
         "resourceType": "MedicationDispense",
         "id": "pt-dispense-sertraline",
-        "identifier": [{"system": "http://www.infarmed.pt/fhir/sid/dispensacao", "value": "PT-DISP-2025-XB-001-SER"}],
+        "identifier": [
+          {
+            "system": "http://example.org/fhir/sid/pt/dispensacao",
+            "value": "PT-DISP-2025-XB-001-SER"
+          }
+        ],
         "status": "completed",
         "medicationCodeableConcept": {
           "coding": [
-            {"system": "http://snomed.info/sct", "code": "372594008", "display": "Sertraline"},
-            {"system": "http://www.infarmed.pt", "code": "INF-00012345", "display": "Sertralina 50mg Comprimidos"}
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372594008",
+              "display": "Sertraline"
+            }
           ],
           "text": "Sertralina 50mg Comprimidos (INFARMED: INF-00012345)"
         },
-        "subject": {"reference": "urn:uuid:patient-sean-murphy-pt"},
-        "authorizingPrescription": [{"identifier": {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-PT-001"}}],
-        "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "DF", "display": "Daily Fill"}]},
-        "quantity": {"value": 28, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"},
+        "subject": {
+          "reference": "urn:uuid:patient-sean-murphy-pt"
+        },
+        "authorizingPrescription": [
+          {
+            "identifier": {
+              "system": "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/neps",
+              "value": "PCRS-RX-2025-IE-PT-001"
+            }
+          }
+        ],
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "DF",
+              "display": "Daily Fill"
+            }
+          ]
+        },
+        "quantity": {
+          "value": 28,
+          "unit": "tablets",
+          "system": "http://unitsofmeasure.org",
+          "code": "{tablet}"
+        },
         "whenHandedOver": "2025-06-20T10:30:00+01:00",
-        "substitution": {"wasSubstituted": false}
+        "substitution": {
+          "wasSubstituted": false
+        }
       }
     },
     {
@@ -46,23 +93,61 @@
       "resource": {
         "resourceType": "MedicationDispense",
         "id": "pt-dispense-omeprazole",
-        "identifier": [{"system": "http://www.infarmed.pt/fhir/sid/dispensacao", "value": "PT-DISP-2025-XB-001-OME"}],
+        "identifier": [
+          {
+            "system": "http://example.org/fhir/sid/pt/dispensacao",
+            "value": "PT-DISP-2025-XB-001-OME"
+          }
+        ],
         "status": "completed",
         "medicationCodeableConcept": {
           "coding": [
-            {"system": "http://snomed.info/sct", "code": "317291008", "display": "Omeprazole 20 mg oral capsule"},
-            {"system": "http://www.infarmed.pt", "code": "INF-00056789", "display": "Omeprazol 20mg Cápsulas"}
+            {
+              "system": "http://snomed.info/sct",
+              "code": "317291008",
+              "display": "Omeprazole 20 mg oral capsule"
+            }
           ],
           "text": "Omeprazol 20mg Cápsulas (INFARMED: INF-00056789)"
         },
-        "subject": {"reference": "urn:uuid:patient-sean-murphy-pt"},
-        "authorizingPrescription": [{"identifier": {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-PT-002"}}],
-        "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "DF", "display": "Daily Fill"}]},
-        "quantity": {"value": 28, "unit": "capsules", "system": "http://unitsofmeasure.org", "code": "{capsule}"},
+        "subject": {
+          "reference": "urn:uuid:patient-sean-murphy-pt"
+        },
+        "authorizingPrescription": [
+          {
+            "identifier": {
+              "system": "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/neps",
+              "value": "PCRS-RX-2025-IE-PT-002"
+            }
+          }
+        ],
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "DF",
+              "display": "Daily Fill"
+            }
+          ]
+        },
+        "quantity": {
+          "value": 28,
+          "unit": "capsules",
+          "system": "http://unitsofmeasure.org",
+          "code": "{capsule}"
+        },
         "whenHandedOver": "2025-06-20T10:30:00+01:00",
         "substitution": {
           "wasSubstituted": true,
-          "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-substanceAdminSubstitution", "code": "G", "display": "Generic composition"}]}
+          "type": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-substanceAdminSubstitution",
+                "code": "G",
+                "display": "Generic composition"
+              }
+            ]
+          }
         }
       }
     }

@@ -122,3 +122,18 @@ been reviewed by a clinical safety officer.
   unknown or inactive code.
 - **Residual:** Low for the explicit codes. The intensional SNOMED CT Irish-edition ValueSets can only
   be checked against the HSE CTS (OI-004).
+
+## HZ-10. Payload content taught implementers wrong identifiers and codes
+
+- **Status:** Mitigated (Phase 8).
+- **Hazard:** an implementer copies a sample payload and sends a prescription with an identifier
+  system nobody recognises (`hl7.hse.ie`, invented national systems), an invented "cross-border" tag, or
+  a code with the wrong meaning (hypercholesterolaemia coded as ICD-10 E78.5 *Hyperlipidaemia,
+  unspecified*), so the receiving system cannot match the patient, the prescription or the condition.
+- **Mitigation:** `scripts/audit/remediate_payloads.py` moves every payload to the IE Core canonical,
+  the NePS prescription identifier, `urn:uuid` document and dispense identifiers and `example.org`
+  for other countries' systems; removes invented national product codes (SNOMED CT/ATC kept) and the
+  invented tag; moves CDA OIDs to the HL7 example arc (OI-020); E78.5 corrected to E78.0 *Pure
+  hypercholesterolaemia*. All IG examples validate with codes checked on tx.fhir.org (145/145).
+- **Residual:** Low. The legacy JSON payloads are illustrative and are not validated against the
+  IE Core profiles; the eight HIQA scenario Bundles are the conformant references.

@@ -2,7 +2,9 @@
   "resourceType": "Bundle",
   "id": "ie-bundle-scenario5-es-to-ie-crossborder",
   "meta": {
-    "profile": ["http://hl7.org/fhir/StructureDefinition/Bundle"]
+    "profile": [
+      "http://hl7.org/fhir/StructureDefinition/Bundle"
+    ]
   },
   "type": "collection",
   "timestamp": "2024-08-12T14:15:00+01:00",
@@ -14,38 +16,97 @@
         "resourceType": "Patient",
         "id": "patient-maria-garcia",
         "meta": {
-          "profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-patient"]
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient-eprescription"
+          ]
         },
         "identifier": [
           {
-            "system": "http://www.mscbs.gob.es/fhir/sid/cip",
-            "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v2-0203", "code": "NI", "display": "National unique individual identifier"}]},
+            "system": "http://example.org/fhir/sid/es/cip",
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NI",
+                  "display": "National unique individual identifier"
+                }
+              ]
+            },
             "value": "ES280000000000000012"
           },
           {
             "system": "urn:oid:1.3.6.1.4.1.36764",
-            "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v2-0203", "code": "PN", "display": "Person number"}]},
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "PN",
+                  "display": "Person number"
+                }
+              ]
+            },
             "value": "ES-28-12345678X"
           }
         ],
         "active": true,
-        "name": [{"use": "official", "family": "García López", "given": ["María", "Concepción"], "prefix": ["Sra."]}],
+        "name": [
+          {
+            "use": "official",
+            "family": "García López",
+            "given": [
+              "María",
+              "Concepción"
+            ],
+            "prefix": [
+              "Sra."
+            ]
+          }
+        ],
         "gender": "female",
         "birthDate": "1975-08-22",
         "address": [
           {
             "use": "home",
-            "line": ["Calle Gran Vía 45, 2º A"],
+            "line": [
+              "Calle Gran Vía 45, 2º A"
+            ],
             "city": "Madrid",
             "state": "Madrid",
             "postalCode": "28013",
             "country": "ES"
           }
         ],
-        "telecom": [{"system": "phone", "value": "+34 91 555 1234", "use": "home"}],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+34 91 555 1234",
+            "use": "home"
+          }
+        ],
         "communication": [
-          {"language": {"coding": [{"system": "urn:ietf:bcp:47", "code": "es", "display": "Spanish"}]}, "preferred": true},
-          {"language": {"coding": [{"system": "urn:ietf:bcp:47", "code": "en", "display": "English"}]}}
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "es",
+                  "display": "Spanish"
+                }
+              ]
+            },
+            "preferred": true
+          },
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "en",
+                  "display": "English"
+                }
+              ]
+            }
+          }
         ]
       }
     },
@@ -54,11 +115,36 @@
       "resource": {
         "resourceType": "Practitioner",
         "id": "practitioner-es-martinez",
-        "identifier": [{"system": "http://www.mscbs.gob.es/fhir/sid/colegiadoMedico", "value": "ES-COL-28-001234"}],
+        "identifier": [
+          {
+            "system": "http://example.org/fhir/sid/es/colegiadoMedico",
+            "value": "ES-COL-28-001234"
+          }
+        ],
         "active": true,
-        "name": [{"use": "official", "family": "Martínez Ruiz", "given": ["Alejandro"], "prefix": ["Dr."]}],
+        "name": [
+          {
+            "use": "official",
+            "family": "Martínez Ruiz",
+            "given": [
+              "Alejandro"
+            ],
+            "prefix": [
+              "Dr."
+            ]
+          }
+        ],
         "gender": "male",
-        "address": [{"use": "work", "line": ["Calle Serrano 12"], "city": "Madrid", "country": "ES"}]
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "Calle Serrano 12"
+            ],
+            "city": "Madrid",
+            "country": "ES"
+          }
+        ]
       }
     },
     {
@@ -66,10 +152,25 @@
       "resource": {
         "resourceType": "Organization",
         "id": "org-es-cs-aguilas",
-        "identifier": [{"system": "http://www.mscbs.gob.es/fhir/sid/centroSanitario", "value": "ES-CS-28-001234"}],
+        "identifier": [
+          {
+            "system": "http://example.org/fhir/sid/es/centroSanitario",
+            "value": "ES-CS-28-001234"
+          }
+        ],
         "active": true,
         "name": "Centro de Salud Las Águilas",
-        "address": [{"use": "work", "line": ["Calle Serrano 12"], "city": "Madrid", "postalCode": "28006", "country": "ES"}]
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "Calle Serrano 12"
+            ],
+            "city": "Madrid",
+            "postalCode": "28006",
+            "country": "ES"
+          }
+        ]
       }
     },
     {
@@ -77,10 +178,30 @@
       "resource": {
         "resourceType": "Practitioner",
         "id": "pharmacist-niamh-brennan",
-        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-practitioner"]},
-        "identifier": [{"system": "http://hl7.hse.ie/fhir/ie/core/sid/psi", "value": "PSI-54321"}],
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/psi",
+            "value": "PSI-54321"
+          }
+        ],
         "active": true,
-        "name": [{"use": "official", "family": "Brennan", "given": ["Niamh"], "prefix": ["Ms."]}],
+        "name": [
+          {
+            "use": "official",
+            "family": "Brennan",
+            "given": [
+              "Niamh"
+            ],
+            "prefix": [
+              "Ms."
+            ]
+          }
+        ],
         "gender": "female"
       }
     },
@@ -89,11 +210,24 @@
       "resource": {
         "resourceType": "Organization",
         "id": "org-ie-pharmacy-boots",
-        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-organization"]},
-        "identifier": [{"system": "http://hl7.hse.ie/fhir/ie/core/sid/crn", "value": "IE-PHARM-BTS-001"}],
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-organization"
+          ]
+        },
         "active": true,
         "name": "Boots Pharmacy – Grafton Street",
-        "address": [{"use": "work", "line": ["14 Grafton Street"], "city": "Dublin", "postalCode": "D02 HH74", "country": "IE"}]
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "14 Grafton Street"
+            ],
+            "city": "Dublin",
+            "postalCode": "D02 HH74",
+            "country": "IE"
+          }
+        ]
       }
     },
     {
@@ -101,19 +235,54 @@
       "resource": {
         "resourceType": "Medication",
         "id": "medication-amlodipine-5",
-        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"]},
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
         "code": {
-          "coding": [{"system": "http://snomed.info/sct", "code": "386864001", "display": "Amlodipine"}],
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "386864001",
+              "display": "Amlodipine"
+            }
+          ],
           "text": "Amlodipine 5mg tablets"
         },
-        "form": {"coding": [{"system": "http://snomed.info/sct", "code": "385055001", "display": "Tablet"}]},
+        "form": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "385055001",
+              "display": "Tablet"
+            }
+          ]
+        },
         "ingredient": [
           {
-            "itemCodeableConcept": {"coding": [{"system": "http://snomed.info/sct", "code": "386864001"}]},
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "386864001"
+                }
+              ]
+            },
             "isActive": true,
             "strength": {
-              "numerator": {"value": 5, "unit": "mg", "system": "http://unitsofmeasure.org", "code": "mg"},
-              "denominator": {"value": 1, "unit": "tablet", "system": "http://unitsofmeasure.org", "code": "{tablet}"}
+              "numerator": {
+                "value": 5,
+                "unit": "mg",
+                "system": "http://unitsofmeasure.org",
+                "code": "mg"
+              },
+              "denominator": {
+                "value": 1,
+                "unit": "tablet",
+                "system": "http://unitsofmeasure.org",
+                "code": "{tablet}"
+              }
             }
           }
         ]
@@ -124,34 +293,109 @@
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "prescription-es-to-ie",
-        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription"]},
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription"
+          ]
+        },
         "identifier": [
-          {"system": "http://www.mscbs.gob.es/fhir/sid/recetaElectronica", "value": "ES-RX-2024-28-987654321"},
-          {"system": "urn:oid:2.16.840.1.113883.2.16.1.4.1", "value": "ES-EHIC-XB-2024-005001"}
+          {
+            "system": "http://example.org/fhir/sid/es/recetaElectronica",
+            "value": "ES-RX-2024-28-987654321"
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.19.1.4.1",
+            "value": "ES-EHIC-XB-2024-005001"
+          }
         ],
         "status": "active",
         "intent": "order",
-        "category": [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category", "code": "community"}]}],
-        "medicationReference": {"reference": "urn:uuid:medication-amlodipine-5"},
-        "subject": {"reference": "urn:uuid:patient-maria-garcia", "display": "María García López"},
-        "requester": {"reference": "urn:uuid:practitioner-es-martinez", "display": "Dr. Alejandro Martínez Ruiz"},
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "community"
+              }
+            ]
+          }
+        ],
+        "medicationReference": {
+          "reference": "urn:uuid:medication-amlodipine-5"
+        },
+        "subject": {
+          "reference": "urn:uuid:patient-maria-garcia",
+          "display": "María García López"
+        },
+        "requester": {
+          "reference": "urn:uuid:practitioner-es-martinez",
+          "display": "Dr. Alejandro Martínez Ruiz"
+        },
         "authoredOn": "2024-08-01",
-        "reasonCode": [{"coding": [{"system": "http://snomed.info/sct", "code": "38341003", "display": "Hypertensive disorder"}]}],
+        "reasonCode": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "38341003",
+                "display": "Hypertensive disorder"
+              }
+            ]
+          }
+        ],
         "dosageInstruction": [
           {
             "text": "Take one 5mg tablet once daily (Tomar un comprimido de 5mg una vez al día)",
-            "timing": {"repeat": {"frequency": 1, "period": 1, "periodUnit": "d"}},
-            "route": {"coding": [{"system": "http://snomed.info/sct", "code": "26643006", "display": "Oral route"}]},
-            "doseAndRate": [{"doseQuantity": {"value": 5, "unit": "mg", "system": "http://unitsofmeasure.org", "code": "mg"}}]
+            "timing": {
+              "repeat": {
+                "frequency": 1,
+                "period": 1,
+                "periodUnit": "d"
+              }
+            },
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "26643006",
+                  "display": "Oral route"
+                }
+              ]
+            },
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "value": 5,
+                  "unit": "mg",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "mg"
+                }
+              }
+            ]
           }
         ],
         "dispenseRequest": {
-          "validityPeriod": {"start": "2024-08-01", "end": "2024-11-01"},
+          "validityPeriod": {
+            "start": "2024-08-01",
+            "end": "2024-11-01"
+          },
           "numberOfRepeatsAllowed": 2,
-          "quantity": {"value": 30, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"},
-          "expectedSupplyDuration": {"value": 30, "unit": "days", "system": "http://unitsofmeasure.org", "code": "d"}
+          "quantity": {
+            "value": 30,
+            "unit": "tablets",
+            "system": "http://unitsofmeasure.org",
+            "code": "{tablet}"
+          },
+          "expectedSupplyDuration": {
+            "value": 30,
+            "unit": "days",
+            "system": "http://unitsofmeasure.org",
+            "code": "d"
+          }
         },
-        "substitution": {"allowedBoolean": true}
+        "substitution": {
+          "allowedBoolean": true
+        }
       }
     },
     {
@@ -159,26 +403,86 @@
       "resource": {
         "resourceType": "MedicationDispense",
         "id": "dispense-ie-pharmacy",
-        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationdispense-edispensation"]},
-        "identifier": [{"system": "http://hl7.hse.ie/fhir/ie/core/sid/dispense-id", "value": "DISP-IE-2024-XB-005001"}],
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medicationdispense-edispensation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:fc89989d-0cae-5d3c-92e7-98c702b93dbe"
+          }
+        ],
         "status": "completed",
-        "medicationReference": {"reference": "urn:uuid:medication-amlodipine-5"},
-        "subject": {"reference": "urn:uuid:patient-maria-garcia", "display": "María García López"},
-        "performer": [{"actor": {"reference": "urn:uuid:pharmacist-niamh-brennan", "display": "Niamh Brennan"}}],
-        "authorizingPrescription": [{"reference": "urn:uuid:prescription-es-to-ie", "display": "ES-RX-2024-28-987654321"}],
-        "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "DF", "display": "Daily Fill"}]},
-        "quantity": {"value": 30, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"},
-        "daysSupply": {"value": 30, "unit": "days", "system": "http://unitsofmeasure.org", "code": "d"},
+        "medicationReference": {
+          "reference": "urn:uuid:medication-amlodipine-5"
+        },
+        "subject": {
+          "reference": "urn:uuid:patient-maria-garcia",
+          "display": "María García López"
+        },
+        "performer": [
+          {
+            "actor": {
+              "reference": "urn:uuid:pharmacist-niamh-brennan",
+              "display": "Niamh Brennan"
+            }
+          }
+        ],
+        "authorizingPrescription": [
+          {
+            "reference": "urn:uuid:prescription-es-to-ie",
+            "display": "ES-RX-2024-28-987654321"
+          }
+        ],
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "DF",
+              "display": "Daily Fill"
+            }
+          ]
+        },
+        "quantity": {
+          "value": 30,
+          "unit": "tablets",
+          "system": "http://unitsofmeasure.org",
+          "code": "{tablet}"
+        },
+        "daysSupply": {
+          "value": 30,
+          "unit": "days",
+          "system": "http://unitsofmeasure.org",
+          "code": "d"
+        },
         "whenPrepared": "2024-08-12T14:00:00+01:00",
         "whenHandedOver": "2024-08-12T14:15:00+01:00",
         "dosageInstruction": [
           {
             "text": "Take one 5mg tablet once daily",
-            "timing": {"repeat": {"frequency": 1, "period": 1, "periodUnit": "d"}},
-            "route": {"coding": [{"system": "http://snomed.info/sct", "code": "26643006", "display": "Oral route"}]}
+            "timing": {
+              "repeat": {
+                "frequency": 1,
+                "period": 1,
+                "periodUnit": "d"
+              }
+            },
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "26643006",
+                  "display": "Oral route"
+                }
+              ]
+            }
           }
         ],
-        "substitution": {"wasSubstituted": false}
+        "substitution": {
+          "wasSubstituted": false
+        }
       }
     }
   ]

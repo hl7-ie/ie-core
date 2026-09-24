@@ -170,7 +170,7 @@ Description: "Type 2 Diabetes Mellitus (ICD-10: E11 / SNOMED: 44054006). Active 
 * clinicalStatus = http://terminology.hl7.org/CodeSystem/condition-clinical#active
 * verificationStatus = http://terminology.hl7.org/CodeSystem/condition-ver-status#confirmed
 * category = http://terminology.hl7.org/CodeSystem/condition-category#problem-list-item
-* severity = $SCT#6736007 "Moderate"
+* severity = $SCT#6736007 "Moderate severity"
 * code.coding[0].system = $SCT
 * code.coding[=].code = #44054006
 * code.coding[=].display = "Type 2 diabetes mellitus"
@@ -208,7 +208,7 @@ Instance: ie-core-condition-hypercholesterolaemia-murphy
 InstanceOf: IECoreConditionProblemsHealthConcerns
 Usage: #example
 Title: "Condition – Hypercholesterolaemia (Seán Murphy)"
-Description: "Hypercholesterolaemia (ICD-10: E78.5 / SNOMED: 13644009). Active since 2020. Managed with Atorvastatin 20mg."
+Description: "Hypercholesterolaemia (ICD-10: E78.0 / SNOMED: 13644009). Active since 2020. Managed with Atorvastatin 20mg."
 
 * clinicalStatus = http://terminology.hl7.org/CodeSystem/condition-clinical#active
 * verificationStatus = http://terminology.hl7.org/CodeSystem/condition-ver-status#confirmed
@@ -217,8 +217,8 @@ Description: "Hypercholesterolaemia (ICD-10: E78.5 / SNOMED: 13644009). Active s
 * code.coding[=].code = #13644009
 * code.coding[=].display = "Hypercholesterolemia"
 * code.coding[+].system = "http://hl7.org/fhir/sid/icd-10"
-* code.coding[=].code = #E78.5
-* code.coding[=].display = "Hypercholesterolaemia"
+* code.coding[=].code = #E78.0
+* code.coding[=].display = "Pure hypercholesterolaemia"
 * code.text = "Hypercholesterolaemia"
 * subject = Reference(ie-core-patient-sean-murphy) "Seán Murphy"
 * onsetDateTime = "2020-01-15"

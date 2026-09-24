@@ -11,7 +11,7 @@ Branch: `feat/hiqa-2026-alignment-c8ff80`. One commit per phase (Conventional Co
 | 5 | ePrescription / eDispensation | ✅ done | EU MPD parents; Bundle, allergy List, signature Provenance; 14 invariants; registration/facility/GLN identifiers; EP Mandatory aligned 40/54 |
 | 6 | Patient Summary | ✅ done | EPS parent; PS Bundle; clinical MS; PS Mandatory aligned 46/68 |
 | 7 | Terminology | ✅ done | ADR-007: 277 codes verified on tx.fhir.org (0 invalid); 37 wrong-meaning, 13 non-existent, 6 inactive codes and 6 dangling bindings fixed; CSO ethnicity v1.0; validator QA 30 errors (main 48) |
-| 8 | Examples, tests, payloads | ⏸ | |
+| 8 | Examples, tests, payloads | ✅ done | 8 HIQA scenario Bundles (52 resources, `HIQAScenarios.fsh`); payload/CDA/Postman remediation; `hiqa-eprescription`, `hiqa-patient-summary`, `data-minimisation` features (FHIRPath on the real invariants, negative cases); EP guard script; validator 145/145 examples pass with tx.fhir.org; BDD 168/168; quality 543/543; 309 codes verified |
 | 9 | Pages, R5, CI | ⏸ | |
 | 10 | Independent review | ⏸ | **⛔ CHECKPOINT 2** |
 | 11 | Consultation feedback and release prep | ⏸ | No tag, push or publish |

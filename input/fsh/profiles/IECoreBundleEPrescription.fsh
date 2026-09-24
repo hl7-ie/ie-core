@@ -131,8 +131,8 @@ Expression: "entry.resource.where((($this is Practitioner) or ($this is Practiti
 Severity: #error
 
 Invariant: ie-bnd-xb-2
-Description: "A cross-border prescription SHALL carry a prescriber signature covering every prescription item (HIQA EP 2.13; a legal requirement)"
-Expression: "entry.where(resource is MedicationRequest).fullUrl.all($this in %resource.entry.resource.ofType(Provenance).where(signature.exists()).target.reference)"
+Description: "A cross-border prescription SHALL carry a prescriber signature covering every prescription item, referenced by fullUrl or by relative reference (HIQA EP 2.13; a legal requirement)"
+Expression: "entry.where(resource is MedicationRequest).all((fullUrl in %resource.entry.resource.ofType(Provenance).where(signature.exists()).target.reference) or (('MedicationRequest/' + resource.id) in %resource.entry.resource.ofType(Provenance).where(signature.exists()).target.reference))"
 Severity: #error
 
 Invariant: ie-list-allergy-1

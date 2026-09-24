@@ -11,10 +11,25 @@
         "resourceType": "Patient",
         "id": "patient-sean-murphy-lv",
         "identifier": [
-          {"system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "value": "IE/LV/1234567T"},
-          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/ihi", "value": "210000000099887766"}
+          {
+            "system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier",
+            "value": "IE/LV/1234567T"
+          },
+          {
+            "system": "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/ihi",
+            "value": "210000000099887766"
+          }
         ],
-        "name": [{"use": "official", "family": "Murphy", "given": ["Seán", "Patrick"]}],
+        "name": [
+          {
+            "use": "official",
+            "family": "Murphy",
+            "given": [
+              "Seán",
+              "Patrick"
+            ]
+          }
+        ],
         "gender": "male",
         "birthDate": "1975-03-15"
       }
@@ -24,24 +39,67 @@
       "resource": {
         "resourceType": "MedicationDispense",
         "id": "lv-dispense-metformin",
-        "identifier": [{"system": "http://www.zva.gov.lv/fhir/sid/dispensation", "value": "LV-DISP-2025-XB-001-MET"}],
+        "identifier": [
+          {
+            "system": "http://example.org/fhir/sid/lv/dispensation",
+            "value": "LV-DISP-2025-XB-001-MET"
+          }
+        ],
         "status": "completed",
         "medicationCodeableConcept": {
           "coding": [
-            {"system": "http://snomed.info/sct", "code": "372567009", "display": "Metformin"},
-            {"system": "http://www.zva.gov.lv/zalu-registrs", "code": "ZRA-00098432", "display": "Metformins 500mg tabletes"}
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372567009",
+              "display": "Metformin"
+            }
           ],
           "text": "Metformins 500mg tabletes (ZRA-00098432)"
         },
-        "subject": {"reference": "urn:uuid:patient-sean-murphy-lv"},
-        "authorizingPrescription": [{"identifier": {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-LV-001"}}],
-        "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "DF", "display": "Daily Fill"}]},
-        "quantity": {"value": 60, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"},
-        "daysSupply": {"value": 30, "unit": "days", "system": "http://unitsofmeasure.org", "code": "d"},
+        "subject": {
+          "reference": "urn:uuid:patient-sean-murphy-lv"
+        },
+        "authorizingPrescription": [
+          {
+            "identifier": {
+              "system": "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/neps",
+              "value": "PCRS-RX-2025-IE-LV-001"
+            }
+          }
+        ],
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "DF",
+              "display": "Daily Fill"
+            }
+          ]
+        },
+        "quantity": {
+          "value": 60,
+          "unit": "tablets",
+          "system": "http://unitsofmeasure.org",
+          "code": "{tablet}"
+        },
+        "daysSupply": {
+          "value": 30,
+          "unit": "days",
+          "system": "http://unitsofmeasure.org",
+          "code": "d"
+        },
         "whenHandedOver": "2025-06-15T11:00:00+03:00",
         "substitution": {
           "wasSubstituted": true,
-          "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-substanceAdminSubstitution", "code": "G", "display": "Generic composition"}]}
+          "type": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-substanceAdminSubstitution",
+                "code": "G",
+                "display": "Generic composition"
+              }
+            ]
+          }
         }
       }
     },
@@ -50,23 +108,61 @@
       "resource": {
         "resourceType": "MedicationDispense",
         "id": "lv-dispense-lisinopril",
-        "identifier": [{"system": "http://www.zva.gov.lv/fhir/sid/dispensation", "value": "LV-DISP-2025-XB-001-LIS"}],
+        "identifier": [
+          {
+            "system": "http://example.org/fhir/sid/lv/dispensation",
+            "value": "LV-DISP-2025-XB-001-LIS"
+          }
+        ],
         "status": "completed",
         "medicationCodeableConcept": {
           "coding": [
-            {"system": "http://snomed.info/sct", "code": "386873009", "display": "Lisinopril"},
-            {"system": "http://www.zva.gov.lv/zalu-registrs", "code": "ZRA-00102345", "display": "Lizinoprils 10mg tabletes"}
+            {
+              "system": "http://snomed.info/sct",
+              "code": "386873009",
+              "display": "Lisinopril"
+            }
           ],
           "text": "Lizinoprils 10mg tabletes (ZRA-00102345)"
         },
-        "subject": {"reference": "urn:uuid:patient-sean-murphy-lv"},
-        "authorizingPrescription": [{"identifier": {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-LV-002"}}],
-        "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "DF", "display": "Daily Fill"}]},
-        "quantity": {"value": 28, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"},
+        "subject": {
+          "reference": "urn:uuid:patient-sean-murphy-lv"
+        },
+        "authorizingPrescription": [
+          {
+            "identifier": {
+              "system": "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/neps",
+              "value": "PCRS-RX-2025-IE-LV-002"
+            }
+          }
+        ],
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "DF",
+              "display": "Daily Fill"
+            }
+          ]
+        },
+        "quantity": {
+          "value": 28,
+          "unit": "tablets",
+          "system": "http://unitsofmeasure.org",
+          "code": "{tablet}"
+        },
         "whenHandedOver": "2025-06-15T11:00:00+03:00",
         "substitution": {
           "wasSubstituted": true,
-          "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-substanceAdminSubstitution", "code": "G", "display": "Generic composition"}]}
+          "type": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-substanceAdminSubstitution",
+                "code": "G",
+                "display": "Generic composition"
+              }
+            ]
+          }
         }
       }
     }

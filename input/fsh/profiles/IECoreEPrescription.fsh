@@ -252,7 +252,7 @@ Severity: #error
 
 Invariant: ie-rx-cd-2
 Description: "A prescription for a Schedule 2 or 3 controlled drug SHALL have a validity period ending no later than 14 days after the date of issue (HIQA EP 3.5.9.1; Misuse of Drugs Regulations 2017)"
-Expression: "(medication.ofType(Reference).resolve().extension('https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-classification').value.ofType(CodeableConcept).coding.where(system = 'https://hl7-ie.github.io/ie-core/fhir/ie/core/CodeSystem/ie-core-mda-schedule' and (code = 'schedule-2' or code = 'schedule-3')).exists()) implies (dispenseRequest.validityPeriod.end.exists() and dispenseRequest.validityPeriod.end <= (authoredOn + 14 days))"
+Expression: "(medication.ofType(Reference).resolve().extension('https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-classification').value.ofType(CodeableConcept).coding.where(system = 'https://hl7-ie.github.io/ie-core/fhir/ie/core/CodeSystem/ie-core-mda-schedule' and (code = 'schedule-2' or code = 'schedule-3')).exists()) implies (dispenseRequest.validityPeriod.end.exists() and dispenseRequest.validityPeriod.end.toString().substring(0,10) <= (authoredOn + 14 days).toString().substring(0,10))"
 Severity: #error
 
 Invariant: ie-md-status-1

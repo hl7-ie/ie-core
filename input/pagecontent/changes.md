@@ -50,8 +50,20 @@ repository). The HIQA element IDs are cited as EP x.y / PS x.y.
 - **Ethnicity CodeSystem** now uses the CSO Data Standard for Ethnicity v1.0 (7 Feb 2025) codes
   (10–36, 99). The previous slug codes (`white-irish`, …) are removed.
 
+- **Payload identifiers and codes (Phase 8).** The sample JSON payloads, CDA documents and Postman
+  collection no longer use `http://hl7.hse.ie/...`, invented national identifier systems, invented
+  national product codes, the invented `ehealth.ec.europa.eu/fhir/tag#xt-ehr` tag or the misused
+  `v3-ActCode#PBILLACCT` tag. Prescription identifiers use the NePS system; dispense and document
+  identifiers use `urn:uuid`; CDA OIDs use the HL7 example arc (OI-020). Hypercholesterolaemia is
+  ICD-10 E78.0 (was E78.5, *Hyperlipidaemia, unspecified*).
+
 #### Changed
 
+- `ie-bnd-xb-2` accepts the signature target as the entry `fullUrl` or as a relative reference.
+- `ie-rx-cd-2` compares the validity end and the 14-day limit as dates (a date and a dateTime of
+  different precision previously compared as empty).
+- `tests/validator/run-validation.js` reads the dependencies from `sushi-config.yaml` (it pinned
+  EU Base 0.1.0, IPS 1.1.0 and MPD 0.1.0-ballot) and validates all examples in one validator run.
 - SNOMED CT Irish edition ValueSets now use `system` http://snomed.info/sct with the edition as
   `version`. Previously the edition URI was used as the system, so nothing could match.
 - `$NMPC` example codes live in an explicit placeholder CodeSystem (`IECoreNMPCPlaceholder`), clearly not the NMPC.
@@ -94,6 +106,14 @@ repository). The HIQA element IDs are cited as EP x.y / PS x.y.
 - PPSN identifier slice (EP/PS 1.3.2), deliberately not MustSupport (legal basis Requires Clarification).
 - NamingSystems that openly mark every IG-minted identifier URI as a placeholder.
 - Dependency `hl7.fhir.eu.eps` 1.0.0-ballot (ADR-004).
+- Eight synthetic HIQA scenarios, each as a Bundle: acute adult prescription; paediatric (under 12,
+  age and weight); repeat with a part fill, balance and repeat; Schedule 2 controlled drug with
+  instalments; non-dispensation (declined because of a recorded penicillin allergy); cross-border
+  IE→EU with a prescriber signature; full Patient Summary; Patient Summary with empty sections.
+- Tests: `hiqa-eprescription.feature`, `hiqa-patient-summary.feature` and `data-minimisation.feature`
+  evaluate the IG's own invariants with fhirpath.js, including a broken copy for every rule; the
+  traceability check runs as a test; `scripts/qa/check_ep_data_minimisation.py` fails the build if
+  ePrescription content mentions ethnicity, maiden name, nationality, citizenship, religion or marital status.
 
 ### Version 0.1.1 (May 2026) — XT-EHR 1.0.0 Alignment
 

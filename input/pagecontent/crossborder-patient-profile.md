@@ -33,7 +33,7 @@ See: [AllergyIntolerance – Penicillin (Example)](AllergyIntolerance-ie-core-al
 |-----------|--------|-----------|--------------|
 | Type 2 Diabetes Mellitus | E11 | [44054006](https://browser.ihtsdotools.org/?perspective=full&conceptId1=44054006) | 2018 |
 | Essential Hypertension | I10 | [38341003](https://browser.ihtsdotools.org/?perspective=full&conceptId1=38341003) | 2019 |
-| Hypercholesterolaemia | E78.5 | [13644009](https://browser.ihtsdotools.org/?perspective=full&conceptId1=13644009) | 2020 |
+| Hypercholesterolaemia | E78.0 | [13644009](https://browser.ihtsdotools.org/?perspective=full&conceptId1=13644009) | 2020 |
 
 See examples:
 - [Condition – Type 2 Diabetes](Condition-ie-core-condition-t2dm-murphy.html)

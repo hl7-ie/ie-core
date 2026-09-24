@@ -11,15 +11,46 @@
         "resourceType": "Patient",
         "id": "patient-sean-murphy",
         "identifier": [
-          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/ihi", "value": "210000000099887766"},
-          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pps", "value": "1234567T"},
-          {"system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "value": "IE/LV/1234567T"}
+          {
+            "system": "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/ihi",
+            "value": "210000000099887766"
+          },
+          {
+            "system": "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/pps",
+            "value": "1234567T"
+          },
+          {
+            "system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier",
+            "value": "IE/LV/1234567T"
+          }
         ],
         "active": true,
-        "name": [{"use": "official", "family": "Murphy", "given": ["Seán", "Patrick"], "prefix": ["Mr."]}],
+        "name": [
+          {
+            "use": "official",
+            "family": "Murphy",
+            "given": [
+              "Seán",
+              "Patrick"
+            ],
+            "prefix": [
+              "Mr."
+            ]
+          }
+        ],
         "gender": "male",
         "birthDate": "1975-03-15",
-        "address": [{"use": "home", "line": ["14 Grafton Street"], "city": "Dublin 2", "postalCode": "D02 XY45", "country": "IE"}]
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "14 Grafton Street"
+            ],
+            "city": "Dublin 2",
+            "postalCode": "D02 XY45",
+            "country": "IE"
+          }
+        ]
       }
     },
     {
@@ -27,9 +58,25 @@
       "resource": {
         "resourceType": "Practitioner",
         "id": "practitioner-aoife-obrien",
-        "identifier": [{"system": "http://hl7.hse.ie/fhir/ie/core/sid/imc", "value": "GP-IE-12345"}],
+        "identifier": [
+          {
+            "system": "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/imc",
+            "value": "GP-IE-12345"
+          }
+        ],
         "active": true,
-        "name": [{"use": "official", "family": "O'Brien", "given": ["Aoife"], "prefix": ["Dr."]}]
+        "name": [
+          {
+            "use": "official",
+            "family": "O'Brien",
+            "given": [
+              "Aoife"
+            ],
+            "prefix": [
+              "Dr."
+            ]
+          }
+        ]
       }
     },
     {
@@ -37,14 +84,56 @@
       "resource": {
         "resourceType": "AllergyIntolerance",
         "id": "allergy-penicillin",
-        "clinicalStatus": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical", "code": "active"}]},
-        "verificationStatus": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification", "code": "confirmed"}]},
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+              "code": "confirmed"
+            }
+          ]
+        },
         "type": "allergy",
-        "category": ["medication"],
+        "category": [
+          "medication"
+        ],
         "criticality": "high",
-        "code": {"coding": [{"system": "http://snomed.info/sct", "code": "372687004", "display": "Amoxicillin"}], "text": "Penicillin / Amoxicillin — ALL penicillin-class antibiotics"},
-        "patient": {"reference": "urn:uuid:patient-sean-murphy"},
-        "reaction": [{"manifestation": [{"coding": [{"system": "http://snomed.info/sct", "code": "39579001", "display": "Anaphylaxis"}]}], "severity": "severe"}]
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372687004",
+              "display": "Amoxicillin"
+            }
+          ],
+          "text": "Penicillin / Amoxicillin — ALL penicillin-class antibiotics"
+        },
+        "patient": {
+          "reference": "urn:uuid:patient-sean-murphy"
+        },
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "39579001",
+                    "display": "Anaphylaxis"
+                  }
+                ]
+              }
+            ],
+            "severity": "severe"
+          }
+        ]
       }
     },
     {
@@ -52,10 +141,20 @@
       "resource": {
         "resourceType": "Organization",
         "id": "org-lv-mes-aptieka",
-        "identifier": [{"system": "http://www.zva.gov.lv/fhir/sid/aptieka", "value": "LV-APT-RIGA-001"}],
+        "identifier": [
+          {
+            "system": "http://example.org/fhir/sid/lv/aptieka",
+            "value": "LV-APT-RIGA-001"
+          }
+        ],
         "active": true,
         "name": "Mēs atdot Aptieka",
-        "address": [{"city": "Riga", "country": "LV"}]
+        "address": [
+          {
+            "city": "Riga",
+            "country": "LV"
+          }
+        ]
       }
     },
     {
@@ -63,32 +162,83 @@
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "rx-ie-lv-metformin",
-        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription"]},
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription"
+          ]
+        },
         "identifier": [
-          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-LV-001"},
-          {"system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "value": "IE/LV/1234567T"}
+          {
+            "system": "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/neps",
+            "value": "PCRS-RX-2025-IE-LV-001"
+          },
+          {
+            "system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier",
+            "value": "IE/LV/1234567T"
+          }
         ],
         "status": "active",
         "intent": "order",
         "medicationCodeableConcept": {
           "coding": [
-            {"system": "http://snomed.info/sct", "code": "372567009", "display": "Metformin"},
-            {"system": "http://www.whocc.no/atc", "code": "A10BA02", "display": "Metformin"},
-            {"system": "http://www.zva.gov.lv/zalu-registrs", "code": "ZRA-00098432", "display": "Metformins 500mg tabletes"}
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372567009",
+              "display": "Metformin"
+            },
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "A10BA02",
+              "display": "Metformin"
+            }
           ],
           "text": "Metformin 500mg tablets → LV: Metformins 500mg tabletes (ZRA: ZRA-00098432)"
         },
-        "subject": {"reference": "urn:uuid:patient-sean-murphy", "display": "Seán Murphy"},
-        "requester": {"reference": "urn:uuid:practitioner-aoife-obrien", "display": "Dr. Aoife O'Brien"},
-        "authoredOn": "2025-06-10",
-        "reasonCode": [{"coding": [{"system": "http://snomed.info/sct", "code": "44054006", "display": "Diabetes mellitus type 2"}]}],
-        "dosageInstruction": [{"text": "Lietot vienu 500mg tableti divas reizes dienā ēdienreizēs (Take one 500mg tablet twice daily with meals)"}],
-        "dispenseRequest": {
-          "validityPeriod": {"start": "2025-06-10", "end": "2025-09-10"},
-          "quantity": {"value": 60, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"}
+        "subject": {
+          "reference": "urn:uuid:patient-sean-murphy",
+          "display": "Seán Murphy"
         },
-        "substitution": {"allowedBoolean": true},
-        "note": [{"text": "Cross-border ePrescription via MyHealth@EU (MPD format). Valid 90 days (LR Farmācijas likums)."}]
+        "requester": {
+          "reference": "urn:uuid:practitioner-aoife-obrien",
+          "display": "Dr. Aoife O'Brien"
+        },
+        "authoredOn": "2025-06-10",
+        "reasonCode": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "44054006",
+                "display": "Diabetes mellitus type 2"
+              }
+            ]
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "text": "Lietot vienu 500mg tableti divas reizes dienā ēdienreizēs (Take one 500mg tablet twice daily with meals)"
+          }
+        ],
+        "dispenseRequest": {
+          "validityPeriod": {
+            "start": "2025-06-10",
+            "end": "2025-09-10"
+          },
+          "quantity": {
+            "value": 60,
+            "unit": "tablets",
+            "system": "http://unitsofmeasure.org",
+            "code": "{tablet}"
+          }
+        },
+        "substitution": {
+          "allowedBoolean": true
+        },
+        "note": [
+          {
+            "text": "Cross-border ePrescription via MyHealth@EU (MPD format). Valid 90 days (LR Farmācijas likums)."
+          }
+        ]
       }
     },
     {
@@ -96,30 +246,73 @@
       "resource": {
         "resourceType": "MedicationRequest",
         "id": "rx-ie-lv-lisinopril",
-        "meta": {"profile": ["http://hl7.hse.ie/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription"]},
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medicationrequest-eprescription"
+          ]
+        },
         "identifier": [
-          {"system": "http://hl7.hse.ie/fhir/ie/core/sid/pcrs-rx", "value": "PCRS-RX-2025-IE-LV-002"},
-          {"system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "value": "IE/LV/1234567T"}
+          {
+            "system": "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/neps",
+            "value": "PCRS-RX-2025-IE-LV-002"
+          },
+          {
+            "system": "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier",
+            "value": "IE/LV/1234567T"
+          }
         ],
         "status": "active",
         "intent": "order",
         "medicationCodeableConcept": {
           "coding": [
-            {"system": "http://snomed.info/sct", "code": "386873009", "display": "Lisinopril"},
-            {"system": "http://www.zva.gov.lv/zalu-registrs", "code": "ZRA-00102345", "display": "Lizinoprils 10mg tabletes"}
+            {
+              "system": "http://snomed.info/sct",
+              "code": "386873009",
+              "display": "Lisinopril"
+            }
           ],
           "text": "Lisinopril 10mg tablets → LV: Lizinoprils 10mg tabletes (ZRA: ZRA-00102345)"
         },
-        "subject": {"reference": "urn:uuid:patient-sean-murphy", "display": "Seán Murphy"},
-        "requester": {"reference": "urn:uuid:practitioner-aoife-obrien", "display": "Dr. Aoife O'Brien"},
-        "authoredOn": "2025-06-10",
-        "reasonCode": [{"coding": [{"system": "http://snomed.info/sct", "code": "38341003", "display": "Hypertensive disorder"}]}],
-        "dosageInstruction": [{"text": "Lietot vienu 10mg tableti vienu reizi dienā no rīta (Take one 10mg tablet once daily in the morning)"}],
-        "dispenseRequest": {
-          "validityPeriod": {"start": "2025-06-10", "end": "2025-09-10"},
-          "quantity": {"value": 28, "unit": "tablets", "system": "http://unitsofmeasure.org", "code": "{tablet}"}
+        "subject": {
+          "reference": "urn:uuid:patient-sean-murphy",
+          "display": "Seán Murphy"
         },
-        "substitution": {"allowedBoolean": true}
+        "requester": {
+          "reference": "urn:uuid:practitioner-aoife-obrien",
+          "display": "Dr. Aoife O'Brien"
+        },
+        "authoredOn": "2025-06-10",
+        "reasonCode": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "38341003",
+                "display": "Hypertensive disorder"
+              }
+            ]
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "text": "Lietot vienu 10mg tableti vienu reizi dienā no rīta (Take one 10mg tablet once daily in the morning)"
+          }
+        ],
+        "dispenseRequest": {
+          "validityPeriod": {
+            "start": "2025-06-10",
+            "end": "2025-09-10"
+          },
+          "quantity": {
+            "value": 28,
+            "unit": "tablets",
+            "system": "http://unitsofmeasure.org",
+            "code": "{tablet}"
+          }
+        },
+        "substitution": {
+          "allowedBoolean": true
+        }
       }
     }
   ]
