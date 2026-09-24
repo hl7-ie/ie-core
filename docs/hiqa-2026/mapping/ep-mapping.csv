@@ -17,7 +17,7 @@ hiqa_id,profile,path,ms,status,notes
 1.3.3.2,IECorePatient,Patient.identifier.value,N,Partial,value not MS on the unsliced identifier
 1.3.3.3,IECorePatient,Patient.identifier.period,N,Partial,not MS
 1.3.3.4,IECorePatient,Patient.identifier.assigner,N,Partial,not MS; HIQA value is free text (assigner.display)
-1.4.1,IECorePatient,Patient.birthDate,Y,Partial,HIQA Mandatory 1..1 (legal requirement cross-border); IG 0..1
+1.4.1,IECorePatient,Patient.birthDate,Y,Aligned,birthDate 1..1 inherited from EU Base patient-eu-core; a legal requirement on cross-border prescriptions
 1.4.2,IECoreMedicationRequestEPrescription,,N,Gap,no age element; legal requirement when the patient is under 12 (H-04)
 1.4.2.1,IECoreMedicationRequestEPrescription,,N,Gap,
 1.4.2.2,IECoreMedicationRequestEPrescription,,N,Gap,
@@ -87,7 +87,7 @@ hiqa_id,profile,path,ms,status,notes
 2.11,IECoreLocation,Location.identifier,Y,Partial,no GLN slice or GS1 check-digit rule (H-09)
 2.12,IECoreOrganization,,N,Gap,would sit under Organization.identifier; no GMS Panel ID identifier system
 2.13,IECoreMedicationRequestEPrescription,,N,Gap,no signature; a legal requirement for inbound cross-border prescriptions (H-08)
-3.1,IECoreMedicationRequestEPrescription,MedicationRequest.groupIdentifier,Y,Aligned,NePS group identifier (multi-item) or item identifier (single-item)
+3.1,IECoreMedicationRequestEPrescription,MedicationRequest.groupIdentifier,Y,Partial,groupIdentifier is 0..1; identifier 1..* covers single-item prescriptions only
 3.1.1,IECoreMedicationRequestEPrescription,MedicationRequest.identifier.type,N,Partial,type not MS or typed
 3.1.2,IECoreMedicationRequestEPrescription,MedicationRequest.identifier.value,N,Partial,value not constrained
 3.2,IECoreMedicationRequestEPrescription,MedicationRequest.authoredOn,Y,Aligned,
@@ -148,7 +148,7 @@ hiqa_id,profile,path,ms,status,notes
 4.7.2.1,IECoreMedicationEPrescription,Medication.ingredient.isActive,Y,Aligned,
 4.7.2.2,IECoreMedicationEPrescription,Medication.ingredient.item[x],Y,Aligned,
 4.7.2.3,IECoreMedicationEPrescription,Medication.ingredient.strength,Y,Aligned,
-4.7.2.3.1,IECoreMedicationEPrescription,Medication.ingredient.strength,Y,Aligned,
+4.7.2.3.1,IECoreMedicationEPrescription,Medication.ingredient.strength,Y,Aligned,Mandatory within the strength cluster (4.7.2.3 = ingredient.strength 0..1)
 4.7.2.3.2,IECoreMedicationEPrescription,,N,Gap,basis of strength substance
 4.7.3,IECoreMedicationEPrescription,,N,Gap,unit of presentation
 4.7.4,IECoreMedicationEPrescription,,N,Gap,contained quantity
@@ -213,26 +213,26 @@ hiqa_id,profile,path,ms,status,notes
 6.4.2,IECoreMedicationDispenseEDispensation,MedicationDispense.receiver,N,Aligned,Reference(Practitioner)
 6.4.3,IECoreMedicationDispenseEDispensation,,N,Gap,would sit under MedicationDispense.receiver; R4 receiver allows only Patient or Practitioner; RelatedPerson needs an extension or R5 cross-version
 6.4.3.1,IECoreRelatedPerson,RelatedPerson.name.prefix,N,Partial,profile exists but cannot be referenced from the R4 receiver
-6.4.3.2,IECoreRelatedPerson,RelatedPerson.name.given,N,Partial,
-6.4.3.3,IECoreRelatedPerson,RelatedPerson.name.family,N,Partial,
-6.4.3.4,IECoreRelatedPerson,RelatedPerson.name.suffix,N,Partial,
-6.4.3.5,IECoreRelatedPerson,RelatedPerson.identifier,N,Partial,
-6.4.3.5.1,IECoreRelatedPerson,RelatedPerson.identifier.type,N,Partial,
-6.4.3.5.2,IECoreRelatedPerson,RelatedPerson.identifier.value,N,Partial,
-6.4.3.5.3,IECoreRelatedPerson,RelatedPerson.identifier.period,N,Partial,
-6.4.3.5.4,IECoreRelatedPerson,RelatedPerson.identifier.assigner,N,Partial,
-6.4.3.6,IECoreRelatedPerson,RelatedPerson.relationship,Y,Partial,
-6.4.3.7,IECoreRelatedPerson,RelatedPerson.relationship,Y,Partial,
-6.4.3.8,IECoreRelatedPerson,RelatedPerson.address,N,Partial,
-6.4.3.8.1,IECoreRelatedPerson,RelatedPerson.address.postalCode,N,Partial,
-6.4.3.8.2,IECoreRelatedPerson,RelatedPerson.address.line,N,Partial,
-6.4.3.8.3,IECoreRelatedPerson,RelatedPerson.address.city,N,Partial,
-6.4.3.8.4,IECoreRelatedPerson,RelatedPerson.address.state,N,Partial,
-6.4.3.8.5,IECoreRelatedPerson,RelatedPerson.address.country,N,Partial,
-6.4.3.9,IECoreRelatedPerson,RelatedPerson.telecom,N,Partial,
-6.4.3.9.1,IECoreRelatedPerson,RelatedPerson.telecom,N,Partial,
-6.4.3.9.2,IECoreRelatedPerson,RelatedPerson.telecom,N,Partial,
-6.4.3.9.3,IECoreRelatedPerson,RelatedPerson.telecom,N,Partial,
+6.4.3.2,IECoreRelatedPerson,RelatedPerson.name.given,N,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
+6.4.3.3,IECoreRelatedPerson,RelatedPerson.name.family,N,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
+6.4.3.4,IECoreRelatedPerson,RelatedPerson.name.suffix,N,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
+6.4.3.5,IECoreRelatedPerson,RelatedPerson.identifier,N,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
+6.4.3.5.1,IECoreRelatedPerson,RelatedPerson.identifier.type,N,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
+6.4.3.5.2,IECoreRelatedPerson,RelatedPerson.identifier.value,N,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
+6.4.3.5.3,IECoreRelatedPerson,RelatedPerson.identifier.period,N,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
+6.4.3.5.4,IECoreRelatedPerson,RelatedPerson.identifier.assigner,N,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
+6.4.3.6,IECoreRelatedPerson,RelatedPerson.relationship,Y,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
+6.4.3.7,IECoreRelatedPerson,RelatedPerson.relationship,Y,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
+6.4.3.8,IECoreRelatedPerson,RelatedPerson.address,N,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
+6.4.3.8.1,IECoreRelatedPerson,RelatedPerson.address.postalCode,N,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
+6.4.3.8.2,IECoreRelatedPerson,RelatedPerson.address.line,N,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
+6.4.3.8.3,IECoreRelatedPerson,RelatedPerson.address.city,N,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
+6.4.3.8.4,IECoreRelatedPerson,RelatedPerson.address.state,N,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
+6.4.3.8.5,IECoreRelatedPerson,RelatedPerson.address.country,N,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
+6.4.3.9,IECoreRelatedPerson,RelatedPerson.telecom,N,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
+6.4.3.9.1,IECoreRelatedPerson,RelatedPerson.telecom,N,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
+6.4.3.9.2,IECoreRelatedPerson,RelatedPerson.telecom,N,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
+6.4.3.9.3,IECoreRelatedPerson,RelatedPerson.telecom,N,Partial,profile exists but cannot be referenced from the R4 MedicationDispense.receiver
 6.5,IECoreMedicationDispenseEDispensation,MedicationDispense.authorizingPrescription,Y,Aligned,IG 1..* is stricter than HIQA Required 0..1 (M-03)
 6.6,IECoreMedicationDispenseEDispensation,MedicationDispense.medication[x],Y,Aligned,
 6.7,IECoreMedicationDispenseEDispensation,MedicationDispense.quantity,Y,Aligned,

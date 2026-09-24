@@ -244,6 +244,17 @@ Severity: **CRITICAL** = legal or clinical-safety exposure in the current releas
   `hl7.fhir.eu.health-data-api` 1.0.0-ballot. None is needed for the HIQA EP or PS scope.
   Informs the release decision.
 
+**M-09 An invented cross-border tag in the payloads (found in Phase 3).**
+- Evidence: `input/examples/IE_to_DE_ePrescription_FHIR.json` `Bundle.meta.tag`:
+  `http://ehealth.ec.europa.eu/fhir/tag#xt-ehr` and `v3-ActCode#PBILLACCT` (a billing-account
+  code). No source was found for the tag system. → ADR-003 (use `meta.profile`), OI-010.
+
+**M-10 Mapping statuses must come from effective (inherited) constraints.**
+- SUSHI emits differentials only. The Phase 2 hand statuses were cross-checked against effective
+  constraints walked through the parent chain (`scripts/hiqa/check_mapping_against_snapshots.py`).
+  That fixed 7 rows, e.g. DOB is `1..1` via EU Base (so it is Aligned) and PS 19.1.12.x was
+  over-claimed as Aligned.
+
 ### LOW
 
 - **L-01** Pronouns (`IECorePatient.fsh:16`) and interpreter required (`:17`) are MustSupport.

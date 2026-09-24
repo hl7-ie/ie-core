@@ -1,0 +1,165 @@
+53 status disagreements
+EP | 1.3.1 | Required | IECorePatient | Patient.identifier:IHI | min=0 max=1 MS=True | hand=Partial derived=Aligned | invariant ie-pat-1 allows 18 digits only; HIQA says 18 or 10 (H-02)
+EP | 1.4.1 | Mandatory | IECorePatient | Patient.birthDate | min=1 max=1 MS=True | hand=Partial derived=Aligned | HIQA Mandatory 1..1 (legal requirement cross-border); IG 0..1
+EP | 1.4.3 | Mandatory | IECorePatient | Patient.gender | min=1 max=1 MS=True | hand=Partial derived=Aligned | Patient.gender is administrative gender, not sex assigned at birth (H-01)
+EP | 1.4.4 | Required | IECorePatient | Patient.extension:genderIdentity | min=0 max=* MS=True | hand=Partial derived=Aligned | cluster modelled as one extension; no 'other gender' code verified
+EP | 2.8 | Required | IECoreOrganization | Organization.identifier | min=0 max=* MS=True | hand=Partial derived=Aligned | no PSI Retail Pharmacy Business registration number slice (H-09)
+EP | 2.10.2 | Required | IECorePractitionerRole | PractitionerRole.telecom | min=0 max=* MS=True | hand=Partial derived=Aligned | Required; a legal requirement cross-border but not enforced (H-08)
+EP | 2.11 | Required | IECoreLocation | Location.identifier | min=0 max=* MS=True | hand=Partial derived=Aligned | no GLN slice or GS1 check-digit rule (H-09)
+EP | 3.1 | Mandatory | IECoreMedicationRequestEPrescription | MedicationRequest.groupIdentifier | min=0 max=1 MS=True | hand=Aligned derived=Partial | NePS group identifier (multi-item) or item identifier (single-item)
+EP | 3.3 | Mandatory | IECoreMedicationRequestEPrescription | MedicationRequest.status | min=1 max=1 MS=True | hand=Partial derived=Aligned | HIQA prescription-level status (whole prescription) has no container in the IG; only item-level status exists
+EP | 3.3.1 | Mandatory | IECoreMedicationRequestEPrescription | MedicationRequest.status | min=1 max=1 MS=True | hand=Partial derived=Aligned | item-level only
+EP | 3.3.2 | Required | IECoreMedicationRequestEPrescription | MedicationRequest.statusReason | min=0 max=1 MS=True | hand=Partial derived=Aligned | item-level only
+EP | 3.5 | Mandatory | IECoreMedicationRequestEPrescription | MedicationRequest | min=0 max=* MS=False | hand=Aligned derived=Partial | 
+EP | 3.5.14 | Required | IECoreMedicationRequestEPrescription | MedicationRequest.extension:offLabelUse | min=0 max=1 MS=True | hand=Partial derived=Aligned | custom extension; EU MPD uses IHE ihe-ext-offLabel (M-01)
+EP | 4.2.1 | Required | IECoreMedicationEPrescription | Medication.code | min=1 max=1 MS=True | hand=Partial derived=Aligned | ATC may be carried as an extra coding in code; no explicit element
+EP | 4.5 | Required | IECoreMedicationEPrescription | Medication.form | min=0 max=1 MS=True | hand=Partial derived=Aligned | no EDQM binding
+EP | 4.7.1 | Required | IECoreMedicationEPrescription | Medication.form | min=0 max=1 MS=True | hand=Partial derived=Aligned | R4 has no item-level dose form (combination packs need contained Medications)
+EP | 4.7.2.3.1 | Mandatory | IECoreMedicationEPrescription | Medication.ingredient.strength | min=0 max=1 MS=True | hand=Aligned derived=Partial | 
+EP | 5.2.7 | Required | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.route | min=None max=None MS=True | hand=Partial derived=Aligned | no EDQM route binding
+EP | 6.4.3.5 | Optional | IECoreRelatedPerson | RelatedPerson.identifier | min=0 max=* MS=False | hand=Partial derived=Aligned | 
+EP | 6.4.3.6 | Optional | IECoreRelatedPerson | RelatedPerson.relationship | min=0 max=* MS=True | hand=Partial derived=Aligned | 
+EP | 6.4.3.7 | Optional | IECoreRelatedPerson | RelatedPerson.relationship | min=0 max=* MS=True | hand=Partial derived=Aligned | 
+EP | 6.4.3.8 | Optional | IECoreRelatedPerson | RelatedPerson.address | min=0 max=* MS=False | hand=Partial derived=Aligned | 
+EP | 6.4.3.9 | Optional | IECoreRelatedPerson | RelatedPerson.telecom | min=0 max=* MS=False | hand=Partial derived=Aligned | 
+EP | 6.4.3.9.1 | Optional | IECoreRelatedPerson | RelatedPerson.telecom | min=0 max=* MS=False | hand=Partial derived=Aligned | 
+EP | 6.4.3.9.2 | Optional | IECoreRelatedPerson | RelatedPerson.telecom | min=0 max=* MS=False | hand=Partial derived=Aligned | 
+EP | 6.4.3.9.3 | Optional | IECoreRelatedPerson | RelatedPerson.telecom | min=0 max=* MS=False | hand=Partial derived=Aligned | 
+EP | 6.9 | Required | IECoreMedicationDispenseEDispensation | MedicationDispense.whenHandedOver | min=0 max=1 MS=True | hand=Partial derived=Aligned | time component of whenHandedOver
+PS | 1.3.1 | Required | IECorePatient | Patient.identifier:IHI | min=0 max=1 MS=True | hand=Partial derived=Aligned | 18-digit-only invariant (H-02)
+PS | 1.4.1 | Mandatory | IECorePatient | Patient.birthDate | min=1 max=1 MS=True | hand=Partial derived=Aligned | HIQA Mandatory 1..1; IG 0..1. HIQA: unknown DOB recorded as 1900-01-01
+PS | 1.4.4 | Mandatory | IECorePatient | Patient.gender | min=1 max=1 MS=True | hand=Partial derived=Aligned | administrative gender, not sex assigned at birth (H-01)
+PS | 1.4.5 | Required | IECorePatient | Patient.extension:genderIdentity | min=0 max=* MS=True | hand=Partial derived=Aligned | 
+PS | 1.4.6 | Required | IECorePatient | Patient.extension:mothersMaidenName | min=0 max=1 MS=True | hand=Partial derived=Aligned | HIQA 0..* 'former surnames'; IG 0..1 maiden name
+PS | 1.4.10 | Required | IECorePatient | Patient.extension:ethnicity | min=0 max=1 MS=True | hand=Partial derived=Aligned | HIQA 0..* coded; IG 0..1 code with a required binding to an unverified CSO list (M-04)
+PS | 2.8 | Required | IECoreOrganization | Organization.identifier | min=0 max=* MS=True | hand=Partial derived=Aligned | 
+PS | 2.11 | Required | IECoreLocation | Location.identifier | min=0 max=* MS=True | hand=Partial derived=Aligned | no GLN slice
+PS | 6.3.6 | Required | IECoreMedicationStatement | MedicationStatement.medication[x] | min=1 max=1 MS=True | hand=Partial derived=Aligned | dose form only via a referenced Medication.form
+PS | 7.3.3 | Required | IECoreConditionProblemsHealthConcerns | Condition.recordedDate | min=0 max=1 MS=True | hand=Partial derived=Aligned | date of diagnosis vs recorded date; condition-assertedDate is closer
+PS | 10.3 | Required | IECoreCompositionPatientSummary | Composition.section:medicalDevices.entry | min=None max=None MS=True | hand=Partial derived=Aligned | entries are Device (IECoreImplantableDevice), not DeviceUseStatement, so period, status of use and body site cannot be expressed
+PS | 12.2 | Required | IECoreCompositionPatientSummary | Composition.section:socialHistory.entry | min=None max=None MS=True | hand=Partial derived=Aligned | free text in HIQA; no coded observation defined
+PS | 12.3 | Required | IECoreCompositionPatientSummary | Composition.section:socialHistory.entry | min=None max=None MS=True | hand=Partial derived=Aligned | 
+PS | 12.4 | Required | IECoreCompositionPatientSummary | Composition.section:socialHistory.entry | min=None max=None MS=True | hand=Partial derived=Aligned | 
+PS | 12.5 | Required | IECoreCompositionPatientSummary | Composition.section:socialHistory.entry | min=None max=None MS=True | hand=Partial derived=Aligned | 
+PS | 13.3.1 | Required | IECoreADIDocumentReference | DocumentReference.type | min=1 max=1 MS=True | hand=Partial derived=Aligned | AHD categories under the Assisted Decision-Making (Capacity) Act 2015 are not bound
+PS | 14.2 | Required | IECoreCompositionPatientSummary | Composition.section:travelHistory.entry | min=None max=None MS=True | hand=Partial derived=Aligned | generic IECoreSimpleObservation
+PS | 14.2.2 | Required | IECoreSimpleObservation | Observation.effective[x] | min=0 max=1 MS=True | hand=Partial derived=Aligned | 
+PS | 15.2 | Required | IECoreObservationPregnancyStatus | Observation | min=0 max=* MS=False | hand=Aligned derived=Partial | 
+PS | 15.2.2 | Mandatory | IECoreObservationPregnancyStatus | Observation.value[x] | min=1 max=1 MS=False | hand=Aligned derived=Partial | 
+PS | 15.3 | Required | IECoreCompositionPatientSummary | Composition.section:pregnancyHistory.entry | min=None max=None MS=True | hand=Partial derived=Aligned | generic observation; no pregnancy-outcome profile
+PS | 16.3.5 | Mandatory | IECoreImmunization | Immunization.vaccineCode | min=1 max=1 MS=True | hand=Partial derived=Aligned | HIQA separates product (16.3.3) from vaccine code (16.3.5); R4 has one vaccineCode
+PS | 17.2 | Required | IECoreCompositionPatientSummary | Composition.section:functionalStatus.entry | min=None max=None MS=True | hand=Partial derived=Aligned | 
+PS | 19.1.12.1 | Mandatory | IECoreCompositionPatientSummary | Composition.attester.party | min=0 max=1 MS=False | hand=Aligned derived=Partial | 
+PS | 19.1.12.2 | Mandatory | IECoreCompositionPatientSummary | Composition.attester.time | min=0 max=1 MS=False | hand=Aligned derived=Partial | 
+PS | 19.2.1 | Mandatory | IECoreCompositionPatientSummary | Composition.section.entry | min=0 max=* MS=False | hand=Aligned derived=Partial | every entry profile has subject/patient 1..1
+
+109 unresolved paths (checked by hand; semantic or slice-internal paths)
+EP | 1.2.6 | IECorePatient | Patient.address.use
+EP | 1.2.7 | IECorePatient | Patient.address.type
+EP | 1.3.3.1 | IECorePatient | Patient.identifier.type
+EP | 1.3.3.2 | IECorePatient | Patient.identifier.value
+EP | 1.3.3.3 | IECorePatient | Patient.identifier.period
+EP | 1.3.3.4 | IECorePatient | Patient.identifier.assigner
+EP | 1.4.4.1 | IECorePatient | Patient.extension:genderIdentity.value[x]
+EP | 1.4.4.2 | IECorePatient | Patient.extension:genderIdentity.value[x].text
+EP | 1.6.3.1 | IECoreBodyWeight | Observation.valueQuantity.value
+EP | 1.6.3.2 | IECoreBodyWeight | Observation.valueQuantity.code
+EP | 1.6.4.1 | IECoreBodyHeight | Observation.valueQuantity.value
+EP | 1.6.4.2 | IECoreBodyHeight | Observation.valueQuantity.code
+EP | 2.6.1 | IECorePractitioner | Practitioner.identifier.system
+EP | 2.6.2 | IECorePractitioner | Practitioner.identifier.value
+EP | 3.1.1 | IECoreMedicationRequestEPrescription | MedicationRequest.identifier.type
+EP | 3.1.2 | IECoreMedicationRequestEPrescription | MedicationRequest.identifier.value
+EP | 3.3.3 | IECoreMedicationRequestEPrescription | MedicationRequest.statusReason.text
+EP | 3.5.2.3 | IECoreMedicationRequestEPrescription | MedicationRequest.statusReason.text
+EP | 3.5.4.2 | IECoreMedicationRequestEPrescription | MedicationRequest.reasonCode.text
+EP | 3.5.10.3 | IECoreMedicationRequestEPrescription | MedicationRequest.substitution.reason.text
+EP | 3.5.14.1 | IECoreMedicationRequestEPrescription | MedicationRequest.extension:offLabelUse.extension:isOffLabelUse
+EP | 3.5.14.2 | IECoreMedicationRequestEPrescription | MedicationRequest.extension:offLabelUse.extension:reason
+EP | 3.5.14.2.1 | IECoreMedicationRequestEPrescription | MedicationRequest.extension:offLabelUse.extension:reason.value[x]
+EP | 3.5.14.2.2 | IECoreMedicationRequestEPrescription | MedicationRequest.extension:offLabelUse.extension:reason.value[x]
+EP | 4.3.2 | IECoreMedicationEPrescription | Medication.code.text
+EP | 4.4.1 | IECoreMedicationEPrescription | Medication.manufacturer.display
+EP | 4.4.2 | IECoreMedicationEPrescription | Medication.manufacturer.identifier
+EP | 5.2.1 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.sequence
+EP | 5.2.2 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.patientInstruction
+EP | 5.2.3.1 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.doseAndRate.dose[x]
+EP | 5.2.3.1.1 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.doseAndRate.doseQuantity
+EP | 5.2.3.1.2 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.doseAndRate.doseRange
+EP | 5.2.3.2 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.doseAndRate.rate[x]
+EP | 5.2.3.2.1 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.doseAndRate.rateQuantity
+EP | 5.2.3.2.2 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.doseAndRate.rateRatio
+EP | 5.2.4.1 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.timing.repeat.bounds[x]
+EP | 5.2.4.1.1 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.timing.repeat.boundsDuration
+EP | 5.2.4.1.2 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.timing.repeat.boundsPeriod
+EP | 5.2.4.2 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.timing.repeat.duration
+EP | 5.2.4.3 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.timing.repeat
+EP | 5.2.4.3.1 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.timing.repeat.frequency
+EP | 5.2.4.3.2 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.timing.repeat.period
+EP | 5.2.4.4 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.timing.repeat.dayOfWeek
+EP | 5.2.4.5 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.timing.repeat.timeOfDay
+EP | 5.2.4.6 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.timing.repeat.when
+EP | 5.2.5 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.asNeeded[x]
+EP | 5.2.6 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.site
+EP | 5.2.6.1 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.site
+EP | 5.2.6.2 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.site
+EP | 5.2.6.3 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.site
+EP | 5.2.6.4 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.site
+EP | 5.2.6.5 | IECoreMedicationRequestEPrescription | MedicationRequest.dosageInstruction.site.text
+EP | 6.3.2 | IECoreMedicationDispenseEDispensation | MedicationDispense.statusReasonCodeableConcept
+EP | 6.3.2.1 | IECoreMedicationDispenseEDispensation | MedicationDispense.statusReasonCodeableConcept
+EP | 6.3.2.2 | IECoreMedicationDispenseEDispensation | MedicationDispense.statusReasonCodeableConcept.text
+EP | 6.4.3.1 | IECoreRelatedPerson | RelatedPerson.name.prefix
+EP | 6.4.3.2 | IECoreRelatedPerson | RelatedPerson.name.given
+EP | 6.4.3.3 | IECoreRelatedPerson | RelatedPerson.name.family
+EP | 6.4.3.4 | IECoreRelatedPerson | RelatedPerson.name.suffix
+EP | 6.4.3.5.1 | IECoreRelatedPerson | RelatedPerson.identifier.type
+EP | 6.4.3.5.2 | IECoreRelatedPerson | RelatedPerson.identifier.value
+EP | 6.4.3.5.3 | IECoreRelatedPerson | RelatedPerson.identifier.period
+EP | 6.4.3.5.4 | IECoreRelatedPerson | RelatedPerson.identifier.assigner
+EP | 6.4.3.8.1 | IECoreRelatedPerson | RelatedPerson.address.postalCode
+EP | 6.4.3.8.2 | IECoreRelatedPerson | RelatedPerson.address.line
+EP | 6.4.3.8.3 | IECoreRelatedPerson | RelatedPerson.address.city
+EP | 6.4.3.8.4 | IECoreRelatedPerson | RelatedPerson.address.state
+EP | 6.4.3.8.5 | IECoreRelatedPerson | RelatedPerson.address.country
+PS | 1.2.6 | IECorePatient | Patient.address.use
+PS | 1.2.7 | IECorePatient | Patient.address.type
+PS | 1.3.3.1 | IECorePatient | Patient.identifier.type
+PS | 1.3.3.2 | IECorePatient | Patient.identifier.value
+PS | 1.3.3.3 | IECorePatient | Patient.identifier.period
+PS | 1.3.3.4 | IECorePatient | Patient.identifier.assigner
+PS | 1.4.5.1 | IECorePatient | Patient.extension:genderIdentity.value[x]
+PS | 1.4.5.2 | IECorePatient | Patient.extension:genderIdentity.value[x].text
+PS | 1.5.4 | IECorePatient | Patient.telecom.rank
+PS | 2.6.1 | IECorePractitioner | Practitioner.identifier.system
+PS | 2.6.2 | IECorePractitioner | Practitioner.identifier.value
+PS | 3.1 | IECorePatient | Patient.contact.name.given
+PS | 3.2 | IECorePatient | Patient.contact.name.family
+PS | 3.6.1 | IECorePatient | Patient.contact.address.postalCode
+PS | 3.6.2 | IECorePatient | Patient.contact.address.line
+PS | 3.6.3 | IECorePatient | Patient.contact.address.city
+PS | 3.6.4 | IECorePatient | Patient.contact.address.state
+PS | 3.6.5 | IECorePatient | Patient.contact.address.country
+PS | 4.2 | IECoreCompositionPatientSummary | Composition.section:alerts.emptyReason
+PS | 4.3.4 | IECoreFlag | Flag.code.text
+PS | 6.3.5.2 | IECoreMedicationStatement | MedicationStatement.reasonCode.text
+PS | 6.3.8 | IECoreMedicationStatement | MedicationStatement.dosage.site
+PS | 6.3.10.1 | IECoreMedicationStatement | MedicationStatement.dosage.timing.repeat.frequency
+PS | 6.3.10.2 | IECoreMedicationStatement | MedicationStatement.dosage.timing.repeat.period
+PS | 6.3.10.3 | IECoreMedicationStatement | MedicationStatement.dosage.timing.repeat.dayOfWeek
+PS | 6.3.10.4 | IECoreMedicationStatement | MedicationStatement.dosage.timing.repeat.timeOfDay
+PS | 6.3.10.5 | IECoreMedicationStatement | MedicationStatement.dosage.timing.repeat.when
+PS | 6.3.11.1 | IECoreMedicationStatement | MedicationStatement.dosage.additionalInstruction
+PS | 8.2.4.1 | IECoreObservationClinicalResult | Observation.valueCodeableConcept
+PS | 8.2.4.2 | IECoreObservationClinicalResult | Observation.valueString
+PS | 8.2.4.3 | IECoreObservationClinicalResult | Observation.valueQuantity
+PS | 8.2.4.4 | IECoreObservationClinicalResult | Observation.valueRange
+PS | 8.2.4.5 | IECoreObservationClinicalResult | Observation.valueRatio
+PS | 9.3.5.5 | IECoreProcedure | Procedure.bodySite.text
+PS | 13.2 | IECoreCompositionPatientSummary | Composition.section:advanceDirectives.emptyReason
+PS | 16.2 | IECoreCompositionPatientSummary | Composition.section:immunizations.emptyReason
+PS | 17.4.3.1 | IECoreSimpleObservation | Observation.valueCodeableConcept
+PS | 17.4.3.2 | IECoreSimpleObservation | Observation.valueString
+PS | 17.4.3.3 | IECoreSimpleObservation | Observation.valueQuantity
+PS | 17.4.3.4 | IECoreSimpleObservation | Observation.valueRange
+PS | 17.4.3.5 | IECoreSimpleObservation | Observation.valueRatio

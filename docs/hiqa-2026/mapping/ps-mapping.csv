@@ -24,14 +24,14 @@ hiqa_id,profile,path,ms,status,notes
 1.3.4.1,IECoreCoverage,Coverage.type,Y,Aligned,
 1.3.4.2,IECoreCoverage,Coverage.subscriberId,Y,Aligned,
 1.3.4.3,IECoreCoverage,Coverage.payor,Y,Aligned,
-1.4.1,IECorePatient,Patient.birthDate,Y,Partial,HIQA Mandatory 1..1; IG 0..1. HIQA: unknown DOB recorded as 1900-01-01
+1.4.1,IECorePatient,Patient.birthDate,Y,Aligned,birthDate 1..1 inherited from EU Base patient-eu-core. HIQA: unknown DOB recorded as 1900-01-01
 1.4.2,IECorePatient,,N,Gap,estimated age; Optional
 1.4.2.1,IECorePatient,,N,Gap,
 1.4.2.2,IECorePatient,,N,Gap,
 1.4.3,IECorePatient,,N,Gap,would sit under Patient.extension; place of birth (county or city) not modelled; patient-birthPlace available
 1.4.4,IECorePatient,Patient.gender,Y,Partial,"administrative gender, not sex assigned at birth (H-01)"
-1.4.5,IECorePatient,Patient.extension:genderIdentity,Y,Partial,
-1.4.5.1,IECorePatient,Patient.extension:genderIdentity.value[x],Y,Partial,
+1.4.5,IECorePatient,Patient.extension:genderIdentity,Y,Partial,cluster modelled as one extension; no 'other gender' code verified
+1.4.5.1,IECorePatient,Patient.extension:genderIdentity.value[x],Y,Partial,binding to ie-core-gender-identity not verified against a HIQA value set (none published)
 1.4.5.2,IECorePatient,Patient.extension:genderIdentity.value[x].text,N,Aligned,
 1.4.6,IECorePatient,Patient.extension:mothersMaidenName,Y,Partial,HIQA 0..* 'former surnames'; IG 0..1 maiden name
 1.4.7,IECorePatient,,N,Gap,would sit under Patient.extension; nationality not modelled; patient-nationality available
@@ -58,7 +58,7 @@ hiqa_id,profile,path,ms,status,notes
 2.6.1,IECorePractitioner,Practitioner.identifier.system,Y,Partial,
 2.6.2,IECorePractitioner,Practitioner.identifier.value,Y,Partial,
 2.7,IECoreOrganization,Organization.name,Y,Aligned,
-2.8,IECoreOrganization,Organization.identifier,Y,Partial,
+2.8,IECoreOrganization,Organization.identifier,Y,Partial,no PSI Retail Pharmacy Business registration number slice (H-09)
 2.9,IECoreOrganization,Organization.address,Y,Partial,HIQA Mandatory
 2.9.1,IECoreOrganization,Organization.address.postalCode,Y,Partial,HIQA Mandatory
 2.9.2,IECoreOrganization,Organization.address.line,Y,Partial,HIQA Mandatory
@@ -96,7 +96,7 @@ hiqa_id,profile,path,ms,status,notes
 4.3.3,IECoreFlag,Flag.code,Y,Aligned,
 4.3.4,IECoreFlag,Flag.code.text,N,Aligned,
 4.3.5,IECoreFlag,,N,Gap,priority (flag-priority extension); Optional
-4.4.6,IECoreFlag,Flag.author,Y,Aligned,HIQA numbering anomaly (probably 4.3.6)
+4.4.6,IECoreFlag,Flag.author,Y,Partial,HIQA numbering anomaly (probably 4.3.6). HIQA 0..* sources; Flag.author is 0..1
 4.5,IECoreCompositionPatientSummary,Composition.section:alerts.text,Y,Aligned,
 5.1,IECoreCompositionPatientSummary,Composition.section:allergies.text,Y,Aligned,
 5.2,IECoreCompositionPatientSummary,Composition.section:allergies.emptyReason,Y,Aligned,
@@ -210,9 +210,9 @@ hiqa_id,profile,path,ms,status,notes
 11.2,IECoreCompositionPatientSummary,Composition.section:patientStory.text,Y,Aligned,
 12.1,IECoreCompositionPatientSummary,Composition.section:socialHistory.text,Y,Aligned,
 12.2,IECoreCompositionPatientSummary,Composition.section:socialHistory.entry,Y,Partial,free text in HIQA; no coded observation defined
-12.3,IECoreCompositionPatientSummary,Composition.section:socialHistory.entry,Y,Partial,
-12.4,IECoreCompositionPatientSummary,Composition.section:socialHistory.entry,Y,Partial,
-12.5,IECoreCompositionPatientSummary,Composition.section:socialHistory.entry,Y,Partial,
+12.3,IECoreCompositionPatientSummary,Composition.section:socialHistory.entry,Y,Partial,free text in HIQA; no coded observation or narrative-only convention defined
+12.4,IECoreCompositionPatientSummary,Composition.section:socialHistory.entry,Y,Partial,free text in HIQA; no coded observation or narrative-only convention defined
+12.5,IECoreCompositionPatientSummary,Composition.section:socialHistory.entry,Y,Partial,free text in HIQA; no coded observation or narrative-only convention defined
 12.6,IECoreCompositionPatientSummary,Composition.section:socialHistory.text,Y,Aligned,
 13.1,IECoreCompositionPatientSummary,Composition.section:advanceDirectives.text,Y,Aligned,
 13.2,IECoreCompositionPatientSummary,Composition.section:advanceDirectives.emptyReason,N,Partial,Required; not MS
@@ -223,7 +223,7 @@ hiqa_id,profile,path,ms,status,notes
 14.1,IECoreCompositionPatientSummary,Composition.section:travelHistory.text,Y,Aligned,
 14.2,IECoreCompositionPatientSummary,Composition.section:travelHistory.entry,Y,Partial,generic IECoreSimpleObservation
 14.2.1,IECoreSimpleObservation,,N,Gap,infectious agent
-14.2.2,IECoreSimpleObservation,Observation.effective[x],Y,Partial,
+14.2.2,IECoreSimpleObservation,Observation.effective[x],Y,Partial,generic observation; no travel-history profile to carry the travel period
 14.2.3,IECoreSimpleObservation,,N,Gap,country visited: Mandatory within the record entry
 14.2.4,IECoreSimpleObservation,,N,Gap,proximity
 14.2.5,IECoreSimpleObservation,,N,Gap,infection control status
@@ -231,7 +231,7 @@ hiqa_id,profile,path,ms,status,notes
 15.1,IECoreCompositionPatientSummary,Composition.section:pregnancyHistory.text,Y,Aligned,
 15.2,IECoreObservationPregnancyStatus,Observation,Y,Aligned,
 15.2.1,IECoreObservationPregnancyStatus,Observation.effective[x],N,Partial,not MS in the pregnancy profile
-15.2.2,IECoreObservationPregnancyStatus,Observation.value[x],N,Aligned,
+15.2.2,IECoreObservationPregnancyStatus,Observation.value[x],N,Partial,value[x] 1..1 but not MS in the pregnancy-status profile
 15.2.3,IECoreObservationPregnancyStatus,,N,Gap,expected delivery date
 15.2.4,IECoreObservationPregnancyStatus,,N,Gap,gestational age
 15.2.5,IECoreObservationPregnancyStatus,Observation.note,N,Aligned,
@@ -253,7 +253,7 @@ hiqa_id,profile,path,ms,status,notes
 16.3.8,IECoreImmunization,Immunization.location,N,Partial,Required; not MS
 16.4,IECoreImmunization,Immunization.note,N,Aligned,
 17.1,IECoreCompositionPatientSummary,Composition.section:functionalStatus.text,Y,Aligned,
-17.2,IECoreCompositionPatientSummary,Composition.section:functionalStatus.entry,Y,Partial,
+17.2,IECoreCompositionPatientSummary,Composition.section:functionalStatus.entry,Y,Partial,entries allowed (Condition or Observation) but no functional-status profile
 17.3,IECoreConditionProblemsHealthConcerns,Condition,Y,Partial,
 17.4,IECoreSimpleObservation,Observation,Y,Partial,
 17.4.1,IECoreSimpleObservation,Observation.effective[x],Y,Partial,Mandatory within the record entry; 0..1
@@ -293,8 +293,8 @@ hiqa_id,profile,path,ms,status,notes
 19.1.11.1,IECoreCompositionPatientSummary,Composition.attester.party,N,Partial,Mandatory within the cluster
 19.1.11.2,IECoreCompositionPatientSummary,Composition.attester.time,N,Partial,Mandatory within the cluster
 19.1.12,IECoreCompositionPatientSummary,Composition.attester,N,Aligned,attester.mode = legal
-19.1.12.1,IECoreCompositionPatientSummary,Composition.attester.party,N,Aligned,
-19.1.12.2,IECoreCompositionPatientSummary,Composition.attester.time,N,Aligned,
+19.1.12.1,IECoreCompositionPatientSummary,Composition.attester.party,N,Partial,"Mandatory within the legal-authentication cluster; attester.party 0..1, not MS"
+19.1.12.2,IECoreCompositionPatientSummary,Composition.attester.time,N,Partial,"Mandatory within the legal-authentication cluster; attester.time 0..1, not MS"
 19.1.13,IECoreCompositionPatientSummary,Composition.event.code,N,Aligned,
 19.1.14,IECoreCompositionPatientSummary,,N,Gap,service speciality; Optional
 19.1.15,IECoreCompositionPatientSummary,Composition.custodian,Y,Aligned,

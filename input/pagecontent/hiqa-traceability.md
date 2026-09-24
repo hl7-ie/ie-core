@@ -33,9 +33,9 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 
 | Conformance | Aligned | Partial | Gap | Prohibited (violated) | Prohibited (enforced) | N/A |
 |---|---|---|---|---|---|---|
-| Mandatory | 27 | 35 | 6 | 0 | 0 | 0 |
+| Mandatory | 25 | 37 | 6 | 0 | 0 | 0 |
 | Required | 56 | 64 | 20 | 0 | 0 | 0 |
-| Optional | 85 | 0 | 13 | 0 | 0 | 0 |
+| Optional | 84 | 1 | 13 | 0 | 0 | 0 |
 | Not in dataset | 0 | 0 | 0 | 3 | 0 | 0 |
 
 ### Mandatory elements not yet aligned
@@ -47,7 +47,6 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | EP | 1.2.2 | Address line(s) | Partial | HIQA Mandatory 1..1; IG address and line are 0..* |
 | EP | 1.2.4 | District/ County | Partial | HIQA Mandatory 1..1; IG 0..1. Dublin postal districts go in 1.2.3 per HIQA; district may also map to Address.district |
 | EP | 1.2.6 | Address type | Partial | HIQA Mandatory 1..1 (type/purpose incl. temporary accommodation and homelessness); Address.use (home\|temp) not MS and has no homelessness value |
-| EP | 1.4.1 | Date of birth | Partial | HIQA Mandatory 1..1 (legal requirement cross-border); IG 0..1 |
 | EP | 1.4.2.1 | Age if less than 12 years – value | Gap |  |
 | EP | 1.4.2.2 | Age if less than 12 years - type | Gap |  |
 | EP | 1.4.3 | Sex | Partial | Patient.gender is administrative gender, not sex assigned at birth (H-01) |
@@ -66,6 +65,7 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | EP | 2.9.5 | Country | Partial | HIQA Mandatory 1..1 |
 | EP | 2.10 | Communication details (cluster) | Partial | HIQA Mandatory 1..*; IG 0..* |
 | EP | 2.10.1 | Telephone Number | Partial | telephone Mandatory; no phone slice |
+| EP | 3.1 | Electronic prescription identifier (cluster) | Partial | groupIdentifier is 0..1; identifier 1..* covers single-item prescriptions only |
 | EP | 3.1.1 | Electronic prescription identifier – type | Partial | type not MS or typed |
 | EP | 3.1.2 | Electronic prescription identifier – value | Partial | value not constrained |
 | EP | 3.3 | Prescription Status (cluster) | Partial | HIQA prescription-level status (whole prescription) has no container in the IG; only item-level status exists |
@@ -83,7 +83,6 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | PS | 1.2.2 | Address line(s) | Partial | HIQA Mandatory 1..1 |
 | PS | 1.2.4 | District/ County | Partial | HIQA Mandatory 1..1 |
 | PS | 1.2.6 | Address type | Partial | HIQA Mandatory; no homelessness value; not MS |
-| PS | 1.4.1 | Date of birth | Partial | HIQA Mandatory 1..1; IG 0..1. HIQA: unknown DOB recorded as 1900-01-01 |
 | PS | 1.4.4 | Sex | Partial | administrative gender, not sex assigned at birth (H-01) |
 | PS | 2.2 | Forename | Partial | HIQA Mandatory 1..1 |
 | PS | 2.5 | Health practitioner role and speciality (cluster) | Partial | HIQA Mandatory 1..*; the PS has no mandatory GP / practitioner participant |
@@ -108,6 +107,7 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | PS | 10.3.3.1 | Device name type | Partial |  |
 | PS | 14.2.3 | Country visited | Gap | country visited: Mandatory within the record entry |
 | PS | 15.2.1 | Date of status | Partial | not MS in the pregnancy profile |
+| PS | 15.2.2 | Pregnancy Status | Partial | value[x] 1..1 but not MS in the pregnancy-status profile |
 | PS | 15.2.3 | Expected delivery date (EDD) | Gap | expected delivery date |
 | PS | 15.2.4 | Gestational age | Gap | gestational age |
 | PS | 15.3.1 | End date of the pregnancy | Gap |  |
@@ -119,6 +119,8 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | PS | 19.1.2 | Document identifier | Partial | HIQA Mandatory 1..*; R4 Composition.identifier is 0..1 (Bundle.identifier 1..1 is needed) |
 | PS | 19.1.11.1 | Attester | Partial | Mandatory within the cluster |
 | PS | 19.1.11.2 | Attestation date and time | Partial | Mandatory within the cluster |
+| PS | 19.1.12.1 | Legal authenticator | Partial | Mandatory within the legal-authentication cluster; attester.party 0..1, not MS |
+| PS | 19.1.12.2 | Authentication date and time | Partial | Mandatory within the legal-authentication cluster; attester.time 0..1, not MS |
 
 ### ePrescription / eDispensation: full matrix
 
@@ -142,7 +144,7 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 1.3.3.2 | Other identifier used in health and social care-Value (PD) | Required | 0..1 | IECorePatient | `Patient.identifier.value` | N | Partial | value not MS on the unsliced identifier |
 | 1.3.3.3 | Other identifier used in health and social care - Time period (PD) | Required | 0..1 | IECorePatient | `Patient.identifier.period` | N | Partial | not MS |
 | 1.3.3.4 | Organisation who issued the other identifier used in health and social care (PD) | Required | 0..1 | IECorePatient | `Patient.identifier.assigner` | N | Partial | not MS; HIQA value is free text (assigner.display) |
-| 1.4.1 | Date of birth (PD) | Mandatory | 1..1 | IECorePatient | `Patient.birthDate` | Y | Partial | HIQA Mandatory 1..1 (legal requirement cross-border); IG 0..1 |
+| 1.4.1 | Date of birth (PD) | Mandatory | 1..1 | IECorePatient | `Patient.birthDate` | Y | Aligned | birthDate 1..1 inherited from EU Base patient-eu-core; a legal requirement on cross-border prescriptions |
 | 1.4.2 | Age (cluster) (P) | Required | 0..1 | IECoreMedicationRequestEPrescription |  | N | Gap | no age element; legal requirement when the patient is under 12 (H-04) |
 | 1.4.2.1 | Age if less than 12 years – value (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription |  | N | Gap |  |
 | 1.4.2.2 | Age if less than 12 years - type (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription |  | N | Gap |  |
@@ -212,7 +214,7 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 2.11 | Location ID (GLN) (PD) | Required | 0..1 | IECoreLocation | `Location.identifier` | Y | Partial | no GLN slice or GS1 check-digit rule (H-09) |
 | 2.12 | GMS Panel ID | Optional | 0..1 | IECoreOrganization |  | N | Gap | would sit under Organization.identifier; no GMS Panel ID identifier system |
 | 2.13 | Signature (P) | Required | 0..1 | IECoreMedicationRequestEPrescription |  | N | Gap | no signature; a legal requirement for inbound cross-border prescriptions (H-08) |
-| 3.1 | Electronic prescription identifier (cluster) (P) | Mandatory | 1..* | IECoreMedicationRequestEPrescription | `MedicationRequest.groupIdentifier` | Y | Aligned | NePS group identifier (multi-item) or item identifier (single-item) |
+| 3.1 | Electronic prescription identifier (cluster) (P) | Mandatory | 1..* | IECoreMedicationRequestEPrescription | `MedicationRequest.groupIdentifier` | Y | Partial | groupIdentifier is 0..1; identifier 1..* covers single-item prescriptions only |
 | 3.1.1 | Electronic prescription identifier – type (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.identifier.type` | N | Partial | type not MS or typed |
 | 3.1.2 | Electronic prescription identifier – value (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.identifier.value` | N | Partial | value not constrained |
 | 3.2 | Date and time of issuing the prescription (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.authoredOn` | Y | Aligned |  |
@@ -273,7 +275,7 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 4.7.2.1 | Ingredient is active (PD) | Required | 0..1 | IECoreMedicationEPrescription | `Medication.ingredient.isActive` | Y | Aligned |  |
 | 4.7.2.2 | Active ingredient/ Substance (PD) | Mandatory | 1..1 | IECoreMedicationEPrescription | `Medication.ingredient.item[x]` | Y | Aligned |  |
 | 4.7.2.3 | Strength information (cluster) (PD) | Required | 0..* | IECoreMedicationEPrescription | `Medication.ingredient.strength` | Y | Aligned |  |
-| 4.7.2.3.1 | Strength (PD) | Mandatory | 1..1 | IECoreMedicationEPrescription | `Medication.ingredient.strength` | Y | Aligned |  |
+| 4.7.2.3.1 | Strength (PD) | Mandatory | 1..1 | IECoreMedicationEPrescription | `Medication.ingredient.strength` | Y | Aligned | Mandatory within the strength cluster (4.7.2.3 = ingredient.strength 0..1) |
 | 4.7.2.3.2 | Basis of strength substance (PD) | Required | 0..1 | IECoreMedicationEPrescription |  | N | Gap | basis of strength substance |
 | 4.7.3 | Unit of presentation (D) | Optional | 0..1 | IECoreMedicationEPrescription |  | N | Gap | unit of presentation |
 | 4.7.4 | Contained quantity (D) | Optional | 0..1 | IECoreMedicationEPrescription |  | N | Gap | contained quantity |
@@ -338,26 +340,26 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 6.4.2 | Health practitioner is the receiver (D) | Optional | 0..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.receiver` | N | Aligned | Reference(Practitioner) |
 | 6.4.3 | Related person is the receiver (cluster) (D) | Optional | 0..1 | IECoreMedicationDispenseEDispensation |  | N | Gap | would sit under MedicationDispense.receiver; R4 receiver allows only Patient or Practitioner; RelatedPerson needs an extension or R5 cross-version |
 | 6.4.3.1 | Name title (D) | Optional | 0..* | IECoreRelatedPerson | `RelatedPerson.name.prefix` | N | Partial | profile exists but cannot be referenced from the R4 receiver |
-| 6.4.3.2 | Forename of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.name.given` | N | Partial |  |
-| 6.4.3.3 | Surname of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.name.family` | N | Partial |  |
-| 6.4.3.4 | Name suffix (D) | Optional | 0..* | IECoreRelatedPerson | `RelatedPerson.name.suffix` | N | Partial |  |
-| 6.4.3.5 | Receiver (related person) personal identifier (cluster) (D) | Optional | 0..* | IECoreRelatedPerson | `RelatedPerson.identifier` | N | Partial |  |
-| 6.4.3.5.1 | Receiver personal identifier - type (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.identifier.type` | N | Partial |  |
-| 6.4.3.5.2 | Receiver personal identifier - value (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.identifier.value` | N | Partial |  |
-| 6.4.3.5.3 | Receiver personal identifier - time period (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.identifier.period` | N | Partial |  |
-| 6.4.3.5.4 | Organisation who issued the Receiver’s (related person) personal identifier (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.identifier.assigner` | N | Partial |  |
-| 6.4.3.6 | Role of receiver (related person) (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.relationship` | Y | Partial |  |
-| 6.4.3.7 | Relationship to the patient (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.relationship` | Y | Partial |  |
-| 6.4.3.8 | Address for receiver (related person) (cluster) (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address` | N | Partial |  |
-| 6.4.3.8.1 | Postcode (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.postalCode` | N | Partial |  |
-| 6.4.3.8.2 | Address line(s) (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.line` | N | Partial |  |
-| 6.4.3.8.3 | Suburb/Town/ Townland/ Locality (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.city` | N | Partial |  |
-| 6.4.3.8.4 | District/ County (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.state` | N | Partial |  |
-| 6.4.3.8.5 | Country (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.country` | N | Partial |  |
-| 6.4.3.9 | Communication details for receiver (related person) (cluster) (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.telecom` | N | Partial |  |
-| 6.4.3.9.1 | Mobile phone number of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.telecom` | N | Partial |  |
-| 6.4.3.9.2 | Landline phone number of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.telecom` | N | Partial |  |
-| 6.4.3.9.3 | Email address of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.telecom` | N | Partial |  |
+| 6.4.3.2 | Forename of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.name.given` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
+| 6.4.3.3 | Surname of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.name.family` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
+| 6.4.3.4 | Name suffix (D) | Optional | 0..* | IECoreRelatedPerson | `RelatedPerson.name.suffix` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
+| 6.4.3.5 | Receiver (related person) personal identifier (cluster) (D) | Optional | 0..* | IECoreRelatedPerson | `RelatedPerson.identifier` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
+| 6.4.3.5.1 | Receiver personal identifier - type (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.identifier.type` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
+| 6.4.3.5.2 | Receiver personal identifier - value (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.identifier.value` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
+| 6.4.3.5.3 | Receiver personal identifier - time period (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.identifier.period` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
+| 6.4.3.5.4 | Organisation who issued the Receiver’s (related person) personal identifier (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.identifier.assigner` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
+| 6.4.3.6 | Role of receiver (related person) (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.relationship` | Y | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
+| 6.4.3.7 | Relationship to the patient (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.relationship` | Y | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
+| 6.4.3.8 | Address for receiver (related person) (cluster) (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
+| 6.4.3.8.1 | Postcode (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.postalCode` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
+| 6.4.3.8.2 | Address line(s) (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.line` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
+| 6.4.3.8.3 | Suburb/Town/ Townland/ Locality (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.city` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
+| 6.4.3.8.4 | District/ County (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.state` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
+| 6.4.3.8.5 | Country (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.address.country` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
+| 6.4.3.9 | Communication details for receiver (related person) (cluster) (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.telecom` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
+| 6.4.3.9.1 | Mobile phone number of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.telecom` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
+| 6.4.3.9.2 | Landline phone number of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.telecom` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
+| 6.4.3.9.3 | Email address of receiver (D) | Optional | 0..1 | IECoreRelatedPerson | `RelatedPerson.telecom` | N | Partial | profile exists but cannot be referenced from the R4 MedicationDispense.receiver |
 | 6.5 | Prescription item identifier with related request (D) | Required | 0..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.authorizingPrescription` | Y | Aligned | IG 1..* is stricter than HIQA Required 0..1 (M-03) |
 | 6.6 | Dispensed medication (D) | Mandatory | 1..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.medication[x]` | Y | Aligned |  |
 | 6.7 | Dispensed quantity value (D) | Mandatory | 1..1 | IECoreMedicationDispenseEDispensation | `MedicationDispense.quantity` | Y | Aligned |  |
@@ -403,14 +405,14 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 1.3.4.1 | Health insurance- type | Required | 0..1 | IECoreCoverage | `Coverage.type` | Y | Aligned |  |
 | 1.3.4.2 | Health insurance- value | Required | 0..1 | IECoreCoverage | `Coverage.subscriberId` | Y | Aligned |  |
 | 1.3.4.3 | Name of organisation providing health insurance | Required | 0..1 | IECoreCoverage | `Coverage.payor` | Y | Aligned |  |
-| 1.4.1 | Date of birth | Mandatory | 1..1 | IECorePatient | `Patient.birthDate` | Y | Partial | HIQA Mandatory 1..1; IG 0..1. HIQA: unknown DOB recorded as 1900-01-01 |
+| 1.4.1 | Date of birth | Mandatory | 1..1 | IECorePatient | `Patient.birthDate` | Y | Aligned | birthDate 1..1 inherited from EU Base patient-eu-core. HIQA: unknown DOB recorded as 1900-01-01 |
 | 1.4.2 | Estimated age (cluster) | Optional | 0..1 | IECorePatient |  | N | Gap | estimated age; Optional |
 | 1.4.2.1 | Estimated age - value | Optional | 0..1 | IECorePatient |  | N | Gap |  |
 | 1.4.2.2 | Estimated age - type | Optional | 0..1 | IECorePatient |  | N | Gap |  |
 | 1.4.3 | Place of birth | Required | 0..1 | IECorePatient |  | N | Gap | would sit under Patient.extension; place of birth (county or city) not modelled; patient-birthPlace available |
 | 1.4.4 | Sex | Mandatory | 1..1 | IECorePatient | `Patient.gender` | Y | Partial | administrative gender, not sex assigned at birth (H-01) |
-| 1.4.5 | Gender (cluster) | Required | 0..1 | IECorePatient | `Patient.extension:genderIdentity` | Y | Partial |  |
-| 1.4.5.1 | Gender | Required | 0..1 | IECorePatient | `Patient.extension:genderIdentity.value[x]` | Y | Partial |  |
+| 1.4.5 | Gender (cluster) | Required | 0..1 | IECorePatient | `Patient.extension:genderIdentity` | Y | Partial | cluster modelled as one extension; no 'other gender' code verified |
+| 1.4.5.1 | Gender | Required | 0..1 | IECorePatient | `Patient.extension:genderIdentity.value[x]` | Y | Partial | binding to ie-core-gender-identity not verified against a HIQA value set (none published) |
 | 1.4.5.2 | Other gender identity | Optional | 0..1 | IECorePatient | `Patient.extension:genderIdentity.value[x].text` | N | Aligned |  |
 | 1.4.6 | Mother's former surnames | Required | 0..* | IECorePatient | `Patient.extension:mothersMaidenName` | Y | Partial | HIQA 0..* 'former surnames'; IG 0..1 maiden name |
 | 1.4.7 | Nationality | Required | 0..* | IECorePatient |  | N | Gap | would sit under Patient.extension; nationality not modelled; patient-nationality available |
@@ -437,7 +439,7 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 2.6.1 | Health Professional body registration – type | Mandatory | 1..1 | IECorePractitioner | `Practitioner.identifier.system` | Y | Partial |  |
 | 2.6.2 | Health Professional body registration – value | Mandatory | 1..1 | IECorePractitioner | `Practitioner.identifier.value` | Y | Partial |  |
 | 2.7 | Healthcare facility name | Required | 0..1 | IECoreOrganization | `Organization.name` | Y | Aligned |  |
-| 2.8 | Healthcare facility identifier | Required | 0..1 | IECoreOrganization | `Organization.identifier` | Y | Partial |  |
+| 2.8 | Healthcare facility identifier | Required | 0..1 | IECoreOrganization | `Organization.identifier` | Y | Partial | no PSI Retail Pharmacy Business registration number slice (H-09) |
 | 2.9 | Healthcare facility address (cluster) | Mandatory | 1..1 | IECoreOrganization | `Organization.address` | Y | Partial | HIQA Mandatory |
 | 2.9.1 | Postcode | Mandatory | 1..1 | IECoreOrganization | `Organization.address.postalCode` | Y | Partial | HIQA Mandatory |
 | 2.9.2 | Address line(s) | Mandatory | 1..1 | IECoreOrganization | `Organization.address.line` | Y | Partial | HIQA Mandatory |
@@ -475,7 +477,7 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 4.3.3 | Alert | Optional | 0..1 | IECoreFlag | `Flag.code` | Y | Aligned |  |
 | 4.3.4 | Description of alert | Required | 0..1 | IECoreFlag | `Flag.code.text` | N | Aligned |  |
 | 4.3.5 | Alert priority | Optional | 0..1 | IECoreFlag |  | N | Gap | priority (flag-priority extension); Optional |
-| 4.4.6 | Source of alert information | Optional | 0..* | IECoreFlag | `Flag.author` | Y | Aligned | HIQA numbering anomaly (probably 4.3.6) |
+| 4.4.6 | Source of alert information | Optional | 0..* | IECoreFlag | `Flag.author` | Y | Partial | HIQA numbering anomaly (probably 4.3.6). HIQA 0..* sources; Flag.author is 0..1 |
 | 4.5 | Note | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:alerts.text` | Y | Aligned |  |
 | 5.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:allergies.text` | Y | Aligned |  |
 | 5.2 | Allergies and intolerances empty reason | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:allergies.emptyReason` | Y | Aligned |  |
@@ -589,9 +591,9 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 11.2 | Note | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:patientStory.text` | Y | Aligned |  |
 | 12.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:socialHistory.text` | Y | Aligned |  |
 | 12.2 | Living situation | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:socialHistory.entry` | Y | Partial | free text in HIQA; no coded observation defined |
-| 12.3 | What matters to the patient | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:socialHistory.entry` | Y | Partial |  |
-| 12.4 | Family situation | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:socialHistory.entry` | Y | Partial |  |
-| 12.5 | Other determinants of health observations | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:socialHistory.entry` | Y | Partial |  |
+| 12.3 | What matters to the patient | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:socialHistory.entry` | Y | Partial | free text in HIQA; no coded observation or narrative-only convention defined |
+| 12.4 | Family situation | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:socialHistory.entry` | Y | Partial | free text in HIQA; no coded observation or narrative-only convention defined |
+| 12.5 | Other determinants of health observations | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:socialHistory.entry` | Y | Partial | free text in HIQA; no coded observation or narrative-only convention defined |
 | 12.6 | Note | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:socialHistory.text` | Y | Aligned |  |
 | 13.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:advanceDirectives.text` | Y | Aligned |  |
 | 13.2 | Advance Healthcare Directive (empty reason) | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:advanceDirectives.emptyReason` | N | Partial | Required; not MS |
@@ -602,7 +604,7 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 14.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:travelHistory.text` | Y | Aligned |  |
 | 14.2 | Travel and communicable disease history (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:travelHistory.entry` | Y | Partial | generic IECoreSimpleObservation |
 | 14.2.1 | Infectious agent | Required | 0..* | IECoreSimpleObservation |  | N | Gap | infectious agent |
-| 14.2.2 | Time period | Required | 0..* | IECoreSimpleObservation | `Observation.effective[x]` | Y | Partial |  |
+| 14.2.2 | Time period | Required | 0..* | IECoreSimpleObservation | `Observation.effective[x]` | Y | Partial | generic observation; no travel-history profile to carry the travel period |
 | 14.2.3 | Country visited | Mandatory | 1..* | IECoreSimpleObservation |  | N | Gap | country visited: Mandatory within the record entry |
 | 14.2.4 | Proximity | Optional | 0..* | IECoreSimpleObservation |  | N | Gap | proximity |
 | 14.2.5 | Current Infection control status | Required | 0..* | IECoreSimpleObservation |  | N | Gap | infection control status |
@@ -610,7 +612,7 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 15.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:pregnancyHistory.text` | Y | Aligned |  |
 | 15.2 | Current Pregnancy (record entry) | Required | 0..* | IECoreObservationPregnancyStatus | `Observation` | Y | Aligned |  |
 | 15.2.1 | Date of status | Mandatory | 0..1 | IECoreObservationPregnancyStatus | `Observation.effective[x]` | N | Partial | not MS in the pregnancy profile |
-| 15.2.2 | Pregnancy Status | Mandatory | 1..1 | IECoreObservationPregnancyStatus | `Observation.value[x]` | N | Aligned |  |
+| 15.2.2 | Pregnancy Status | Mandatory | 1..1 | IECoreObservationPregnancyStatus | `Observation.value[x]` | N | Partial | value[x] 1..1 but not MS in the pregnancy-status profile |
 | 15.2.3 | Expected delivery date (EDD) | Mandatory | 1..1 | IECoreObservationPregnancyStatus |  | N | Gap | expected delivery date |
 | 15.2.4 | Gestational age | Mandatory | 1..1 | IECoreObservationPregnancyStatus |  | N | Gap | gestational age |
 | 15.2.5 | Note | Optional | 0..1 | IECoreObservationPregnancyStatus | `Observation.note` | N | Aligned |  |
@@ -632,7 +634,7 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 16.3.8 | Administering Centre | Required | 0..1 | IECoreImmunization | `Immunization.location` | N | Partial | Required; not MS |
 | 16.4 | Note | Optional | 0..1 | IECoreImmunization | `Immunization.note` | N | Aligned |  |
 | 17.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:functionalStatus.text` | Y | Aligned |  |
-| 17.2 | Functional status | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:functionalStatus.entry` | Y | Partial |  |
+| 17.2 | Functional status | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:functionalStatus.entry` | Y | Partial | entries allowed (Condition or Observation) but no functional-status profile |
 | 17.3 | Condition related to functional status | Required | 0..* | IECoreConditionProblemsHealthConcerns | `Condition` | Y | Partial |  |
 | 17.4 | Functional Assessment (record entry) | Required | 0..* | IECoreSimpleObservation | `Observation` | Y | Partial |  |
 | 17.4.1 | Date of functional assessment | Mandatory | 1..1 | IECoreSimpleObservation | `Observation.effective[x]` | Y | Partial | Mandatory within the record entry; 0..1 |
@@ -672,8 +674,8 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-hiqa-epre
 | 19.1.11.1 | Attester | Mandatory | 1..1 | IECoreCompositionPatientSummary | `Composition.attester.party` | N | Partial | Mandatory within the cluster |
 | 19.1.11.2 | Attestation date and time | Mandatory | 1..1 | IECoreCompositionPatientSummary | `Composition.attester.time` | N | Partial | Mandatory within the cluster |
 | 19.1.12 | Legal authentication (Cluster) | Optional | 0..* | IECoreCompositionPatientSummary | `Composition.attester` | N | Aligned | attester.mode = legal |
-| 19.1.12.1 | Legal authenticator | Mandatory | 0..1 | IECoreCompositionPatientSummary | `Composition.attester.party` | N | Aligned |  |
-| 19.1.12.2 | Authentication date and time | Mandatory | 0..1 | IECoreCompositionPatientSummary | `Composition.attester.time` | N | Aligned |  |
+| 19.1.12.1 | Legal authenticator | Mandatory | 0..1 | IECoreCompositionPatientSummary | `Composition.attester.party` | N | Partial | Mandatory within the legal-authentication cluster; attester.party 0..1, not MS |
+| 19.1.12.2 | Authentication date and time | Mandatory | 0..1 | IECoreCompositionPatientSummary | `Composition.attester.time` | N | Partial | Mandatory within the legal-authentication cluster; attester.time 0..1, not MS |
 | 19.1.13 | Event type | Optional | 0..* | IECoreCompositionPatientSummary | `Composition.event.code` | N | Aligned |  |
 | 19.1.14 | Service speciality | Optional | 0..* | IECoreCompositionPatientSummary |  | N | Gap | service speciality; Optional |
 | 19.1.15 | Custodian | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.custodian` | Y | Aligned |  |
