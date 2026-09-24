@@ -1,0 +1,307 @@
+id,element,pd,auto,conformance,cardinality,values,page
+1.1.1,Name title,,,Optional,0..*,Coded value,23
+1.1.2,Forename,,,Mandatory,1..1,Free text,23
+1.1.3,Middle name (s),,,Required,0..1,Free text,23
+1.1.4,Surname,,,Mandatory,1..1,Free text,24
+1.1.5,Name suffix,,,Optional,0..*,Coded value,24
+1.1.6,Former names,,,Required,0..*,Free text,24
+1.1.7,Preferred name,,,Required,0..1,Free text,25
+1.2.1,Postcode,,,Required,0..1,Alpha-numeric,25
+1.2.2,Address line(s),,,Mandatory,1..1,Free text,25
+1.2.3,Suburb/ Town/ Townland/ Locality,,,Required,0..1,Free text,26
+1.2.4,District/ County,,,Mandatory,1..1,Coded Value,26
+1.2.5,Country,,,Required,0..1,Coded value,26
+1.2.6,Address type,,,Mandatory,1..1,Coded value,26
+1.2.7,Address use,,,Optional,0..1,Coded value,27
+1.3.1,Individual Health Identifier (IHI),,,Required,0..1,Numeric,27
+1.3.2,Personal Public Service Number,,,Required,0..1,Alpha-numeric,28
+1.3.3,Other identifiers used in health and social care details (cluster),,,Required,0..*,,28
+1.3.3.1,Other identifiers used in health and social care – type,,,Required,0..1,Coded value,29
+1.3.3.2,Other identifiers used in health and social care- value,,,Required,0..1,Alpha-numeric,29
+1.3.3.3,Other identifier used in health and social care - time period,,,Required,0..1,Period,30
+1.3.3.4,Organisation who issued the other identifier used in health and social care,,,Required,0..1,Free text,30
+1.3.4,Health insurance information (cluster),,,Required,0..*,,30
+1.3.4.1,Health insurance- type,,,Required,0..1,Coded value,31
+1.3.4.2,Health insurance- value,,,Required,0..1,Alpha-numeric,31
+1.3.4.3,Name of organisation providing health insurance,,,Required,0..1,Coded value,31
+1.4.1,Date of birth,,,Mandatory,1..1,Datetime,32
+1.4.2,Estimated age (cluster),,,Optional,0..1,,32
+1.4.2.1,Estimated age - value,,,Optional,0..1,Numeric,32
+1.4.2.2,Estimated age - type,,,Optional,0..1,Coded value,33
+1.4.3,Place of birth,,,Required,0..1,Coded value,33
+1.4.4,Sex,,,Mandatory,1..1,Coded value,33
+1.4.5,Gender (cluster),,,Required,0..1,,33
+1.4.5.1,Gender,,,Required,0..1,Coded value,34
+1.4.5.2,Other gender identity,,,Optional,0..1,Free text,34
+1.4.6,Mother's former surnames,,,Required,0..*,Free text,35
+1.4.7,Nationality,,,Required,0..*,Coded value,35
+1.4.8,Country of affiliation,,,Required,0..1,Coded value,35
+1.4.9,Preferred language,,,Optional,0..*,Coded value,36
+1.4.10,Ethnicity,,,Required,0..*,Coded value,36
+1.4.11,Date of death,,,Required,0..1,Datetime,37
+1.4.12,Cause of death,,,Required,0..1,Coded value,37
+1.5.1,Mobile phone number,,,Required,0..*,Numeric (may include +),38
+1.5.2,Email address,,,Required,0..*,Alpha-numeric (@),38
+1.5.3,Other communication details (cluster),,,Optional,0..*,,38
+1.5.3.1,Other communication details - type,,,Optional,0..*,Coded value,39
+1.5.3.2,Other communication details - value,,,Optional,0..*,Alpha-numeric,39
+1.5.3.3,Other communication details - use,,,Optional,0..*,Coded value,39
+1.5.4,Preferred communication method,,,Required,0..*,Coded value,40
+2.1,Name title,,,Optional,0..*,Coded value,42
+2.2,Forename,,,Mandatory,1..1,Free text,42
+2.3,Surname,,,Mandatory,1..1,Free text,42
+2.4,Name suffix,,,Optional,0..*,Coded value,43
+2.5,Health practitioner role and speciality (cluster),,,Mandatory,1..*,,43
+2.5.1,Health Practitioner role,,,Required,0..*,Coded value,43
+2.5.2,Health practitioner specialty,,,Required,0..*,Code value,44
+2.6,Health practitioner registration (cluster),,,Mandatory,1..1,,44
+2.6.1,Health Professional body registration – type,,,Mandatory,1..1,Coded value,44
+2.6.2,Health Professional body registration – value,,,Mandatory,1..1,Alpha-numeric,45
+2.7,Healthcare facility name,,,Required,0..1,Free text,45
+2.8,Healthcare facility identifier,,,Required,0..1,Alpha-numeric,45
+2.9,Healthcare facility address (cluster),,,Mandatory,1..1,,46
+2.9.1,Postcode,,,Mandatory,1..1,Alpha-numeric,46
+2.9.2,Address line(s),,,Mandatory,1..1,Free text,46
+2.9.3,Suburb/Town/ Townland/Locality,,,Required,0..1,Free text,47
+2.9.4,District/ County,,,Mandatory,1..1,Coded Value,47
+2.9.5,Country,,,Mandatory,1..1,Coded value,47
+2.10,Communication details (cluster),,,Required,0..1,,47
+2.10.1,Telephone number,,,Required,0..*,Numeric and may include the + symbol,47
+2.10.2,Email address,,,Required,0..*,Alpha-numeric,48
+2.10.3,Other Communication details (cluster),,,Optional,0..*,,48
+2.10.3.1,Communication details – Type,,,Optional,0..*,Coded value,49
+2.10.3.2,Communication Details – Value,,,Optional,0..*,Alpha-numeric,49
+2.11,Location ID (GLN),,,Required,0..1,Numeric,49
+2.12,GMS Panel ID,,,Optional,0..1,Numeric,50
+3.1,Forename of nominated contact person,,,Required,0..1,Free text,52
+3.2,Surname of nominated contact person,,,Required,0..1,Free text,52
+3.3,Role of the nominated contact person,,,Required,0..*,Coded value,52
+3.4,Relationship,,,Required,0..1,Coded value,53
+3.5,Communication details of nominated contact person (cluster),,,Required,0..1,,53
+3.5.1,Mobile phone number of nominated contact person,,,Required,0..1,Numeric and may include the + symbol,53
+3.5.2,Landline phone number of nominated contact person,,,Required,0..1,Numeric and may include the + symbol,54
+3.5.3,Email address of nominated contact person,,,Required,0..1,Alpha-numeric Character to include @ symbol,54
+3.6,Address of nominated contact person (cluster),,,Optional,0..1,,54
+3.6.1,Postcode,,,Required,0..1,Alpha-numeric,55
+3.6.2,Address line(s),,,Mandatory,1..1,Free text,55
+3.6.3,Suburb/ Town/ Townland/ Locality,,,Required,0..1,Free text,56
+3.6.4,District/ County/ City (if outside Ireland).,,,Mandatory,1..1,Coded Value,56
+3.6.5,Country,,,Required,0..1,Coded value,56
+3.7,Preferred communication type for nominated contact person,,,Required,0..1,Coded value,56
+4.1,Generated Narrative,,,Optional,0..1,Free text,59
+4.2,Alerts empty reason,,,Required,0..1,Coded value,59
+4.3,Alerts (record entry),,,Required,0..*,,59
+4.3.1,Time period of alert,,,Required,0..1,Period,59
+4.3.2,Alert status,,,Mandatory,1..1,Coded value,60
+4.3.3,Alert,,,Optional,0..1,Coded value,60
+4.3.4,Description of alert,,,Required,0..1,Free text,60
+4.3.5,Alert priority,,,Optional,0..1,Coded value,60
+4.4.6,Source of alert information,,,Optional,0..*,Coded value,60
+4.5,Note,,,Optional,0..1,Free text,61
+5.1,Generated Narrative,,,Optional,0..1,Free text,63
+5.2,Allergies and intolerances empty reason,,,Required,0..1,Coded value,63
+5.3,Allergies and intolerances (record entry),,,Required,0..*,,63
+5.3.1,Allergies or intolerances status,,,Mandatory,1..1,Coded value,63
+5.3.2,Causative agent or allergen,,,Mandatory,1..1,Coded value,64
+5.3.3,Onset date,,,Required,0..1,Datetime,64
+5.3.4,End date,,,Required,0..1,Datetime,64
+5.3.5,Certainty,,,Optional,0..1,Coded value,65
+5.3.6,Note,,,Optional,0..1,Free text,65
+5.3.7,Reaction (Cluster),,,Required,0..*,,65
+5.3.7.1,Allergen,,,Mandatory,1..1,Coded value,65
+5.3.7.2,Description of reaction,,,Required,0..*,Free text,66
+5.3.7.3,Type of reaction,,,Optional,0..1,Coded value,66
+5.3.7.4,Severity,,,Required,0..1,Coded value,66
+5.3.7.5,Evidence,,,Optional,0..1,Coded value,67
+5.3.7.6,Onset date,,,Optional,0..1,Datetime,67
+5.3.7.7,Note,,,Optional,0..1,Free text,67
+6.1,Generated Narrative,,,Optional,0..1,Free text,69
+6.2,Medications prescribed (empty reason),,,Required,0..1,Coded value,69
+6.3,Medication (record entry),,,Required,0..1,,69
+6.3.1,Medication status (cluster) 6.3.1 Medication status (cluster),,,Required,0..1,,70
+6.3.1.1,Medication status,,,Mandatory,1..1,Coded value,70
+6.3.1.2,Medication status reason,,,Required,0..1,Coded value,70
+6.3.2,Medication identifier,,,Required,0..1,Alpha-numeric,70
+6.3.3,Medication Classification,,,Required,0..*,Coded value,70
+6.3.4,Medication name,,,Mandatory,1..1,Coded value,71
+6.3.5,Indication for medication (cluster),,,Optional,0..*,,71
+6.3.5.1,Indication for medication,,,Optional,0..*,Coded value,71
+6.3.5.2,Indication for medication in text format,,,Optional,0..1,Free text,72
+6.3.6,Form,,,Required,0..1,Coded value,72
+6.3.7,Route,,,Required,0..1,Coded value,72
+6.3.8,Site,,,Required,0..1,Coded value,72
+6.3.9,Dose,,,Mandatory,1..1,Quantity,72
+6.3.10,Frequency (cluster),,,Required,0..1,,73
+6.3.10.1,Frequency of administration,,,Mandatory,1..1,Integer,73
+6.3.10.2,Period,,,Mandatory,1..1,Quantity,73
+6.3.10.3,Day of the week,,,Optional,0..*,Coded value,73
+6.3.10.4,Time of the day,,,Optional,0..*,Time,74
+6.3.10.5,Event or time period for administration,,,Optional,0..*,Coded value,74
+6.3.11.1,Additional instructions,,,Required,0..*,Free text,74
+6.4,Aids to compliance,,,Optional,0..*,Coded value,75
+6.5,Non-prescribed medication/supplements,,,Optional,0..*,Coded value,75
+6.6,Note,,,Optional,0..1,Free text,75
+7.1,Generated Narrative,,,Optional,0..1,Free text,78
+7.2,Health condition (empty reason),,,Required,0..1,Coded value,78
+7.3,Health condition (record entry),,,Required,0..*,,78
+7.3.1,Problems /Health condition,,,Mandatory,1..1,Coded value,78
+7.3.2,Health condition status,,,Mandatory,1..1,Coded value,79
+7.3.3,Date of diagnosis,,,Required,0..1,Datetime,79
+7.3.4,Onset date,,,Required,0..1,Datetime,79
+7.3.5,End date,,,Required,0..1,Datetime,79
+7.3.6,"Category of problem, condition or diagnosis",,,Optional,0..*,Coded value,79
+7.3.7,Severity,,,Required,0..1,Coded value,80
+7.3.8,Anatomical location,,,Required,0..*,Coded value,80
+7.3.9,Clinical stage/grade,,,Required,0..1,Coded value,80
+7.3.10,Diagnosis assertion status,,,Optional,0..1,Coded value,80
+7.3.11,Resolution circumstances,,,Optional,0..1,Coded value,81
+7.3.12,Specialist Contact details,,,Required,0..*,Free text,81
+7.3.13,Attachment,,,Required,0..*,Attachment,81
+7.4,Note,,,Optional,0..1,Free text,81
+8.1,Generated Narrative,,,Optional,0..1,Free text,83
+8.2,Observation result (Record Entry),,,Required,0..*,,83
+8.2.1,Date of observation result,,,Mandatory,1..1,Datetime,83
+8.2.2,Observation requested,,,Mandatory,1..1,Coded value,83
+8.2.3,Observation Status,,,Mandatory,1..1,Coded value,84
+8.2.4,Result (cluster),,,Mandatory,1..1,Coded value,84
+8.2.4.1,Result coded value,,,Required,0..1,Coded value,84
+8.2.4.2,Result value text,,,Required,0..1,Free text,84
+8.2.4.3,Result value quantity,,,Required,0..1,Quantity,85
+8.2.4.4,Result value range,,,Required,0..1,Range,85
+8.2.4.5,Result value ratio,,,Required,0..1,Ratio,85
+8.3,Note,,,Optional,0..1,Free text,86
+9.1,Generated Narrative,,,Optional,0..1,Free text,88
+9.2,"Procedures, operations or treatment (Empty reason)",,,Required,0..1,Coded value,88
+9.3,"Procedures, operations or treatment (record entry)",,,Required,0..*,,88
+9.3.1,"Date of procedure, operation or treatment",,,Required,0..1,Datetime,88
+9.3.2,"Procedure, operation or treatment name",,,Mandatory,1..1,Coded value,89
+9.3.3,"Reason for procedure, operation or treatment",,,Required,0..*,Coded value,89
+9.3.4,Status,,,Mandatory,1..1,Coded value,89
+9.3.5,Anatomical location (cluster),,,Required,0..*,,89
+9.3.5.1,Morphology,,,Optional,0..1,Coded value,90
+9.3.5.2,Location,,,Required,0..1,Coded value,90
+9.3.5.3,Location qualifier,,,Optional,0..*,Coded value,90
+9.3.5.4,Laterality,,,Required,0..1,Coded value,91
+9.3.5.5,Description of anatomical location,,,Optional,0..1,Free text,91
+9.3.6,"Outcome of procedure, operation or treatment",,,Optional,0..1,Coded value,91
+9.3.7,"Complications relating to procedure, operation or treatment",,,Required,0..*,Coded value,92
+9.3.8,Device use (cluster),,,Optional,0..1,,92
+9.3.8.1,Device used,,,Optional,0..*,Coded value,92
+9.3.8.2,Focal device,,,Optional,0..*,Coded value,92
+9.4,Note,,,Optional,0..1,Free text,93
+10.1,Generated Narrative,,,Optional,0..1,Free text,95
+10.2,Medical devices or implants (empty reason),,,Required,0..1,Coded value,95
+10.3,Medical devices or implants (record entry),,,Required,0..*,,95
+10.3.1,Device/ implant period of use,,,Required,0..1,Period,96
+10.3.2,Device status,,,Mandatory,1..1,Coded value,96
+10.3.3,Device name (cluster),,,Required,0..1,,96
+10.3.3.1,Device name type,,,Mandatory,1..1,Coded value,96
+10.3.3.2,Device name value,,,Mandatory,1..1,Coded value,97
+10.3.3.3,Body site (cluster),,,Required,0..1,Coded value,97
+10.3.3.3.1,Morphology,,,Required,0..1,Coded value,97
+10.3.3.3.2,Body site location,,,Required,0..1,Coded value,97
+10.3.3.3.3,Body site location qualifier,,,Required,0..1,Coded value,97
+10.3.3.3.4,Laterality,,,Required,0..1,Coded value,98
+10.3.3.3.5,Description in text format,,,Optional,0..1,Free text,98
+10.4,Reason for device/implant insertion or removal,,,Required,0..1,Coded value,98
+10.5,Attachment,,,Required,0..*,Attachment,98
+10.6,Note,,,Optional,0..1,Free text,99
+11.1,Patient story,,,Optional,0..*,Free text,101
+11.2,Note,,,Optional,0..1,Free text,101
+12.1,Generated Narrative,,,Optional,0..1,Free text,103
+12.2,Living situation,,,Required,0..*,Free text,103
+12.3,What matters to the patient,,,Required,0..*,Free text,103
+12.4,Family situation,,,Required,0..*,Free text,104
+12.5,Other determinants of health observations,,,Required,0..*,Free text,104
+12.6,Note,,,Optional,0..1,Free text,104
+13.1,Generated Narrative,,,Optional,0..1,Free text,106
+13.2,Advance Healthcare Directive (empty reason),,,Required,0..1,Coded value,106
+13.3,Advance Healthcare Directive (AHD) (record entry),,,Required,0..*,,106
+13.3.1,Category of AHD,,,Required,0..*,Coded Value,106
+13.3.2,Attachment,,,Mandatory,0..1,Attachment,107
+13.4,Note,,,Optional,0..1,Free text,107
+14.1,Generated Narrative,,,Optional,0..1,Free text,109
+14.2,Travel and communicable disease history (record entry),,,Required,0..*,,109
+14.2.1,Infectious agent,,,Required,0..*,Coded value,109
+14.2.2,Time period,,,Required,0..*,Period,109
+14.2.3,Country visited,,,Mandatory,1..*,Coded value,110
+14.2.4,Proximity,,,Optional,0..*,Free text,110
+14.2.5,Current Infection control status,,,Required,0..*,Coded value,110
+14.3,Note,,,Optional,0..1,Free text,110
+15.1,Generated Narrative,,,Optional,0..1,Free text,112
+15.2,Current Pregnancy (record entry),,,Required,0..*,,112
+15.2.1,Date of status,,,Mandatory,0..1,Datetime,112
+15.2.2,Pregnancy Status,,,Mandatory,1..1,Coded value,112
+15.2.3,Expected delivery date (EDD),,,Mandatory,1..1,Datetime,112
+15.2.4,Gestational age,,,Mandatory,1..1,Quantity,113
+15.2.5,Note,,,Optional,0..1,Free text,113
+15.3,Pregnancy History (record entry),,,Required,0..*,,113
+15.3.1,End date of the pregnancy,,,Mandatory,1..1,Datetime,113
+15.3.2,Outcome of the pregnancy,,,Mandatory,1..1,Coded value,114
+15.3.3,Number of foetuses in specific pregnancy,,,Mandatory,1..1,Coded value,114
+15.3.4,Note,,,Optional,0..1,Free text,114
+16.1,Generated Narrative,,,Optional,0..1,Free text,116
+16.2,Immunisations administered empty reason,,,Required,1..1,Coded value,116
+16.3,Immunisations (record entry),,,Required,0..*,,116
+16.3.1,Immunisation status,,,Mandatory,1..1,Coded value,116
+16.3.2,Date and time of Immunisation,,,Mandatory,1..1,Datetime,116
+16.3.3,Administered product,,,Mandatory,1..1,Coded value,117
+16.3.4,Target disease of immunisation,,,Required,0..*,Coded value,117
+16.3.5,Vaccine code,,,Mandatory,1..1,Coded value,117
+16.3.6,Number of doses,,,Required,0..1,Coded value,117
+16.3.7,Immunisation administrator,,,Required,0..1,,118
+16.3.8,Administering Centre,,,Required,0..1,,118
+16.4,Note,,,Optional,0..1,Free text,118
+17.1,Generated Narrative,,,Optional,0..1,Free text,120
+17.2,Functional status,,,Required,0..*,Coded value,120
+17.3,Condition related to functional status,,,Required,0..*,Coded value,120
+17.4,Functional Assessment (record entry),,,Required,0..*,,120
+17.4.1,Date of functional assessment,,,Mandatory,1..1,Datetime,121
+17.4.2,Functional assessment type,,,Mandatory,1..1,Coded value,121
+17.4.3,Functional Assessment Result (cluster),,,Mandatory,1..1,,121
+17.4.3.1,Result value code,,,Required,0..1,Coded value,122
+17.4.3.2,Result value text,,,Required,0..1,Free text,122
+17.4.3.3,Result value quantity,,,Required,0..1,Quantity,122
+17.4.3.4,Result value range,,,Required,0..1,Range,122
+17.4.3.5,Result value ratio,,,Required,0..1,Ratio,123
+17.5,Note,,,Optional,0..1,Free text,123
+18.1,Generated Narrative,,,Optional,0..1,Free text,125
+18.2,Care Plan (record entry),,,Required,0..1,,125
+18.2.1,Name of care plan,,,Required,0..1,Coded value,125
+18.2.2,Description of the care plan,,,Required,0..*,Free text,125
+18.2.3,Care plan period,,,Optional,0..1,Period,126
+18.2.4,Condition related to the care plan,,,Optional,0..*,Coded value,126
+18.2.5,Care plan activity (cluster) 18.2.5 Care plan activity (cluster),,,Optional,0..*,,127
+18.2.5.1,Care plan activity type,,,Optional,0..*,Coded value,127
+18.2.5.2,Care plan specific activity,,,Optional,0..*,Free text,127
+18.2.6,Care plan goal,,,Optional,0..*,Coded value,127
+18.3,"Education, advice and recommendations for patient",,,Optional,0..*,Free text,127
+18.4,Patient home supports identified,,,Required,0..*,Free Text,128
+18.5,"Patient concerns, expectations and wishes",,,Optional,0..*,Free text,129
+18.6,Note,,,Optional,0..1,Free text,129
+19.1.1,Document subject (Patient),,,Mandatory,1..1,,132
+19.1.2,Document identifier,,,Mandatory,1..*,Alpha-numeric,132
+19.1.3,Document author,,,Mandatory,1..*,,132
+19.1.4,Document date,,,Mandatory,1..1,Datetime,133
+19.1.5,Document status,,,Mandatory,1..1,Coded value,133
+19.1.6,Document language,,,Optional,0..1,Coded value,134
+19.1.7,Document type,,,Mandatory,1..1,Coded value,134
+19.1.8,Document title,,,Mandatory,1..1,Free text,134
+19.1.9,Document period,,,Optional,0..1,Period,135
+19.1.10,Version,,,Optional,0..1,Alpha-numeric,135
+19.1.11,Attestation (Cluster),,,Optional,0..*,,135
+19.1.11.1,Attester,,,Mandatory,1..1,,135
+19.1.11.2,Attestation date and time,,,Mandatory,1..1,Datetime,136
+19.1.12,Legal authentication (Cluster),,,Optional,0..*,,136
+19.1.12.1,Legal authenticator,,,Mandatory,0..1,,137
+19.1.12.2,Authentication date and time,,,Mandatory,0..1,Datetime,137
+19.1.13,Event type,,,Optional,0..*,Coded value,138
+19.1.14,Service speciality,,,Optional,0..*,Coded value,138
+19.1.15,Custodian,,,Optional,0..1,,138
+19.1.16,Attachment,,,Optional,0..*,Attachment,138
+19.2.1,Entry subject (Patient),,,Mandatory,1..1,,141
+19.2.2,Entry identifier,,,Optional,0..*,Alpha-numeric,141
+19.2.3,Entry author,,,Required,0..*,,141
+19.2.4,Entry date,,,Required,0..1,Datetime,142
+19.2.5,Entry source,,,Optional,0..1,Coded value,142
+19.2.6,Entry language,,,Optional,0..1,Coded value,143

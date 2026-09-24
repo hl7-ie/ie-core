@@ -325,13 +325,13 @@ IE Core adds the following Ireland-specific elements on top of the EU profiles:
 
 | Extension / Constraint | Applicable Profiles | Purpose |
 |----------------------|-------------------|---------|
-| IHI (Individual Health Identifier) | Patient | National patient identifier (18-digit) |
-| HPI (Health Practitioner ID) | Practitioner | National practitioner identifier |
-| GMS / DPS / LTI scheme numbers | Patient, MedicationRequest | Irish health scheme eligibility |
-| PCRS claim reference | MedicationRequest (ePrescription) | Primary Care Reimbursement Service |
+| IHI (Individual Health Identifier) | Patient | National patient identifier (18 or 10 digits, HIQA EP/PS 1.3.1) |
+| Registration numbers (IMC, PSI, NMBI, Dental Council) | Practitioner | Prescriber and dispenser registration (HIQA 2.6.2) |
+| PCRS scheme numbers | Patient | Scheme eligibility, typed by `IECorePCRSSchemeType` (no format enforced) |
+| NePS prescription identifier | MedicationRequest (ePrescription) | Electronic prescription (group) identifier (HIQA EP 3.1) |
 | Eircode | Patient, Organization, Location | Irish postal code system |
 | Irish county ValueSet | Patient address | 26 Irish counties |
-| Irish ethnicity CodeSystem | Patient | HSE ethnicity categories |
+| Ethnicity (CSO Data Standard for Ethnicity v1.0) | Patient (Patient Summary only; prohibited in ePrescription) | HIQA PS 1.4.10 |
 | IMC registration number | Practitioner | Irish Medical Council number |
 
 These extensions ensure that cross-border systems can distinguish Irish-origin data and map identifiers appropriately.
@@ -344,7 +344,7 @@ The eIDAS cross-border patient identifier uses the format `Origin/Destination/Na
 
 | FHIR Element | Value | Notes |
 |-------------|-------|-------|
-| `Patient.identifier.system` | `urn:oid:1.3.6.1.4.1.12559.11.10.1.3.1.42.1` | eHDSI OID for cross-border PID |
+| `Patient.identifier.system` | `urn:oid:1.3.6.1.4.1.12559.11.10.1.3.1.42.1` (unverified, OI-026) | Cross-border PID system: confirm with the National Contact Point |
 | `Patient.identifier.value` | `IE/DE/1234567T` | `Origin/Destination/NationalID` |
 | `Patient.identifier.use` | `official` | Cross-border official identifier |
 

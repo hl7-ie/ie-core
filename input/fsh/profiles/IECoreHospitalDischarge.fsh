@@ -71,7 +71,7 @@ Description: "Profile for hospital discharge reports in the Irish healthcare sys
     pharmacotherapy 0..1 MS and
     testResults 0..1 MS
 
-* section[courseOfEncounter].section[diagnoses].code = $LOINC#11535-2 "Hospital discharge Dx Narrative"
+* section[courseOfEncounter].section[diagnoses].code = $LOINC#11535-2 "Hospital discharge diagnosis note"
 * section[courseOfEncounter].section[diagnoses].entry MS
 * section[courseOfEncounter].section[diagnoses].entry only Reference(IECoreConditionEncounterDiagnosis)
 * section[courseOfEncounter].section[diagnoses] ^short = "Discharge diagnoses (EHDSCondition)"
@@ -88,13 +88,13 @@ Description: "Profile for hospital discharge reports in the Irish healthcare sys
 * section[courseOfEncounter].section[pharmacotherapy].entry only Reference(IECoreMedicationStatement or IECoreMedicationRequestEPrescription or IECoreMedicationRequest)
 * section[courseOfEncounter].section[pharmacotherapy] ^short = "Significant pharmacotherapy during encounter (EHDSMedicationUse)"
 
-* section[courseOfEncounter].section[testResults].code = $LOINC#30954-2 "Relevant diagnostic tests/laboratory data Narrative"
+* section[courseOfEncounter].section[testResults].code = $LOINC#30954-2 "Relevant diagnostic tests/laboratory data note"
 * section[courseOfEncounter].section[testResults].entry MS
 * section[courseOfEncounter].section[testResults].entry only Reference(IECoreLaboratoryResultObservation or IECoreObservationClinicalResult or IECoreDiagnosticReportLab)
 * section[courseOfEncounter].section[testResults] ^short = "Significant test results during encounter"
 
 // ── Admission evaluation (optional) ───────────────────────────────────────
-* section[admissionEvaluation].code = $LOINC#57852-6 "Problem list Reported.admit"
+* section[admissionEvaluation].code = $LOINC#57852-6 "Problem list Narrative - Reported"
 * section[admissionEvaluation].text MS
 * section[admissionEvaluation].entry MS
 * section[admissionEvaluation].entry only Reference(IECoreObservationClinicalResult or IECoreSimpleObservation or IECoreConditionProblemsHealthConcerns)

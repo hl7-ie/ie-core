@@ -6,7 +6,7 @@ Feature: Profile Invariant Validation (R5)
 
   @ihi-valid
   Scenario Outline: Valid IHI numbers are accepted
-    Given a Patient identifier with system "http://hl7.hse.ie/fhir/ie/core/sid/ihi"
+    Given a Patient identifier with system "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/ihi"
     When the identifier value is "<ihi>"
     Then the value should match the IHI pattern
 
@@ -15,44 +15,21 @@ Feature: Profile Invariant Validation (R5)
       | 210000000012345678 |
       | 100000000000000001 |
       | 999999999999999999 |
+      | 1234567890         |
 
   @ihi-invalid
   Scenario Outline: Invalid IHI numbers are rejected
-    Given a Patient identifier with system "http://hl7.hse.ie/fhir/ie/core/sid/ihi"
+    Given a Patient identifier with system "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/ihi"
     When the identifier value is "<ihi>"
     Then the value should not match the IHI pattern
 
     Examples:
       | ihi               |
       | 12345             |
+      | 12345678901        |
       | 21000000001234567A |
       | ABCDEFGHIJKLMNOPQR |
       |                    |
-
-  @gms-valid
-  Scenario Outline: Valid GMS numbers are accepted
-    Given a Patient identifier with system "http://hl7.hse.ie/fhir/ie/core/sid/gms"
-    When the identifier value is "<gms>"
-    Then the value should match the GMS pattern
-
-    Examples:
-      | gms      |
-      | 1234567A |
-      | 9876543Z |
-      | 0000001B |
-
-  @gms-invalid
-  Scenario Outline: Invalid GMS numbers are rejected
-    Given a Patient identifier with system "http://hl7.hse.ie/fhir/ie/core/sid/gms"
-    When the identifier value is "<gms>"
-    Then the value should not match the GMS pattern
-
-    Examples:
-      | gms       |
-      | 123456A   |
-      | 12345678  |
-      | 1234567AB |
-      | ABCDEFGH  |
 
   @eircode
   Scenario Outline: Valid Eircode format

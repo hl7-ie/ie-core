@@ -5,7 +5,6 @@ Title: "IE Core Coverage"
 Description: "The IE Core Coverage profile sets minimum expectations for the Coverage resource to record, search, and fetch insurance or medical scheme coverage associated with a patient, based on Irish requirements."
 
 * ^url = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-coverage"
-* ^version = "0.1.0"
 * ^status = #draft
 
 * status 1..1 MS

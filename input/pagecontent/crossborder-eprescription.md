@@ -1,5 +1,10 @@
 ### Cross-Border ePrescription (MyHealth@EU)
 
+> **Illustrative.** The actors, flows and payloads in this section describe how a cross-border exchange *could*
+> work. They are not a description of any live HSE, NePS or National Contact Point system. For the conformant
+> HIQA-aligned cross-border example, see [scenario 6](Bundle-hiqa-bundle-s6-crossborder.html) on the
+> [HIQA 2026 Alignment](hiqa-2026-alignment.html) page.
+
 This section covers Ireland's participation in the EU cross-border ePrescription and eDispensation infrastructure under [MyHealth@EU](https://health.ec.europa.eu/ehealth-digital-health-and-care/electronic-cross-border-health-services_en) and the [European Health Data Space (EHDS)](https://health.ec.europa.eu/ehds) Regulation 2025/327.
 
 IE Core provides dedicated FHIR R4 profiles for the full ePrescription lifecycle — from prescription creation in Ireland through cross-border transmission and foreign dispensation, to the eDispensation response returned to the Irish National Contact Point for eHealth (NCPeH).
@@ -179,7 +184,17 @@ The eHDSI Security Framework defines three security domains:
 
 #### Prescription Bundle Signing
 
-The Irish NCPeH **SHALL** apply a Qualified Electronic Seal to all outbound ePrescription bundles before transmission to the MyHealth@EU Central Hub.
+Two different signatures are involved, and IE Core only profiles the first:
+
+1. **The prescriber's signature** (HIQA EP 2.13, a legal requirement for cross-border prescriptions). IE Core carries it
+   as a [Provenance](StructureDefinition-ie-core-provenance-eprescription-signature.html) record whose `target` covers every
+   prescription item, inside an [IE Core cross-border Bundle](StructureDefinition-ie-core-bundle-eprescription-crossborder.html)
+   (invariant `ie-bnd-xb-2`; ADR-003). A Provenance signature survives storage in NePS and re-bundling, which
+   `Bundle.signature` does not. The signature format and eIDAS assurance level are Requires Clarification (OI-009).
+2. **A transport or organisational seal** that a National Contact Point may apply before sending. It is outside the
+   HIQA drafts. The flow below illustrates it as it was originally drafted for this IG.
+
+The illustrative flow assumes that the Irish NCPeH applies a Qualified Electronic Seal to outbound bundles before transmission to the MyHealth@EU Central Hub.
 
 **Signing process:**
 

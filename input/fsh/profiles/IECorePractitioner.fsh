@@ -6,7 +6,7 @@ Profile: IECorePractitioner
 Parent: $EUPractitionerCore
 Id: ie-core-practitioner
 Title: "IE Core Practitioner"
-Description: "The IE Core Practitioner Profile is based upon the core FHIR Practitioner Resource and defines the minimum set of data required to query and retrieve practitioner demographic information within the Irish healthcare system. It includes identifier slicing for the Health Practitioner Index (HPI) and Irish Medical Council (IMC) registration numbers."
+Description: "The IE Core Practitioner Profile is based upon the core FHIR Practitioner Resource and defines the minimum set of data required to query and retrieve practitioner demographic information within the Irish healthcare system. It includes identifier slicing for professional registration numbers (HIQA EP/PS 2.6)."
 
 // ── Identifier Slicing ──────────────────────────────────────────────────
 * identifier MS
@@ -14,21 +14,39 @@ Description: "The IE Core Practitioner Profile is based upon the core FHIR Pract
 * identifier ^slicing.discriminator.path = "system"
 * identifier ^slicing.rules = #open
 * identifier ^short = "An identifier for the practitioner"
+* identifier 1..*
+* identifier ^comment = "HIQA EP/PS 2.6 Health practitioner registration (Mandatory 1..1): registration with a professional body (2.6.1 type = the body, carried as the identifier system; 2.6.2 value = the registration number). Health practitioners from other EU Member States use their own register's identifier."
 * identifier contains
-    HPI 0..1 MS and
-    IMC 0..1 MS
+    IMC 0..1 MS and
+    PSI 0..1 MS and
+    NMBI 0..1 MS and
+    DentalCouncil 0..1 MS
 
-// HPI – Health Practitioner Index
-* identifier[HPI] ^short = "Health Practitioner Index (HPI) Number"
-* identifier[HPI] ^definition = "The Health Practitioner Index number assigned to the practitioner. The HPI is the national identifier for healthcare practitioners in Ireland."
-* identifier[HPI].system 1..1 MS
-* identifier[HPI].system = $HPI
-* identifier[HPI].type = $V2-0203#NPI "National provider identifier"
-* identifier[HPI].value 1..1 MS
-* identifier[HPI].value ^short = "HPI number"
+// PSI – Pharmaceutical Society of Ireland registration (HIQA EP/PS 2.6.2: up to eight digits)
+* identifier[PSI] ^short = "Pharmaceutical Society of Ireland (PSI) registration number"
+* identifier[PSI] ^comment = "HIQA EP/PS 2.6.2 example: a pharmacist's PSI registration number may contain up to eight digits. System URI placeholder (OI-003)."
+* identifier[PSI].system 1..1 MS
+* identifier[PSI].system = $PSI
+* identifier[PSI].value 1..1 MS
+* identifier[PSI] obeys ie-prac-psi-1
+
+// NMBI – Nursing and Midwifery Board of Ireland (RNP / RMP divisions)
+* identifier[NMBI] ^short = "Nursing and Midwifery Board of Ireland (NMBI) registration number"
+* identifier[NMBI] ^comment = "HIQA EP/PS 2.6.2: a registered nurse or midwife prescriber records the value for the Registered Nurse Prescriber (RNP) or Registered Midwife Prescriber (RMP) division. Format Requires Clarification. System URI placeholder (OI-003)."
+* identifier[NMBI].system 1..1 MS
+* identifier[NMBI].system = $NMBI
+* identifier[NMBI].value 1..1 MS
+
+// Dental Council of Ireland
+* identifier[DentalCouncil] ^short = "Dental Council registration number"
+* identifier[DentalCouncil] ^comment = "HIQA EP (definitions, p. 11): registered dentists are prescribers. Format Requires Clarification. System URI placeholder (OI-003)."
+* identifier[DentalCouncil].system 1..1 MS
+* identifier[DentalCouncil].system = $DentalCouncil
+* identifier[DentalCouncil].value 1..1 MS
 
 // IMC – Irish Medical Council Registration
-* identifier[IMC] ^short = "Irish Medical Council (IMC) Registration Number"
+* identifier[IMC] ^short = "Irish Medical Council (IMC) registration number (MCRN)"
+* identifier[IMC] ^comment = "HIQA EP/PS 2.6.2 example: a General Practitioner's six-digit Medical Council Registration Number (MCRN). Given as an example only, so no format is enforced. System URI placeholder (OI-003)."
 * identifier[IMC] ^definition = "The Irish Medical Council registration number. All practising doctors in Ireland must be registered with the IMC."
 * identifier[IMC].system 1..1 MS
 * identifier[IMC].system = $IMC
@@ -40,8 +58,10 @@ Description: "The IE Core Practitioner Profile is based upon the core FHIR Pract
 * name 1..* MS
 * name ^short = "The name(s) associated with the practitioner"
 * name.family 1..1 MS
+* name.family ^comment = "HIQA EP/PS 2.3 Surname (Mandatory 1..1): the registered family name."
 * name.family ^short = "Family name (surname)"
-* name.given MS
+* name.given 1..* MS
+* name.given ^comment = "HIQA EP/PS 2.2 Forename (Mandatory 1..1): the registered first name."
 * name.given ^short = "Given names"
 * name.prefix MS
 * name.suffix MS
@@ -69,7 +89,7 @@ Description: "The IE Core Practitioner Profile is based upon the core FHIR Pract
 * qualification.identifier MS
 * qualification.code MS
 * qualification.code ^short = "Coded representation of the qualification"
-* qualification.code from https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-practitioner-qualification (extensible)
+* qualification.code from http://terminology.hl7.org/ValueSet/v2-0360 (preferred)
 * qualification.period MS
 * qualification.issuer MS
 
@@ -78,3 +98,8 @@ Description: "The IE Core Practitioner Profile is based upon the core FHIR Pract
 
 // ── Communication ───────────────────────────────────────────────────────
 * communication MS
+
+Invariant: ie-prac-psi-1
+Description: "PSI registration number: up to eight digits (HIQA EP/PS 2.6.2)"
+Expression: "value.matches('^[0-9]{1,8}$')"
+Severity: #warning

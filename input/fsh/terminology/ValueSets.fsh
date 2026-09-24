@@ -23,7 +23,7 @@ Alias: $OBSERVATION-STATUS = http://hl7.org/fhir/observation-status
 Alias: $PROVENANCE-PARTICIPANT-TYPE = http://terminology.hl7.org/CodeSystem/provenance-participant-type
 Alias: $DATA-ABSENT-REASON = http://terminology.hl7.org/CodeSystem/data-absent-reason
 Alias: $COVERAGE-TYPE = http://terminology.hl7.org/CodeSystem/v3-ActCode
-Alias: $LOCATION-ROLE-TYPE = http://terminology.hl7.org/CodeSystem/v3-ServiceDeliveryLocationRoleType
+Alias: $LOCATION-ROLE-TYPE = http://terminology.hl7.org/CodeSystem/v3-RoleCode
 Alias: $MEDICATION-ADHERENCE = http://hl7.org/fhir/CodeSystem/medication-statement-adherence
 Alias: $ADMIT-SOURCE = http://terminology.hl7.org/CodeSystem/admit-source
 
@@ -53,17 +53,17 @@ Description: "The 26 counties of the Republic of Ireland."
 // ============================================================================
 // 2. IE Core Ethnicity
 // ============================================================================
-ValueSet: IECoreEthnicity
+ValueSet: IECoreEthnicityVS
 Id: ie-core-ethnicity
 Title: "IE Core Ethnicity"
-Description: "Ethnicity categories for use in the Irish health system, based on CSO census categories."
+Description: "Ethnic group/background per the CSO Data Standard for Ethnicity v1.0 (7 Feb 2025). HIQA PS 1.4.10 only (GDPR Art. 9); prohibited in ePrescription (ADR-002). Grouping codes (white, black, asian, arab, mixed, other) SHOULD NOT be used when a specific category is known."
 * ^experimental = false
 * include codes from system $IE-ETHNICITY
 
 // ============================================================================
 // 3. IE Core Gender Identity
 // ============================================================================
-ValueSet: IECoreGenderIdentity
+ValueSet: IECoreGenderIdentityVS
 Id: ie-core-gender-identity
 Title: "IE Core Gender Identity"
 Description: "Gender identity concepts for use in the IE Core Implementation Guide."
@@ -71,9 +71,7 @@ Description: "Gender identity concepts for use in the IE Core Implementation Gui
 * $SCT#446141000124107 "Identifies as female gender"
 * $SCT#446151000124109 "Identifies as male gender"
 * $SCT#33791000087105 "Identifies as nonbinary gender"
-* $SCT#407377000 "Female-to-male transsexual"
-* $SCT#407376009 "Male-to-female transsexual"
-* $SCT#394743007 "Gender identity unknown"
+* $SCT#394743007 "Gender unknown"
 * $DATA-ABSENT-REASON#asked-declined "Asked But Declined"
 
 // ============================================================================
@@ -94,7 +92,7 @@ Description: "Yes, No, and Unknown answer codes for use in the IE Core Implement
 // ============================================================================
 // 5. IHI Status
 // ============================================================================
-ValueSet: IECoreIHIStatus
+ValueSet: IECoreIHIStatusVS
 Id: ie-core-ihi-status
 Title: "IHI Status"
 Description: "Status values for Individual Health Identifiers (IHI)."
@@ -104,7 +102,7 @@ Description: "Status values for Individual Health Identifiers (IHI)."
 // ============================================================================
 // 6. IHI Record Status
 // ============================================================================
-ValueSet: IECoreIHIRecordStatus
+ValueSet: IECoreIHIRecordStatusVS
 Id: ie-core-ihi-record-status
 Title: "IHI Record Status"
 Description: "Record-level status values for Individual Health Identifier (IHI) records."
@@ -171,15 +169,12 @@ Description: "Discharge disposition codes indicating patient destination upon di
 * $SCT#306689006 "Discharge to home"
 * $SCT#306691003 "Discharge to residential home"
 * $SCT#306694006 "Discharge to nursing home"
-* $SCT#306705005 "Discharge to convalescent hospital"
+* $SCT#306705005 "Discharge to police custody"
 * $SCT#19712007 "Patient transfer, to another health care facility"
-* $SCT#225928004 "Transfer of patient to another care unit"
-* $SCT#306706006 "Discharge to hospice"
-* $SCT#75004002 "Emergency hospital admission"
-* $SCT#73770003 "Emergency department discharge"
-* $SCT#371827001 "Patient deceased during stay"
+* $SCT#225928004 "Patient self-discharge against medical advice"
+* $SCT#306706006 "Discharge to ward"
+* $SCT#371827001 "Patient discharged alive"
 * $SCT#58000006 "Patient discharge, alive"
-* $SCT#397709008 "Patient died"
 
 // ============================================================================
 // 12. Medication Codes
@@ -187,9 +182,9 @@ Description: "Discharge disposition codes indicating patient destination upon di
 ValueSet: IECoreMedicationCodes
 Id: ie-core-medication-codes
 Title: "IE Core Medication Codes"
-Description: "Medication codes for the Irish healthcare system. NMPC (via the SNOMED CT Irish Edition hosted on the HSE Central Terminology Server) is the preferred primary medication code wherever available. SNOMED CT Irish Edition is the preferred secondary clinical terminology wherever available, and ATC (WHO) codes are included for international classification and EU cross-border interoperability (EHDS/MyHealth@EU). Use $SCT_IE with the NMPC supplement (useSupplement: $NMPC_SUPPLEMENT) when querying the CTS for real medication codes."
+Description: "Medication codes for the Irish healthcare system. NMPC (via the SNOMED CT Irish Edition hosted on the HSE Central Terminology Server) is the preferred primary medication code wherever available. SNOMED CT Irish Edition is the preferred secondary clinical terminology wherever available, and ATC (WHO) codes are included for international classification and EU cross-border interoperability (EHDS/MyHealth@EU). Query the HSE CTS with system http://snomed.info/sct and version http://snomed.info/sct/1601000220105 (the SNOMED CT Irish Edition) for real medication codes."
 * ^experimental = false
-* include codes from system $SCT_IE where concept is-a #373873005 "Pharmaceutical / biologic product (product)"
+* include codes from system $SCT|http://snomed.info/sct/1601000220105 where concept is-a #373873005 "Pharmaceutical / biologic product (product)"
 * include codes from system $NMPC
 * include codes from system $ATC
 
@@ -277,14 +272,12 @@ Id: ie-core-smoking-status
 Title: "IE Core Smoking Status"
 Description: "SNOMED CT codes representing a patient's smoking status."
 * ^experimental = false
-* $SCT#449868002 "Current every day smoker"
+* $SCT#449868002 "Smokes tobacco daily"
 * $SCT#428041000124106 "Occasional tobacco smoker"
-* $SCT#8517006 "Former smoker"
+* $SCT#8517006 "Ex-smoker"
 * $SCT#266919005 "Never smoked tobacco"
 * $SCT#77176002 "Smoker, current status unknown"
 * $SCT#266927001 "Tobacco smoking consumption unknown"
-* $SCT#428071000124103 "Heavy tobacco smoker"
-* $SCT#428061000124105 "Light tobacco smoker"
 
 // ============================================================================
 // 20. Smoking Status Comprehensive
@@ -295,17 +288,13 @@ Title: "IE Core Smoking Status Comprehensive"
 Description: "Comprehensive set of SNOMED CT codes for tobacco use and smoking status."
 * ^experimental = false
 * include codes from system $SCT where concept is-a #365980008 "Finding of tobacco use and exposure"
-* $SCT#449868002 "Current every day smoker"
+* $SCT#449868002 "Smokes tobacco daily"
 * $SCT#428041000124106 "Occasional tobacco smoker"
-* $SCT#8517006 "Former smoker"
+* $SCT#8517006 "Ex-smoker"
 * $SCT#266919005 "Never smoked tobacco"
 * $SCT#77176002 "Smoker, current status unknown"
 * $SCT#266927001 "Tobacco smoking consumption unknown"
-* $SCT#428071000124103 "Heavy tobacco smoker"
-* $SCT#428061000124105 "Light tobacco smoker"
-* $SCT#428081000124100 "Tobacco smoker"
-* $SCT#160618006 "Current non-smoker but past smoking history unknown"
-* $SCT#735128000 "Current occasional tobacco smoker"
+* $SCT#735128000 "Ex-smoker for less than 1 year"
 * $SCT#160616005 "Trying to give up smoking"
 
 // ============================================================================
@@ -328,15 +317,15 @@ Title: "IE Core Survey Codes"
 Description: "LOINC survey and screening panel codes for structured assessments."
 * ^experimental = false
 * $LOINC#44249-1 "PHQ-9 quick depression assessment panel"
-* $LOINC#69725-0 "GAD-7 Anxiety"
+* $LOINC#69725-0 "Feeling nervous, anxious or on edge in last 2 weeks"
 * $LOINC#72109-2 "Alcohol Use Disorder Identification Test - Consumption"
-* $LOINC#71354-5 "AUDIT-C Total score"
-* $LOINC#96777-8 "Accountable health communities health-related social needs screening tool"
-* $LOINC#97023-6 "Accountable health communities health-related social needs supplemental questions"
-* $LOINC#76504-0 "CAGE Substance abuse screening"
-* $LOINC#62199-5 "Mental health screening assessment"
+* $LOINC#71354-5 "Edinburgh Postnatal Depression Scale [EPDS]"
+* $LOINC#96777-8 "Accountable health communities (AHC) health-related social needs screening (HRSN) tool"
+* $LOINC#97023-6 "Accountable health communities (AHC) health-related social needs (HRSN) supplemental questions"
+* $LOINC#76504-0 "Total score [HARK]"
+* $LOINC#62199-5 "PROMIS short form - physical function 10a - version 1.0"
 * $LOINC#73831-0 "Adolescent depression screening assessment"
-* $LOINC#89206-7 "Fitness assessment panel"
+* $LOINC#89206-7 "Patient Health Questionnaire-9: Modified for Teens [Reported.PHQ.Teen]"
 
 // ============================================================================
 // 23. Simple Observation Category
@@ -397,9 +386,8 @@ Title: "IE Core Sexual Orientation"
 Description: "Sexual orientation concepts including data absent reason codes."
 * ^experimental = false
 * $SCT#20430005 "Heterosexual"
-* $SCT#38628009 "Homosexual"
+* $SCT#38628009 "Gay"
 * $SCT#42035005 "Bisexual"
-* $SCT#472986005 "Sexually attracted to neither male nor female sex"
 * $V3-NULLFLAVOR#OTH "Other"
 * $V3-NULLFLAVOR#ASKU "Asked but unknown"
 * $V3-NULLFLAVOR#UNK "Unknown"
@@ -412,7 +400,7 @@ Id: ie-core-pregnancy-status
 Title: "IE Core Pregnancy Status Codes"
 Description: "SNOMED CT codes for reporting a patient's pregnancy status."
 * ^experimental = false
-* $SCT#77386006 "Pregnant"
+* $SCT#77386006 "Pregnancy"
 * $SCT#60001007 "Not pregnant"
 * $SCT#261665006 "Unknown"
 
@@ -424,9 +412,6 @@ Id: ie-core-pregnancy-intent
 Title: "IE Core Pregnancy Intent Codes"
 Description: "Codes indicating a patient's pregnancy intention."
 * ^experimental = false
-* $SCT#454381000124105 "Intends to become pregnant"
-* $SCT#454391000124108 "Does not intend to become pregnant"
-* $SCT#454401000124105 "Ambivalent about becoming pregnant"
 * $V3-NULLFLAVOR#UNK "Unknown"
 
 // ============================================================================
@@ -450,12 +435,7 @@ Description: "Payer type codes relevant to the Irish health system including HSE
 * $COVERAGE-TYPE#PUBLICPOL "Public healthcare"
 * $COVERAGE-TYPE#SUBSIDIZ "Subsidized health program"
 * $COVERAGE-TYPE#EHCPOL "Extended healthcare"
-* $COVERAGE-TYPE#pay "Pay"
-* $SCT#310151008 "Medical card holder"
-* $SCT#310152001 "GP visit card holder"
-* $SCT#413195004 "Drug payment scheme"
-* $SCT#394733004 "Long term illness scheme"
-* $SCT#36629006 "Private health insurance"
+* http://terminology.hl7.org/CodeSystem/coverage-selfpay#pay "Pay"
 
 // ============================================================================
 // 32. Healthcare Provider Taxonomy
@@ -488,13 +468,13 @@ Title: "IE Core Clinical Note Type"
 Description: "LOINC document type codes for clinical notes."
 * ^experimental = false
 * $LOINC#18842-5 "Discharge summary"
-* $LOINC#11488-4 "Consultation note"
+* $LOINC#11488-4 "Consult note"
 * $LOINC#34117-2 "History and physical note"
 * $LOINC#11506-3 "Progress note"
 * $LOINC#28570-0 "Procedure note"
 * $LOINC#57133-1 "Referral note"
 * $LOINC#18761-7 "Transfer summary note"
-* $LOINC#34133-9 "Summarization of episode note"
+* $LOINC#34133-9 "Summary of episode note"
 
 // ============================================================================
 // 35. DocumentReference Type
@@ -505,13 +485,13 @@ Title: "IE Core DocumentReference Type"
 Description: "LOINC document type codes for typed DocumentReference resources."
 * ^experimental = false
 * $LOINC#18842-5 "Discharge summary"
-* $LOINC#11488-4 "Consultation note"
+* $LOINC#11488-4 "Consult note"
 * $LOINC#34117-2 "History and physical note"
 * $LOINC#11506-3 "Progress note"
 * $LOINC#28570-0 "Procedure note"
 * $LOINC#57133-1 "Referral note"
 * $LOINC#18761-7 "Transfer summary note"
-* $LOINC#34133-9 "Summarization of episode note"
+* $LOINC#34133-9 "Summary of episode note"
 * $LOINC#34746-8 "Nurse Note"
 * $LOINC#11502-2 "Laboratory report"
 * $LOINC#18748-4 "Diagnostic imaging study"
@@ -559,16 +539,14 @@ Title: "IE Core Non Laboratory Diagnostic Report and Note Codes"
 Description: "LOINC codes for non-laboratory diagnostic reports and clinical notes."
 * ^experimental = false
 * $LOINC#18842-5 "Discharge summary"
-* $LOINC#11488-4 "Consultation note"
+* $LOINC#11488-4 "Consult note"
 * $LOINC#34117-2 "History and physical note"
 * $LOINC#11506-3 "Progress note"
 * $LOINC#28570-0 "Procedure note"
 * $LOINC#57133-1 "Referral note"
 * $LOINC#18748-4 "Diagnostic imaging study"
-* $LOINC#59768-2 "Procedure report"
 * $LOINC#18745-0 "Cardiac catheterization study"
-* $LOINC#59770-8 "Procedure reason report"
-* $LOINC#47039-3 "Inpatient Admission history and physical note"
+* $LOINC#47039-3 "Hospital Admission history and physical note"
 * $LOINC#34746-8 "Nurse Note"
 
 // ============================================================================
@@ -580,24 +558,24 @@ Title: "IE Core Care Team Member Function"
 Description: "SNOMED CT codes for care team member functions and roles."
 * ^experimental = false
 * include codes from system $SCT where concept is-a #223366009 "Healthcare professional"
-* $SCT#446050000 "Primary care provider"
-* $SCT#768819009 "Consultant"
+* $SCT#446050000 "Primary care physician"
+* $SCT#768819009 "Medically responsible investigator"
 * $SCT#224535009 "Registered nurse"
-* $SCT#307988006 "Medical registrar"
-* $SCT#158965000 "Doctor"
+* $SCT#307988006 "Medical technician"
+* $SCT#158965000 "Medical practitioner"
 * $SCT#36682004 "Physiotherapist"
 * $SCT#80546007 "Occupational therapist"
 * $SCT#106289002 "Dentist"
 * $SCT#46255001 "Pharmacist"
 * $SCT#159026005 "Speech and language therapist"
-* $SCT#224529009 "Clinical nurse specialist"
+* $SCT#224529009 "Clinical assistant"
 * $SCT#224540001 "Community nurse"
 * $SCT#28229004 "Optometrist"
-* $SCT#21450003 "Neuropsychologist"
-* $SCT#224587008 "Community midwife"
+* $SCT#21450003 "Neuropsychiatrist"
+* $SCT#224587008 "Occupational therapy helper"
 * $SCT#309343006 "Physician"
 * $SCT#159033005 "Dietitian"
-* $SCT#224570006 "Clinical psychologist"
+* $SCT#224570006 "Clinical nurse specialist"
 
 // ============================================================================
 // 40. ServiceRequest Category
@@ -609,29 +587,24 @@ Description: "Category codes for ServiceRequest resources."
 * ^experimental = false
 * $SCT#108252007 "Laboratory procedure"
 * $SCT#363679005 "Imaging"
-* $SCT#409063005 "Counselling"
+* $SCT#409063005 "Counseling"
 * $SCT#409073007 "Education"
 * $SCT#387713003 "Surgical procedure"
-* $SCT#103693007 "Diagnostic procedure"
 * $SCT#3457005 "Patient referral"
 * $SCT#386053000 "Evaluation procedure"
 
 // ============================================================================
 // 41. Medication Adherence
 // ============================================================================
-ValueSet: IECoreMedicationAdherence
+ValueSet: IECoreMedicationAdherenceVS
 Id: ie-core-medication-adherence
 Title: "IE Core Medication Adherence"
 Description: "Codes indicating a patient's medication adherence status."
 * ^experimental = false
-* $SCT#275929009 "Compliant - making progress towards goals"
-* $SCT#275928001 "Non-compliant - Loss to follow-up"
+* $SCT#275928001 "Drugs - partial non-compliance"
 * $SCT#266710000 "Drugs not taken/completed"
-* $SCT#182890002 "Patient requests drug"
 * $SCT#182834008 "Drug course completed"
 * $SCT#182840001 "Drug treatment stopped - medical advice"
-* $SCT#182841002 "Doctor stopped drugs - Loss to follow-up"
-* $SCT#182845006 "Drug treatment not indicated"
 
 // ============================================================================
 // 42. Information Source for Medication Adherence
@@ -643,11 +616,11 @@ Description: "Codes identifying the source of medication adherence information."
 * ^experimental = false
 * $SCT#116154003 "Patient"
 * $SCT#394572006 "Medical secretary"
-* $SCT#158965000 "Doctor"
+* $SCT#158965000 "Medical practitioner"
 * $SCT#224535009 "Registered nurse"
 * $SCT#46255001 "Pharmacist"
 * $SCT#125677006 "Relative"
-* $SCT#394863008 "Non-clinical staff"
+* $SCT#394863008 "Non-family member"
 
 // ============================================================================
 // 43. Location Type
@@ -661,10 +634,9 @@ Description: "Codes for classifying healthcare delivery location types."
 * $SCT#22232009 "Hospital"
 * $SCT#264372000 "Pharmacy"
 * $SCT#257622000 "Healthcare facility"
-* $SCT#264358009 "General practice premises"
-* $SCT#309898008 "Outpatient department"
+* $SCT#309898008 "Psychogeriatric day hospital"
 * $SCT#225728007 "Accident and Emergency department"
-* $SCT#702871004 "Community health centre"
+* $SCT#702871004 "Infertility clinic"
 
 // ============================================================================
 // 44. Problem or Health Concern
@@ -691,8 +663,8 @@ Description: "LOINC codes for advance directive document content types."
 * $LOINC#92664-2 "Power of attorney"
 * $LOINC#81335-2 "Patient Healthcare agent"
 * $LOINC#77599-9 "Additional documentation"
-* $LOINC#81340-2 "Goals, preferences, and priorities for medical treatment"
-* $LOINC#81336-0 "Patient Consent for participation in healthcare research"
+* $LOINC#81340-2 "Goals AndOr preferences in order of priority - Reported"
+* $LOINC#81336-0 "Patient Goals, preferences, and priorities under certain health conditions"
 
 // ============================================================================
 // 46. Advance Healthcare Directive Categories
@@ -702,7 +674,7 @@ Id: ie-core-advance-healthcare-directive-categories-grouper
 Title: "IE Core Advance Healthcare Directive Categories"
 Description: "Grouper value set for advance healthcare directive document categories."
 * ^experimental = false
-* $LOINC#42348-3 "Advance directives"
+* $LOINC#42348-3 "Advance healthcare directives"
 * $LOINC#75320-2 "Advance directive"
 * $LOINC#81334-5 "Patient Personal advance care plan"
 * $LOINC#81335-2 "Patient Healthcare agent"
@@ -731,13 +703,10 @@ Description: "SNOMED CT codes representing a patient's alcohol drinking status."
 * include codes from system $SCT where concept is-a #228273003 "Finding relating to alcohol drinking behavior"
 * $SCT#219006 "Current drinker of alcohol"
 * $SCT#228276006 "Occasional drinker"
-* $SCT#228277002 "Heavy drinker"
-* $SCT#228278007 "Very heavy drinker"
-* $SCT#228274009 "Drinks alcohol daily"
+* $SCT#228277002 "Light drinker"
+* $SCT#228278007 "Fairly heavy drinker"
 * $SCT#105542008 "Current non-drinker of alcohol"
-* $SCT#82581004 "Former drinker"
-* $SCT#160573003 "Alcohol intake unknown"
-* $SCT#711338006 "Never consumed alcohol"
+* $SCT#82581004 "Ex-drinker"
 
 // ============================================================================
 // 49. hl7VS-identifierType IE Extended
@@ -773,9 +742,9 @@ Description: "Extended HL7 v2 identifier type codes including Ireland-specific i
 ValueSet: IECoreNMPCActualMedicinalProductPack
 Id: ie-core-nmpc-ampp
 Title: "IE Core NMPC Actual Medicinal Product Pack (AMPP)"
-Description: "Actual Medicinal Product Pack (AMPP) concepts from the SNOMED CT Irish Edition (NMPC). These represent the dispensable, authorised, branded pack-level products as listed by the HPRA and catalogued in the NMPC. Query the HSE Central Terminology Server (CTS) at https://nmpc.hse.ie/production1/fhir using the NMPC supplement (useSupplement: https://nmpc.hse.ie/CodeSystem/nmpc-supplement) to access current membership. SNOMED CT refset ID: 660401000220107."
-* ^experimental = false
-* include codes from system $SCT_IE where concept in "^660401000220107"
+Description: "Actual Medicinal Product Pack (AMPP) concepts from the SNOMED CT Irish Edition (NMPC). These represent the dispensable, authorised, branded pack-level products as listed by the HPRA and catalogued in the NMPC. Query the HSE Central Terminology Server (CTS) at https://nmpc.hse.ie/production1/fhir to access current membership (the NMPC supplement URI is not independently verified, OI-018). SNOMED CT refset ID: 660401000220107. The refset ID has not been independently verified (Requires Clarification, OI-018); this ValueSet is a placeholder until the HSE CTS confirms it."
+* ^experimental = true
+* include codes from system $SCT|http://snomed.info/sct/1601000220105 where concept in "^660401000220107"
 
 // ============================================================================
 // NMPC – Actual Medicinal Product (AMP) — product without pack size
@@ -784,9 +753,9 @@ Description: "Actual Medicinal Product Pack (AMPP) concepts from the SNOMED CT I
 ValueSet: IECoreNMPCActualMedicinalProduct
 Id: ie-core-nmpc-amp
 Title: "IE Core NMPC Actual Medicinal Product (AMP)"
-Description: "Actual Medicinal Product (AMP) concepts from the SNOMED CT Irish Edition (NMPC). AMPs represent authorised, branded medicinal products at the product level (without specific pack size). SNOMED CT refset ID: 660381000220107."
-* ^experimental = false
-* include codes from system $SCT_IE where concept in "^660381000220107"
+Description: "Actual Medicinal Product (AMP) concepts from the SNOMED CT Irish Edition (NMPC). AMPs represent authorised, branded medicinal products at the product level (without specific pack size). SNOMED CT refset ID: 660381000220107. The refset ID has not been independently verified (Requires Clarification, OI-018); this ValueSet is a placeholder until the HSE CTS confirms it."
+* ^experimental = true
+* include codes from system $SCT|http://snomed.info/sct/1601000220105 where concept in "^660381000220107"
 
 // ============================================================================
 // NMPC – Virtual Medicinal Product Pack (VMPP)
@@ -795,9 +764,9 @@ Description: "Actual Medicinal Product (AMP) concepts from the SNOMED CT Irish E
 ValueSet: IECoreNMPCVirtualMedicinalProductPack
 Id: ie-core-nmpc-vmpp
 Title: "IE Core NMPC Virtual Medicinal Product Pack (VMPP)"
-Description: "Virtual Medicinal Product Pack (VMPP) concepts from the SNOMED CT Irish Edition (NMPC). VMPPs represent generic (non-branded) pack-level products. SNOMED CT refset ID: 660391000220105."
-* ^experimental = false
-* include codes from system $SCT_IE where concept in "^660391000220105"
+Description: "Virtual Medicinal Product Pack (VMPP) concepts from the SNOMED CT Irish Edition (NMPC). VMPPs represent generic (non-branded) pack-level products. SNOMED CT refset ID: 660391000220105. The refset ID has not been independently verified (Requires Clarification, OI-018); this ValueSet is a placeholder until the HSE CTS confirms it."
+* ^experimental = true
+* include codes from system $SCT|http://snomed.info/sct/1601000220105 where concept in "^660391000220105"
 
 // ============================================================================
 // NMPC – Virtual Medicinal Product (VMP)
@@ -806,9 +775,9 @@ Description: "Virtual Medicinal Product Pack (VMPP) concepts from the SNOMED CT 
 ValueSet: IECoreNMPCVirtualMedicinalProduct
 Id: ie-core-nmpc-vmp
 Title: "IE Core NMPC Virtual Medicinal Product (VMP)"
-Description: "Virtual Medicinal Product (VMP) concepts from the SNOMED CT Irish Edition (NMPC). VMPs represent generic, non-branded medicinal products at the product level. Use VMP codes for generic prescribing. SNOMED CT refset ID: 660371000220109."
-* ^experimental = false
-* include codes from system $SCT_IE where concept in "^660371000220109"
+Description: "Virtual Medicinal Product (VMP) concepts from the SNOMED CT Irish Edition (NMPC). VMPs represent generic, non-branded medicinal products at the product level. Use VMP codes for generic prescribing. SNOMED CT refset ID: 660371000220109. The refset ID has not been independently verified (Requires Clarification, OI-018); this ValueSet is a placeholder until the HSE CTS confirms it."
+* ^experimental = true
+* include codes from system $SCT|http://snomed.info/sct/1601000220105 where concept in "^660371000220109"
 
 // ============================================================================
 // 50. Admission Source

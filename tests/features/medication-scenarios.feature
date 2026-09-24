@@ -30,7 +30,7 @@ Feature: IE Core Medication Request and Dispensing Scenarios
   @medication @full-dispense
   Scenario: ePrescription has a PCRS identifier
     Given I have the example resource "MedicationRequest-ie-prescription-scenario1-full.json"
-    When I extract identifiers with system "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/pcrs-rx"
+    When I extract identifiers with system "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/neps"
     Then at least one identifier should exist
 
   # ──────────────────────────────────────────────
@@ -101,8 +101,8 @@ Feature: IE Core Medication Request and Dispensing Scenarios
     Given I have the example resource "MedicationRequest-ie-prescription-scenario4-ie-to-es.json"
     Then the resource should have resourceType "MedicationRequest"
     And the resource should have at least 2 identifiers
-    And one identifier should use system "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/pcrs-rx"
-    And one identifier should use system "urn:oid:2.16.840.1.113883.2.16.1.4.1"
+    And one identifier should use system "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/neps"
+    And one identifier should use system "urn:oid:2.16.840.1.113883.19.1.4.1"
 
   @medication @crossborder @ie-to-es
   Scenario: Spanish dispensation of Irish cross-border prescription records substitution
@@ -116,7 +116,7 @@ Feature: IE Core Medication Request and Dispensing Scenarios
     Given I have the example resource "Patient-ie-core-patient-ciaran-walsh.json"
     Then the resource should have resourceType "Patient"
     When I extract identifiers with system "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/ihi"
-    Then each identifier value should match pattern "^[0-9]{18}$"
+    Then each identifier value should match pattern "^([0-9]{18}|[0-9]{10})$"
 
   # ──────────────────────────────────────────────
   # Scenario 5: Cross-border ES → IE
@@ -127,21 +127,21 @@ Feature: IE Core Medication Request and Dispensing Scenarios
     Given I have the example resource "Patient-ie-core-patient-es-maria-garcia.json"
     Then the resource should have resourceType "Patient"
     And the resource should have at least 1 identifier
-    And one identifier should use system "http://www.mscbs.gob.es/fhir/sid/cip"
+    And one identifier should be issued in "Spain"
 
   @medication @crossborder @es-to-ie
   Scenario: Spanish prescription has Spanish receta identifier and cross-border identifier
     Given I have the example resource "MedicationRequest-ie-prescription-scenario5-es-to-ie.json"
     Then the resource should have resourceType "MedicationRequest"
     And the resource should have at least 2 identifiers
-    And one identifier should use system "http://www.mscbs.gob.es/fhir/sid/recetaElectronica"
+    And one identifier should be issued in "Spain"
 
   @medication @crossborder @es-to-ie
   Scenario: Irish dispensation of Spanish prescription uses Irish dispense identifier
     Given I have the example resource "MedicationDispense-ie-dispense-scenario5-ie-pharmacy.json"
     Then the resource should have resourceType "MedicationDispense"
     And the resource should have a status value of "completed"
-    When I extract identifiers with system "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dispense-id"
+    When I extract identifiers with system "urn:ietf:rfc:3986"
     Then at least one identifier should exist
 
   @medication @crossborder @es-to-ie

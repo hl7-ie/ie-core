@@ -1,0 +1,5 @@
+{
+  "max_errors": 35,
+  "recorded": "2026-09-24",
+  "explanation": "Baseline after Phase 8: 30 ImplementationGuide parameter codes (a validator artefact also on main) and 5 ValueSets filtering on the SNOMED CT Irish edition, which tx.fhir.org does not host (OI-022). main had 48. See docs/hiqa-2026/validation-results.md."
+}

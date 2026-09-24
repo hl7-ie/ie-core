@@ -1,5 +1,19 @@
-const { exec } = require('child_process');
+// Validate the IE Core example instances with the HL7 FHIR Validator CLI and report per example.
+//
+// One validator run covers every selected example (starting a JVM per example took hours).
+// The dependency packages are read from sushi-config.yaml, so they cannot drift from the IG.
+//
+// Usage:
+//   node validator/run-validation.js                    all examples
+//   node validator/run-validation.js --domain dispense  one domain (see DOMAIN_PATTERNS)
+//   node validator/run-validation.js --only hiqa-       examples whose file name matches a regex
+//   node validator/run-validation.js --tx               validate codes on tx.fhir.org (default: -tx n/a;
+//                                                       codes are checked by scripts/terminology/verify_codes.py)
+// Output: tests/reports/validation-results[-<domain>].json and a PASS/FAIL line per example.
+// An example FAILS when the validator reports an error or fatal issue for it.
+const { execFileSync } = require('child_process');
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const glob = require('glob');
 
@@ -20,17 +34,27 @@ if (!fs.existsSync(FSH_GENERATED)) {
   process.exit(1);
 }
 
-const DEPENDENCY_IGS = [
-  'hl7.fhir.eu.base#0.1.0',
-  'hl7.fhir.uv.ips#1.1.0',
-  'hl7.fhir.eu.laboratory#0.1.1',
-  'hl7.fhir.eu.extensions#1.2.0',
-  'hl7.fhir.eu.mpd#0.1.0-ballot',
-  'hl7.fhir.eu.hdr#0.1.0-ballot'
-];
+// Dependencies exactly as declared in sushi-config.yaml (short `id: version` or `id:\n    version: x`).
+function dependencyIgs() {
+  const text = fs.readFileSync(path.join(IG_ROOT, 'sushi-config.yaml'), 'utf8').replace(/\r\n/g, '\n');
+  const block = text.split('\ndependencies:')[1].split('\n\n')[0];
+  const deps = [];
+  let current = null;
+  for (const line of block.split('\n')) {
+    let m = line.match(/^  ([\w.\-]+):\s*(\S+)?\s*$/);
+    if (m) {
+      current = m[1];
+      if (m[2]) deps.push(`${current}#${m[2]}`);
+      continue;
+    }
+    m = line.match(/^    version:\s*(\S+)/);
+    if (m && current) deps.push(`${current}#${m[1]}`);
+  }
+  // SUSHI pseudo-package for R5 cross-version extensions: the validator resolves these natively
+  return deps.filter(d => !d.startsWith('hl7.fhir.extensions.r5#'));
+}
 
-// Domain filtering: pass --domain <name> to validate only a subset of resources.
-// Each domain maps to a regex that matches the JSON filename prefix (ResourceType-).
+// Domain filtering: each domain maps to a regex on the JSON filename prefix (ResourceType-).
 const DOMAIN_PATTERNS = {
   persons:       /^(Patient|Practitioner|PractitionerRole)-/,
   organizations: /^(Organization|Location)-/,
@@ -38,129 +62,94 @@ const DOMAIN_PATTERNS = {
   medication:    /^Medication-/,
   prescription:  /^MedicationRequest-/,
   dispense:      /^MedicationDispense-/,
+  bundles:       /^Bundle-/,
 };
 
-const domainArgIdx = process.argv.indexOf('--domain');
-const domainArg = domainArgIdx !== -1 ? process.argv[domainArgIdx + 1] : null;
+function argValue(name) {
+  const i = process.argv.indexOf(name);
+  return i !== -1 ? process.argv[i + 1] : null;
+}
+const domainArg = argValue('--domain');
+const onlyArg = argValue('--only');
+const useTx = process.argv.includes('--tx');
 
 if (domainArg && !DOMAIN_PATTERNS[domainArg]) {
   console.error(`Unknown domain: "${domainArg}". Valid domains: ${Object.keys(DOMAIN_PATTERNS).join(', ')}`);
   process.exit(1);
 }
 
-const fshGenAbsolute = path.resolve(FSH_GENERATED).replace(/\\/g, '/');
-const depArgs = DEPENDENCY_IGS.map(d => `-ig ${d}`).join(' ');
+const NON_EXAMPLE = /^(StructureDefinition|ValueSet|CodeSystem|ImplementationGuide|SearchParameter|CapabilityStatement|TestScript|NamingSystem|ConceptMap)-/;
+// SUSHI-generated examples plus the hand-written payloads in input/examples (SUSHI adds those to the IG too)
+const PREDEFINED = path.join(IG_ROOT, 'input', 'examples');
+const sourceOf = {};
+for (const f of glob.sync(path.join(FSH_GENERATED, '*.json').replace(/\\/g, '/'))) sourceOf[path.basename(f)] = f;
+for (const f of glob.sync(path.join(PREDEFINED, '*.json').replace(/\\/g, '/'))) sourceOf[path.basename(f)] = f;
+const examples = Object.keys(sourceOf)
+  .filter(n => !NON_EXAMPLE.test(n))
+  .filter(n => !domainArg || DOMAIN_PATTERNS[domainArg].test(n))
+  .filter(n => !onlyArg || new RegExp(onlyArg).test(n))
+  .sort();
 
-const candidateExamples = glob.sync(path.join(FSH_GENERATED, '*.json').replace(/\\/g, '/'))
-  .filter(f => {
-    const name = path.basename(f);
-    return !name.startsWith('StructureDefinition-') &&
-           !name.startsWith('ValueSet-') &&
-           !name.startsWith('CodeSystem-') &&
-           !name.startsWith('ImplementationGuide-') &&
-           !name.startsWith('SearchParameter-') &&
-           !name.startsWith('CapabilityStatement-') &&
-           !name.startsWith('TestScript-');
-  });
+const label = [domainArg && `domain=${domainArg}`, onlyArg && `only=${onlyArg}`].filter(Boolean).join(', ');
+const reportFile = domainArg ? `validation-results-${domainArg}.json` : 'validation-results.json';
 
-const examples = domainArg
-  ? candidateExamples.filter(f => DOMAIN_PATTERNS[domainArg].test(path.basename(f)))
-  : candidateExamples;
-
-const CONCURRENCY = 2;
-const domainLabel = domainArg ? ` [${domainArg}]` : '';
-
-console.log(`\n=== FHIR Validator${domainLabel}: Validating ${examples.length} example resources (concurrency: ${CONCURRENCY}) ===\n`);
-
-function validateExample(example) {
-  return new Promise((resolve) => {
-    const name = path.basename(example);
-    const exampleAbsolute = path.resolve(example).replace(/\\/g, '/');
-
-    const cmd = [
-      `java -Xmx1500m -jar "${path.resolve(VALIDATOR_JAR).replace(/\\/g, '/')}"`,
-      `"${exampleAbsolute}"`,
-      '-version 4.0.1',
-      `-ig "${fshGenAbsolute}"`,
-      depArgs,
-      '-tx n/a',
-      '-no-extensible-binding-warnings',
-      '-best-practice ignore'
-    ].join(' ');
-
-    exec(cmd, { encoding: 'utf8', timeout: 300000, maxBuffer: 10 * 1024 * 1024 }, (err, stdout, stderr) => {
-      if (err) {
-        const combined = (stdout || '') + (stderr || '');
-        const errorLines = combined.split('\n')
-          .filter(l => /error|Error|Exception|FAILURE|cannot resolve|not found/i.test(l))
-          .slice(0, 5)
-          .join('\n        ');
-
-        console.log(`  FAIL  ${name}`);
-        if (errorLines) {
-          console.log(`        ${errorLines}`);
-        } else {
-          console.log(`        Exit code: ${err.code || 'unknown'}`);
-          const lastLines = combined.split('\n').filter(l => l.trim()).slice(-5).join('\n        ');
-          if (lastLines) console.log(`        ${lastLines}`);
-        }
-
-        resolve({ file: name, status: 'FAIL', output: combined || err.message });
-      } else {
-        const hasError = /\*FAILURE\*/.test(stdout) || /[1-9]\d* error/.test(stdout);
-        if (hasError) {
-          const errorLines = stdout.split('\n').filter(l => /Error @|error/.test(l)).slice(0, 3).join('; ');
-          console.log(`  FAIL  ${name}`);
-          if (errorLines) console.log(`        ${errorLines}`);
-          resolve({ file: name, status: 'FAIL', output: stdout });
-        } else {
-          console.log(`  PASS  ${name}`);
-          resolve({ file: name, status: 'PASS', output: stdout });
-        }
-      }
-    });
-  });
+if (examples.length === 0) {
+  console.log('No example resources found to validate. Skipping.');
+  fs.writeFileSync(path.join(REPORTS_DIR, reportFile),
+    JSON.stringify({ summary: { passed: 0, failed: 0, total: 0 }, results: [] }, null, 2));
+  process.exit(0);
 }
 
-async function runWithConcurrency(items, limit, fn) {
-  const results = [];
-  for (let i = 0; i < items.length; i += limit) {
-    const batch = items.slice(i, i + limit);
-    const batchResults = await Promise.all(batch.map(fn));
-    results.push(...batchResults);
+console.log(`\n=== FHIR Validator${label ? ` [${label}]` : ''}: ${examples.length} example resources ===\n`);
+
+// Copy the selection to a temp folder and validate it in ONE run; the IG's own definitions come from -ig.
+const work = fs.mkdtempSync(path.join(os.tmpdir(), 'ie-core-validate-'));
+for (const n of examples) fs.copyFileSync(sourceOf[n], path.join(work, n));
+const rawOut = path.join(work, 'validator-output.json');
+
+const args = ['-Xmx6g', '-Dfile.encoding=UTF-8', '-jar', VALIDATOR_JAR, work, '-version', '4.0.1',
+  '-ig', FSH_GENERATED, '-output', rawOut, '-level', 'warnings'];
+for (const d of dependencyIgs()) args.push('-ig', d);
+if (!useTx) args.push('-tx', 'n/a');
+
+try {
+  execFileSync('java', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], maxBuffer: 256 * 1024 * 1024 });
+} catch (e) {
+  // The validator exits non-zero when any resource has errors; the output file is still written.
+  if (!fs.existsSync(rawOut)) {
+    console.error('Validator did not produce output:\n' + String(e.stdout || '').slice(-2000) + String(e.stderr || '').slice(-2000));
+    process.exit(2);
   }
-  return results;
 }
 
-(async () => {
-  if (examples.length === 0) {
-    console.log('No example resources found to validate. Skipping.');
-    const reportFile = domainArg ? `validation-results-${domainArg}.json` : 'validation-results.json';
-    fs.writeFileSync(
-      path.join(REPORTS_DIR, reportFile),
-      JSON.stringify({ summary: { passed: 0, failed: 0, total: 0 }, results: [] }, null, 2)
-    );
-    process.exit(0);
+const data = JSON.parse(fs.readFileSync(rawOut, 'utf8'));
+const outcomes = data.resourceType === 'Bundle' ? (data.entry || []).map(e => e.resource) : [data];
+const byFile = {};
+for (const oo of outcomes) {
+  const ext = (oo.extension || []).find(x => (x.url || '').endsWith('operationoutcome-file'));
+  const name = ext ? path.basename(ext.valueString) : '?';
+  const rec = byFile[name] || (byFile[name] = { errors: [], warnings: 0 });
+  for (const issue of oo.issue || []) {
+    const text = (issue.details && issue.details.text) || issue.diagnostics || '';
+    const loc = (issue.expression || issue.location || [''])[0];
+    if (issue.severity === 'error' || issue.severity === 'fatal') rec.errors.push(`${loc}: ${text}`);
+    else if (issue.severity === 'warning') rec.warnings += 1;
   }
+}
 
-  // Run the first example sequentially so the FHIR validator can download and
-  // lock the package cache without contention, then run the rest in parallel.
-  console.log('Warming up FHIR package cache (1 sequential run)...\n');
-  const warmupResult = await validateExample(examples[0]);
-  const remaining = examples.slice(1);
-  const concurrentResults = await runWithConcurrency(remaining, CONCURRENCY, validateExample);
-  const results = [warmupResult, ...concurrentResults];
+const results = examples.map(n => {
+  // An example with no validator outcome was not validated: that is a failure, not a pass (review R-11).
+  const rec = byFile[n] || { errors: ['(no validator outcome for this file)'], warnings: 0 };
+  const status = rec.errors.length ? 'FAIL' : 'PASS';
+  console.log(`  ${status}  ${n}${rec.warnings ? `  (${rec.warnings} warnings)` : ''}`);
+  for (const m of rec.errors.slice(0, 5)) console.log(`        ${m.slice(0, 300)}`);
+  return { file: n, status, errors: rec.errors, warnings: rec.warnings };
+});
+fs.rmSync(work, { recursive: true, force: true });
 
-  const passed = results.filter(r => r.status === 'PASS').length;
-  const failed = results.filter(r => r.status === 'FAIL').length;
-
-  console.log(`\n=== Results${domainLabel}: ${passed} passed, ${failed} failed out of ${examples.length} ===\n`);
-
-  const reportFile = domainArg ? `validation-results-${domainArg}.json` : 'validation-results.json';
-  fs.writeFileSync(
-    path.join(REPORTS_DIR, reportFile),
-    JSON.stringify({ summary: { passed, failed, total: examples.length }, results }, null, 2)
-  );
-
-  if (failed > 0) process.exit(1);
-})();
+const passed = results.filter(r => r.status === 'PASS').length;
+const failed = results.length - passed;
+console.log(`\n=== Results${label ? ` [${label}]` : ''}: ${passed} passed, ${failed} failed out of ${results.length} ===\n`);
+fs.writeFileSync(path.join(REPORTS_DIR, reportFile),
+  JSON.stringify({ summary: { passed, failed, total: results.length, tx: useTx ? 'tx.fhir.org' : 'n/a' }, results }, null, 2));
+if (failed > 0) process.exit(1);

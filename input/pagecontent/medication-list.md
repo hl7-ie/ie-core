@@ -58,13 +58,16 @@ Ireland has several medication reimbursement schemes relevant to ePrescription:
 
 | Scheme | Description | IE Core Support |
 |--------|-------------|----------------|
-| **GMS (General Medical Service)** | Medical card covering full cost of prescribed medicines | Patient identifier slice (GMS) |
-| **DPS (Drugs Payment Scheme)** | Limits monthly expenditure per family | Patient identifier slice (DPS) |
-| **LTI (Long Term Illness)** | Covers medications for specified long-term conditions | Patient identifier slice (LTI) |
-| **HAA (Health Amendment Act)** | Covers individuals affected by contaminated blood products | Patient identifier slice (HAA) |
-| **PCRS (Primary Care Reimbursement Service)** | Processes claims for community drug schemes | ePrescription identifier |
+| **GMS (General Medical Services)** | Medical card covering the cost of prescribed medicines | `Patient.identifier`, type `medical-card` |
+| **DPS (Drugs Payment Scheme)** | Limits monthly expenditure per household | `Patient.identifier`, type `dps` |
+| **LTI (Long-Term Illness)** | Covers medicines for specified long-term conditions | `Patient.identifier`, type `lti` |
+| **Health (Amendment) Act card** | Covers people who contracted Hepatitis C from blood products | `Patient.identifier`, type `haa` |
+| **PCRS (Primary Care Reimbursement Service)** | Processes claims for the community drug schemes | Scheme numbers as above; the prescription itself carries the NePS identifier (EP 3.1) |
 
-These scheme memberships are captured in the [IE Core Patient](StructureDefinition-ie-core-patient.html) profile's identifier slices.
+Scheme numbers are HIQA EP/PS 1.3.3 "other identifiers". They are carried as `Patient.identifier` entries whose `type`
+comes from `IECorePCRSSchemeType` (a placeholder code system, Requires Clarification). No number formats are enforced
+because HIQA gives none (ADR-006). Scheme membership for reimbursement can also be recorded as
+[IE Core Coverage](StructureDefinition-ie-core-coverage.html).
 
 ### Medication Adherence
 

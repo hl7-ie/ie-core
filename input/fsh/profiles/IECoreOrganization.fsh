@@ -6,7 +6,7 @@ Profile: IECoreOrganization
 Parent: $EUOrganizationCore
 Id: ie-core-organization
 Title: "IE Core Organization"
-Description: "The IE Core Organization Profile is based upon the core FHIR Organization Resource and defines the minimum set of data required to query and retrieve organization information within the Irish healthcare system. It includes identifier slicing for the Company Registration Number (CRN) and Health Provider Index (HPI)."
+Description: "The IE Core Organization Profile is based upon the core FHIR Organization Resource and defines the minimum set of data required to query and retrieve organization information within the Irish healthcare system. Identifier slicing for HIQA-sourced facility identifiers is defined in the use-case context (HIQA EP/PS 2.8, 2.12)."
 
 // ── Identifier Slicing ──────────────────────────────────────────────────
 * identifier MS
@@ -14,28 +14,20 @@ Description: "The IE Core Organization Profile is based upon the core FHIR Organ
 * identifier ^slicing.discriminator.path = "system"
 * identifier ^slicing.rules = #open
 * identifier ^short = "Identifies this organization across multiple systems"
+* identifier ^comment = "HIQA EP/PS 2.8 Healthcare facility identifier (Required): for a pharmacy, the PSI Retail Pharmacy Business (RPB) registration number. HIQA EP/PS 2.12 GMS Panel ID (Optional) for a GP. The GLN (2.11) is a location identifier (IECoreLocation)."
 * identifier contains
-    CRN 0..1 MS and
-    HPI 0..1 MS
-
-// CRN – Company Registration Number (CRO)
-* identifier[CRN] ^short = "Company Registration Number (CRN)"
-* identifier[CRN] ^definition = "The Company Registration Number assigned by the Companies Registration Office (CRO) in Ireland."
-* identifier[CRN].system 1..1 MS
-* identifier[CRN].system = $CRN
-* identifier[CRN].type = $V2-0203#TAX "Tax ID number"
-* identifier[CRN].value 1..1 MS
-* identifier[CRN].value ^short = "CRN value"
-
-// HPI – Health Provider Index
-* identifier[HPI] ^short = "Health Provider Index (HPI) Number"
-* identifier[HPI] ^definition = "The Health Provider Index number assigned to the organization. The HPI is the national identifier for healthcare organizations in Ireland."
-* identifier[HPI].system 1..1 MS
-* identifier[HPI].system = $HPI
-* identifier[HPI].type = $V2-0203#NPI "National provider identifier"
-* identifier[HPI].value 1..1 MS
-* identifier[HPI].value ^short = "HPI number"
-
+    PSIRPB 0..1 MS and
+    GMSPanel 0..1
+* identifier[PSIRPB] ^short = "PSI Retail Pharmacy Business (RPB) registration number"
+* identifier[PSIRPB] ^comment = "HIQA EP/PS 2.8: the unique registration number issued by the PSI to a Retail Pharmacy Business. System URI placeholder (OI-003)."
+* identifier[PSIRPB].system 1..1 MS
+* identifier[PSIRPB].system = $PSIRPB
+* identifier[PSIRPB].value 1..1 MS
+* identifier[GMSPanel] ^short = "GMS Panel ID (GP)"
+* identifier[GMSPanel] ^comment = "HIQA EP/PS 2.12 GMS Panel ID (Optional): typically a five- to six-digit number assigned to a GP registered with the HSE to provide General Medical Services. No format is enforced (HIQA says 'typically'). System URI placeholder (OI-003)."
+* identifier[GMSPanel].system 1..1
+* identifier[GMSPanel].system = $GMSPanel
+* identifier[GMSPanel].value 1..1
 // ── Active ──────────────────────────────────────────────────────────────
 * active MS
 * active ^short = "Whether the organization's record is still in active use"
@@ -43,10 +35,11 @@ Description: "The IE Core Organization Profile is based upon the core FHIR Organ
 // ── Type ────────────────────────────────────────────────────────────────
 * type MS
 * type ^short = "Kind of organization"
-* type from https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-organization-type (extensible)
+* type from http://hl7.org/fhir/ValueSet/organization-type (preferred)
 
 // ── Name ────────────────────────────────────────────────────────────────
 * name 1..1 MS
+* name ^comment = "HIQA EP/PS 2.7 Healthcare facility name (Required): for a pharmacy, the Retail Pharmacy Business name as registered with the PSI."
 * name ^short = "Name used for the organization"
 
 // ── Alias ───────────────────────────────────────────────────────────────
@@ -62,6 +55,7 @@ Description: "The IE Core Organization Profile is based upon the core FHIR Organ
 // ── Address ─────────────────────────────────────────────────────────────
 * address MS
 * address ^short = "An address for the organization"
+* address ^comment = "HIQA EP/PS 2.9 Healthcare facility address (Mandatory 1..1): postcode (2.9.1 M), address line(s) (2.9.2 M), locality (2.9.3 R), county (2.9.4 M) and country (2.9.5 M). Enforced for the prescriber and dispenser facilities in the ePrescription Bundle (invariant ie-bnd-rx-5)."
 * address.line MS
 * address.city MS
 * address.state MS

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Illustrative sample (IE Core). Identifier OIDs use the HL7 example arc 2.16.840.1.113883.19: no Irish OIDs are assigned for these identifiers (OI-020). -->
 <!-- =========================================================================
   International Patient Summary (IPS) CDA R2 Sample
   Patient: Seán Patrick Murphy (Ireland)
@@ -14,7 +15,7 @@
   <!-- IPS CDA template -->
   <templateId root="2.16.840.1.113883.10.22.1.1" extension="2022"/>
 
-  <id root="2.16.840.1.113883.2.16.1" extension="IE-IPS-2025-SEAN-MURPHY-CDA"/>
+  <id root="2.16.840.1.113883.19.1" extension="IE-IPS-2025-SEAN-MURPHY-CDA"/>
   <code code="60591-5" codeSystem="2.16.840.1.113883.6.1" displayName="Patient Summary Document"/>
   <title>International Patient Summary – Seán Patrick Murphy</title>
   <effectiveTime value="20250114090000+0000"/>
@@ -27,11 +28,11 @@
   <recordTarget>
     <patientRole>
       <!-- Irish IHI -->
-      <id root="2.16.840.1.113883.2.16.1.6.1" extension="210000000099887766"/>
+      <id root="2.16.840.1.113883.19.1.6.1" extension="210000000099887766"/>
       <!-- PPS Number -->
-      <id root="2.16.840.1.113883.2.16.1.6.2" extension="1234567T"/>
+      <id root="2.16.840.1.113883.19.1.6.2" extension="1234567T"/>
       <!-- eIDAS cross-border PID -->
-      <id root="1.2.840.10008.2.16.4" extension="IE/EU/1234567T"/>
+      <id root="2.16.840.1.113883.19.2.1" extension="IE/EU/1234567T"/>
 
       <addr use="HP">
         <streetAddressLine>14 Grafton Street</streetAddressLine>
@@ -67,7 +68,7 @@
   <author>
     <time value="20250114090000+0000"/>
     <assignedAuthor>
-      <id root="2.16.840.1.113883.2.16.1.7.1" extension="GP-IE-12345"/>
+      <id root="2.16.840.1.113883.19.1.7.1" extension="GP-IE-12345"/>
       <addr use="WP">
         <streetAddressLine>14 Grafton Street</streetAddressLine>
         <city>Dublin 2</city>
@@ -83,7 +84,7 @@
         </name>
       </assignedPerson>
       <representedOrganization>
-        <id root="2.16.840.1.113883.2.16.1.3.1" extension="IE-GP-GSMP-001"/>
+        <id root="2.16.840.1.113883.19.1.3.1" extension="IE-GP-GSMP-001"/>
         <name>Grafton Street Medical Practice</name>
       </representedOrganization>
     </assignedAuthor>
@@ -95,7 +96,7 @@
   <custodian>
     <assignedCustodian>
       <representedCustodianOrganization>
-        <id root="2.16.840.1.113883.2.16.1.3.1" extension="IE-GP-GSMP-001"/>
+        <id root="2.16.840.1.113883.19.1.3.1" extension="IE-GP-GSMP-001"/>
         <name>Grafton Street Medical Practice</name>
       </representedCustodianOrganization>
     </assignedCustodian>
@@ -172,7 +173,7 @@
               <tbody>
                 <tr><td>Type 2 Diabetes Mellitus</td><td>E11</td><td>44054006</td><td>2018</td><td>Active</td></tr>
                 <tr><td>Essential Hypertension</td><td>I10</td><td>38341003</td><td>2019</td><td>Active</td></tr>
-                <tr><td>Hypercholesterolaemia</td><td>E78.5</td><td>13644009</td><td>2020</td><td>Active</td></tr>
+                <tr><td>Hypercholesterolaemia</td><td>E78.0</td><td>13644009</td><td>2020</td><td>Active</td></tr>
               </tbody>
             </table>
           </text>

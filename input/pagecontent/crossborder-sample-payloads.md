@@ -2,7 +2,16 @@
 
 This page indexes all sample FHIR Bundle, FHIR IPS, and CDA document files provided in this Implementation Guide for the cross-border ePrescription workflow.
 
-All FHIR examples are valid FHIR R4 Bundle resources that can be validated against IE Core profiles using the [FHIR Validator](https://confluence.hl7.org/display/FHIR/Using+the+FHIR+Validator) or tested against the FHIR Interoperability API.
+All FHIR examples are FHIR R4 Bundles that validate against the IE Core profiles with the
+[FHIR Validator](https://confluence.hl7.org/display/FHIR/Using+the+FHIR+Validator) (22/22 pass; see [Testing](testing.html)).
+They are **illustrative** and synthetic. During the HIQA alignment they were cleaned of invented identifier systems and
+national product codes, and their patients were given the fields the ePrescription profile requires
+(`scripts/audit/remediate_payloads.py`, `scripts/audit/conform_payloads.py`). Where a source example had no street
+address, the line carries the `data-absent-reason` extension rather than an invented value. Other countries'
+identifiers keep their value but have no `system`, because no verified system URI was available; the issuing country
+is named in `assigner`. The CDA documents use the HL7 example OID arc (OI-020).
+
+For HIQA-aligned, conformant references, use the eight [HIQA scenario Bundles](hiqa-2026-alignment.html#scenario-examples).
 
 ---
 
@@ -101,7 +110,7 @@ These bundles represent foreign prescriptions dispensed at Irish pharmacies via 
 |------|---------|--------|----------------|
 | [FI→IE Dispensation via NePS](Bundle-fi-to-ie-neps-dispensation.html) | Mikko Korhonen 🇫🇮 | Finland | Hickey's Pharmacy, Dublin |
 | [BE→IE Dispensation via NePS](Bundle-be-to-ie-neps-dispensation.html) | Lars Janssen 🇧🇪 | Belgium | McCauley's Pharmacy, Dublin |
-| [DE Patient → IE Dispensation](Bundle-de-patient-ie-neps-dispensation.html) | German citizen 🇩🇪 | Germany | Dispensed at Irish pharmacy via NePS |
+| [DE Patient → IE Dispensation](Bundle-de-patient-to-ie-neps.html) | German citizen 🇩🇪 | Germany | Dispensed at Irish pharmacy via NePS |
 
 ---
 
@@ -111,7 +120,7 @@ The International Patient Summary (IPS) bundles provide a complete structured cl
 
 | File | Patient | Contents |
 |------|---------|----------|
-| [IE Patient IPS Bundle](Bundle-ie-ips-bundle-murphy.html) | Seán Murphy 🇮🇪 | Full IPS with patient demographics, allergies, conditions, medications, vital signs |
+| [IE Patient IPS Bundle](Bundle-ie-patient-ips-sean-murphy.html) | Seán Murphy 🇮🇪 | Full IPS with patient demographics, allergies, conditions, medications, vital signs |
 
 ---
 

@@ -27,16 +27,9 @@ Alias: $ATC = http://www.whocc.no/atc
 //   VMP  → AMP  (medicinal product level)
 //   VMPP → AMPP (pack level — dispensable unit)
 //
-// SNOMED CT Irish Extension (module 1601000220105):
-Alias: $SCT_IE = http://snomed.info/sct/1601000220105
-// NMPC supplement codesystem (provides PCRS/HPRA/ATC properties on SNOMED concepts):
-Alias: $NMPC_SUPPLEMENT = https://nmpc.hse.ie/CodeSystem/nmpc-supplement
-// PCRS (Primary Care Reimbursement Service) category reference:
-Alias: $PCRS_CATEGORY = https://nmpc.hse.ie/PCRS/Category
-// HPRA (Health Products Regulatory Authority) drug catalogue (mapped via SNOMED ConceptMap):
-Alias: $HPRA = https://www.hpra.ie/drug-catalogue
 // Legacy/local NMPC placeholder (used in illustrative examples; real codes are SNOMED CT concepts):
-Alias: $NMPC = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/nmpc
+// Placeholder code system for illustrative example codes only (NOT the NMPC; OI-018)
+Alias: $NMPC = https://hl7-ie.github.io/ie-core/fhir/ie/core/CodeSystem/ie-core-nmpc-placeholder
 Alias: $V2-0203 = http://terminology.hl7.org/CodeSystem/v2-0203
 Alias: $V3-NullFlavor = http://terminology.hl7.org/CodeSystem/v3-NullFlavor
 Alias: $V3-ActCode = http://terminology.hl7.org/CodeSystem/v3-ActCode
@@ -52,21 +45,17 @@ Alias: $CondVerStatus = http://terminology.hl7.org/CodeSystem/condition-ver-stat
 // IE Core Canonical Base
 Alias: $IEBase = https://hl7-ie.github.io/ie-core/fhir/ie/core
 
-// IE Core Identifier Systems
+// IE Core Identifier Systems (ADR-006). All are PLACEHOLDERS pending HSE-published URIs (OI-003);
+// see NamingSystems.fsh. GMS/DPS/LTI/HAA are PCRS scheme numbers carried as HIQA "other identifiers".
 Alias: $IHI = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/ihi
-Alias: $HPI = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/hpi
-Alias: $MRN = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/mrn
 Alias: $IMC = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/imc
 Alias: $GMS = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/gms
 Alias: $DPS = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dps
 Alias: $LTI = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/lti
 Alias: $HAA = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/haa
-Alias: $CRN = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/crn
-Alias: $IMN = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/imn
 
 // Irish Government Identifier Systems
 Alias: $PPS = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/pps
-Alias: $Eircode = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/eircode
 
 // HL7 FHIR Extension URLs
 Alias: $DAR = http://hl7.org/fhir/StructureDefinition/data-absent-reason
@@ -113,7 +102,8 @@ Alias: $EUHDRBundle      = http://hl7.eu/fhir/hdr/StructureDefinition/bundle-eu-
 // HL7 Europe Extensions (hl7.fhir.eu.extensions 1.2.0)
 // https://hl7.eu/fhir/extensions
 Alias: $EUExtInformationRecipient = http://hl7.eu/fhir/extensions/StructureDefinition/information-recipient
-Alias: $EUExtMedicationPackageType = http://hl7.eu/fhir/extensions/StructureDefinition/medication-package-type
+// Fixed in Phase 5: the canonical in hl7.fhir.eu.extensions 1.3.0 has no "/extensions" path segment
+Alias: $EUExtMedicationPackageType = http://hl7.eu/fhir/StructureDefinition/medication-package-type
 
 // HL7 Europe Imaging IG (ballot ongoing — no package published yet)
 // https://hl7.eu/fhir/imaging / https://hl7.eu/fhir/imaging-r5
@@ -122,11 +112,11 @@ Alias: $EUExtMedicationPackageType = http://hl7.eu/fhir/extensions/StructureDefi
 // ── eIDAS 2.0 / EUDI Wallet / Cross-Border Patient Identity ───────────────────
 //
 // eIDAS Cross-Border Patient Identifier
-//   OID: 1.3.6.1.4.1.12559.11.10.1.3.1.42.1
+//   OID: not verified (OI-026); earlier drafts cited 1.3.6.1.4.1.12559.11.10.1.3.1.42.1 without a source
 //   Format: Origin/Destination/NationalID (e.g. IE/DE/1234567T)
 //   Used in: Patient.identifier.system for cross-border PID (eHDSI / MyHealth@EU)
 //   Basis: eIDAS Regulation 2014/910/EU; eIDAS 2.0 Regulation 2024/1183/EU
-Alias: $EIDASPatientID = urn:oid:1.3.6.1.4.1.12559.11.10.1.3.1.42.1
+// removed (ADR-006): unverified OID alias
 
 // EUDI Wallet Namespace (ARF v2.x)
 //   Base namespace for EU Digital Identity Wallet attestation types
@@ -136,7 +126,47 @@ Alias: $EUDIWalletNamespace = https://identity.eudi.ec.europa.eu/claims
 
 // eHDSI / MyHealth@EU system identifiers
 //   NCPeH organisation identifier system (eHDSI OID)
-Alias: $NCPeHOrgID = urn:oid:1.3.6.1.4.1.12559.11.10.1.3.1.2.1
+// removed (ADR-006): unverified OID alias
 
 // Irish National ePrescription Service (NePS) identifier system
 Alias: $NePS = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/neps
+
+// ── HL7 extensions used for HIQA demographics (ADR-002) ───────────────────────
+Alias: $RecordedSexOrGender = http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender
+Alias: $GenderIdentity = http://hl7.org/fhir/StructureDefinition/individual-genderIdentity
+Alias: $PatientMothersMaidenName = http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName
+Alias: $PatientNationality = http://hl7.org/fhir/StructureDefinition/patient-nationality
+Alias: $PatientCitizenship = http://hl7.org/fhir/StructureDefinition/patient-citizenship
+Alias: $PatientBirthPlace = http://hl7.org/fhir/StructureDefinition/patient-birthPlace
+Alias: $PatientReligion = http://hl7.org/fhir/StructureDefinition/patient-religion
+Alias: $PatientInterpreterRequired = http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired
+Alias: $ImposeProfile = http://hl7.org/fhir/StructureDefinition/structuredefinition-imposeProfile
+
+// HL7 Europe Patient Summary (hl7.fhir.eu.eps 1.0.0-ballot, ADR-004)
+Alias: $EUPatientEPS = http://hl7.eu/fhir/eps/StructureDefinition/patient-eu-eps
+Alias: $EUCompositionEPS = http://hl7.eu/fhir/eps/StructureDefinition/composition-eu-eps
+Alias: $EUBundleEPS = http://hl7.eu/fhir/eps/StructureDefinition/bundle-eu-eps
+
+// GS1 Global Location Number: preferred URI of HL7 Terminology NamingSystem/GLN (THO 7.4.0)
+Alias: $GLN = http://www.gs1.org/gln
+
+// ── IHE Pharmacy MPD extensions reused for HIQA EP (ADR-003) ───────────────
+Alias: $IHEOffLabel = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-offLabel
+Alias: $IHEPrescribedQuantity = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medicationrequest-prescribedQuantity
+Alias: $IHEMedClassification = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-classification
+Alias: $IHEMedProductName = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-productname
+Alias: $IHEMedUnitOfPresentation = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-unitofpresentation
+Alias: $IHEMedStrengthSubstance = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-strengthsubstance
+Alias: $IHEMedDevice = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-device
+Alias: $IHEMedCharacteristic = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-characteristic
+// R5 cross-version extensions used by HL7 Europe MPD
+Alias: $R5DispenseRecorded = http://hl7.org/fhir/5.0/StructureDefinition/extension-MedicationDispense.recorded
+Alias: $R5EffectiveDosePeriod = http://hl7.org/fhir/5.0/StructureDefinition/extension-MedicationRequest.effectiveDosePeriod
+
+// HIQA-sourced professional registration and facility identifier systems (ADR-006).
+// PLACEHOLDER URIs pending authority-published URIs (OI-003); see NamingSystems.fsh.
+Alias: $PSI = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/psi
+Alias: $NMBI = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/nmbi
+Alias: $DentalCouncil = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dental-council
+Alias: $PSIRPB = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/psi-rpb
+Alias: $GMSPanel = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/gms-panel

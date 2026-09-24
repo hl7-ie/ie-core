@@ -1,3 +1,19 @@
+> ### ℹ️ INFO: aligned with the HIQA draft national standards (September 2026)
+>
+> This release aligns IE Core with two HIQA **consultation drafts**: *Electronic Prescriptions and Electronic
+> Dispensations* and *Patient Summary*. The drafts will change after consultation, and IE Core will change with
+> them. See [HIQA 2026 Alignment](hiqa-2026-alignment.html), [Traceability](hiqa-traceability.html) and
+> [Open Issues](open-issues.html).
+
+> ### ⚠️ WARNING: proof of concept, not for clinical use
+>
+> - This IG is **not affiliated with, or endorsed by,** HIQA, the HSE, HSE Standards & Interoperability, HL7 Ireland
+>   or the Department of Health.
+> - It is a **draft**. It must not be used to exchange real patient data or to make clinical decisions.
+> - Identifier system URIs, some code systems and the controlled-drug schedule codes are **placeholders** where no
+>   authoritative source exists yet; each one is listed in [Open Issues](open-issues.html).
+> - All example patients, practitioners, organisations and identifiers are **fictional**.
+
 ### Introduction
 
 > ### **ℹ️ Important Notice:**
@@ -30,7 +46,7 @@ The IE Core Implementation Guide, based on [FHIR Version R4](http://hl7.org/fhir
 
 IE Core profiles are built on top of the [HL7 Europe Base and Core FHIR profiles](https://hl7.eu/fhir/base), ensuring conformance with the [European Health Data Space (EHDS)](https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space_en) regulation. This layered approach means that every IE Core resource instance automatically satisfies EU Core constraints and is interoperable with other EU Member State implementations. The profiles also align with the [International Patient Summary (IPS)](https://hl7.org/fhir/uv/ips/) standard for cross-border care scenarios via [MyHealth@EU](https://health.ec.europa.eu/ehealth-digital-health-and-care/electronic-cross-border-health-services_en).
 
-IE Core v0.1.1 is aligned with the **XT-EHR logical model v1.0.0**, which introduced a formal Obligations Framework, new base models (`EHDSDocument`, `EHDSDataSet`), mandatory section updates to the Patient Summary and Hospital Discharge Report, and additional ePrescription elements. See the [EHDS & EU Conformance](ehds-conformance.html) page for the full alignment matrix and FHIR R4/R5 compatibility analysis.
+IE Core 0.2.0 is aligned with the HIQA draft national standards (September 2026); since v0.1.1 it has also been aligned with the **XT-EHR logical model v1.0.0**, which introduced a formal Obligations Framework, new base models (`EHDSDocument`, `EHDSDataSet`), mandatory section updates to the Patient Summary and Hospital Discharge Report, and additional ePrescription elements. See the [EHDS & EU Conformance](ehds-conformance.html) page for the full alignment matrix and FHIR R4/R5 compatibility analysis.
 
 There are two ways to implement IE Core:
 
@@ -55,6 +71,20 @@ An IE Core Responder is a system that responds to the data access request provid
 
 Below is the list of IE Core Profiles. Each profile identifies which core elements, extensions, vocabularies, and ValueSets **SHALL** be present in the resource when using this profile. Together, they promote interoperability and adoption through common implementation and provide the floor for standards development for specific use cases.
 
+#### HIQA ePrescription, eDispensation and Patient Summary
+
+| Profile | Description |
+|---------|-------------|
+| [IE Core Patient (ePrescription)](StructureDefinition-ie-core-patient-eprescription.html) | The HIQA EP patient dataset only (data minimisation, ADR-002) |
+| [IE Core MedicationRequest (ePrescription)](StructureDefinition-ie-core-medicationrequest-eprescription.html) | One prescription item (HIQA EP Sections 3–5), on HL7 Europe MPD |
+| [IE Core Medication (ePrescription/eDispensation)](StructureDefinition-ie-core-medication-eprescription.html) | The medicinal product (HIQA EP Section 4) |
+| [IE Core MedicationDispense (eDispensation)](StructureDefinition-ie-core-medicationdispense-edispensation.html) | Dispensation or non-dispensation (HIQA EP Section 6) |
+| [IE Core Bundle (ePrescription)](StructureDefinition-ie-core-bundle-eprescription.html) and [cross-border](StructureDefinition-ie-core-bundle-eprescription-crossborder.html) | The prescription as exchanged, with the allergy statement and (cross-border) the signature |
+| [IE Core Allergy Statement at Prescribing](StructureDefinition-ie-core-list-allergies-at-prescribing.html) | Allergies, or why none are recorded (HIQA EP 1.6.1/1.6.2) |
+| [IE Core Provenance (ePrescription signature)](StructureDefinition-ie-core-provenance-eprescription-signature.html) | Prescriber signature (HIQA EP 2.13) |
+| [IE Core Patient (Patient Summary)](StructureDefinition-ie-core-patient-summary-patient.html) | The HIQA PS patient dataset and nominated contact person |
+| [IE Core Composition (Patient Summary)](StructureDefinition-ie-core-composition-patient-summary.html) and [Bundle](StructureDefinition-ie-core-bundle-patient-summary.html) | The Patient Summary document (HIQA PS Sections 1–19), on HL7 Europe EPS |
+
 #### Patient Demographics
 
 | Profile | Description |
@@ -66,7 +96,7 @@ Below is the list of IE Core Profiles. Each profile identifies which core elemen
 
 | Profile | Description |
 |---------|-------------|
-| [IE Core Practitioner](StructureDefinition-ie-core-practitioner.html) | Healthcare practitioners with Irish identifiers (IMC, HPI) |
+| [IE Core Practitioner](StructureDefinition-ie-core-practitioner.html) | Healthcare practitioners with Irish registration numbers (IMC, PSI, NMBI, Dental Council) |
 | [IE Core PractitionerRole](StructureDefinition-ie-core-practitionerrole.html) | Roles practitioners perform at organizations |
 | [IE Core Organization](StructureDefinition-ie-core-organization.html) | Healthcare organizations in Ireland |
 | [IE Core Location](StructureDefinition-ie-core-location.html) | Physical locations where care is delivered |
@@ -103,7 +133,7 @@ Below is the list of IE Core Profiles. Each profile identifies which core elemen
 | [IE Core DiagnosticReport for Lab](StructureDefinition-ie-core-diagnosticreport-lab.html) | Laboratory diagnostic reports |
 | [IE Core DiagnosticReport for Notes](StructureDefinition-ie-core-diagnosticreport-note.html) | Clinical report and note exchange |
 | [IE Core Observation Clinical Result](StructureDefinition-ie-core-observation-clinical-result.html) | General clinical result observations |
-| [IE Core Laboratory Result Observation](StructureDefinition-ie-core-observation-lab.html) | Laboratory test results |
+| [IE Core Laboratory Result Observation](StructureDefinition-ie-core-laboratory-result-observation.html) | Laboratory test results |
 | [IE Core Simple Observation](StructureDefinition-ie-core-simple-observation.html) | Simple clinical observations |
 | [IE Core Specimen](StructureDefinition-ie-core-specimen.html) | Specimen information for lab testing |
 
@@ -138,22 +168,17 @@ Below is the list of IE Core Profiles. Each profile identifies which core elemen
 | [IE Core Coverage](StructureDefinition-ie-core-coverage.html) | Insurance and coverage information |
 | [IE Core Implantable Device](StructureDefinition-ie-core-implantable-device.html) | Implantable medical devices |
 
-### IE Core Identifier Profiles
+### Irish identifiers
 
-The following identifier profiles define the structure for Irish healthcare identifiers:
+The IG profiles only the identifiers named in the HIQA draft standards (ADR-006): the IHI and PPSN on the patient;
+PCRS scheme numbers typed by `IECorePCRSSchemeType`; IMC, PSI, NMBI and Dental Council registration numbers on the
+practitioner; the PSI Retail Pharmacy Business number and GMS Panel ID on the organisation; the GLN on the location;
+and the NePS identifier on the prescription. See [General Requirements](general-requirements.html#irish-healthcare-identifiers).
 
-| Identifier | Description |
+| Identifier profile | Description |
 |------------|-------------|
-| [Individual Healthcare Identifier (IHI)](StructureDefinition-ie-core-individual-healthcare-identifier.html) | National patient identifier |
-| [Health Service Provider Identifier (HPI)](StructureDefinition-ie-core-health-service-provider-identifier.html) | Provider identifier |
-| [Irish Medical Council (IMC)](StructureDefinition-ie-core-irish-medical-council.html) | Medical council registration |
+| [Individual Health Identifier (IHI)](StructureDefinition-ie-core-individual-healthcare-identifier.html) | National patient identifier: 18 or 10 digits (HIQA EP/PS 1.3.1) |
 | [Medical Record Number (MRN)](StructureDefinition-ie-core-medical-record-number.html) | Local medical record number |
-| [General Medical Service (GMS)](StructureDefinition-ie-core-general-medical-service.html) | GMS scheme number |
-| [Drugs Payment Scheme (DPS)](StructureDefinition-ie-core-drugs-payment-scheme.html) | DPS scheme number |
-| [Long Term Illness (LTI)](StructureDefinition-ie-core-long-term-illness.html) | LTI scheme number |
-| [Health Amendment Act (HAA)](StructureDefinition-ie-core-health-amendment-act.html) | HAA scheme number |
-| [Insurance Member Number (IMN)](StructureDefinition-ie-core-insurance-member-number.html) | Private insurance member number |
-| [Company Registration Number (CRN)](StructureDefinition-ie-core-company-registration-number.html) | Organization CRO number |
 
 ### IE Core FHIR RESTful Interactions
 

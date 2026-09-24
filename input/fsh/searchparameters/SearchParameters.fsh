@@ -381,6 +381,27 @@ Description: "Search for MedicationRequests by patient reference. Servers SHALL 
 * target = #Patient
 
 
+Instance: ie-core-medicationrequest-group-identifier
+InstanceOf: SearchParameter
+Usage: #definition
+Title: "IE Core MedicationRequest Group Identifier"
+Description: "Search for all prescription items of one electronic prescription by its (NePS) group identifier (HIQA EP 3.1). R4 core has no search parameter on MedicationRequest.groupIdentifier."
+
+* url = "https://hl7-ie.github.io/ie-core/fhir/ie/core/SearchParameter/ie-core-medicationrequest-group-identifier"
+* version = "0.2.0"
+* name = "IECoreMedicationRequestGroupIdentifier"
+* status = #draft
+* experimental = false
+* date = "2026-09-24"
+* publisher = "IE Core (Proof of Concept by Nithin Mohan T K)"
+* description = "Search MedicationRequests by groupIdentifier (the electronic prescription identifier, HIQA EP 3.1)."
+* jurisdiction = urn:iso:std:iso:3166#IE "Ireland"
+* code = #group-identifier
+* base = #MedicationRequest
+* type = #token
+* expression = "MedicationRequest.groupIdentifier"
+
+
 // ====================================================================
 // DiagnosticReport Search Parameters
 // ====================================================================

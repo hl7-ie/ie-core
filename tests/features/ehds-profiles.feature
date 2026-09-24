@@ -45,14 +45,14 @@ Feature: EHDS Priority Category Profiles
     And the profile should have type "Composition"
 
   @eprescription-derives
-  Scenario: ePrescription profile derives from IE Core MedicationRequest
+  Scenario: ePrescription profile derives from HL7 Europe MPD MedicationRequest (ADR-003)
     Given I have the profile "StructureDefinition-ie-core-medicationrequest-eprescription.json"
-    Then the profile baseDefinition should be "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medicationrequest"
+    Then the profile baseDefinition should be "http://hl7.eu/fhir/mpd/StructureDefinition/MedicationRequest-eu-mpd"
 
   @edispensation-derives
-  Scenario: eDispensation profile derives from IE Core MedicationDispense
+  Scenario: eDispensation profile derives from HL7 Europe MPD MedicationDispense (ADR-003)
     Given I have the profile "StructureDefinition-ie-core-medicationdispense-edispensation.json"
-    Then the profile baseDefinition should be "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medicationdispense"
+    Then the profile baseDefinition should be "http://hl7.eu/fhir/mpd/StructureDefinition/MedicationDispense-eu-mpd"
 
   @all-five-categories
   Scenario: All 5 EHDS priority categories have IE Core profiles

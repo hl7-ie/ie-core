@@ -1,0 +1,54 @@
+profile,element,valueset,strength,source_authority,verified
+IECoreAllergyIntolerance,AllergyIntolerance.code,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-allergy-intolerance-set,extensible,IE Core,intensional
+IECoreCarePlan,CarePlan.text.status,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-narrative-status,required,IE Core,4 codes verified on tx.fhir.org
+IECoreCareTeam,CareTeam.participant.role,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-care-team-member-function,extensible,IE Core,18 codes verified on tx.fhir.org; intensional
+IECoreConditionEncounterDiagnosis,Condition.code,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-condition-code,extensible,IE Core,intensional
+IECoreConditionProblemsHealthConcerns,Condition.code,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-condition-code,extensible,IE Core,intensional
+IECoreCountryOfAffiliation,Extension.value[x],http://hl7.org/fhir/ValueSet/iso3166-1-2,required,HL7 FHIR core,external (published by the owner)
+IECoreCoverage,Coverage.type,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-payer-type,extensible,IE Core,1 codes verified on tx.fhir.org; 3 codes verified on tx.fhir.org
+IECoreDiagnosticReportLab,DiagnosticReport.code,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-laboratory-test-codes,extensible,IE Core,whole code system
+IECoreDiagnosticReportNote,DiagnosticReport.category,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-diagnosticreport-category,extensible,IE Core,3 codes verified on tx.fhir.org; 9 codes verified on tx.fhir.org
+IECoreDiagnosticReportNote,DiagnosticReport.code,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-diagnosticreport-report-and-note-codes,extensible,IE Core,10 codes verified on tx.fhir.org
+IECoreDocumentReference,DocumentReference.type,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-documentreference-type,extensible,IE Core,14 codes verified on tx.fhir.org
+IECoreDocumentReference,DocumentReference.category,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-documentreference-category,extensible,IE Core,IE Core CS
+IECoreEncounter,Encounter.class,http://terminology.hl7.org/ValueSet/v3-ActEncounterCode,extensible,HL7 Terminology (THO),external (published by the owner)
+IECoreEncounter,Encounter.type,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-encounter-type,extensible,IE Core,7 codes verified on tx.fhir.org; intensional
+IECoreEncounter,Encounter.reasonCode,http://hl7.org/fhir/ValueSet/encounter-reason,extensible,HL7 FHIR core,external (published by the owner)
+IECoreEncounter,Encounter.hospitalization.admitSource,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-admit-source,extensible,IE Core,whole code system
+IECoreEncounter,Encounter.hospitalization.dischargeDisposition,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-discharge-disposition,extensible,IE Core,9 codes verified on tx.fhir.org
+IECoreEthnicity,Extension.value[x],https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-ethnicity,extensible,IE Core,IE Core CS
+IECoreGenderIdentity,Extension.value[x],https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-gender-identity,extensible,IE Core,1 codes verified on tx.fhir.org; 4 codes verified on tx.fhir.org
+IECoreGoal,Goal.description,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-goal-codes,extensible,IE Core,intensional
+IECoreIHIRecordStatus,Extension.value[x],https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-ihi-record-status,required,IE Core,IE Core CS
+IECoreIHIStatus,Extension.value[x],https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-ihi-status,required,IE Core,IE Core CS
+IECoreImmunization,Immunization.vaccineCode,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-vaccines,extensible,IE Core,whole code system
+IECoreInterpreterRequired,Extension.value[x],https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-yes-no-unknowns,required,IE Core,2 codes verified on tx.fhir.org; 4 codes verified on tx.fhir.org
+IECoreLaboratoryResultObservation,Observation.code,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-laboratory-test-codes,extensible,IE Core,whole code system
+IECoreListAllergiesAtPrescribing,List.emptyReason,http://hl7.org/fhir/ValueSet/list-empty-reason,extensible,HL7 FHIR core,external (published by the owner)
+IECoreLocation,Location.type,http://terminology.hl7.org/ValueSet/v3-ServiceDeliveryLocationRoleType,extensible,HL7 Terminology (THO),external (published by the owner)
+IECoreLocation,Location.address.state,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-county,extensible,IE Core,IE Core CS
+IECoreMedicationAdherence,Extension.extension:adherence.value[x],https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-medication-adherence,extensible,IE Core,4 codes verified on tx.fhir.org
+IECoreMedicationAdherence,Extension.extension:informationSource.value[x],https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-information-source-for-medication-adherence,extensible,IE Core,7 codes verified on tx.fhir.org
+IECoreMedicationEPrescription,Medication.code,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-medication-codes,extensible,IE Core,intensional (IE edition; HSE CTS); placeholder CS (Requires Clarification); whole code system
+IECoreMedication,Medication.code,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-medication-codes,extensible,IE Core,intensional (IE edition; HSE CTS); placeholder CS (Requires Clarification); whole code system
+IECoreMedicationDispenseEDispensation,MedicationDispense.medication[x],https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-medication-codes,extensible,IE Core,intensional (IE edition; HSE CTS); placeholder CS (Requires Clarification); whole code system
+IECoreMedicationDispense,MedicationDispense.medication[x],https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-medication-codes,extensible,IE Core,intensional (IE edition; HSE CTS); placeholder CS (Requires Clarification); whole code system
+IECoreMedicationRequestEPrescription,MedicationRequest.medication[x],https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-medication-codes,extensible,IE Core,intensional (IE edition; HSE CTS); placeholder CS (Requires Clarification); whole code system
+IECoreMedicationRequest,MedicationRequest.medication[x],https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-medication-codes,extensible,IE Core,intensional (IE edition; HSE CTS); placeholder CS (Requires Clarification); whole code system
+IECoreMedicationStatement,MedicationStatement.medication[x]:medicationCodeableConcept,http://hl7.org/fhir/ValueSet/medication-codes,extensible,HL7 FHIR core,external (published by the owner)
+IECoreObservationPregnancyIntent,Observation.value[x],https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-pregnancy-intent,extensible,IE Core,1 codes verified on tx.fhir.org
+IECoreObservationPregnancyStatus,Observation.value[x],https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-pregnancy-status,extensible,IE Core,3 codes verified on tx.fhir.org
+IECoreObservationSexualOrientation,Observation.value[x],https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-sexual-orientation-including-data-absent-reason,extensible,IE Core,3 codes verified on tx.fhir.org
+IECoreOrganization,Organization.type,http://hl7.org/fhir/ValueSet/organization-type,preferred,HL7 FHIR core,external (published by the owner)
+IECoreOrganization,Organization.address.state,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-county,extensible,IE Core,IE Core CS
+IECorePatientAgeAtPrescribing,Extension.value[x].code,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-age-units,required,IE Core,3 codes verified on tx.fhir.org
+IECorePatient,Patient.address.state,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-county,extensible,IE Core,IE Core CS
+IECorePractitioner,Practitioner.address.state,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-county,extensible,IE Core,IE Core CS
+IECorePractitioner,Practitioner.qualification.code,http://terminology.hl7.org/ValueSet/v2-0360,preferred,HL7 Terminology (THO),external (published by the owner)
+IECorePractitionerRole,PractitionerRole.code,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-healthcare-provider-taxonomy,extensible,IE Core,intensional
+IECorePractitionerRole,PractitionerRole.specialty,http://hl7.org/fhir/ValueSet/c80-practice-codes,preferred,HL7 FHIR core,external (published by the owner)
+IECoreProcedure,Procedure.code,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-procedure-code,extensible,IE Core,intensional
+IECoreProvenance,Provenance.agent.type,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-provenance-participant-type,extensible,IE Core,IE Core CS; whole code system
+IECoreServiceRequest,ServiceRequest.code,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-procedure-code,extensible,IE Core,intensional
+IECoreSmokingStatusObservation,Observation.value[x],https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-smoking-status,extensible,IE Core,6 codes verified on tx.fhir.org
+IECoreSpecimen,Specimen.type,https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-specimen-type,extensible,IE Core,intensional

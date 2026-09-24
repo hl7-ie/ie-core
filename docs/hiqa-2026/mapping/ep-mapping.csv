@@ -1,0 +1,255 @@
+hiqa_id,profile,path,ms,status,notes
+1.1.1,IECorePatientEPrescription,Patient.name.prefix,Y,Aligned,
+1.1.2,IECorePatientEPrescription,Patient.name.given,Y,Aligned,given 1..* in the ePrescription patient
+1.1.3,IECorePatientEPrescription,Patient.name.family,Y,Aligned,family 1..1 in the ePrescription patient
+1.1.4,IECorePatientEPrescription,Patient.name.suffix,Y,Aligned,
+1.2.1,IECorePatientEPrescription,Patient.address.postalCode,Y,Aligned,Eircode format XXX XXXX (guidance only)
+1.2.2,IECorePatientEPrescription,Patient.address.line,Y,Aligned,address 1..* and line 1..*
+1.2.3,IECorePatientEPrescription,Patient.address.city,Y,Aligned,Dublin postal districts go here per HIQA
+1.2.4,IECorePatientEPrescription,Patient.address.state,Y,Aligned,state 1..1; IE county binding (extensible)
+1.2.5,IECorePatientEPrescription,Patient.address.country,Y,Aligned,
+1.2.6,IECorePatientEPrescription,Patient.address.use,Y,Partial,use 1..1 MS; no HL7 code for homelessness (Requires Clarification)
+1.2.7,IECorePatientEPrescription,Patient.address.type,N,Aligned,postal|physical|both
+1.3.1,IECorePatientEPrescription,Patient.identifier:IHI,Y,Aligned,ie-pat-1 accepts 18 or 10 digits; system URI placeholder (OI-003)
+1.3.2,IECorePatientEPrescription,Patient.identifier:PPSN,N,Partial,deliberately NOT MustSupport: legal basis Requires Clarification (OI-008); warning format rule
+1.3.3,IECorePatientEPrescription,Patient.identifier,Y,Aligned,open slicing; PCRS scheme numbers typed with the IE Core PCRS scheme placeholder
+1.3.3.1,IECorePatientEPrescription,Patient.identifier.type,Y,Aligned,
+1.3.3.2,IECorePatientEPrescription,Patient.identifier.value,Y,Aligned,
+1.3.3.3,IECorePatientEPrescription,Patient.identifier.period,Y,Aligned,
+1.3.3.4,IECorePatientEPrescription,Patient.identifier.assigner,Y,Aligned,"assigner.display, e.g. HSE"
+1.4.1,IECorePatientEPrescription,Patient.birthDate,Y,Aligned,birthDate 1..1; a legal requirement cross-border
+1.4.2,IECoreMedicationRequestEPrescription,MedicationRequest.extension:ageAtPrescribing,Y,Aligned,"required when under 12 at authoredOn, or when the date of birth is not a full date (invariants ie-rx-age-1, ie-bnd-rx-3; resolved within the Bundle)"
+1.4.2.1,IECoreMedicationRequestEPrescription,MedicationRequest.extension:ageAtPrescribing.value[x],N,Aligned,Mandatory within the age cluster: valueAge.value 1..1
+1.4.2.2,IECoreMedicationRequestEPrescription,MedicationRequest.extension:ageAtPrescribing.value[x],N,Aligned,Mandatory within the age cluster: valueAge.code 1..1 (UCUM a|mo|d)
+1.4.3,IECorePatientEPrescription,Patient.extension:sexAssignedAtBirth,Y,Aligned,individual-recordedSexOrGender with type LOINC 76689-9 (1..1 MS)
+1.4.4,IECorePatientEPrescription,Patient.extension:gender-identity,Y,Aligned,"individual-genderIdentity (EU Base slice), 0..1 MS"
+1.4.4.1,IECorePatientEPrescription,Patient.extension:gender-identity,Y,Partial,binding to ie-core-gender-identity not yet verified; no 'other gender' code (Phase 7)
+1.4.4.2,IECorePatientEPrescription,Patient.extension:gender-identity,N,Aligned,valueCodeableConcept.text
+1.5.1,IECorePatientEPrescription,Patient.telecom,Y,Aligned,
+1.5.2,IECorePatientEPrescription,Patient.telecom,Y,Aligned,
+1.5.3,IECorePatientEPrescription,Patient.telecom,Y,Aligned,
+1.5.3.1,IECorePatientEPrescription,Patient.telecom.system,Y,Aligned,
+1.5.3.2,IECorePatientEPrescription,Patient.telecom.value,Y,Aligned,
+1.6.1,IECoreListAllergiesAtPrescribing,List.emptyReason,Y,Aligned,allergy statement 1..1 per ePrescription Bundle; entry xor emptyReason (ie-list-allergy-1); list-empty-reason (nilknown = no known allergies); must be the Bundle patient's own (ie-bnd-rx-5)
+1.6.2,IECoreListAllergiesAtPrescribing,List.entry,Y,Aligned,"entries → IECoreAllergyIntolerance, included in the Bundle (ie-bnd-rx-6); referenced from each item as a List coded LOINC 48765-2 (ie-bnd-rx-2)"
+1.6.2.1,IECoreAllergyIntolerance,AllergyIntolerance.code,Y,Aligned,
+1.6.2.2,IECoreAllergyIntolerance,AllergyIntolerance.reaction.substance,N,Partial,Required but not MS
+1.6.2.3,IECoreAllergyIntolerance,AllergyIntolerance.note,N,Aligned,
+1.6.2.4,IECoreListAllergiesAtPrescribing,List.source,Y,Aligned,statement author/date on the List; entry-level provenance on AllergyIntolerance
+1.6.2.4.1,IECoreAllergyIntolerance,AllergyIntolerance.identifier,N,Aligned,
+1.6.2.4.2,IECoreAllergyIntolerance,AllergyIntolerance.recorder,N,Partial,Mandatory within the cluster; not MS
+1.6.2.4.3,IECoreAllergyIntolerance,AllergyIntolerance.recordedDate,N,Partial,Mandatory within the cluster; not MS
+1.6.2.4.4,IECoreAllergyIntolerance,AllergyIntolerance.asserter,N,Aligned,
+1.6.2.4.5,IECoreAllergyIntolerance,AllergyIntolerance.language,N,Aligned,
+1.6.3,IECoreBodyWeight,Observation,N,Aligned,Optional; not linked to the prescription (supportingInformation)
+1.6.3.1,IECoreBodyWeight,Observation.valueQuantity.value,Y,Aligned,
+1.6.3.2,IECoreBodyWeight,Observation.valueQuantity.code,Y,Aligned,UCUM kg; HIQA also lists stone/pounds
+1.6.3.3,IECoreBodyWeight,Observation,N,Aligned,
+1.6.3.3.1,IECoreBodyWeight,Observation.identifier,N,Aligned,
+1.6.3.3.2,IECoreBodyWeight,Observation.performer,N,Partial,Mandatory within the cluster; not MS
+1.6.3.3.3,IECoreBodyWeight,Observation.effective[x],Y,Aligned,
+1.6.3.3.4,IECoreBodyWeight,Observation.performer,N,Aligned,source (patient-reported vs practitioner)
+1.6.3.3.5,IECoreBodyWeight,Observation.language,N,Aligned,
+1.6.4,IECoreBodyHeight,Observation,N,Aligned,Optional; not linked to the prescription
+1.6.4.1,IECoreBodyHeight,Observation.valueQuantity.value,Y,Aligned,
+1.6.4.2,IECoreBodyHeight,Observation.valueQuantity.code,Y,Aligned,
+1.6.4.3,IECoreBodyHeight,Observation,N,Aligned,
+1.6.4.3.1,IECoreBodyHeight,Observation.identifier,N,Aligned,
+1.6.4.3.2,IECoreBodyHeight,Observation.performer,N,Partial,Mandatory within the cluster; not MS
+1.6.4.3.3,IECoreBodyHeight,Observation.effective[x],Y,Aligned,
+1.6.4.3.4,IECoreBodyHeight,Observation.performer,N,Aligned,
+1.6.4.3.5,IECoreBodyHeight,Observation.language,N,Aligned,
+1.6.5,IECoreMedicationRequestEPrescription,MedicationRequest.note,Y,Aligned,
+2.1,IECorePractitioner,Practitioner.name.prefix,Y,Aligned,
+2.2,IECorePractitioner,Practitioner.name.given,Y,Aligned,given 1..*
+2.3,IECorePractitioner,Practitioner.name.family,Y,Aligned,
+2.4,IECorePractitioner,Practitioner.name.suffix,Y,Aligned,
+2.5,IECorePractitionerRole,PractitionerRole,Y,Aligned,requester Reference(PractitionerRole | Practitioner); role preferred
+2.5.1,IECorePractitionerRole,PractitionerRole.code,Y,Aligned,binding ie-core-provider-taxonomy; HIQA roles (RNP/RMP/CCS pharmacist) not verified in it
+2.5.2,IECorePractitionerRole,PractitionerRole.specialty,Y,Aligned,
+2.6,IECorePractitioner,Practitioner.identifier,Y,Partial,"identifier 1..*; registration slices IMC, PSI, NMBI, DentalCouncil are each 0..1, so no registration number is required on the prescriber (independent review R-10; Requires Clarification which register applies per prescriber type)"
+2.6.1,IECorePractitioner,Practitioner.identifier.system,Y,Aligned,"registration body = identifier system (placeholder URIs, OI-003)"
+2.6.2,IECorePractitioner,Practitioner.identifier.value,Y,Aligned,PSI format warning (up to 8 digits); MCRN six-digit is an example only
+2.7,IECoreOrganization,Organization.name,Y,Aligned,
+2.8,IECoreOrganization,Organization.identifier:PSIRPB,Y,Aligned,PSI Retail Pharmacy Business registration number
+2.9,IECoreOrganization,Organization.address,Y,Partial,Mandatory; enforced in the base only as MS (Bundle-level enforcement deferred: see open issues)
+2.9.1,IECoreOrganization,Organization.address.postalCode,Y,Partial,Mandatory within the facility address; not yet enforced
+2.9.2,IECoreOrganization,Organization.address.line,Y,Partial,Mandatory within the facility address; not yet enforced
+2.9.3,IECoreOrganization,Organization.address.city,Y,Aligned,
+2.9.4,IECoreOrganization,Organization.address.state,Y,Partial,Mandatory within the facility address; not yet enforced
+2.9.5,IECoreOrganization,Organization.address.country,Y,Partial,Mandatory within the facility address; not yet enforced
+2.10,IECoreBundleEPrescription,Bundle.entry,Y,Aligned,prescriber or facility telephone required (ie-bnd-rx-4)
+2.10.1,IECoreBundleEPrescription,Bundle.entry,Y,Aligned,"ie-bnd-rx-4: phone on the requester, its practitioner or its organisation (another party's phone does not count)"
+2.10.2,IECoreBundleEPrescriptionCrossBorder,Bundle.entry,Y,Aligned,email required cross-border (ie-bnd-xb-1); Required (MS) otherwise
+2.10.3,IECorePractitionerRole,PractitionerRole.telecom,Y,Aligned,
+2.10.3.1,IECorePractitionerRole,PractitionerRole.telecom.system,Y,Aligned,
+2.10.3.2,IECorePractitionerRole,PractitionerRole.telecom.value,Y,Aligned,
+2.11,IECoreLocation,Location.identifier:GLN,Y,Aligned,system http://www.gs1.org/gln (THO); 13 digits + GS1 check digit (ie-loc-gln-1)
+2.12,IECoreOrganization,Organization.identifier:GMSPanel,N,Aligned,Optional; no format enforced
+2.13,IECoreProvenanceEPrescriptionSignature,Provenance.signature,Y,Aligned,Provenance signature over the items; required cross-border (ie-bnd-xb-2); format Requires Clarification (OI-009)
+3.1,IECoreMedicationRequestEPrescription,MedicationRequest.groupIdentifier,Y,Aligned,enforced by invariant ie-bnd-rx-1 (shared group identifier for multi-item prescriptions); single item: identifier 1..*
+3.1.1,IECoreMedicationRequestEPrescription,MedicationRequest.identifier.type,N,Partial,identifier type not constrained (no HIQA value set)
+3.1.2,IECoreMedicationRequestEPrescription,MedicationRequest.identifier.value,N,Aligned,
+3.2,IECoreMedicationRequestEPrescription,MedicationRequest.authoredOn,Y,Aligned,
+3.3,IECoreMedicationRequestEPrescription,MedicationRequest.status,Y,Partial,prescription-level status DERIVED from item statuses (ADR-003); no container resource
+3.3.1,IECoreMedicationRequestEPrescription,MedicationRequest.status,Y,Partial,derived from items (ADR-003)
+3.3.2,IECoreMedicationRequestEPrescription,MedicationRequest.statusReason,Y,Partial,item level (ie-rx-status-1)
+3.3.3,IECoreMedicationRequestEPrescription,MedicationRequest.statusReason.text,N,Partial,item level
+3.4,IECoreBundleEPrescription,,N,Gap,presented form (PDF): may be added as a DocumentReference/Binary entry; not profiled (Optional)
+3.5,IECoreMedicationRequestEPrescription,MedicationRequest,Y,Aligned,
+3.5.1,IECoreMedicationRequestEPrescription,MedicationRequest.identifier,Y,Aligned,
+3.5.2,IECoreMedicationRequestEPrescription,MedicationRequest.status,Y,Aligned,
+3.5.2.1,IECoreMedicationRequestEPrescription,MedicationRequest.status,Y,Aligned,
+3.5.2.2,IECoreMedicationRequestEPrescription,MedicationRequest.statusReason,Y,Aligned,required unless active/completed/draft (ie-rx-status-1)
+3.5.2.3,IECoreMedicationRequestEPrescription,MedicationRequest.statusReason.text,N,Aligned,
+3.5.3,IECoreMedicationRequestEPrescription,MedicationRequest.medication[x],Y,Aligned,medication[x] only Reference(IECoreMedicationEPrescription): Section 4 detail and the MDA schedule live on the Medication (review R-01)
+3.5.4,IECoreMedicationRequestEPrescription,MedicationRequest.reasonCode,Y,Aligned,
+3.5.4.1,IECoreMedicationRequestEPrescription,MedicationRequest.reasonCode,Y,Aligned,
+3.5.4.2,IECoreMedicationRequestEPrescription,MedicationRequest.reasonCode.text,N,Aligned,
+3.5.5,IECoreMedicationRequestEPrescription,MedicationRequest.category,Y,Aligned,
+3.5.6,IECoreMedicationRequestEPrescription,MedicationRequest.extension:effectiveDosePeriod,Y,Aligned,HL7 Europe MPD R5 backport extension
+3.5.7,IECoreMedicationRequestEPrescription,MedicationRequest.dispenseRequest.extension:prescribedQuantity,Y,Aligned,overall quantity (IHE via MPD); per-dispense quantity 1..1 (OI-012)
+3.5.7.1,IECoreMedicationRequestEPrescription,MedicationRequest.dispenseRequest.extension:prescribedQuantity,Y,Aligned,IHE prescribedQuantity
+3.5.7.2,IECoreMedicationRequestEPrescription,MedicationRequest.extension:quantityInWordsAndFigures,Y,Aligned,required for any controlled drug listed in the Misuse of Drugs Regulations 2017 (ie-rx-cd-1)
+3.5.8,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction,Y,Aligned,text 1..1; structured implies text (ie-rx-dosage-1)
+3.5.9,IECoreMedicationRequestEPrescription,MedicationRequest.dispenseRequest.validityPeriod,Y,Aligned,
+3.5.9.1,IECoreMedicationRequestEPrescription,MedicationRequest.dispenseRequest.validityPeriod,Y,Aligned,"Schedule 2/3: 14 days, or two months for instalment prescriptions (final instalment) (ie-rx-cd-2); first instalment within 14 days is a dispensing check (OI-027)"
+3.5.9.2,IECoreMedicationRequestEPrescription,MedicationRequest.dispenseRequest.extension:doNotExtend,N,Aligned,Optional
+3.5.10,IECoreMedicationRequestEPrescription,MedicationRequest.substitution,Y,Aligned,
+3.5.10.1,IECoreMedicationEPrescription,Medication.extension:interchangeable,Y,Aligned,HPRA List of Interchangeable Medicines flag (auto from NMPC)
+3.5.10.2,IECoreMedicationRequestEPrescription,MedicationRequest.substitution.allowed[x],Y,Aligned,'Do Not Substitute' = allowedBoolean false
+3.5.10.3,IECoreMedicationRequestEPrescription,MedicationRequest.substitution.reason,Y,Aligned,required when Do Not Substitute (ie-rx-subst-1)
+3.5.11,IECoreMedicationRequestEPrescription,MedicationRequest.dispenseRequest.numberOfRepeatsAllowed,Y,Aligned,
+3.5.12,IECoreMedicationRequestEPrescription,MedicationRequest.dispenseRequest.extension:numberOfInstalments,Y,Aligned,required for Schedule 2/3/4 Part 1 (ie-rx-cd-3)
+3.5.13,IECoreMedicationRequestEPrescription,MedicationRequest.dispenseRequest.dispenseInterval,Y,Aligned,instalment interval required for Schedule 2/3/4 Part 1 instalment prescriptions (ie-rx-cd-3)
+3.5.14,IECoreMedicationRequestEPrescription,MedicationRequest.extension:offLabelUse,Y,Aligned,IHE ihe-ext-offLabel via HL7 Europe MPD (replaces IECoreOffLabelUse)
+3.5.14.1,IECoreMedicationRequestEPrescription,MedicationRequest.extension:offLabelUse,N,Aligned,Mandatory within the cluster: isOffLabelUse 1..1
+3.5.14.2,IECoreMedicationRequestEPrescription,MedicationRequest.extension:offLabelUse,N,Aligned,reason sub-extension
+3.5.14.2.1,IECoreMedicationRequestEPrescription,MedicationRequest.extension:offLabelUse,N,Aligned,reason (coded)
+3.5.14.2.2,IECoreMedicationRequestEPrescription,MedicationRequest.extension:offLabelUse,N,Aligned,reason text
+3.6.1,IECoreMedicationRequestEPrescription,MedicationRequest.note,Y,Aligned,
+4.1,IECoreMedicationEPrescription,Medication.code,Y,Aligned,NMPC code
+4.2,IECoreMedicationEPrescription,Medication.extension:classification,Y,Aligned,IHE classification (EU Base slice)
+4.2.1,IECoreMedicationEPrescription,Medication.extension:classification,Y,Aligned,ATC coding
+4.2.2,IECoreMedicationEPrescription,Medication.extension:classification,Y,Partial,supply legal status: placeholder code system (OI-007)
+4.2.3,IECoreMedicationEPrescription,Medication.extension:classification,Y,Partial,MDA schedule: placeholder code system (OI-007); drives ie-rx-cd-1/2
+4.2.4,IECoreMedicationEPrescription,Medication.extension:classification,N,Aligned,Optional
+4.3,IECoreMedicationEPrescription,Medication.code,Y,Aligned,code.text / productName
+4.3.1,IECoreMedicationEPrescription,Medication.code,Y,Aligned,
+4.3.2,IECoreMedicationEPrescription,Medication.code.text,N,Aligned,
+4.4,IECoreMedicationEPrescription,Medication.manufacturer,N,Aligned,
+4.4.1,IECoreMedicationEPrescription,Medication.manufacturer.display,N,Aligned,
+4.4.2,IECoreMedicationEPrescription,Medication.manufacturer.identifier,N,Aligned,
+4.5,IECoreMedicationEPrescription,Medication.form,Y,Partial,EDQM binding pending (Phase 7)
+4.6,IECoreMedicationEPrescription,,N,Gap,no R4 element; code.text carries the description (Optional)
+4.7,IECoreMedicationEPrescription,Medication.ingredient,Y,Aligned,
+4.7.1,IECoreMedicationEPrescription,Medication.form,Y,Partial,R4 has no item-level dose form; EDQM binding pending (Phase 7)
+4.7.2,IECoreMedicationEPrescription,Medication.ingredient,Y,Aligned,ingredient 1..*
+4.7.2.1,IECoreMedicationEPrescription,Medication.ingredient.isActive,Y,Aligned,
+4.7.2.2,IECoreMedicationEPrescription,Medication.ingredient.item[x],Y,Aligned,
+4.7.2.3,IECoreMedicationEPrescription,Medication.ingredient.strength,Y,Aligned,
+4.7.2.3.1,IECoreMedicationEPrescription,Medication.ingredient.strength,Y,Aligned,Mandatory within the strength cluster (4.7.2.3 = ingredient.strength 0..1)
+4.7.2.3.2,IECoreMedicationEPrescription,Medication.ingredient.strength,N,Aligned,IHE strengthsubstance extension on strength
+4.7.3,IECoreMedicationEPrescription,Medication.extension:unitOfPresentation,N,Aligned,IHE (EU Base slice)
+4.7.4,IECoreMedicationEPrescription,Medication.extension:sizeOfItem,N,Aligned,IHE sizeOfItem (EU Base slice)
+4.7.5,IECoreMedicationEPrescription,Medication.amount,Y,Aligned,
+4.7.6,IECoreMedicationEPrescription,Medication.extension:packageType,N,Aligned,EU medication-package-type (EU Base slice)
+4.8,IECoreMedicationEPrescription,Medication.extension:device,N,Aligned,IHE device (EU Base slice)
+4.8.1,IECoreMedicationEPrescription,Medication.extension:device,N,Aligned,Mandatory within the device cluster
+4.8.2,IECoreMedicationEPrescription,Medication.extension:device,N,Aligned,Mandatory within the device cluster
+4.9,IECoreMedicationEPrescription,Medication.extension:characteristic,N,Aligned,IHE characteristic (EU Base slice)
+4.9.1,IECoreMedicationEPrescription,,N,Gap,
+4.9.2,IECoreMedicationEPrescription,,N,Gap,
+4.9.2.1,IECoreMedicationEPrescription,,N,Gap,
+4.9.2.2,IECoreMedicationEPrescription,,N,Gap,
+4.9.2.3,IECoreMedicationEPrescription,,N,Gap,
+4.9.2.4,IECoreMedicationEPrescription,,N,Gap,
+4.9.2.5,IECoreMedicationEPrescription,,N,Gap,
+4.9.2.6,IECoreMedicationEPrescription,,N,Gap,
+4.9.2.7,IECoreMedicationEPrescription,,N,Gap,
+4.10,IECoreMedicationEPrescription,Medication.batch,Y,Aligned,
+4.10.1,IECoreMedicationEPrescription,Medication.batch.lotNumber,Y,Aligned,
+4.10.2,IECoreMedicationEPrescription,Medication.batch.expirationDate,Y,Aligned,
+4.11,IECoreMedicationEPrescription,Medication.extension:exemptMedicationItem,Y,Partial,meaning Requires Clarification
+5.1,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.text,Y,Aligned,IG 1..1 (stricter; safety fallback)
+5.2,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction,Y,Aligned,
+5.2.1,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.sequence,N,Aligned,
+5.2.2,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.patientInstruction,Y,Aligned,
+5.2.3,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.doseAndRate,Y,Aligned,
+5.2.3.1,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.doseAndRate.dose[x],Y,Aligned,
+5.2.3.1.1,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.doseAndRate.dose[x],Y,Aligned,doseQuantity
+5.2.3.1.2,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.doseAndRate.dose[x],Y,Aligned,doseRange
+5.2.3.2,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.doseAndRate.rate[x],N,Aligned,
+5.2.3.2.1,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.doseAndRate.rateQuantity,N,Aligned,
+5.2.3.2.2,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.doseAndRate.rateRatio,N,Aligned,
+5.2.4,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing,Y,Aligned,
+5.2.4.1,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat.bounds[x],N,Aligned,
+5.2.4.1.1,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat.boundsDuration,N,Aligned,
+5.2.4.1.2,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat.boundsPeriod,N,Aligned,
+5.2.4.2,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat.duration,N,Aligned,
+5.2.4.3,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat.frequency,Y,Aligned,
+5.2.4.3.1,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat.frequency,Y,Aligned,Mandatory within the frequency cluster (MS)
+5.2.4.3.2,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat.period,Y,Aligned,Mandatory within the frequency cluster (MS; with periodUnit)
+5.2.4.4,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat.dayOfWeek,N,Aligned,
+5.2.4.5,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat.timeOfDay,N,Aligned,
+5.2.4.6,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.timing.repeat.when,N,Aligned,
+5.2.5,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.asNeeded[x],N,Aligned,
+5.2.6,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.site,N,Aligned,
+5.2.6.1,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.site,N,Aligned,post-coordinated in site (SNOMED CT) or a body-structure extension
+5.2.6.2,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.site,N,Aligned,
+5.2.6.3,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.site,N,Aligned,
+5.2.6.4,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.site,N,Aligned,
+5.2.6.5,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.site.text,N,Aligned,
+5.2.7,IECoreMedicationRequestEPrescription,MedicationRequest.dosageInstruction.route,Y,Partial,EDQM route binding pending (Phase 7)
+6.1,IECoreMedicationDispenseEDispensation,MedicationDispense.identifier,Y,Aligned,IG 1..* (stricter than HIQA 0..*)
+6.2,IECoreMedicationDispenseEDispensation,MedicationDispense.extension:recorded,Y,Aligned,HL7 Europe MPD recorded 1..1 (R5 backport)
+6.3,IECoreMedicationDispenseEDispensation,MedicationDispense.status,Y,Aligned,
+6.3.1,IECoreMedicationDispenseEDispensation,MedicationDispense.status,Y,Aligned,
+6.3.2,IECoreMedicationDispenseEDispensation,MedicationDispense.statusReason[x],Y,Aligned,required for a non-dispensation (ie-md-status-1)
+6.3.2.1,IECoreMedicationDispenseEDispensation,MedicationDispense.statusReason[x],Y,Aligned,
+6.3.2.2,IECoreMedicationDispenseEDispensation,MedicationDispense.statusReason[x],N,Aligned,statusReasonCodeableConcept.text
+6.4,IECoreMedicationDispenseEDispensation,MedicationDispense.receiver,N,Aligned,
+6.4.1,IECoreMedicationDispenseEDispensation,MedicationDispense.receiver,N,Aligned,Reference(Patient)
+6.4.2,IECoreMedicationDispenseEDispensation,MedicationDispense.receiver,N,Aligned,Reference(Practitioner)
+6.4.3,IECoreMedicationDispenseEDispensation,MedicationDispense.extension:receiverRelatedPerson,N,Aligned,IE extension → IECoreRelatedPerson
+6.4.3.1,IECoreRelatedPerson,RelatedPerson.name.prefix,N,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.2,IECoreRelatedPerson,RelatedPerson.name.given,N,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.3,IECoreRelatedPerson,RelatedPerson.name.family,N,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.4,IECoreRelatedPerson,RelatedPerson.name.suffix,N,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.5,IECoreRelatedPerson,RelatedPerson.identifier,N,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.5.1,IECoreRelatedPerson,RelatedPerson.identifier.type,N,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.5.2,IECoreRelatedPerson,RelatedPerson.identifier.value,N,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.5.3,IECoreRelatedPerson,RelatedPerson.identifier.period,N,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.5.4,IECoreRelatedPerson,RelatedPerson.identifier.assigner,N,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.6,IECoreRelatedPerson,RelatedPerson.relationship,Y,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.7,IECoreRelatedPerson,RelatedPerson.relationship,Y,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.8,IECoreRelatedPerson,RelatedPerson.address,N,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.8.1,IECoreRelatedPerson,RelatedPerson.address.postalCode,N,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.8.2,IECoreRelatedPerson,RelatedPerson.address.line,N,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.8.3,IECoreRelatedPerson,RelatedPerson.address.city,N,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.8.4,IECoreRelatedPerson,RelatedPerson.address.state,N,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.8.5,IECoreRelatedPerson,RelatedPerson.address.country,N,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.9,IECoreRelatedPerson,RelatedPerson.telecom,N,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.9.1,IECoreRelatedPerson,RelatedPerson.telecom,N,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.9.2,IECoreRelatedPerson,RelatedPerson.telecom,N,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.4.3.9.3,IECoreRelatedPerson,RelatedPerson.telecom,N,Aligned,Optional; linked via MedicationDispense extension:receiverRelatedPerson
+6.5,IECoreMedicationDispenseEDispensation,MedicationDispense.authorizingPrescription,Y,Aligned,1..1: stricter than HIQA 0..1 (OI-012)
+6.6,IECoreMedicationDispenseEDispensation,MedicationDispense.medication[x],Y,Aligned,
+6.7,IECoreMedicationDispenseEDispensation,MedicationDispense.quantity,Y,Aligned,
+6.8,IECoreMedicationDispenseEDispensation,MedicationDispense.whenHandedOver,Y,Aligned,enforced by invariant ie-md-handover-1 (required when completed; a non-dispensation has no hand-over)
+6.9,IECoreMedicationDispenseEDispensation,MedicationDispense.whenHandedOver,Y,Aligned,time component
+6.10,IECoreMedicationDispenseEDispensation,MedicationDispense.substitution.wasSubstituted,Y,Aligned,
+6.11,IECoreMedicationDispenseEDispensation,MedicationDispense.dosageInstruction,Y,Aligned,
+6.12,IECoreMedicationDispenseEDispensation,MedicationDispense.note,N,Aligned,
+NA-ethnicity,IECorePatientEPrescription,Patient.extension:ethnicity,N,Prohibited (enforced),0..0 in the ePrescription patient (ADR-002); GDPR Art. 9
+NA-mothersMaidenName,IECorePatientEPrescription,Patient.extension:mothersMaidenName,N,Prohibited (enforced),0..0 (ADR-002); identity: HZ-06
+NA-nationality,IECorePatientEPrescription,Patient.extension:patient-nationality,N,Prohibited (enforced),0..0 (EU Base slice constrained)
+NA-maritalStatus,IECorePatientEPrescription,Patient.maritalStatus,N,Prohibited (enforced),0..0
+NA-religion,IECorePatientEPrescription,Patient.extension:religion,N,Prohibited (enforced),0..0; GDPR Art. 9
+NA-pronouns,IECorePatientEPrescription,Patient.extension:pronouns,N,Prohibited (enforced),0..0 (EU Base slice constrained)
+NA-birthPlace,IECorePatientEPrescription,Patient.extension:birthPlace,N,Prohibited (enforced),0..0 (EU Base slice constrained)
+NA-citizenship,IECorePatientEPrescription,Patient.extension:patient-citizenship,N,Prohibited (enforced),0..0
+NA-mothersFormerSurname,IECorePatientEPrescription,Patient.extension:mothersFormerSurname,N,Prohibited (enforced),0..0
+NA-countryOfAffiliation,IECorePatientEPrescription,Patient.extension:countryOfAffiliation,N,Prohibited (enforced),0..0
+NA-interpreterRequired,IECorePatientEPrescription,Patient.extension:interpreterRequired,N,Prohibited (enforced),0..0
+NA-contact,IECorePatientEPrescription,Patient.contact,N,Prohibited (enforced),0..0: third-party data; the receiver is on the dispense (EP 6.4)

@@ -1,110 +1,70 @@
 // ╭──────────────────────────────────────────────────────────────────────╮
-// │  IE Core Patient Profile                                            │
+// │  IE Core Patient Profile (permissive base)                          │
+// │                                                                      │
+// │  ADR-002: the base profile is permissive. Use-case profiles decide  │
+// │  what is required and what is prohibited:                           │
+// │    IECorePatientEPrescription   (HIQA ePrescription/eDispensation)  │
+// │    IECorePatientSummaryPatient  (HIQA Patient Summary)              │
+// │  ADR-006: only HIQA-sourced identifiers are sliced.                 │
 // ╰──────────────────────────────────────────────────────────────────────╯
 
 Profile: IECorePatient
 Parent: $EUPatientCore
 Id: ie-core-patient
 Title: "IE Core Patient"
-Description: "The IE Core Patient Profile is based upon the core FHIR Patient Resource and defines the minimum set of data required to query and retrieve patient demographic information within the Irish healthcare system (HSE). It establishes constraints and extensions relevant to Ireland including identifier slicing for Irish health scheme numbers."
+Description: "Base Patient profile for the Irish health system, derived from the HL7 Europe Base Patient. It is deliberately permissive: special-category and identity-disambiguation data (for example ethnicity or mother's maiden name) are allowed but NOT MustSupport. Use-case profiles decide what must be sent and what must not be sent: IECorePatientEPrescription for ePrescription and eDispensation, and IECorePatientSummaryPatient for the Patient Summary (ADR-002, GDPR Art. 5(1)(c) data minimisation)."
 
 // ── Extensions ──────────────────────────────────────────────────────────
+// EU Base (patient-eu-core) already slices: birthPlace, sex-for-clinical-use, gender-identity,
+// pronouns, patient-citizenship, patient-nationality, birthTime. Those slices are reused, never re-declared.
 * extension contains
-    IECoreEthnicity named ethnicity 0..1 MS and
-    http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName named mothersMaidenName 0..1 MS and
-    http://hl7.org/fhir/StructureDefinition/individual-genderIdentity named genderIdentity 0..* MS and
-    $IndividualPronouns named personalPronouns 0..* MS and
-    http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired named interpreterRequired 0..1 MS
+    $RecordedSexOrGender named sexAssignedAtBirth 0..1 MS and
+    IECoreEthnicity named ethnicity 0..* and
+    $PatientMothersMaidenName named mothersMaidenName 0..1 and
+    $PatientInterpreterRequired named interpreterRequired 0..1
+* extension[gender-identity] MS
 
-* extension[ethnicity] ^short = "Ethnicity of the patient"
-* extension[ethnicity] ^definition = "The patient's ethnicity as categorised within the Irish healthcare system."
-* extension[mothersMaidenName] ^short = "Mother's maiden (birth family) name"
-* extension[genderIdentity] ^short = "The patient's gender identity"
-* extension[personalPronouns] ^short = "The patient's personal pronouns"
+* extension[sexAssignedAtBirth] ^short = "Sex assigned at birth (recorded sex, type LOINC 76689-9)"
+* extension[sexAssignedAtBirth] ^definition = "The patient's sex assigned at birth, recorded with individual-recordedSexOrGender and typed with LOINC 76689-9 'Sex assigned at birth'. This is distinct from Patient.gender (administrative gender) and from gender identity."
+* extension[sexAssignedAtBirth] ^comment = "HIQA EP 1.4.3 / PS 1.4.4 Sex (Mandatory 1..1). Mandatory in the use-case profiles (ADR-002). Displaying sex at birth alongside gender identity can disclose a gender reassignment; see the security guidance."
+* extension[sexAssignedAtBirth].extension[type] 1..1
+* extension[sexAssignedAtBirth].extension[type].value[x] = $LOINC#76689-9 "Sex assigned at birth"
+* extension[gender-identity] ^short = "Gender identity (HIQA gender cluster)"
+* extension[gender-identity] ^comment = "HIQA EP 1.4.4 / PS 1.4.5 Gender cluster (Required 0..1). 'Other gender identity' free text (EP 1.4.4.2 / PS 1.4.5.2) goes in valueCodeableConcept.text."
+* extension[ethnicity] ^short = "Ethnicity (special-category data; Patient Summary only)"
+* extension[ethnicity] ^comment = "GDPR Art. 9 special-category data. HIQA PS 1.4.10 (Required 0..*). Not part of the HIQA ePrescription dataset, and prohibited in IECorePatientEPrescription (ADR-002)."
+* extension[mothersMaidenName] ^short = "Mother's maiden name (not MustSupport)"
+* extension[mothersMaidenName] ^comment = "Not part of the HIQA ePrescription dataset. The Patient Summary uses IECoreMothersFormerSurname (HIQA PS 1.4.6, 0..*)."
+* extension[pronouns] ^short = "Personal pronouns (not in either HIQA dataset)"
 * extension[interpreterRequired] ^short = "Whether the patient requires an interpreter"
 
-// ── Identifier Slicing ──────────────────────────────────────────────────
+// ── Identifier Slicing (ADR-006) ─────────────────────────────────────────
 * identifier MS
 * identifier ^slicing.discriminator.type = #value
 * identifier ^slicing.discriminator.path = "system"
 * identifier ^slicing.rules = #open
-* identifier ^short = "An identifier for this patient"
-* identifier contains
-    IHI 0..1 MS and
-    GMS 0..1 MS and
-    DPS 0..1 MS and
-    LTI 0..1 MS and
-    HAA 0..1 MS and
-    MRN 0..* MS and
-    IMN 0..1 MS
+* identifier ^short = "Identifiers for this patient"
+* identifier ^comment = "HIQA EP/PS 1.3. Identifiers other than the IHI (and the PPSN in the use-case profiles) are carried as 'other identifiers used in health and social care' (HIQA 1.3.3): type, value, validity period and issuing organisation. Examples from HIQA include PCRS scheme numbers (medical card, GP visit card, DPS, LTI, HAA), GP record number, MRN, NHS number and EHIC."
+* identifier.type MS
+* identifier.type ^comment = "HIQA EP/PS 1.3.3.1 (Required)."
+* identifier.value MS
+* identifier.value ^comment = "HIQA EP/PS 1.3.3.2 (Required)."
+* identifier.period MS
+* identifier.period ^comment = "HIQA EP/PS 1.3.3.3 (Required)."
+* identifier.assigner MS
+* identifier.assigner ^comment = "HIQA EP/PS 1.3.3.4 (Required): name of the issuing organisation (assigner.display), for example 'HSE'."
+* identifier contains IHI 0..1 MS
 
-// IHI – Individual Health Identifier
+// IHI – Individual Health Identifier (HIQA EP/PS 1.3.1, Required 0..1)
 * identifier[IHI] ^short = "Individual Health Identifier (IHI)"
-* identifier[IHI] ^definition = "The Individual Health Identifier assigned to the patient by the HSE. The IHI is a unique 18-digit numeric identifier."
+* identifier[IHI] ^definition = "The Individual Health Identifier assigned by the HSE. HIQA describes it as a unique 18 or 10-digit number."
+* identifier[IHI] ^comment = "HIQA EP/PS 1.3.1 (Required 0..1). The system URI is a placeholder pending an HSE-published URI (OI-003). The relationship between the 18- and 10-digit forms is Requires Clarification (OI-002)."
 * identifier[IHI].system 1..1 MS
 * identifier[IHI].system = $IHI
 * identifier[IHI].type = $V2-0203#NI "National unique individual identifier"
 * identifier[IHI].value 1..1 MS
-* identifier[IHI].value ^short = "IHI number (18 digits)"
+* identifier[IHI].value ^short = "IHI number (18 or 10 digits)"
 * identifier[IHI] obeys ie-pat-1
-
-// GMS – General Medical Services (Medical Card)
-* identifier[GMS] ^short = "General Medical Services (GMS) Number"
-* identifier[GMS] ^definition = "The General Medical Services (Medical Card) number. Format is 7 digits followed by 1 alphabetic character."
-* identifier[GMS].system 1..1 MS
-* identifier[GMS].system = $GMS
-* identifier[GMS].type = $V2-0203#MC "Patient's Medicare number"
-* identifier[GMS].value 1..1 MS
-* identifier[GMS].value ^short = "GMS number (e.g. 1234567A)"
-* identifier[GMS] obeys ie-pat-2
-
-// DPS – Drugs Payment Scheme
-* identifier[DPS] ^short = "Drugs Payment Scheme (DPS) Number"
-* identifier[DPS] ^definition = "The Drugs Payment Scheme number. Format follows the PPS Number pattern: 7 digits followed by 1-2 alphabetic characters."
-* identifier[DPS].system 1..1 MS
-* identifier[DPS].system = $DPS
-* identifier[DPS].type = $V2-0203#JHN "Jurisdictional health number (Canada)"
-* identifier[DPS].value 1..1 MS
-* identifier[DPS].value ^short = "DPS number"
-* identifier[DPS] obeys ie-pat-3
-
-// LTI – Long Term Illness Scheme
-* identifier[LTI] ^short = "Long Term Illness (LTI) Scheme Number"
-* identifier[LTI] ^definition = "The Long Term Illness scheme number. Format follows the PPS Number pattern: 7 digits followed by 1-2 alphabetic characters."
-* identifier[LTI].system 1..1 MS
-* identifier[LTI].system = $LTI
-* identifier[LTI].type = $V2-0203#JHN "Jurisdictional health number (Canada)"
-* identifier[LTI].value 1..1 MS
-* identifier[LTI].value ^short = "LTI number"
-* identifier[LTI] obeys ie-pat-4
-
-// HAA – Hospital Appointment Access
-* identifier[HAA] ^short = "Hospital Appointment Access (HAA) Number"
-* identifier[HAA] ^definition = "The Hospital Appointment Access number assigned to the patient. Format is 8-10 alphanumeric characters."
-* identifier[HAA].system 1..1 MS
-* identifier[HAA].system = $HAA
-* identifier[HAA].type = $V2-0203#AN "Account number"
-* identifier[HAA].value 1..1 MS
-* identifier[HAA].value ^short = "HAA number"
-* identifier[HAA] obeys ie-pat-5
-
-// MRN – Medical Record Number
-* identifier[MRN] ^short = "Medical Record Number (MRN)"
-* identifier[MRN] ^definition = "A local Medical Record Number assigned by a healthcare facility."
-* identifier[MRN].system 1..1 MS
-* identifier[MRN].system = $MRN
-* identifier[MRN].type = $V2-0203#MR "Medical record number"
-* identifier[MRN].value 1..1 MS
-* identifier[MRN].value ^short = "MRN value"
-
-// IMN – Immunisation Number
-* identifier[IMN] ^short = "Immunisation Number (IMN)"
-* identifier[IMN] ^definition = "The national immunisation number assigned to the patient."
-* identifier[IMN].system 1..1 MS
-* identifier[IMN].system = $IMN
-* identifier[IMN].type = $V2-0203#NI "National unique individual identifier"
-* identifier[IMN].value 1..1 MS
-* identifier[IMN].value ^short = "IMN value"
 
 // ── Name ────────────────────────────────────────────────────────────────
 * name 1..* MS
@@ -119,25 +79,28 @@ Description: "The IE Core Patient Profile is based upon the core FHIR Patient Re
 
 // ── Gender ──────────────────────────────────────────────────────────────
 * gender 1..1 MS
-* gender ^short = "male | female | other | unknown"
+* gender ^short = "Administrative gender (not sex assigned at birth)"
+* gender ^comment = "Administrative gender for record-keeping. Sex assigned at birth (HIQA EP 1.4.3 / PS 1.4.4) is carried in extension[sexAssignedAtBirth], and gender identity in extension[gender-identity]."
 
 // ── Birth Date ──────────────────────────────────────────────────────────
 * birthDate MS
 * birthDate ^short = "The date of birth for the patient"
+* birthDate ^comment = "HIQA EP/PS 1.4.1 Date of birth (Mandatory 1..1). 1..1 is inherited from HL7 Europe Base patient-eu-core."
 
 // ── Address ─────────────────────────────────────────────────────────────
 * address MS
 * address ^short = "An address for the patient (Irish address)"
+* address.use MS
 * address.line MS
 * address.line ^short = "Street name, number, direction & P.O. Box etc."
 * address.city MS
-* address.city ^short = "Name of city, town, or locality"
+* address.city ^short = "Suburb, town, townland or locality (Dublin postal district, e.g. 'Dublin 2', goes here)"
 * address.state MS
 * address.state ^short = "County"
 * address.state ^definition = "The Irish county. Bound to the IE Core County ValueSet."
 * address.state from https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-county (extensible)
 * address.postalCode MS
-* address.postalCode ^short = "Eircode or postal code"
+* address.postalCode ^short = "Eircode or postal code (Eircode format XXX XXXX)"
 * address.country MS
 * address.country ^short = "Country (ISO 3166-1 alpha-2)"
 
@@ -145,11 +108,8 @@ Description: "The IE Core Patient Profile is based upon the core FHIR Patient Re
 * telecom MS
 * telecom ^short = "A contact detail for the patient"
 * telecom.system 1..1 MS
-* telecom.system ^short = "phone | fax | email | pager | url | sms | other"
 * telecom.value 1..1 MS
-* telecom.value ^short = "The actual contact point details"
 * telecom.use MS
-* telecom.use ^short = "home | work | temp | old | mobile"
 
 // ── Communication ───────────────────────────────────────────────────────
 * communication MS
@@ -171,27 +131,6 @@ Description: "The IE Core Patient Profile is based upon the core FHIR Patient Re
 // ╰──────────────────────────────────────────────────────────────────────╯
 
 Invariant: ie-pat-1
-Description: "IHI SHALL be exactly 18 digits"
-Expression: "value.matches('^[0-9]{18}$')"
+Description: "IHI SHALL be 18 or 10 digits (HIQA EP/PS 1.3.1: 'A unique 18 or 10-digit number')"
+Expression: "value.matches('^([0-9]{18}|[0-9]{10})$')"
 Severity: #error
-
-Invariant: ie-pat-2
-Description: "GMS number SHALL be 7 digits followed by 1 alphabetic check character"
-Expression: "value.matches('^[0-9]{7}[A-Za-z]$')"
-Severity: #error
-
-Invariant: ie-pat-3
-Description: "DPS number SHALL be 7 digits followed by 1-2 alphabetic characters"
-Expression: "value.matches('^[0-9]{7}[A-Za-z]{1,2}$')"
-Severity: #error
-
-Invariant: ie-pat-4
-Description: "LTI number SHALL be 7 digits followed by 1-2 alphabetic characters"
-Expression: "value.matches('^[0-9]{7}[A-Za-z]{1,2}$')"
-Severity: #error
-
-Invariant: ie-pat-5
-Description: "HAA number SHALL be 8-10 alphanumeric characters"
-Expression: "value.matches('^[A-Za-z0-9]{8,10}$')"
-Severity: #error
-

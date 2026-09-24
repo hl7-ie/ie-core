@@ -9,11 +9,12 @@
 Extension: IECoreEthnicity
 Id: ie-core-ethnicity
 Title: "IE Core Ethnicity"
-Description: "Records a patient's ethnicity as categorised within the Irish healthcare system, aligned with the Central Statistics Office (CSO) classifications."
+Description: "A patient's ethnicity (repeat the extension for more than one ethnic background). GDPR Art. 9 special-category data. HIQA PS 1.4.10 (Required 0..*, coded). It is NOT part of the HIQA ePrescription/eDispensation dataset and is prohibited in IECorePatientEPrescription (ADR-002). HIQA: 'not used for patient identification'; collected with appropriate safeguards and consent."
 Context: Patient
-* value[x] only code
+* value[x] only CodeableConcept
 * value[x] 1..1
-* valueCode from https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-ethnicity (required)
+* valueCodeableConcept from https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-ethnicity (extensible)
+* valueCodeableConcept ^comment = "HIQA PS 1.4.10. HIQA names the CSO as a source for coded values; verification of the CSO classification is Requires Clarification (OI-005)."
 
 // ╭──────────────────────────────────────────────────────────────────────╮
 // │  IE Core Patient Mother Maiden Name                                 │
@@ -51,7 +52,7 @@ Description: "Indicates whether the patient requires an interpreter for communic
 Context: Patient, Encounter
 * value[x] only Coding
 * value[x] 1..1
-* valueCoding from https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-yes-no-unknown (required)
+* valueCoding from https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-yes-no-unknowns (required)
 
 // ╭──────────────────────────────────────────────────────────────────────╮
 // │  IE Core IHI Status                                                 │
@@ -110,7 +111,7 @@ Context: MedicationRequest
 * extension[informationSource] ^short = "Source of adherence information"
 * extension[informationSource].value[x] only CodeableConcept
 * extension[informationSource].value[x] 1..1
-* extension[informationSource].valueCodeableConcept from https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-information-source (extensible)
+* extension[informationSource].valueCodeableConcept from https://hl7-ie.github.io/ie-core/fhir/ie/core/ValueSet/ie-core-information-source-for-medication-adherence (extensible)
 * value[x] 0..0
 
 // ╭──────────────────────────────────────────────────────────────────────╮

@@ -90,7 +90,7 @@ In IE Core, elements marked as **Must Support (MS)** correspond to elements that
 
 Implementers building systems for cross-border exchange via MyHealth@EU SHOULD consult the [XT-EHR Obligations models](https://www.xt-ehr.eu/fhir/models/en/index.html) to verify that their system satisfies all obligations for the relevant actor type.
 
-#### Obligations coverage in IE Core v0.1.1
+#### Obligations coverage in IE Core (since v0.1.1)
 
 - **Patient Summary** (EHDSPatientSummaryObligations): Partial — all mandatory sections implemented, with remaining dependency on partial MedicationUse and Alert coverage
 - **Discharge Report** (EHDSDischargeReportObligations): Partial — all mandatory sections implemented, with remaining dependency on partial MedicationUse and Alert coverage

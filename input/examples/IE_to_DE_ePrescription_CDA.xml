@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Illustrative sample (IE Core). Identifier OIDs use the HL7 example arc 2.16.840.1.113883.19: no Irish OIDs are assigned for these identifiers (OI-020). -->
 <!-- =========================================================================
   ePrescription CDA R2 (eHDSI / MyHealth@EU format)
   Scenario: Ireland → Germany (Berlin)
@@ -18,7 +19,7 @@
   <!-- eHDSI ePrescription template OID -->
   <templateId root="1.3.6.1.4.1.12559.11.10.1.3.1.1.4" extension="2022"/>
 
-  <id root="2.16.840.1.113883.2.16.1" extension="IE-EPRX-2025-IE-DE-001"/>
+  <id root="2.16.840.1.113883.19.1" extension="IE-EPRX-2025-IE-DE-001"/>
   <code code="57833-6" codeSystem="2.16.840.1.113883.6.1" displayName="Prescription for medication"/>
   <title>ePrescription – Seán Patrick Murphy – Ireland to Germany</title>
   <effectiveTime value="20250115090000+0000"/>
@@ -26,7 +27,7 @@
   <languageCode code="en-IE"/>
 
   <!-- MyHealth@EU interchange identifiers -->
-  <setId root="2.16.840.1.113883.2.16.1.4.1" extension="IE-EHDS-XPRES-20250115-001"/>
+  <setId root="2.16.840.1.113883.19.1.4.1" extension="IE-EHDS-XPRES-20250115-001"/>
   <versionNumber value="1"/>
 
   <!-- ─────────────────────────────────────────────
@@ -35,11 +36,11 @@
   <recordTarget>
     <patientRole>
       <!-- IHI (Irish Health Identifier) -->
-      <id root="2.16.840.1.113883.2.16.1.6.1" extension="210000000099887766"/>
+      <id root="2.16.840.1.113883.19.1.6.1" extension="210000000099887766"/>
       <!-- PPS Number -->
-      <id root="2.16.840.1.113883.2.16.1.6.2" extension="1234567T"/>
+      <id root="2.16.840.1.113883.19.1.6.2" extension="1234567T"/>
       <!-- eIDAS cross-border PID: IE → DE -->
-      <id root="1.2.840.10008.2.16.4" extension="IE/DE/1234567T"
+      <id root="2.16.840.1.113883.19.2.1" extension="IE/DE/1234567T"
           assigningAuthorityName="eIDAS Natural Person Identifier"/>
 
       <addr use="HP">
@@ -74,7 +75,7 @@
   <author>
     <time value="20250115090000+0000"/>
     <assignedAuthor>
-      <id root="2.16.840.1.113883.2.16.1.7.1" extension="GP-IE-12345"/>
+      <id root="2.16.840.1.113883.19.1.7.1" extension="GP-IE-12345"/>
       <addr use="WP">
         <streetAddressLine>14 Grafton Street</streetAddressLine>
         <city>Dublin 2</city>
@@ -90,7 +91,7 @@
         </name>
       </assignedPerson>
       <representedOrganization>
-        <id root="2.16.840.1.113883.2.16.1.3.1" extension="IE-GP-GSMP-001"/>
+        <id root="2.16.840.1.113883.19.1.3.1" extension="IE-GP-GSMP-001"/>
         <name>Grafton Street Medical Practice</name>
         <addr>
           <streetAddressLine>14 Grafton Street</streetAddressLine>
@@ -109,7 +110,7 @@
   <custodian>
     <assignedCustodian>
       <representedCustodianOrganization>
-        <id root="2.16.840.1.113883.2.16.1.1.1" extension="IE-NCPeH-HSE"/>
+        <id root="2.16.840.1.113883.19.1.1.1" extension="IE-NCPeH-HSE"/>
         <name>NCPeH Ireland — HSE eHealth</name>
         <addr>
           <streetAddressLine>HSE eHealth, Dr. Steevens' Hospital</streetAddressLine>
@@ -126,7 +127,7 @@
   <informationRecipient typeCode="PRCP">
     <intendedRecipient>
       <receivedOrganization>
-        <id root="1.2.276.0.76.4.291" extension="DE-NCPeH-GEMATIK"/>
+        <id root="2.16.840.1.113883.19.3.1" extension="DE-NCPeH-GEMATIK"/>
         <name>NCPeH Germany — gematik GmbH</name>
         <addr>
           <country>DE</country>
@@ -142,7 +143,7 @@
     <time value="20250115090000+0000"/>
     <signatureCode code="S"/>
     <assignedEntity>
-      <id root="2.16.840.1.113883.2.16.1.7.1" extension="GP-IE-12345"/>
+      <id root="2.16.840.1.113883.19.1.7.1" extension="GP-IE-12345"/>
       <assignedPerson>
         <name><prefix>Dr.</prefix><given>Aoife</given><family>O'Brien</family></name>
       </assignedPerson>
@@ -193,7 +194,7 @@
           <entry>
             <substanceAdministration classCode="SBADM" moodCode="RQO">
               <templateId root="1.3.6.1.4.1.12559.11.10.1.3.1.3.1" extension="2022"/>
-              <id root="2.16.840.1.113883.2.16.1.8.1" extension="PCRS-RX-2025-IE-DE-001"/>
+              <id root="2.16.840.1.113883.19.1.8.1" extension="PCRS-RX-2025-IE-DE-001"/>
               <statusCode code="active"/>
               <effectiveTime xsi:type="IVL_TS">
                 <low value="20250115"/>
@@ -267,7 +268,7 @@
           <entry>
             <substanceAdministration classCode="SBADM" moodCode="RQO">
               <templateId root="1.3.6.1.4.1.12559.11.10.1.3.1.3.1" extension="2022"/>
-              <id root="2.16.840.1.113883.2.16.1.8.1" extension="PCRS-RX-2025-IE-DE-002"/>
+              <id root="2.16.840.1.113883.19.1.8.1" extension="PCRS-RX-2025-IE-DE-002"/>
               <statusCode code="active"/>
               <effectiveTime xsi:type="IVL_TS">
                 <low value="20250115"/>

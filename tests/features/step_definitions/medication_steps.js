@@ -78,6 +78,18 @@ Then('one identifier should use system {string}', function (system) {
   expect(found, `No identifier with system "${system}" found`).to.be.true;
 });
 
+Then('no identifier should use system {string}', function (system) {
+  const ids = this.resource.identifier || [];
+  expect(ids.some(id => id.system === system), `Unexpected identifier with system "${system}"`).to.be.false;
+});
+
 Then('at least one identifier should exist', function () {
   expect(this.identifiers).to.be.an('array').with.length.greaterThan(0);
+});
+
+// Other countries' identifiers carry no invented system; the issuing country is named in assigner (ADR-006, HZ-10).
+Then('one identifier should be issued in {string}', function (country) {
+  const ids = this.resource.identifier || [];
+  const found = ids.some(i => i.assigner && (i.assigner.display || '').includes(country));
+  expect(found, `No identifier issued in ${country}`).to.be.true;
 });

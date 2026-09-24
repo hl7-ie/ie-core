@@ -2,11 +2,8 @@ const { Given, When, Then } = require('@cucumber/cucumber');
 const { expect } = require('chai');
 
 const PATTERNS = {
-  IHI: /^[0-9]{18}$/,
-  GMS: /^[0-9]{7}[A-Za-z]$/,
-  DPS: /^[0-9]{7}[A-Za-z]{1,2}$/,
-  LTI: /^[0-9]{7}[A-Za-z]{1,2}$/,
-  HAA: /^[A-Za-z0-9]{8,10}$/,
+  // HIQA EP/PS 1.3.1: 18 or 10 digits (ie-pat-r5-1). GMS/DPS/LTI/HAA formats removed: unsourced (ADR-006).
+  IHI: /^([0-9]{18}|[0-9]{10})$/,
   Eircode: /^[A-Za-z]\d{2}\s?[A-Za-z0-9]{4}$/
 };
 
@@ -28,14 +25,6 @@ Then('the value should match the IHI pattern', function () {
 
 Then('the value should not match the IHI pattern', function () {
   expect(this.identifierValue).to.not.match(PATTERNS.IHI);
-});
-
-Then('the value should match the GMS pattern', function () {
-  expect(this.identifierValue).to.match(PATTERNS.GMS);
-});
-
-Then('the value should not match the GMS pattern', function () {
-  expect(this.identifierValue).to.not.match(PATTERNS.GMS);
 });
 
 Then('the value should match the Eircode pattern', function () {

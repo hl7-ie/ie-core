@@ -71,3 +71,19 @@ Description: "Profile for medication use statements in the Irish healthcare syst
 // EHDSMedicationUse.note
 * note MS
 * note ^short = "Additional information about the medication use statement"
+
+// ── HIQA PS Section 6 Medication Information ───────────────────────────
+* identifier MS
+* identifier ^comment = "HIQA PS 6.3.2 Medication identifier (Required)."
+* statusReason MS
+* statusReason ^comment = "HIQA PS 6.3.1.2 Medication status reason (Required)."
+* dosage.site MS
+* dosage.site ^comment = "HIQA PS 6.3.8 Site (Required)."
+* dosage.doseAndRate.dose[x] MS
+* dosage.doseAndRate.dose[x] ^comment = "HIQA PS 6.3.9 Dose (Mandatory 1..1). Not enforced as 1..1: that would reject 'as directed' statements where only dosage.text is known (Requires Clarification; raised in the consultation feedback)."
+* dosage.timing.repeat.frequency MS
+* dosage.timing.repeat.frequency ^comment = "HIQA PS 6.3.10.1 Frequency (Mandatory within the frequency cluster)."
+* dosage.timing.repeat.period MS
+* dosage.timing.repeat.period ^comment = "HIQA PS 6.3.10.2 Period (Mandatory within the frequency cluster)."
+* dosage.additionalInstruction MS
+* dosage.additionalInstruction ^comment = "HIQA PS 6.3.11.1 Additional instructions (Required)."

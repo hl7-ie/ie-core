@@ -123,7 +123,7 @@ Title: "IE Core Observation Pregnancy Intent"
 Description: "Records a patient's pregnancy intent in the Irish healthcare context."
 * ^status = #draft
 * status MS
-* code = $LOINC#86645-9 "Future pregnancy intention Reported"
+* code = $LOINC#86645-9 "Pregnancy intention in the next year - Reported"
 * subject 1..1 MS
 * subject only Reference(Patient)
 * value[x] 1..1
@@ -199,7 +199,7 @@ Title: "IE Core Treatment Intervention Preference"
 Description: "Records a patient's treatment and intervention preferences for end-of-life care in the Irish healthcare context."
 * ^status = #draft
 * status MS
-* code = $LOINC#75773-2 "Goals, preferences, and priorities for end of life care documentation"
+* code = $LOINC#75773-2 "Goals, preferences, and priorities for medical treatment Narrative - Reported"
 * subject 1..1 MS
 * subject only Reference(Patient)
 * value[x] MS
@@ -214,7 +214,7 @@ Title: "IE Core Observation ADI Documentation"
 Description: "Records Advance Directive Interoperability (ADI) documentation observations in the Irish healthcare context."
 * ^status = #draft
 * status MS
-* code = $LOINC#45473-6 "Advance directive - living will"
+* code = $LOINC#45473-6 "Advance healthcare directive completed"
 * subject 1..1 MS
 * subject only Reference(Patient)
 * value[x] MS

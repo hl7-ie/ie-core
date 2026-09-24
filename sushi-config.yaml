@@ -20,7 +20,7 @@ description: >-
   access patient data. IE Core profiles derive from the HL7 Europe Base and Core profiles to ensure conformance
   with the European Health Data Space (EHDS) and cross-border interoperability via the International Patient Summary (IPS) standard.
 status: draft
-version: 0.1.1
+version: 0.2.0
 fhirVersion: 4.0.1
 copyrightYear: 2025+
 releaseLabel: ci-build
@@ -33,6 +33,8 @@ publisher:
 
 dependencies:
   hl7.fhir.uv.extensions.r4: 5.1.0
+  # SUSHI cross-version support: resolves R5 extensions (e.g. extension-MedicationDispense.recorded) used by HL7 Europe MPD
+  hl7.fhir.extensions.r5: 4.0.1
   hl7.fhir.eu.base:
     id: hl7fhireubase
     uri: http://hl7.eu/fhir/base/ImplementationGuide/hl7.fhir.eu.base
@@ -56,6 +58,18 @@ dependencies:
     id: hl7fhireuropempd
     uri: http://hl7.eu/fhir/mpd/ImplementationGuide/hl7.fhir.eu.mpd
     version: 1.0.0
+  # IHE Pharmacy MPD (R4): already a transitive dependency of hl7.fhir.eu.mpd 1.0.0. Declared explicitly
+  # so SUSHI can resolve the IHE medication extensions reused for HIQA EP Section 4 (ADR-003).
+  ihe.pharm.mpd.r4:
+    id: ihepharmmpdr4
+    uri: https://profiles.ihe.net/PHARM/MPD/ImplementationGuide/ihe.pharm.mpd
+    version: 1.0.0-comment-2
+  # HL7 Europe Patient Summary (EPS) 1.0.0-ballot: parent of the IE Patient Summary (ADR-004).
+  # Ballot dependency, pinned; fallback is IPS 2.0.x if EPS has not reached STU.
+  hl7.fhir.eu.eps:
+    id: hl7fhireueps
+    uri: http://hl7.eu/fhir/eps/ImplementationGuide/hl7.fhir.eu.eps
+    version: 1.0.0-ballot
   # HL7 Europe Hospital Discharge Report (published 0.1.0-ballot)
   hl7.fhir.eu.hdr:
     id: hl7fhireuropehdr
@@ -116,6 +130,14 @@ pages:
       title: Future of IE Core
   ehds-conformance.md:
     title: EHDS & EU Conformance
+  hiqa-2026-alignment.md:
+    title: HIQA 2026 Alignment (Draft National Standards)
+    hiqa-traceability.md:
+      title: HIQA Traceability (Draft Standards, Sept 2026)
+    data-minimisation.md:
+      title: Data Minimisation
+    open-issues.md:
+      title: Open Issues (Requires Clarification)
   crossborder-eprescription.md:
     title: Cross-Border ePrescription
     crossborder-patient-profile.md:
@@ -156,6 +178,11 @@ menu:
     Operations: artifacts.html#behavior-operation-definitions
     Terminology: artifacts.html#terminology-value-sets
     Capability Statements: artifacts.html#behavior-capability-statements
+  HIQA 2026:
+    Alignment Overview: hiqa-2026-alignment.html
+    Traceability: hiqa-traceability.html
+    Data Minimisation: data-minimisation.html
+    Open Issues: open-issues.html
   EHDS & EU: ehds-conformance.html
   Cross-Border ePrescription:
     Overview: crossborder-eprescription.html
@@ -168,11 +195,19 @@ menu:
   HL7 Registry Guide: hl7-registry-guidance.html
 
 groups:
+  HIQALogicalModels:
+    name: HIQA Logical Models (draft standards, Sept 2026)
+    description: Logical models of the HIQA draft national standards, with mappings to IE Core profiles. Not endorsed by HIQA.
+    resources:
+      - StructureDefinition/HIQAEPrescriptionLM
+      - StructureDefinition/HIQAPatientSummaryLM
   PatientProfiles:
     name: Patient Demographics
     description: Profiles related to patient demographics and identification
     resources:
       - StructureDefinition/ie-core-patient
+      - StructureDefinition/ie-core-patient-eprescription
+      - StructureDefinition/ie-core-patient-summary-patient
       - StructureDefinition/ie-core-relatedperson
   ProviderProfiles:
     name: Provider & Organization
@@ -207,12 +242,15 @@ groups:
       - StructureDefinition/ie-core-immunization
   EPrescriptionProfiles:
     name: ePrescription & eDispensation (EHDS)
-    description: Profiles for cross-border ePrescription and eDispensation, aligned with HL7 Europe MPD IG and Xt-EHR
+    description: Profiles for ePrescription and eDispensation per the HIQA draft national standard (Sept 2026), derived from HL7 Europe MPD 1.0.0
     resources:
       - StructureDefinition/ie-core-medication-eprescription
       - StructureDefinition/ie-core-medicationrequest-eprescription
       - StructureDefinition/ie-core-medicationdispense-edispensation
-      - StructureDefinition/ie-core-off-label-use
+      - StructureDefinition/ie-core-bundle-eprescription
+      - StructureDefinition/ie-core-bundle-eprescription-crossborder
+      - StructureDefinition/ie-core-list-allergies-at-prescribing
+      - StructureDefinition/ie-core-provenance-eprescription-signature
   DiagnosticProfiles:
     name: Diagnostics
     description: Diagnostic reporting profiles
@@ -251,6 +289,7 @@ groups:
     description: Patient Summary and Hospital Discharge Report profiles aligned with Xt-EHR
     resources:
       - StructureDefinition/ie-core-composition-patient-summary
+      - StructureDefinition/ie-core-bundle-patient-summary
       - StructureDefinition/ie-core-composition-discharge-report
   DocumentProfiles:
     name: Document & Provenance

@@ -96,7 +96,7 @@ for (const ef of examples) {
 // --- Check 6: No FSH files with ^status = #active ---
 console.log('6. Checking FSH definition files for status = active...');
 const fshFiles = glob.sync(`${FSH_DIR}/**/*.fsh`)
-  .filter(f => !path.basename(f).toLowerCase().includes('example'));
+  .filter(f => !path.basename(f).toLowerCase().includes('example') && !/[\\/]examples[\\/]/.test(f));
 for (const ff of fshFiles) {
   const content = fs.readFileSync(ff, 'utf8');
   check(

@@ -71,9 +71,12 @@ Behaviour-Driven Development (BDD) tests using [Cucumber.js](https://cucumber.io
 | `profile-validation.feature` | Patient, Practitioner, Organization, Encounter, Observation, Condition examples |
 | `eu-conformance.feature` | EU Core profile derivation, canonical URL consistency |
 | `terminology.feature` | ValueSet composition, CodeSystem concepts, county codes, draft status |
-| `invariants.feature` | IHI format, GMS format, Eircode format (valid and invalid scenarios) |
+| `invariants.feature` | IHI (18 or 10 digits), PPSN, Eircode format (valid and invalid scenarios) |
 | `ehds-profiles.feature` | All 5 EHDS priority category profiles existence and derivation |
 | `crossborder-eprescription.feature` | All 11 cross-border ePrescription scenarios — bundles, eDispensations, NePS inbound, eIDAS identifiers, drug code mapping, allergy propagation |
+| `hiqa-eprescription.feature` | HIQA EP rules: the IG's own invariants evaluated with fhirpath.js on the eight HIQA scenarios, plus a deliberately broken copy for each rule (allergy statement, age under 12, controlled drugs, Do Not Substitute, non-dispensation, cross-border signature and email); traceability checks |
+| `hiqa-patient-summary.feature` | HIQA PS rules: empty-section reasons (`ie-ps-1`), attestation, section entries and narrative |
+| `data-minimisation.feature` | ADR-002: the ePrescription patient prohibits ethnicity, maiden name, nationality and similar data, in the profile and in every example; runs the guard script |
 
 #### R5 Feature Files (`r5/tests/features/`)
 
@@ -81,7 +84,7 @@ Behaviour-Driven Development (BDD) tests using [Cucumber.js](https://cucumber.io
 |---------|----------|
 | `profile-validation.feature` | R5 Patient, Practitioner, Organization StructureDefinitions and fhirVersion |
 | `eu-conformance.feature` | EU Core R5 derivation, R5 canonical URL consistency, fhirVersion = 5.0.0 |
-| `invariants.feature` | IHI, GMS, Eircode patterns (shared identifier rules across R4/R5) |
+| `invariants.feature` | IHI and Eircode patterns (R5 track frozen, ADR-005) |
 
 #### Example Gherkin Scenario
 
@@ -89,13 +92,26 @@ Behaviour-Driven Development (BDD) tests using [Cucumber.js](https://cucumber.io
 Scenario: IE Core Patient IHI identifier format is valid
   Given I have the example resource "Patient-ie-core-patient-example.json"
   When I extract identifiers with system "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/ihi"
-  Then each identifier value should match pattern "^[0-9]{18}$"
+  Then each identifier value should match pattern "^([0-9]{18}|[0-9]{10})$"
 ```
 
 ```bash
 cd tests && npm run test:bdd          # R4 BDD tests
 cd r5/tests && npm run test:bdd       # R5 BDD tests
 ```
+
+### HIQA gates (scripts)
+
+| Script | Fails the build when |
+|---|---|
+| `scripts/hiqa/generate_traceability.py --check` | the HIQA logical models, traceability matrix or page are out of date |
+| `scripts/hiqa/check_mapping_against_snapshots.py` | a mapping claims a cardinality or MustSupport the profiles do not have |
+| `scripts/qa/check_ep_data_minimisation.py` | any ePrescription content mentions ethnicity, maiden name, nationality, citizenship, religion or marital status |
+| `scripts/terminology/verify_codes.py` | an explicit code does not exist or is inactive on tx.fhir.org (Irish Edition codes: OI-022) |
+| `scripts/qa/qa_gate.py` | validator QA errors rise above the recorded baseline (`scripts/qa/qa-baseline.json`) |
+| `scripts/qa/check_page_links.py` | a page links to an artefact the build does not produce |
+| `scripts/hiqa/sync_open_issues.py --check` | the Open Issues page differs from `docs/hiqa-2026/open-issues.md` |
+{:.grid}
 
 ### Layer 4: FHIR Validator CLI
 
@@ -105,7 +121,9 @@ The [HL7 FHIR Validator](https://confluence.hl7.org/display/FHIR/Using+the+FHIR+
 # R4
 cd tests
 npm run download:validator   # one-time download
-npm run test:validate        # validate all R4 examples
+npm run test:validate        # validate all R4 examples (FSH examples and input/examples payloads) in one run
+node validator/run-validation.js --tx          # also check codes and displays on tx.fhir.org
+node validator/run-validation.js --only hiqa-  # a subset, by file-name regex
 
 # R5
 cd r5/tests

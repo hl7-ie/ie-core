@@ -91,10 +91,6 @@ Usage: #example
 Title: "Irish Pharmacy – Boots Pharmacy Grafton Street"
 Description: "An example Irish community pharmacy (Boots Pharmacy, Dublin), acting as dispenser."
 
-* identifier[0].system = $CRN
-* identifier[=].value = "IE-PHARM-BTS-001"
-* identifier[+].system = $HPI
-* identifier[=].value = "HPI-IE-ORG-PHARM-001"
 
 * active = true
 * type = http://terminology.hl7.org/CodeSystem/organization-type#prov "Healthcare Provider"
@@ -155,16 +151,16 @@ Description: "An example Irish registered pharmacist dispensing medication in Du
 // ====================================================================
 
 Instance: ie-core-patient-es-maria-garcia
-InstanceOf: IECorePatient
+InstanceOf: IECorePatientEPrescription
 Usage: #example
 Title: "Spanish Patient – María García López (visiting Ireland)"
 Description: "A Spanish patient visiting Ireland. Carries a Spanish CIP identifier and European Health Insurance Card (EHIC). Holds a prescription from a Spanish GP to be dispensed in Ireland."
 
-* identifier[0].system = "http://www.mscbs.gob.es/fhir/sid/cip"
+* identifier[0].assigner.display = "Issuing authority in Spain (illustrative)"
 * identifier[=].type = $V2-0203#NI "National unique individual identifier"
 * identifier[=].value = "ES280000000000000012"
 
-* identifier[+].system = "urn:oid:1.3.6.1.4.1.36764"
+* identifier[+].assigner.display = "Issuing authority in Spain (illustrative)"
 * identifier[=].type = $V2-0203#PN "Person number"
 * identifier[=].value = "ES-28-12345678X"
 
@@ -175,6 +171,7 @@ Description: "A Spanish patient visiting Ireland. Carries a Spanish CIP identifi
 * name[=].given[+] = "Concepción"
 * name[=].prefix = "Sra."
 * gender = #female
+* insert SexAssignedAtBirth(female, Female)
 * birthDate = "1975-08-22"
 
 * address[0].use = #home
@@ -203,7 +200,7 @@ Usage: #example
 Title: "Spanish Practitioner – Dr. Alejandro Martínez Ruiz"
 Description: "A Spanish GP who issued a prescription for a Spanish patient, to be dispensed cross-border in Ireland via MyHealth@EU."
 
-* identifier[0].system = "http://www.mscbs.gob.es/fhir/sid/colegiadoMedico"
+* identifier[0].assigner.display = "Issuing authority in Spain (illustrative)"
 * identifier[=].type = $V2-0203#MD "Medical License number"
 * identifier[=].value = "ES-COL-28-001234"
 
@@ -234,7 +231,7 @@ Usage: #example
 Title: "Spanish Health Centre – Centro de Salud Las Águilas, Madrid"
 Description: "The Spanish primary care centre where the Spanish GP practises and issued the cross-border prescription."
 
-* identifier[0].system = "http://www.mscbs.gob.es/fhir/sid/centroSanitario"
+* identifier[0].assigner.display = "Issuing authority in Spain (illustrative)"
 * identifier[=].value = "ES-CS-28-001234"
 
 * active = true
@@ -259,7 +256,7 @@ Usage: #example
 Title: "Spanish Pharmacy – Farmacia Avenida de América, Madrid"
 Description: "A Spanish community pharmacy in Madrid that dispenses a cross-border prescription for an Irish patient traveling in Spain."
 
-* identifier[0].system = "http://www.mscbs.gob.es/fhir/sid/oficinaDeFarmacia"
+* identifier[0].assigner.display = "Issuing authority in Spain (illustrative)"
 * identifier[=].value = "ES-OF-28-009876"
 
 * active = true
@@ -284,7 +281,7 @@ Usage: #example
 Title: "Spanish Pharmacist – Dra. Carmen Vega Soto"
 Description: "A Spanish pharmacist dispensing a cross-border prescription from Ireland (Scenario 4: IE→ES)."
 
-* identifier[0].system = "http://www.mscbs.gob.es/fhir/sid/colegiadoFarmaceutico"
+* identifier[0].assigner.display = "Issuing authority in Spain (illustrative)"
 * identifier[=].type = $V2-0203#MD "Medical License number"
 * identifier[=].value = "ES-CF-28-005678"
 
@@ -310,7 +307,7 @@ Usage: #example
 Title: "Scenario 1 – IE Local Prescription: Metformin (Full Dispense)"
 Description: "A standard Irish GP prescription for Metformin 500mg tablets. Authorised via PCRS. Intended for a single full dispensation."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = $NePS
 * identifier[=].value = "PCRS-RX-2024-001001"
 
 * status = #active
@@ -324,7 +321,7 @@ Description: "A standard Irish GP prescription for Metformin 500mg tablets. Auth
 * authoredOn = "2024-06-15"
 * requester = Reference(ie-core-practitioner-example) "Dr. Sarah O'Brien"
 
-* reasonCode = $SCT#44054006 "Diabetes mellitus type 2"
+* reasonCode = $SCT#44054006 "Type 2 diabetes mellitus"
 
 * dosageInstruction[0].sequence = 1
 * dosageInstruction[=].text = "Take one 500mg tablet twice daily with meals"
@@ -349,10 +346,11 @@ Usage: #example
 Title: "Scenario 1 – IE Local Dispense: Metformin Full Dispensation"
 Description: "Full dispensation of 60 Metformin 500mg tablets against Scenario 1 prescription. Dispensed in full at Boots Pharmacy Dublin."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dispense-id"
-* identifier[=].value = "DISP-IE-2024-001001"
+* identifier[0].system = "urn:ietf:rfc:3986"
+* identifier[=].value = "urn:uuid:a9dc5d22-9f2a-572c-a80d-9a0e1fa7095a"
 
 * status = #completed
+* extension[recorded].valueDateTime = "2024-06-15T14:15:00+01:00"
 * medicationReference = Reference(ie-core-medication-metformin-500)
 
 * subject = Reference(ie-core-patient-example) "John Murphy"
@@ -389,7 +387,7 @@ Usage: #example
 Title: "Scenario 2 – IE Local Prescription: Atorvastatin (Partial Dispense)"
 Description: "An Irish GP prescription for Atorvastatin 20mg tablets (90 days supply). Intended to be dispensed in three partial dispensations of 30 tablets each, reflecting typical Irish community pharmacy dispensing for long-term medication."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = $NePS
 * identifier[=].value = "PCRS-RX-2024-002001"
 
 * status = #active
@@ -429,10 +427,11 @@ Usage: #example
 Title: "Scenario 2 – Partial Dispense 1 of 3: Atorvastatin 30 tabs (Month 1)"
 Description: "First partial dispensation of 30 Atorvastatin 20mg tablets (of 90 prescribed) on 15 June 2024."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dispense-id"
-* identifier[=].value = "DISP-IE-2024-002001-1"
+* identifier[0].system = "urn:ietf:rfc:3986"
+* identifier[=].value = "urn:uuid:78c02acf-0df9-5ce5-9817-faf4bd1822f8"
 
 * status = #completed
+* extension[recorded].valueDateTime = "2024-06-15T14:45:00+01:00"
 * medicationReference = Reference(ie-core-medication-atorvastatin-20)
 * subject = Reference(ie-core-patient-example) "John Murphy"
 
@@ -457,10 +456,11 @@ Usage: #example
 Title: "Scenario 2 – Partial Dispense 2 of 3: Atorvastatin 30 tabs (Month 2)"
 Description: "Second partial dispensation of 30 Atorvastatin 20mg tablets on 15 July 2024."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dispense-id"
-* identifier[=].value = "DISP-IE-2024-002001-2"
+* identifier[0].system = "urn:ietf:rfc:3986"
+* identifier[=].value = "urn:uuid:b7060eb6-2321-5acb-8a54-2e7b5cc24e9e"
 
 * status = #completed
+* extension[recorded].valueDateTime = "2024-07-15T10:10:00+01:00"
 * medicationReference = Reference(ie-core-medication-atorvastatin-20)
 * subject = Reference(ie-core-patient-example) "John Murphy"
 
@@ -485,10 +485,11 @@ Usage: #example
 Title: "Scenario 2 – Partial Dispense 3 of 3: Atorvastatin 30 tabs (Month 3 – Final)"
 Description: "Third and final partial dispensation of 30 Atorvastatin 20mg tablets on 15 August 2024. Completes the full 90-tablet prescription."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dispense-id"
-* identifier[=].value = "DISP-IE-2024-002001-3"
+* identifier[0].system = "urn:ietf:rfc:3986"
+* identifier[=].value = "urn:uuid:bad0b4fb-68aa-5cb2-92ad-1505112c1699"
 
 * status = #completed
+* extension[recorded].valueDateTime = "2024-08-15T11:10:00+01:00"
 * medicationReference = Reference(ie-core-medication-atorvastatin-20)
 * subject = Reference(ie-core-patient-example) "John Murphy"
 
@@ -518,10 +519,10 @@ Usage: #example
 Title: "Scenario 3 – Multi-Rx Bundle: Metformin 500mg"
 Description: "First of three prescriptions in a multi-prescription bundle for John Murphy. Metformin for Type 2 Diabetes."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = $NePS
 * identifier[=].value = "PCRS-RX-2024-003001"
 
-* groupIdentifier.system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/prescription-group"
+* groupIdentifier.system = $NePS
 * groupIdentifier.value = "IE-GP-RX-GROUP-20240620"
 
 * status = #active
@@ -534,7 +535,7 @@ Description: "First of three prescriptions in a multi-prescription bundle for Jo
 * authoredOn = "2024-06-20"
 * requester = Reference(ie-core-practitioner-example) "Dr. Sarah O'Brien"
 
-* reasonCode = $SCT#44054006 "Diabetes mellitus type 2"
+* reasonCode = $SCT#44054006 "Type 2 diabetes mellitus"
 
 * dosageInstruction[0].text = "Take one 500mg tablet twice daily with meals"
 * dosageInstruction[=].timing.repeat.frequency = 2
@@ -558,10 +559,10 @@ Usage: #example
 Title: "Scenario 3 – Multi-Rx Bundle: Atorvastatin 20mg"
 Description: "Second of three prescriptions in a multi-prescription bundle for John Murphy. Atorvastatin for hyperlipidaemia."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = $NePS
 * identifier[=].value = "PCRS-RX-2024-003002"
 
-* groupIdentifier.system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/prescription-group"
+* groupIdentifier.system = $NePS
 * groupIdentifier.value = "IE-GP-RX-GROUP-20240620"
 
 * status = #active
@@ -598,10 +599,10 @@ Usage: #example
 Title: "Scenario 3 – Multi-Rx Bundle: Ramipril 5mg"
 Description: "Third of three prescriptions in a multi-prescription bundle for John Murphy. Ramipril for hypertension/cardiac protection."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = $NePS
 * identifier[=].value = "PCRS-RX-2024-003003"
 
-* groupIdentifier.system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/prescription-group"
+* groupIdentifier.system = $NePS
 * groupIdentifier.value = "IE-GP-RX-GROUP-20240620"
 
 * status = #active
@@ -639,10 +640,11 @@ Usage: #example
 Title: "Scenario 3 – Multi-Rx Bundle Dispense: Metformin"
 Description: "Full dispensation of Metformin 60 tablets from the multi-prescription bundle."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dispense-id"
-* identifier[=].value = "DISP-IE-2024-003001"
+* identifier[0].system = "urn:ietf:rfc:3986"
+* identifier[=].value = "urn:uuid:01e9a85d-dda3-5e89-be48-1d11c15f1fbb"
 
 * status = #completed
+* extension[recorded].valueDateTime = "2024-06-20T16:15:00+01:00"
 * medicationReference = Reference(ie-core-medication-metformin-500)
 * subject = Reference(ie-core-patient-example) "John Murphy"
 * performer[0].actor = Reference(ie-core-practitioner-pharmacist-example) "Niamh Brennan"
@@ -662,10 +664,11 @@ Usage: #example
 Title: "Scenario 3 – Multi-Rx Bundle Dispense: Atorvastatin"
 Description: "Full dispensation of Atorvastatin 30 tablets from the multi-prescription bundle."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dispense-id"
-* identifier[=].value = "DISP-IE-2024-003002"
+* identifier[0].system = "urn:ietf:rfc:3986"
+* identifier[=].value = "urn:uuid:c6fc7058-03f4-588b-b422-146e8b270306"
 
 * status = #completed
+* extension[recorded].valueDateTime = "2024-06-20T16:15:00+01:00"
 * medicationReference = Reference(ie-core-medication-atorvastatin-20)
 * subject = Reference(ie-core-patient-example) "John Murphy"
 * performer[0].actor = Reference(ie-core-practitioner-pharmacist-example) "Niamh Brennan"
@@ -685,10 +688,11 @@ Usage: #example
 Title: "Scenario 3 – Multi-Rx Bundle Dispense: Ramipril"
 Description: "Full dispensation of Ramipril 28 capsules from the multi-prescription bundle."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dispense-id"
-* identifier[=].value = "DISP-IE-2024-003003"
+* identifier[0].system = "urn:ietf:rfc:3986"
+* identifier[=].value = "urn:uuid:ef574470-9c37-575b-9bd2-8ffffea92e24"
 
 * status = #completed
+* extension[recorded].valueDateTime = "2024-06-20T16:15:00+01:00"
 * medicationReference = Reference(ie-core-medication-ramipril-5)
 * subject = Reference(ie-core-patient-example) "John Murphy"
 * performer[0].actor = Reference(ie-core-practitioner-pharmacist-example) "Niamh Brennan"
@@ -710,18 +714,16 @@ Description: "Full dispensation of Ramipril 28 capsules from the multi-prescript
 // ====================================================================
 
 Instance: ie-core-patient-ciaran-walsh
-InstanceOf: IECorePatient
+InstanceOf: IECorePatientEPrescription
 Usage: #example
 Title: "Irish Patient – Ciarán Walsh (traveling in Spain)"
 Description: "An Irish patient with a chronic prescription for Amlodipine who is visiting Spain and seeks dispensation at a Spanish pharmacy via MyHealth@EU."
 
-* identifier[IHI].system = $IHI
-* identifier[IHI].type = $V2-0203#NI "National unique individual identifier"
-* identifier[IHI].value = "210000000055667788"
+* identifier[0].system = $IHI
+* identifier[=].type = $V2-0203#NI "National unique individual identifier"
+* identifier[=].value = "210000000055667788"
 
-* identifier[GMS].system = $GMS
-* identifier[GMS].type = $V2-0203#MC "Patient's Medicare number"
-* identifier[GMS].value = "8765432C"
+* insert PCRSIdentifier($GMS, medical-card, Medical card scheme number, MC-0055667)
 
 * active = true
 * name[0].use = #official
@@ -730,6 +732,7 @@ Description: "An Irish patient with a chronic prescription for Amlodipine who is
 * name[=].given[+] = "Seamus"
 * name[=].prefix = "Mr."
 * gender = #male
+* insert SexAssignedAtBirth(male, Male)
 * birthDate = "1968-11-03"
 
 * address[0].use = #home
@@ -755,10 +758,10 @@ Usage: #example
 Title: "Scenario 4 – Cross-border IE→ES: Amlodipine Repeat Prescription"
 Description: "An Irish ePrescription for Amlodipine 5mg (chronic hypertension, repeat prescription) issued by an Irish GP. This prescription is transmitted via the MyHealth@EU infrastructure (IE NCP → ES NCP) for dispensation at a Spanish pharmacy. The prescription is tagged as cross-border eligible."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = $NePS
 * identifier[=].value = "PCRS-RX-2024-004001"
 
-* identifier[+].system = "urn:oid:2.16.840.1.113883.2.16.1.4.1"
+* identifier[+].system = "urn:oid:2.16.840.1.113883.19.1.4.1"
 * identifier[=].value = "IE-EHIC-XB-2024-004001"
 
 * status = #active
@@ -796,10 +799,11 @@ Usage: #example
 Title: "Scenario 4 – Cross-border IE→ES: Spanish Dispensation of Irish Prescription"
 Description: "A Spanish pharmacy dispenses Amlodipine 5mg (30 tablets) against the Irish cross-border ePrescription for Ciarán Walsh, via MyHealth@EU. The Spanish pharmacist substituted with a locally available generic equivalent (Norvasc generic, ES market)."
 
-* identifier[0].system = "http://www.mscbs.gob.es/fhir/sid/dispensacion"
+* identifier[0].assigner.display = "Issuing authority in Spain (illustrative)"
 * identifier[=].value = "ES-DISP-2024-XB-004001"
 
 * status = #completed
+* extension[recorded].valueDateTime = "2024-07-28T11:45:00+02:00"
 * medicationReference = Reference(ie-core-medication-amlodipine-5)
 
 * subject = Reference(ie-core-patient-ciaran-walsh) "Ciarán Walsh"
@@ -835,10 +839,10 @@ Usage: #example
 Title: "Scenario 5 – Cross-border ES→IE: Spanish Prescription for Amlodipine"
 Description: "A Spanish ePrescription for Amlodipine 5mg issued by a Spanish GP for María García López. This prescription has been converted to FHIR format by the Spanish NCP (Punto de Contacto Nacional) for cross-border dispensation in Ireland via MyHealth@EU."
 
-* identifier[0].system = "http://www.mscbs.gob.es/fhir/sid/recetaElectronica"
+* identifier[0].assigner.display = "Issuing authority in Spain (illustrative)"
 * identifier[=].value = "ES-RX-2024-28-987654321"
 
-* identifier[+].system = "urn:oid:2.16.840.1.113883.2.16.1.4.1"
+* identifier[+].system = "urn:oid:2.16.840.1.113883.19.1.4.1"
 * identifier[=].value = "ES-EHIC-XB-2024-005001"
 
 * status = #active
@@ -875,10 +879,11 @@ Usage: #example
 Title: "Scenario 5 – Cross-border ES→IE: Irish Dispensation of Spanish Prescription"
 Description: "An Irish pharmacy (Boots, Grafton St.) dispenses Amlodipine 5mg tablets against the Spanish cross-border ePrescription for María García López, via MyHealth@EU. Equivalent Irish-licensed generic dispensed."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dispense-id"
-* identifier[=].value = "DISP-IE-2024-XB-005001"
+* identifier[0].system = "urn:ietf:rfc:3986"
+* identifier[=].value = "urn:uuid:5e1bdde6-bcfa-5b15-a743-a84cc30cb567"
 
 * status = #completed
+* extension[recorded].valueDateTime = "2024-08-12T14:15:00+01:00"
 * medicationReference = Reference(ie-core-medication-amlodipine-5)
 
 * subject = Reference(ie-core-patient-es-maria-garcia) "María García López"
@@ -914,7 +919,7 @@ Usage: #example
 Title: "Scenario 6 – Repeat Prescription: Metformin 500mg (6-month GMS)"
 Description: "A GMS repeat prescription for Metformin 500mg tablets, valid for 6 months with up to 6 dispensation events (once monthly). Represents a typical Irish GMS chronic disease management prescription under the Drugs Payment Scheme."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = $NePS
 * identifier[=].value = "PCRS-RX-2024-006001"
 
 * status = #active
@@ -927,7 +932,7 @@ Description: "A GMS repeat prescription for Metformin 500mg tablets, valid for 6
 * authoredOn = "2024-01-10"
 * requester = Reference(ie-core-practitioner-example) "Dr. Sarah O'Brien"
 
-* reasonCode = $SCT#44054006 "Diabetes mellitus type 2"
+* reasonCode = $SCT#44054006 "Type 2 diabetes mellitus"
 
 * dosageInstruction[0].text = "Take one 500mg tablet twice daily with meals"
 * dosageInstruction[=].timing.repeat.frequency = 2
@@ -951,9 +956,10 @@ Usage: #example
 Title: "Scenario 6 – Repeat Dispense Month 1: Metformin January 2024"
 Description: "First monthly dispensation of Metformin under the 6-month GMS repeat prescription."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dispense-id"
-* identifier[=].value = "DISP-IE-2024-006001-M1"
+* identifier[0].system = "urn:ietf:rfc:3986"
+* identifier[=].value = "urn:uuid:4bce74bd-d3e9-5abe-bd68-e8f4f2948235"
 * status = #completed
+* extension[recorded].valueDateTime = "2024-01-10T10:00:00+00:00"
 * medicationReference = Reference(ie-core-medication-metformin-500)
 * subject = Reference(ie-core-patient-example) "John Murphy"
 * performer[0].actor = Reference(ie-core-practitioner-pharmacist-example) "Niamh Brennan"
@@ -972,9 +978,10 @@ Usage: #example
 Title: "Scenario 6 – Repeat Dispense Month 2: Metformin February 2024"
 Description: "Second monthly dispensation of Metformin under the 6-month GMS repeat prescription."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dispense-id"
-* identifier[=].value = "DISP-IE-2024-006001-M2"
+* identifier[0].system = "urn:ietf:rfc:3986"
+* identifier[=].value = "urn:uuid:588df126-7401-5a6a-a093-2614f9004cfa"
 * status = #completed
+* extension[recorded].valueDateTime = "2024-02-10T10:30:00+00:00"
 * medicationReference = Reference(ie-core-medication-metformin-500)
 * subject = Reference(ie-core-patient-example) "John Murphy"
 * performer[0].actor = Reference(ie-core-practitioner-pharmacist-example) "Niamh Brennan"
@@ -993,9 +1000,10 @@ Usage: #example
 Title: "Scenario 6 – Repeat Dispense Month 3: Metformin March 2024"
 Description: "Third monthly dispensation of Metformin under the 6-month GMS repeat prescription."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dispense-id"
-* identifier[=].value = "DISP-IE-2024-006001-M3"
+* identifier[0].system = "urn:ietf:rfc:3986"
+* identifier[=].value = "urn:uuid:99b94ff3-f0f5-5dac-969e-6da879f7a856"
 * status = #completed
+* extension[recorded].valueDateTime = "2024-03-10T09:15:00+00:00"
 * medicationReference = Reference(ie-core-medication-metformin-500)
 * subject = Reference(ie-core-patient-example) "John Murphy"
 * performer[0].actor = Reference(ie-core-practitioner-pharmacist-example) "Niamh Brennan"

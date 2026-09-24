@@ -1,0 +1,99 @@
+file,code,action,old_display,new,reason
+input/fsh/examples/CrossBorderExamples.fsh,372718005,REPLACE,,317291008 Omeprazole 20 mg oral capsule,wrong meaning: 372718005 is Imipramine; replaced with the verified product concept
+input/fsh/examples/CrossBorderExamples.fsh,44054006,FIX,Diabetes mellitus type 2,Type 2 diabetes mellitus,official display
+input/fsh/examples/CrossBorderExamples.fsh,44054006,FIX,Diabetes mellitus type 2,Type 2 diabetes mellitus,official display
+input/fsh/examples/CrossBorderExamples.fsh,44054006,FIX,Diabetes mellitus type 2,Type 2 diabetes mellitus,official display
+input/fsh/examples/CrossBorderExamples.fsh,44054006,FIX,Diabetes mellitus type 2,Type 2 diabetes mellitus,official display
+input/fsh/examples/CrossBorderExamples.fsh,44054006,FIX,Diabetes mellitus type 2,Type 2 diabetes mellitus,official display
+input/fsh/examples/Examples.fsh,44054006,FIX,Diabetes mellitus type 2,Type 2 diabetes mellitus,official display
+input/fsh/examples/MedicationExamples.fsh,44054006,FIX,Diabetes mellitus type 2,Type 2 diabetes mellitus,official display
+input/fsh/examples/MedicationExamples.fsh,44054006,FIX,Diabetes mellitus type 2,Type 2 diabetes mellitus,official display
+input/fsh/examples/MedicationExamples.fsh,44054006,FIX,Diabetes mellitus type 2,Type 2 diabetes mellitus,official display
+input/fsh/profiles/IECoreDocumentReference.fsh,42348-3,FIX,Advance directives,Advance healthcare directives,official display
+input/fsh/profiles/IECoreHospitalDischarge.fsh,11535-2,FIX,Hospital discharge Dx Narrative,Hospital discharge diagnosis note,official display
+input/fsh/profiles/IECoreHospitalDischarge.fsh,30954-2,FIX,Relevant diagnostic tests/laboratory data Narrative,Relevant diagnostic tests/laboratory data note,official display
+input/fsh/profiles/IECoreHospitalDischarge.fsh,57852-6,FIX,Problem list Reported.admit,Problem list Narrative - Reported,official display
+input/fsh/profiles/IECoreObservation.fsh,45473-6,FIX,Advance directive - living will,Advance healthcare directive completed,official display
+input/fsh/profiles/IECoreObservation.fsh,75773-2,FIX,"Goals, preferences, and priorities for end of life care documentation","Goals, preferences, and priorities for medical treatment Narrative - Reported",official display
+input/fsh/profiles/IECoreObservation.fsh,86645-9,FIX,Future pregnancy intention Reported,Pregnancy intention in the next year - Reported,official display
+input/fsh/terminology/ValueSets.fsh,103693007,REMOVE,Diagnostic procedure,,inactive
+input/fsh/terminology/ValueSets.fsh,11488-4,FIX,Consultation note,Consult note,official display
+input/fsh/terminology/ValueSets.fsh,11488-4,FIX,Consultation note,Consult note,official display
+input/fsh/terminology/ValueSets.fsh,11488-4,FIX,Consultation note,Consult note,official display
+input/fsh/terminology/ValueSets.fsh,158965000,FIX,Doctor,Medical practitioner,official display
+input/fsh/terminology/ValueSets.fsh,158965000,FIX,Doctor,Medical practitioner,official display
+input/fsh/terminology/ValueSets.fsh,160573003,REMOVE,Alcohol intake unknown,,inactive
+input/fsh/terminology/ValueSets.fsh,160618006,REMOVE,Current non-smoker but past smoking history unknown,,inactive
+input/fsh/terminology/ValueSets.fsh,182841002,REMOVE,Doctor stopped drugs - Loss to follow-up,,wrong meaning: Doctor stopped drugs - ineffective (not adherence)
+input/fsh/terminology/ValueSets.fsh,182845006,REMOVE,Drug treatment not indicated,,wrong meaning: Doctor stopped drugs - avoid interaction (not adherence)
+input/fsh/terminology/ValueSets.fsh,182890002,REMOVE,Patient requests drug,,wrong meaning: Patient requests alternative treatment (not adherence)
+input/fsh/terminology/ValueSets.fsh,21450003,FIX,Neuropsychologist,Neuropsychiatrist,official display
+input/fsh/terminology/ValueSets.fsh,224529009,FIX,Clinical nurse specialist,Clinical assistant,official display
+input/fsh/terminology/ValueSets.fsh,224570006,FIX,Clinical psychologist,Clinical nurse specialist,official display
+input/fsh/terminology/ValueSets.fsh,224587008,FIX,Community midwife,Occupational therapy helper,official display
+input/fsh/terminology/ValueSets.fsh,225928004,FIX,Transfer of patient to another care unit,Patient self-discharge against medical advice,official display
+input/fsh/terminology/ValueSets.fsh,228274009,REMOVE,Drinks alcohol daily,,inactive and mislabelled (Lifetime non-drinker labelled Drinks alcohol daily)
+input/fsh/terminology/ValueSets.fsh,228277002,FIX,Heavy drinker,Light drinker,official display
+input/fsh/terminology/ValueSets.fsh,228278007,FIX,Very heavy drinker,Fairly heavy drinker,official display
+input/fsh/terminology/ValueSets.fsh,264358009,REMOVE,General practice premises,,inactive
+input/fsh/terminology/ValueSets.fsh,275928001,FIX,Non-compliant - Loss to follow-up,Drugs - partial non-compliance,official display
+input/fsh/terminology/ValueSets.fsh,275929009,REMOVE,Compliant - making progress towards goals,,"wrong meaning: Tablets too large to swallow (a reason, not an adherence status)"
+input/fsh/terminology/ValueSets.fsh,306705005,FIX,Discharge to convalescent hospital,Discharge to police custody,official display
+input/fsh/terminology/ValueSets.fsh,306706006,FIX,Discharge to hospice,Discharge to ward,official display
+input/fsh/terminology/ValueSets.fsh,307988006,FIX,Medical registrar,Medical technician,official display
+input/fsh/terminology/ValueSets.fsh,309898008,FIX,Outpatient department,Psychogeriatric day hospital,official display
+input/fsh/terminology/ValueSets.fsh,310151008,REMOVE,Medical card holder,,not found (no such SNOMED CT concept)
+input/fsh/terminology/ValueSets.fsh,310152001,REMOVE,GP visit card holder,,not found (no such SNOMED CT concept)
+input/fsh/terminology/ValueSets.fsh,34133-9,FIX,Summarization of episode note,Summary of episode note,official display
+input/fsh/terminology/ValueSets.fsh,34133-9,FIX,Summarization of episode note,Summary of episode note,official display
+input/fsh/terminology/ValueSets.fsh,36629006,REMOVE,Private health insurance,,wrong meaning: Legally married (not a payer type)
+input/fsh/terminology/ValueSets.fsh,371827001,FIX,Patient deceased during stay,Patient discharged alive,official display
+input/fsh/terminology/ValueSets.fsh,38628009,FIX,Homosexual,Gay,official display
+input/fsh/terminology/ValueSets.fsh,394733004,REMOVE,Long term illness scheme,,not found (no such SNOMED CT concept)
+input/fsh/terminology/ValueSets.fsh,394743007,FIX,Gender identity unknown,Gender unknown,official display
+input/fsh/terminology/ValueSets.fsh,394863008,FIX,Non-clinical staff,Non-family member,official display
+input/fsh/terminology/ValueSets.fsh,397709008,REMOVE,Patient died,,inactive
+input/fsh/terminology/ValueSets.fsh,407376009,REMOVE,Male-to-female transsexual,,not found in SNOMED CT International
+input/fsh/terminology/ValueSets.fsh,407377000,REMOVE,Female-to-male transsexual,,not found in SNOMED CT International
+input/fsh/terminology/ValueSets.fsh,409063005,FIX,Counselling,Counseling,official display
+input/fsh/terminology/ValueSets.fsh,413195004,REMOVE,Drug payment scheme,,not found (no such SNOMED CT concept)
+input/fsh/terminology/ValueSets.fsh,42348-3,FIX,Advance directives,Advance healthcare directives,official display
+input/fsh/terminology/ValueSets.fsh,428061000124105,REMOVE,Light tobacco smoker,,US extension; not in the International edition
+input/fsh/terminology/ValueSets.fsh,428061000124105,REMOVE,Light tobacco smoker,,US extension; not in the International edition
+input/fsh/terminology/ValueSets.fsh,428071000124103,REMOVE,Heavy tobacco smoker,,US extension; not in the International edition
+input/fsh/terminology/ValueSets.fsh,428071000124103,REMOVE,Heavy tobacco smoker,,US extension; not in the International edition
+input/fsh/terminology/ValueSets.fsh,428081000124100,REMOVE,Tobacco smoker,,US extension; not in the International edition
+input/fsh/terminology/ValueSets.fsh,446050000,FIX,Primary care provider,Primary care physician,official display
+input/fsh/terminology/ValueSets.fsh,449868002,FIX,Current every day smoker,Smokes tobacco daily,official display
+input/fsh/terminology/ValueSets.fsh,449868002,FIX,Current every day smoker,Smokes tobacco daily,official display
+input/fsh/terminology/ValueSets.fsh,454381000124105,REMOVE,Intends to become pregnant,,US extension; not in the International edition
+input/fsh/terminology/ValueSets.fsh,454391000124108,REMOVE,Does not intend to become pregnant,,US extension; not in the International edition
+input/fsh/terminology/ValueSets.fsh,454401000124105,REMOVE,Ambivalent about becoming pregnant,,US extension; not in the International edition
+input/fsh/terminology/ValueSets.fsh,47039-3,FIX,Inpatient Admission history and physical note,Hospital Admission history and physical note,official display
+input/fsh/terminology/ValueSets.fsh,472986005,REMOVE,Sexually attracted to neither male nor female sex,,"wrong meaning: sexual behaviour (Sexually active with men), not sexual orientation"
+input/fsh/terminology/ValueSets.fsh,59768-2,REMOVE,Procedure report,,"wrong meaning: Procedure indications narrative, not a procedure report"
+input/fsh/terminology/ValueSets.fsh,59770-8,REMOVE,Procedure reason report,,"wrong meaning: Procedure estimated blood loss narrative, not a procedure reason report"
+input/fsh/terminology/ValueSets.fsh,62199-5,FIX,Mental health screening assessment,PROMIS short form - physical function 10a - version 1.0,official display
+input/fsh/terminology/ValueSets.fsh,69725-0,FIX,GAD-7 Anxiety,"Feeling nervous, anxious or on edge in last 2 weeks",official display
+input/fsh/terminology/ValueSets.fsh,702871004,FIX,Community health centre,Infertility clinic,official display
+input/fsh/terminology/ValueSets.fsh,711338006,REMOVE,Never consumed alcohol,,not found in SNOMED CT International
+input/fsh/terminology/ValueSets.fsh,71354-5,FIX,AUDIT-C Total score,Edinburgh Postnatal Depression Scale [EPDS],official display
+input/fsh/terminology/ValueSets.fsh,735128000,FIX,Current occasional tobacco smoker,Ex-smoker for less than 1 year,official display
+input/fsh/terminology/ValueSets.fsh,73770003,REMOVE,Emergency department discharge,,"wrong meaning: a care location, not a discharge disposition"
+input/fsh/terminology/ValueSets.fsh,75004002,REMOVE,Emergency hospital admission,,"wrong meaning: emergency room admission/death event, not a disposition"
+input/fsh/terminology/ValueSets.fsh,76504-0,FIX,CAGE Substance abuse screening,Total score [HARK],official display
+input/fsh/terminology/ValueSets.fsh,768819009,FIX,Consultant,Medically responsible investigator,official display
+input/fsh/terminology/ValueSets.fsh,77386006,FIX,Pregnant,Pregnancy,official display
+input/fsh/terminology/ValueSets.fsh,81336-0,FIX,Patient Consent for participation in healthcare research,"Patient Goals, preferences, and priorities under certain health conditions",official display
+input/fsh/terminology/ValueSets.fsh,81340-2,FIX,"Goals, preferences, and priorities for medical treatment",Goals AndOr preferences in order of priority - Reported,official display
+input/fsh/terminology/ValueSets.fsh,82581004,FIX,Former drinker,Ex-drinker,official display
+input/fsh/terminology/ValueSets.fsh,8517006,FIX,Former smoker,Ex-smoker,official display
+input/fsh/terminology/ValueSets.fsh,8517006,FIX,Former smoker,Ex-smoker,official display
+input/fsh/terminology/ValueSets.fsh,89206-7,FIX,Fitness assessment panel,Patient Health Questionnaire-9: Modified for Teens [Reported.PHQ.Teen],official display
+input/fsh/terminology/ValueSets.fsh,96777-8,FIX,Accountable health communities health-related social needs screening tool,Accountable health communities (AHC) health-related social needs screening (HRSN) tool,official display
+input/fsh/terminology/ValueSets.fsh,97023-6,FIX,Accountable health communities health-related social needs supplemental questions,Accountable health communities (AHC) health-related social needs (HRSN) supplemental questions,official display
+input/fsh/profiles/IECoreCondition.fsh,health-concern,REPLACE,condition-category#health-concern,ie-core-condition-category#health-concern,code not in HL7 condition-category (US Core code); IE Core CodeSystem already defines it
+input/fsh/terminology/ValueSets.fsh,pay,REPLACE,v3-ActCode#pay,coverage-selfpay#pay,wrong code system; verified on tx.fhir.org
+input/examples/IE_to_PT_ePrescription_FHIR.json,372718005,REPLACE,Omeprazole,317291008 Omeprazole 20 mg oral capsule,wrong meaning: 372718005 is Imipramine
+input/examples/PT_to_IE_eDispensation_FHIR.json,372718005,REPLACE,Omeprazole,317291008 Omeprazole 20 mg oral capsule,wrong meaning: 372718005 is Imipramine
+input/fsh/examples/CrossBorderExamples.fsh,372718005,REPLACE,Omeprazole (ingredient),387137007 Omeprazole (substance),wrong meaning: 372718005 is Imipramine

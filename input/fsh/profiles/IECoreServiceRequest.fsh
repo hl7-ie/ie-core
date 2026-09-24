@@ -5,7 +5,6 @@ Title: "IE Core ServiceRequest"
 Description: "The IE Core ServiceRequest profile sets minimum expectations for the ServiceRequest resource to record, search, and fetch service request data associated with a patient, based on Irish requirements."
 
 * ^url = "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-servicerequest"
-* ^version = "0.1.0"
 * ^status = #draft
 
 * status 1..1 MS

@@ -107,23 +107,45 @@ The HL7 ballot process ensures quality and community consensus:
 2. **Regular updates**: Publish updates through the ballot process
 3. **Version management**: Follow semantic versioning
 
-### Step 5: Domain Registration for hl7.hse.ie
+### Step 5: A stable domain: fhir.hl7.studio (conceptual)
 
-To establish the `hl7.hse.ie` domain:
+> **Conceptual, not live.** `fhir.hl7.studio` is a domain registered by the author of this proof of concept.
+> It is **not** an HL7 International, HL7 Ireland or HSE domain. The IG's canonical remains
+> `https://hl7-ie.github.io/ie-core/fhir/ie/core` until a decision is made to move it.
 
-1. **Coordinate with HSE IT**: Request a subdomain under `hse.ie`
-2. **DNS Configuration**: Point the domain to either:
-   - A dedicated server hosting the IG
-   - HL7's publication infrastructure (if using HL7's publishing pipeline)
-   - A GitHub Pages deployment of the built IG
-3. **HTTPS Certificate**: Obtain and configure SSL/TLS certificates
+The plan is one host for FHIR work (`fhir.hl7.studio`), with a path per jurisdiction (`fhir.hl7.studio/ie`).
+A future IE Core canonical would then be `https://fhir.hl7.studio/ie/core`.
 
-#### Alternative: Use HL7's Infrastructure
+1. **DNS**: point `fhir.hl7.studio` at the hosting (see the records below).
+2. **Hosting**: publish the built IG so that `https://fhir.hl7.studio/ie/core/` serves the IG home page and
+   every canonical URL (`.../StructureDefinition/<id>`) resolves to its page.
+3. **HTTPS**: required; GitHub Pages provisions a Let's Encrypt certificate once DNS resolves.
+4. **Canonical change**: moving the canonical is a breaking change for every profile, extension,
+   ValueSet and CodeSystem URL. It needs an ADR, a `changes.md` entry and redirects from the old URLs.
+5. **Package registry**: validators resolve canonicals from FHIR packages, not from DNS. To make
+   `fhir.hl7.studio/ie/core` resolvable for validation, publish the package with a `package-feed.xml` at a
+   stable URL and ask for it to be added to the packages.fhir.org feed list.
 
-If the `hl7.hse.ie` domain is not immediately available:
-1. Use `http://hl7.org/fhir/ie/core` as the canonical URL (requires HL7 affiliate status)
-2. Publish through HL7's standard publication pipeline
-3. Redirect `hl7.hse.ie` to the HL7-hosted content when the domain becomes available
+#### Suggested DNS records (hosting on GitHub Pages)
+
+| Name | Type | Value | Purpose |
+|---|---|---|---|
+| `fhir.hl7.studio` | CNAME | `hl7-ie.github.io.` (the owner of the Pages site) | Serves the IG; set the same custom domain in the repository's Pages settings and enable "Enforce HTTPS" |
+| `_github-pages-challenge-<owner>.hl7.studio` | TXT | the value GitHub shows when you verify the domain | Domain verification: stops another GitHub account from claiming the domain |
+| `hl7.studio` | CAA | `0 issue "letsencrypt.org"` | Only Let's Encrypt (used by GitHub Pages) may issue certificates |
+| `hl7.studio` | MX | `0 .` (null MX, RFC 7505) | The domain receives no email (if no mailbox is used) |
+| `hl7.studio` | TXT | `v=spf1 -all` | Nobody may send email as the domain |
+| `_dmarc.hl7.studio` | TXT | `v=DMARC1; p=reject;` | Receivers reject mail spoofing the domain |
+{:.grid}
+
+Also turn on **DNSSEC** at the registrar. If `www.hl7.studio` or the apex should also serve a site on
+GitHub Pages, add `www` CNAME `<owner>.github.io.` and apex A/AAAA records to the IP addresses listed in
+GitHub's Pages documentation (check them there rather than copying them from here).
+
+The `/ie` path needs the site layout to match: either publish the IG output under `ie/core/` in the Pages
+site that owns `fhir.hl7.studio`, or keep the IE Core repository's Pages site and serve it from a subdomain
+(for example `ie.fhir.hl7.studio`). The generator `scripts/generate-canonical-redirects.mjs` would need the
+new base.
 
 ### Key Contacts and Resources
 

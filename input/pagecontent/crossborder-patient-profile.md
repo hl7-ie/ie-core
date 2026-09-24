@@ -33,7 +33,7 @@ See: [AllergyIntolerance – Penicillin (Example)](AllergyIntolerance-ie-core-al
 |-----------|--------|-----------|--------------|
 | Type 2 Diabetes Mellitus | E11 | [44054006](https://browser.ihtsdotools.org/?perspective=full&conceptId1=44054006) | 2018 |
 | Essential Hypertension | I10 | [38341003](https://browser.ihtsdotools.org/?perspective=full&conceptId1=38341003) | 2019 |
-| Hypercholesterolaemia | E78.5 | [13644009](https://browser.ihtsdotools.org/?perspective=full&conceptId1=13644009) | 2020 |
+| Hypercholesterolaemia | E78.0 | [13644009](https://browser.ihtsdotools.org/?perspective=full&conceptId1=13644009) | 2020 |
 
 See examples:
 - [Condition – Type 2 Diabetes](Condition-ie-core-condition-t2dm-murphy.html)
@@ -388,9 +388,16 @@ FHIR Example: [BE→IE Dispensation via NePS](Bundle-be-to-ie-neps-dispensation.
 
 ### Drug Code Systems by Country
 
-| Country | System | System URI | Example Code |
+> **Not verified.** The national product code systems and codes below were in earlier drafts of this IG. Their FHIR
+> system URIs and codes could not be verified, so they were removed from the sample payloads (ADR-007, HZ-10). The
+> payloads now carry SNOMED CT and ATC only. Obtain each Member State's code system from its National Contact Point
+> (eHDSI Master Value Set Catalogue) rather than from this table. For Ireland, see [Terminology Services](terminology-services.html):
+> SNOMED CT Irish Edition, including the NMPC, with `system` `http://snomed.info/sct` and `version`
+> `http://snomed.info/sct/1601000220105`.
+
+| Country | System | System URI (unverified) | Example Code (illustrative) |
 |---------|--------|------------|-------------|
-| 🇮🇪 Ireland | NMPC + SNOMED CT Irish Edition + ATC | `https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/nmpc` | NMPC-MET500TAB |
+| 🇮🇪 Ireland | SNOMED CT Irish Edition (incl. NMPC) + ATC | `http://snomed.info/sct` + version `http://snomed.info/sct/1601000220105` | (NMPC concept ID from the HSE CTS) |
 | 🇩🇪 Germany | PZN | `http://fhir.de/CodeSystem/ifa/pzn` | 04823246 |
 | 🇪🇸 Spain | CIMA | `http://vocabularies.cesec.org/public-api/v1/codes/cima` | 60918 |
 | 🇫🇷 France | CIP | `http://idref.fr/CIP` | 3402895 |
@@ -408,6 +415,9 @@ FHIR Example: [BE→IE Dispensation via NePS](Bundle-be-to-ie-neps-dispensation.
 ---
 
 ### Prescription Validity Rules by Country
+
+> **Not verified.** These periods and legal references come from an earlier draft and have not been checked against
+> the national legislation. Confirm them with each Member State before relying on them.
 
 | Country | Cross-Border Validity | Legal Basis |
 |---------|-----------------------|-------------|

@@ -1,5 +1,11 @@
 ### R5 Migration Notes
 
+> **⛔ Frozen exploratory track (ADR-005).** This R5 edition is **not aligned** with the HIQA
+> draft national standards (September 2026) and is **not maintained**. Use the
+> [R4 IE Core IG](https://hl7-ie.github.io/ie-core/). Only correctness fixes are applied (IHI accepts
+> 18 or 10 digits; the unsourced GMS identifier slice was removed). It will be revisited when the
+> HL7 Europe R5 packages reach STU and MyHealth@EU announces an R5 timeline.
+
 This page documents the differences between the R4 and R5 editions of IE Core
 and provides guidance for implementers planning an R5 migration.
 
