@@ -38,6 +38,29 @@ Feature: HIQA Draft National Standard for ePrescriptions and eDispensations (Sep
     Then invariant "ie-bnd-rx-2" should fail
 
   @allergy-statement
+  Scenario Outline: The allergy statement must be the patient's own and complete (<change>)
+    Given the HIQA example "Bundle-hiqa-bundle-s3-repeat.json"
+    Then invariant "<invariant>" should pass
+    When I "<change>"
+    Then invariant "<invariant>" should fail
+
+    Examples:
+      | change                                         | invariant   |
+      | point the allergy statement at another patient | ie-bnd-rx-5 |
+      | change the allergy statement code              | ie-bnd-rx-2 |
+      | drop the listed allergy from the Bundle        | ie-bnd-rx-6 |
+
+  @allergy-statement
+  Scenario: An allergy recorded in error can be retracted without a clinical status
+    Given the HIQA example "AllergyIntolerance-hiqa-allergy-niamh-penicillin.json"
+    Then invariant "ie-allergy-1" should pass
+    When I "remove the clinical status"
+    Then invariant "ie-allergy-1" should fail
+    Given the HIQA example "AllergyIntolerance-hiqa-allergy-niamh-penicillin.json"
+    When I "mark it entered in error without a clinical status"
+    Then invariant "ie-allergy-1" should pass
+
+  @allergy-statement
   Scenario: An allergy statement must list allergies or say why none are recorded
     Given the HIQA example "List-hiqa-allergies-tomas-nilknown.json"
     Then invariant "ie-list-allergy-1" should pass
@@ -57,6 +80,12 @@ Feature: HIQA Draft National Standard for ePrescriptions and eDispensations (Sep
     Then invariant "ie-bnd-rx-3" should fail
 
   @paediatric
+  Scenario: A partial date of birth cannot prove the patient is 12 or over, so the age is required
+    Given the HIQA example "Bundle-hiqa-bundle-s1-acute-adult.json"
+    When I "give the patient a year-only date of birth"
+    Then invariant "ie-bnd-rx-3" should fail
+
+  @paediatric
   Scenario: An adult prescription does not need the age
     Given the HIQA example "Bundle-hiqa-bundle-s1-acute-adult.json"
     When I "remove the age at prescribing from every item"
@@ -71,6 +100,11 @@ Feature: HIQA Draft National Standard for ePrescriptions and eDispensations (Sep
   Scenario: The prescriber or facility must have a telephone number
     Given the HIQA example "Bundle-hiqa-bundle-s1-acute-adult.json"
     When I "remove every telephone number"
+    Then invariant "ie-bnd-rx-4" should fail
+
+  Scenario: Another party's telephone number does not satisfy the prescriber rule
+    Given the HIQA example "Bundle-hiqa-bundle-s3-repeat.json"
+    When I "remove the prescriber telephone numbers but keep the patient phone"
     Then invariant "ie-bnd-rx-4" should fail
 
   # ── EP 3.5.2, 3.5.10, 5.1 item rules ────────────────────────────────
@@ -100,6 +134,7 @@ Feature: HIQA Draft National Standard for ePrescriptions and eDispensations (Sep
     Given the HIQA example "MedicationRequest-hiqa-rx-s4-oxycodone.json"
     Then invariant "ie-rx-cd-1" should pass
     And invariant "ie-rx-cd-2" should pass
+    And invariant "ie-rx-cd-3" should pass
 
   @controlled-drug
   Scenario Outline: A Schedule 2 prescription that breaks a legal rule is rejected (<change>)
@@ -108,10 +143,19 @@ Feature: HIQA Draft National Standard for ePrescriptions and eDispensations (Sep
     Then invariant "<invariant>" should fail
 
     Examples:
-      | change                                    | invariant |
+      | change                                    | invariant  |
       | remove the quantity in words and figures  | ie-rx-cd-1 |
-      | remove the number of instalments          | ie-rx-cd-1 |
-      | extend the validity period to 30 days     | ie-rx-cd-2 |
+      | remove the number of instalments          | ie-rx-cd-3 |
+      | remove the dispense interval              | ie-rx-cd-3 |
+      | extend the validity period to three months | ie-rx-cd-2 |
+
+  @controlled-drug
+  Scenario: An instalment prescription may run to two months (final instalment); a single supply only 14 days
+    Given the HIQA example "MedicationRequest-hiqa-rx-s4-oxycodone.json"
+    When I "extend the validity period to 30 days"
+    Then invariant "ie-rx-cd-2" should pass
+    When I "remove the number of instalments"
+    Then invariant "ie-rx-cd-2" should fail
 
   @controlled-drug
   Scenario: The controlled-drug rules do not apply to other medicines

@@ -52,6 +52,38 @@ const MUTATIONS = {
   'extend the validity period to 30 days': r => {
     r.dispenseRequest.validityPeriod.end = '2026-10-15';
   },
+  'extend the validity period to three months': r => {
+    r.dispenseRequest.validityPeriod.end = '2026-12-15';
+  },
+  'remove the dispense interval': r => {
+    delete r.dispenseRequest.dispenseInterval;
+  },
+  'give the patient a year-only date of birth': r => {
+    entriesOf(r, 'Patient')[0].birthDate = entriesOf(r, 'Patient')[0].birthDate.slice(0, 4);
+  },
+  'point the allergy statement at another patient': r => {
+    entriesOf(r, 'List')[0].subject = { reference: 'Patient/someone-else' };
+  },
+  'change the allergy statement code': r => {
+    entriesOf(r, 'List')[0].code = { coding: [{ system: 'http://loinc.org', code: '10160-0' }] };
+  },
+  'drop the listed allergy from the Bundle': r => {
+    r.entry = r.entry.filter(e => e.resource.resourceType !== 'AllergyIntolerance');
+  },
+  'remove the prescriber telephone numbers but keep the patient phone': r => {
+    for (const x of r.entry.map(e => e.resource)) {
+      if (['Practitioner', 'PractitionerRole', 'Organization'].includes(x.resourceType) && x.telecom) {
+        x.telecom = x.telecom.filter(t => t.system !== 'phone');
+      }
+    }
+  },
+  'mark it entered in error without a clinical status': r => {
+    r.verificationStatus = { coding: [{ system: 'http://terminology.hl7.org/CodeSystem/allergyintolerance-verification', code: 'entered-in-error' }] };
+    delete r.clinicalStatus;
+  },
+  'remove the clinical status': r => {
+    delete r.clinicalStatus;
+  },
   'remove the reason for not allowing substitution': r => {
     delete r.substitution.reason;
   },

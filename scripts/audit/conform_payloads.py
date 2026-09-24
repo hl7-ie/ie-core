@@ -9,7 +9,8 @@ value the payload lacks, the rule below says where it comes from.
     in `assigner.display` (the systems were invented; see remediate_payloads.py).
   * MedicationDispense gets the HL7 Europe MPD `recorded` extension (HIQA EP 6.2) = whenHandedOver,
     else whenPrepared, else the Bundle timestamp. A dispense that names its product only as a
-    CodeableConcept gets a Medication entry with that same code (MPD requires a reference).
+    CodeableConcept gets a Medication entry with that same code (MPD requires a reference). Prescription items
+    do the same (IE Core requires a Medication reference: HIQA EP 4.7.2, review R-01).
   * Patients in ePrescription payloads get sex assigned at birth = their administrative gender (the
     payloads record nothing else), and `address.state` = the city without a postal district number.
   * v3-ActCode `PF` (not a code) becomes FFP (first part fill) or RFP (later part fills).
@@ -154,6 +155,7 @@ def main():
                         c['code'], c['display'] = ('FFP', 'First Fill - Part Fill') if part_fills == 0 \
                             else ('RFP', 'Refill - Part Fill')
                         part_fills += 1
+            if rt in ('MedicationDispense', 'MedicationRequest'):
                 if 'medicationCodeableConcept' in r:
                     cc = r.pop('medicationCodeableConcept')
                     med_id = f"med-{r.get('id', 'dispensed')}"

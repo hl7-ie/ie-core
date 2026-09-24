@@ -79,7 +79,7 @@ The `personal_identifier` maps to the eIDAS cross-border identifier format `Orig
 }
 ```
 
-The cross-border PID system URI `urn:oid:1.3.6.1.4.1.12559.11.10.1.3.1.42.1` is the eHDSI-defined OID for the eIDAS patient identifier used in MyHealth@EU. For FHIR R4 implementations, this is represented in the `Patient.identifier.system` element.
+Earlier drafts of this IG gave `urn:oid:1.3.6.1.4.1.12559.11.10.1.3.1.42.1` as the eHDSI OID for the cross-border patient identifier. **That has not been verified** and may be wrong (OI-026); confirm the identifier system with the National Contact Point before use. For FHIR R4 implementations, this is represented in the `Patient.identifier.system` element.
 
 #### Level of Assurance (LoA) Requirements
 

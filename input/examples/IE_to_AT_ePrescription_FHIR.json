@@ -159,21 +159,6 @@
         },
         "status": "active",
         "intent": "order",
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "373444002",
-              "display": "Atorvastatin"
-            },
-            {
-              "system": "http://www.whocc.no/atc",
-              "code": "C10AA05",
-              "display": "Atorvastatin"
-            }
-          ],
-          "text": "Atorvastatin 80mg tablets → AT: Atorvastatin 80mg Filmtabletten"
-        },
         "subject": {
           "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
@@ -218,7 +203,11 @@
           {
             "text": "Cross-border ePrescription via MyHealth@EU (MPD). Valid 90 days (Austrian Medicines Act)."
           }
-        ]
+        ],
+        "medicationReference": {
+          "reference": "urn:uuid:a0b9c5df-d639-50de-895a-c5134ca0bee1",
+          "display": "Atorvastatin 80mg tablets → AT: Atorvastatin 80mg Filmtabletten"
+        }
       }
     },
     {
@@ -247,21 +236,6 @@
         },
         "status": "active",
         "intent": "order",
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "386872004",
-              "display": "Ramipril"
-            },
-            {
-              "system": "http://www.whocc.no/atc",
-              "code": "C09AA05",
-              "display": "Ramipril"
-            }
-          ],
-          "text": "Ramipril 10mg capsules → AT: Ramipril 10mg Filmtabletten"
-        },
         "subject": {
           "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
@@ -301,7 +275,93 @@
         },
         "substitution": {
           "allowedBoolean": true
+        },
+        "medicationReference": {
+          "reference": "urn:uuid:17cb1ba1-7837-58e0-a8ed-7b062227a066",
+          "display": "Ramipril 10mg capsules → AT: Ramipril 10mg Filmtabletten"
         }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a0b9c5df-d639-50de-895a-c5134ca0bee1",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-rx-ie-at-atorvastatin80",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "373444002",
+              "display": "Atorvastatin"
+            },
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "C10AA05",
+              "display": "Atorvastatin"
+            }
+          ],
+          "text": "Atorvastatin 80mg tablets → AT: Atorvastatin 80mg Filmtabletten"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "373444002",
+                  "display": "Atorvastatin"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:17cb1ba1-7837-58e0-a8ed-7b062227a066",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-rx-ie-at-ramipril10",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "386872004",
+              "display": "Ramipril"
+            },
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "C09AA05",
+              "display": "Ramipril"
+            }
+          ],
+          "text": "Ramipril 10mg capsules → AT: Ramipril 10mg Filmtabletten"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "386872004",
+                  "display": "Ramipril"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
       }
     }
   ]

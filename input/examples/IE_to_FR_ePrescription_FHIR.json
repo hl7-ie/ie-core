@@ -237,21 +237,6 @@
             ]
           }
         ],
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "372567009",
-              "display": "Metformin"
-            },
-            {
-              "system": "http://www.whocc.no/atc",
-              "code": "A10BA02",
-              "display": "Metformin"
-            }
-          ],
-          "text": "Metformin 500mg tablets → FR: METFORMINE BIOGARAN 500mg comprimé pelliculé"
-        },
         "subject": {
           "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
@@ -296,7 +281,11 @@
           {
             "text": "Ordonnance transfrontalière — Cross-border prescription via MyHealth@EU. Valid 3 months (Code de la Santé Publique)."
           }
-        ]
+        ],
+        "medicationReference": {
+          "reference": "urn:uuid:36171aec-f1c5-5cfa-9776-c3e7dcde9bf2",
+          "display": "Metformin 500mg tablets → FR: METFORMINE BIOGARAN 500mg comprimé pelliculé"
+        }
       }
     },
     {
@@ -335,21 +324,6 @@
             ]
           }
         ],
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "386873009",
-              "display": "Lisinopril"
-            },
-            {
-              "system": "http://www.whocc.no/atc",
-              "code": "C09AA03",
-              "display": "Lisinopril"
-            }
-          ],
-          "text": "Lisinopril 10mg tablets → FR: LISINOPRIL BIOGARAN 10mg comprimé"
-        },
         "subject": {
           "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
@@ -389,7 +363,93 @@
         },
         "substitution": {
           "allowedBoolean": true
+        },
+        "medicationReference": {
+          "reference": "urn:uuid:2aab8642-91aa-5be9-aeda-3fddbeed387b",
+          "display": "Lisinopril 10mg tablets → FR: LISINOPRIL BIOGARAN 10mg comprimé"
         }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:36171aec-f1c5-5cfa-9776-c3e7dcde9bf2",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-rx-ie-fr-metformin",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372567009",
+              "display": "Metformin"
+            },
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "A10BA02",
+              "display": "Metformin"
+            }
+          ],
+          "text": "Metformin 500mg tablets → FR: METFORMINE BIOGARAN 500mg comprimé pelliculé"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "372567009",
+                  "display": "Metformin"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2aab8642-91aa-5be9-aeda-3fddbeed387b",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-rx-ie-fr-lisinopril",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "386873009",
+              "display": "Lisinopril"
+            },
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "C09AA03",
+              "display": "Lisinopril"
+            }
+          ],
+          "text": "Lisinopril 10mg tablets → FR: LISINOPRIL BIOGARAN 10mg comprimé"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "386873009",
+                  "display": "Lisinopril"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
       }
     }
   ]

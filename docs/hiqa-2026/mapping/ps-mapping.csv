@@ -101,7 +101,7 @@ hiqa_id,profile,path,ms,status,notes
 5.1,IECoreCompositionPatientSummary,Composition.section:sectionAllergies.text,Y,Aligned,
 5.2,IECoreCompositionPatientSummary,Composition.section:sectionAllergies.emptyReason,Y,Aligned,
 5.3,IECoreCompositionPatientSummary,Composition.section:sectionAllergies.entry,Y,Aligned,
-5.3.1,IECoreAllergyIntolerance,AllergyIntolerance.clinicalStatus,Y,Aligned,
+5.3.1,IECoreAllergyIntolerance,AllergyIntolerance.clinicalStatus,Y,Aligned,enforced by invariant ie-allergy-1 (required unless entered-in-error; FHIR ait-2)
 5.3.2,IECoreAllergyIntolerance,AllergyIntolerance.code,Y,Aligned,
 5.3.3,IECoreAllergyIntolerance,AllergyIntolerance.onset[x],Y,Aligned,
 5.3.4,IECoreAllergyIntolerance,,N,Gap,end date: R4 has no abatement element

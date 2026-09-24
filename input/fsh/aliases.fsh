@@ -27,14 +27,6 @@ Alias: $ATC = http://www.whocc.no/atc
 //   VMP  → AMP  (medicinal product level)
 //   VMPP → AMPP (pack level — dispensable unit)
 //
-// SNOMED CT Irish Extension (module 1601000220105):
-Alias: $SCT_IE = http://snomed.info/sct/1601000220105
-// NMPC supplement codesystem (provides PCRS/HPRA/ATC properties on SNOMED concepts):
-Alias: $NMPC_SUPPLEMENT = https://nmpc.hse.ie/CodeSystem/nmpc-supplement
-// PCRS (Primary Care Reimbursement Service) category reference:
-Alias: $PCRS_CATEGORY = https://nmpc.hse.ie/PCRS/Category
-// HPRA (Health Products Regulatory Authority) drug catalogue (mapped via SNOMED ConceptMap):
-Alias: $HPRA = https://www.hpra.ie/drug-catalogue
 // Legacy/local NMPC placeholder (used in illustrative examples; real codes are SNOMED CT concepts):
 // Placeholder code system for illustrative example codes only (NOT the NMPC; OI-018)
 Alias: $NMPC = https://hl7-ie.github.io/ie-core/fhir/ie/core/CodeSystem/ie-core-nmpc-placeholder
@@ -120,7 +112,7 @@ Alias: $EUExtMedicationPackageType = http://hl7.eu/fhir/StructureDefinition/medi
 // ── eIDAS 2.0 / EUDI Wallet / Cross-Border Patient Identity ───────────────────
 //
 // eIDAS Cross-Border Patient Identifier
-//   OID: 1.3.6.1.4.1.12559.11.10.1.3.1.42.1
+//   OID: not verified (OI-026); earlier drafts cited 1.3.6.1.4.1.12559.11.10.1.3.1.42.1 without a source
 //   Format: Origin/Destination/NationalID (e.g. IE/DE/1234567T)
 //   Used in: Patient.identifier.system for cross-border PID (eHDSI / MyHealth@EU)
 //   Basis: eIDAS Regulation 2014/910/EU; eIDAS 2.0 Regulation 2024/1183/EU

@@ -25,7 +25,11 @@ function exampleStore() {
   return examplesByRef;
 }
 
-function installFetch(resource) {
+// fhirpath.js caches resolve() results by URL, so every evaluation gets its own base URL; otherwise a check
+// on a mutated copy would see the resource fetched for an earlier, unmutated evaluation.
+let evaluation = 0;
+
+function installFetch(resource, base) {
   const local = {};
   if (resource.resourceType === 'Bundle') {
     for (const e of resource.entry || []) {
@@ -33,7 +37,7 @@ function installFetch(resource) {
     }
   }
   globalThis.fetch = async (url) => {
-    const ref = String(url).slice(STORE_URL.length + 1).split('?')[0];
+    const ref = String(url).slice(base.length + 1).split('?')[0];
     const found = local[ref] || exampleStore()[ref];
     return {
       ok: !!found,
@@ -68,8 +72,9 @@ function findInvariant(key) {
 // for every node at that path. Returns {passed, results}.
 async function checkInvariant(resource, key) {
   const inv = findInvariant(key);
-  installFetch(resource);
-  const options = { async: true, fhirServerUrl: STORE_URL };
+  const base = `${STORE_URL}/eval-${++evaluation}`;
+  installFetch(resource, base);
+  const options = { async: true, fhirServerUrl: base };
   const env = { resource, rootResource: resource };
   const [type, ...rest] = inv.path.split('.');
   if (type !== resource.resourceType) {

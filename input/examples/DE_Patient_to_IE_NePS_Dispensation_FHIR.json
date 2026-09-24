@@ -175,16 +175,6 @@
         ],
         "status": "active",
         "intent": "order",
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "386872004",
-              "display": "Ramipril"
-            }
-          ],
-          "text": "Ramipril 10mg Kapseln"
-        },
         "subject": {
           "reference": "urn:uuid:6053ae6e-5307-5593-a512-efee6484a192",
           "display": "Klaus Weber"
@@ -216,6 +206,10 @@
           "reason": {
             "text": "Reason not stated in the source example"
           }
+        },
+        "medicationReference": {
+          "reference": "urn:uuid:23c14466-d00b-56ed-ae50-91ced0ac4767",
+          "display": "Ramipril 10mg Kapseln"
         }
       }
     },
@@ -314,6 +308,42 @@
             }
           ],
           "text": "Ramipril 10mg capsules"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "386872004",
+                  "display": "Ramipril"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:23c14466-d00b-56ed-ae50-91ced0ac4767",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-de-original-rx-ramipril",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "386872004",
+              "display": "Ramipril"
+            }
+          ],
+          "text": "Ramipril 10mg Kapseln"
         },
         "ingredient": [
           {

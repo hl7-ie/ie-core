@@ -182,21 +182,6 @@
         ],
         "status": "active",
         "intent": "order",
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "372567009",
-              "display": "Metformin"
-            },
-            {
-              "system": "http://www.whocc.no/atc",
-              "code": "A10BA02",
-              "display": "Metformin"
-            }
-          ],
-          "text": "Metformin 500mg tablets (FI → IE mapping via NePS)"
-        },
         "subject": {
           "reference": "urn:uuid:9c0fc75e-f162-5b77-884e-fcfd665ae2c7",
           "display": "Mikko Korhonen"
@@ -233,7 +218,11 @@
           {
             "text": "Inbound cross-border prescription via MyHealth@EU/NePS. Finnish prescription (FI-RX-2025-NEPS-001) received and mapped to Irish formulary product."
           }
-        ]
+        ],
+        "medicationReference": {
+          "reference": "urn:uuid:7d57c2a4-0b49-5200-bb9e-aa4c575fe370",
+          "display": "Metformin 500mg tablets (FI → IE mapping via NePS)"
+        }
       }
     },
     {
@@ -343,6 +332,47 @@
             }
           ],
           "text": "Metformin 500mg tablets"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "372567009",
+                  "display": "Metformin"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7d57c2a4-0b49-5200-bb9e-aa4c575fe370",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-fi-original-rx",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372567009",
+              "display": "Metformin"
+            },
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "A10BA02",
+              "display": "Metformin"
+            }
+          ],
+          "text": "Metformin 500mg tablets (FI → IE mapping via NePS)"
         },
         "ingredient": [
           {

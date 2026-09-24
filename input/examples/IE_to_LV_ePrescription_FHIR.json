@@ -212,21 +212,6 @@
         ],
         "status": "active",
         "intent": "order",
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "372567009",
-              "display": "Metformin"
-            },
-            {
-              "system": "http://www.whocc.no/atc",
-              "code": "A10BA02",
-              "display": "Metformin"
-            }
-          ],
-          "text": "Metformin 500mg tablets → LV: Metformins 500mg tabletes"
-        },
         "subject": {
           "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
@@ -271,7 +256,11 @@
           {
             "text": "Cross-border ePrescription via MyHealth@EU (MPD format). Valid 90 days (LR Farmācijas likums)."
           }
-        ]
+        ],
+        "medicationReference": {
+          "reference": "urn:uuid:e209145b-49d7-581e-91d6-ca12be8d35a4",
+          "display": "Metformin 500mg tablets → LV: Metformins 500mg tabletes"
+        }
       }
     },
     {
@@ -296,16 +285,6 @@
         ],
         "status": "active",
         "intent": "order",
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "386873009",
-              "display": "Lisinopril"
-            }
-          ],
-          "text": "Lisinopril 10mg tablets → LV: Lizinoprils 10mg tabletes"
-        },
         "subject": {
           "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
@@ -345,7 +324,88 @@
         },
         "substitution": {
           "allowedBoolean": true
+        },
+        "medicationReference": {
+          "reference": "urn:uuid:95c5ddf8-4620-5efe-8ed2-be420ad84d63",
+          "display": "Lisinopril 10mg tablets → LV: Lizinoprils 10mg tabletes"
         }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e209145b-49d7-581e-91d6-ca12be8d35a4",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-rx-ie-lv-metformin",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372567009",
+              "display": "Metformin"
+            },
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "A10BA02",
+              "display": "Metformin"
+            }
+          ],
+          "text": "Metformin 500mg tablets → LV: Metformins 500mg tabletes"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "372567009",
+                  "display": "Metformin"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:95c5ddf8-4620-5efe-8ed2-be420ad84d63",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-rx-ie-lv-lisinopril",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "386873009",
+              "display": "Lisinopril"
+            }
+          ],
+          "text": "Lisinopril 10mg tablets → LV: Lizinoprils 10mg tabletes"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "386873009",
+                  "display": "Lisinopril"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
       }
     }
   ]

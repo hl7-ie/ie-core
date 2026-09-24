@@ -24,7 +24,7 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-HIQAEPres
 
 | Conformance | Aligned | Partial | Gap | Prohibited (violated) | Prohibited (enforced) | N/A |
 |---|---|---|---|---|---|---|
-| Mandatory | 40 | 13 | 1 | 0 | 0 | 0 |
+| Mandatory | 39 | 14 | 1 | 0 | 0 | 0 |
 | Required | 63 | 10 | 0 | 0 | 0 | 0 |
 | Optional | 104 | 1 | 10 | 0 | 0 | 0 |
 | Not in dataset | 0 | 0 | 0 | 0 | 12 | 0 |
@@ -47,6 +47,7 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-HIQAEPres
 | EP | 1.6.2.4.3 | Record entry date | Partial | Mandatory within the cluster; not MS |
 | EP | 1.6.3.3.2 | Record entry author | Partial | Mandatory within the cluster; not MS |
 | EP | 1.6.4.3.2 | Record entry author | Partial | Mandatory within the cluster; not MS |
+| EP | 2.6 | Health practitioner registration (cluster) | Partial | identifier 1..*; registration slices IMC, PSI, NMBI, DentalCouncil are each 0..1, so no registration number is required on the prescriber (independent review R-10; Requires Clarification which register applies per prescriber type) |
 | EP | 2.9 | Healthcare facility address (cluster) | Partial | Mandatory; enforced in the base only as MS (Bundle-level enforcement deferred: see open issues) |
 | EP | 2.9.1 | Postcode | Partial | Mandatory within the facility address; not yet enforced |
 | EP | 2.9.2 | Address line(s) | Partial | Mandatory within the facility address; not yet enforced |
@@ -102,7 +103,7 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-HIQAEPres
 | 1.3.3.3 | Other identifier used in health and social care - Time period (PD) | Required | 0..1 | IECorePatientEPrescription | `Patient.identifier.period` | Y | Aligned |  |
 | 1.3.3.4 | Organisation who issued the other identifier used in health and social care (PD) | Required | 0..1 | IECorePatientEPrescription | `Patient.identifier.assigner` | Y | Aligned | assigner.display, e.g. HSE |
 | 1.4.1 | Date of birth (PD) | Mandatory | 1..1 | IECorePatientEPrescription | `Patient.birthDate` | Y | Aligned | birthDate 1..1; a legal requirement cross-border |
-| 1.4.2 | Age (cluster) (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:ageAtPrescribing` | Y | Aligned | required when under 12 at authoredOn (invariant ie-rx-age-1; resolved within the Bundle) |
+| 1.4.2 | Age (cluster) (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:ageAtPrescribing` | Y | Aligned | required when under 12 at authoredOn, or when the date of birth is not a full date (invariants ie-rx-age-1, ie-bnd-rx-3; resolved within the Bundle) |
 | 1.4.2.1 | Age if less than 12 years – value (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:ageAtPrescribing.value[x]` | N | Aligned | Mandatory within the age cluster: valueAge.value 1..1 |
 | 1.4.2.2 | Age if less than 12 years - type (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:ageAtPrescribing.value[x]` | N | Aligned | Mandatory within the age cluster: valueAge.code 1..1 (UCUM a\|mo\|d) |
 | 1.4.3 | Sex (PD) | Mandatory | 1..1 | IECorePatientEPrescription | `Patient.extension:sexAssignedAtBirth` | Y | Aligned | individual-recordedSexOrGender with type LOINC 76689-9 (1..1 MS) |
@@ -114,8 +115,8 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-HIQAEPres
 | 1.5.3 | Other Communication details (cluster) (PD) | Optional | 0..* | IECorePatientEPrescription | `Patient.telecom` | Y | Aligned |  |
 | 1.5.3.1 | Communication details – Type (PD) | Optional | 0..* | IECorePatientEPrescription | `Patient.telecom.system` | Y | Aligned |  |
 | 1.5.3.2 | Communication Details – Value (PD) | Optional | 0..* | IECorePatientEPrescription | `Patient.telecom.value` | Y | Aligned |  |
-| 1.6.1 | Reason for not recording allergies and intolerances (P) | Required | 0..1 | IECoreListAllergiesAtPrescribing | `List.emptyReason` | Y | Aligned | allergy statement 1..1 per ePrescription Bundle; entry xor emptyReason (ie-list-allergy-1); list-empty-reason (nilknown = no known allergies) |
-| 1.6.2 | Allergies and intolerances (record entry) (P) | Required | 0..* | IECoreListAllergiesAtPrescribing | `List.entry` | Y | Aligned | entries → IECoreAllergyIntolerance; referenced from each item (ie-bnd-rx-2) |
+| 1.6.1 | Reason for not recording allergies and intolerances (P) | Required | 0..1 | IECoreListAllergiesAtPrescribing | `List.emptyReason` | Y | Aligned | allergy statement 1..1 per ePrescription Bundle; entry xor emptyReason (ie-list-allergy-1); list-empty-reason (nilknown = no known allergies); must be the Bundle patient's own (ie-bnd-rx-5) |
+| 1.6.2 | Allergies and intolerances (record entry) (P) | Required | 0..* | IECoreListAllergiesAtPrescribing | `List.entry` | Y | Aligned | entries → IECoreAllergyIntolerance, included in the Bundle (ie-bnd-rx-6); referenced from each item as a List coded LOINC 48765-2 (ie-bnd-rx-2) |
 | 1.6.2.1 | Allergies or intolerances (P) | Required | 0..* | IECoreAllergyIntolerance | `AllergyIntolerance.code` | Y | Aligned |  |
 | 1.6.2.2 | Causative agent or allergen (P) | Required | 0..1 | IECoreAllergyIntolerance | `AllergyIntolerance.reaction.substance` | N | Partial | Required but not MS |
 | 1.6.2.3 | Additional information (P) | Optional | 0..1 | IECoreAllergyIntolerance | `AllergyIntolerance.note` | N | Aligned |  |
@@ -151,7 +152,7 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-HIQAEPres
 | 2.5 | Health practitioner role and speciality (cluster) (PD) | Required | 0..* | IECorePractitionerRole | `PractitionerRole` | Y | Aligned | requester Reference(PractitionerRole \| Practitioner); role preferred |
 | 2.5.1 | Health practitioner role (PD) | Required | 0..* | IECorePractitionerRole | `PractitionerRole.code` | Y | Aligned | binding ie-core-provider-taxonomy; HIQA roles (RNP/RMP/CCS pharmacist) not verified in it |
 | 2.5.2 | Health practitioner specialty (PD) | Optional | 0..* | IECorePractitionerRole | `PractitionerRole.specialty` | Y | Aligned |  |
-| 2.6 | Health practitioner registration (cluster) (PD) | Mandatory | 1..1 | IECorePractitioner | `Practitioner.identifier` | Y | Aligned | identifier 1..*; registration slices IMC, PSI, NMBI, DentalCouncil |
+| 2.6 | Health practitioner registration (cluster) (PD) | Mandatory | 1..1 | IECorePractitioner | `Practitioner.identifier` | Y | Partial | identifier 1..*; registration slices IMC, PSI, NMBI, DentalCouncil are each 0..1, so no registration number is required on the prescriber (independent review R-10; Requires Clarification which register applies per prescriber type) |
 | 2.6.1 | Health Professional body registration – type (PD) | Mandatory | 1..1 | IECorePractitioner | `Practitioner.identifier.system` | Y | Aligned | registration body = identifier system (placeholder URIs, OI-003) |
 | 2.6.2 | Health Professional body registration – value (PD) | Mandatory | 1..1 | IECorePractitioner | `Practitioner.identifier.value` | Y | Aligned | PSI format warning (up to 8 digits); MCRN six-digit is an example only |
 | 2.7 | Healthcare facility name (PD) | Required | 0..1 | IECoreOrganization | `Organization.name` | Y | Aligned |  |
@@ -163,7 +164,7 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-HIQAEPres
 | 2.9.4 | District/ County (PD) | Mandatory | 1..1 | IECoreOrganization | `Organization.address.state` | Y | Partial | Mandatory within the facility address; not yet enforced |
 | 2.9.5 | Country (PD) | Mandatory | 1..1 | IECoreOrganization | `Organization.address.country` | Y | Partial | Mandatory within the facility address; not yet enforced |
 | 2.10 | Communication details (cluster) (PD) | Mandatory | 1..* | IECoreBundleEPrescription | `Bundle.entry` | Y | Aligned | prescriber or facility telephone required (ie-bnd-rx-4) |
-| 2.10.1 | Telephone Number (PD) | Mandatory | 1..1 | IECoreBundleEPrescription | `Bundle.entry` | Y | Aligned | ie-bnd-rx-4: telecom system=phone on the prescriber, role or facility |
+| 2.10.1 | Telephone Number (PD) | Mandatory | 1..1 | IECoreBundleEPrescription | `Bundle.entry` | Y | Aligned | ie-bnd-rx-4: phone on the requester, its practitioner or its organisation (another party's phone does not count) |
 | 2.10.2 | Email address (PD) | Required | 0..* | IECoreBundleEPrescriptionCrossBorder | `Bundle.entry` | Y | Aligned | email required cross-border (ie-bnd-xb-1); Required (MS) otherwise |
 | 2.10.3 | Other Communication details (cluster) (PD) | Optional | 0..* | IECorePractitionerRole | `PractitionerRole.telecom` | Y | Aligned |  |
 | 2.10.3.1 | Communication details – Type (PD) | Optional | 0..* | IECorePractitionerRole | `PractitionerRole.telecom.system` | Y | Aligned |  |
@@ -186,7 +187,7 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-HIQAEPres
 | 3.5.2.1 | Prescription item status (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.status` | Y | Aligned |  |
 | 3.5.2.2 | Prescription item status reason (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.statusReason` | Y | Aligned | required unless active/completed/draft (ie-rx-status-1) |
 | 3.5.2.3 | Prescription item status reason (free text) (P) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.statusReason.text` | N | Aligned |  |
-| 3.5.3 | Prescribed Medication item (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.medication[x]` | Y | Aligned |  |
+| 3.5.3 | Prescribed Medication item (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.medication[x]` | Y | Aligned | medication[x] only Reference(IECoreMedicationEPrescription): Section 4 detail and the MDA schedule live on the Medication (review R-01) |
 | 3.5.4 | Indication for prescription item (cluster) (P) | Optional | 0..* | IECoreMedicationRequestEPrescription | `MedicationRequest.reasonCode` | Y | Aligned |  |
 | 3.5.4.1 | Indication for prescription item (P) | Optional | 0..* | IECoreMedicationRequestEPrescription | `MedicationRequest.reasonCode` | Y | Aligned |  |
 | 3.5.4.2 | Indication for prescription item (free text) (P) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.reasonCode.text` | N | Aligned |  |
@@ -194,18 +195,18 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-HIQAEPres
 | 3.5.6 | Period of use (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:effectiveDosePeriod` | Y | Aligned | HL7 Europe MPD R5 backport extension |
 | 3.5.7 | Quantity of prescription item prescribed (cluster) (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.extension:prescribedQuantity` | Y | Aligned | overall quantity (IHE via MPD); per-dispense quantity 1..1 (OI-012) |
 | 3.5.7.1 | Quantity prescribed (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.extension:prescribedQuantity` | Y | Aligned | IHE prescribedQuantity |
-| 3.5.7.2 | Quantity prescribed (free text) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:quantityInWordsAndFigures` | Y | Aligned | required for Schedule 2/3/4 Part 1 controlled drugs (ie-rx-cd-1) |
+| 3.5.7.2 | Quantity prescribed (free text) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:quantityInWordsAndFigures` | Y | Aligned | required for any controlled drug listed in the Misuse of Drugs Regulations 2017 (ie-rx-cd-1) |
 | 3.5.8 | Dosage instructions (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dosageInstruction` | Y | Aligned | text 1..1; structured implies text (ie-rx-dosage-1) |
 | 3.5.9 | Validity period (cluster) (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.validityPeriod` | Y | Aligned |  |
-| 3.5.9.1 | Validity period (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.validityPeriod` | Y | Aligned | 14-day rule for Schedule 2/3 (ie-rx-cd-2) |
+| 3.5.9.1 | Validity period (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.validityPeriod` | Y | Aligned | Schedule 2/3: 14 days, or two months for instalment prescriptions (final instalment) (ie-rx-cd-2); first instalment within 14 days is a dispensing check (OI-027) |
 | 3.5.9.2 | “Do Not Extend” | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.extension:doNotExtend` | N | Aligned | Optional |
 | 3.5.10 | Substitutions (cluster) (P) | Optional | 0..* | IECoreMedicationRequestEPrescription | `MedicationRequest.substitution` | Y | Aligned |  |
 | 3.5.10.1 | Medicinal Product is interchangeable (P) | Required | 0..1 | IECoreMedicationEPrescription | `Medication.extension:interchangeable` | Y | Aligned | HPRA List of Interchangeable Medicines flag (auto from NMPC) |
 | 3.5.10.2 | “Do Not Substitute” (P) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.substitution.allowed[x]` | Y | Aligned | 'Do Not Substitute' = allowedBoolean false |
 | 3.5.10.3 | Reason for not allowing substitution | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.substitution.reason` | Y | Aligned | required when Do Not Substitute (ie-rx-subst-1) |
 | 3.5.11 | Repeats of prescription item allowed (P) | Optional | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.numberOfRepeatsAllowed` | Y | Aligned |  |
-| 3.5.12 | Number of instalments (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.extension:numberOfInstalments` | Y | Aligned | required for Schedule 2/3/4 Part 1 (ie-rx-cd-1) |
-| 3.5.13 | Minimum dispense interval (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.dispenseInterval` | Y | Aligned |  |
+| 3.5.12 | Number of instalments (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.extension:numberOfInstalments` | Y | Aligned | required for Schedule 2/3/4 Part 1 (ie-rx-cd-3) |
+| 3.5.13 | Minimum dispense interval (P) | Required | 0..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.dispenseRequest.dispenseInterval` | Y | Aligned | instalment interval required for Schedule 2/3/4 Part 1 instalment prescriptions (ie-rx-cd-3) |
 | 3.5.14 | Off label (cluster) | Required | 0..* | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:offLabelUse` | Y | Aligned | IHE ihe-ext-offLabel via HL7 Europe MPD (replaces IECoreOffLabelUse) |
 | 3.5.14.1 | Off label use in prescription (P) | Mandatory | 1..1 | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:offLabelUse` | N | Aligned | Mandatory within the cluster: isOffLabelUse 1..1 |
 | 3.5.14.2 | Reason for off label use (cluster) (P) | Required | 0..* | IECoreMedicationRequestEPrescription | `MedicationRequest.extension:offLabelUse` | N | Aligned | reason sub-extension |
@@ -444,7 +445,7 @@ Logical models: [HIQA ePrescription/eDispensation](StructureDefinition-HIQAEPres
 | 5.1 | Generated Narrative | Optional | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionAllergies.text` | Y | Aligned |  |
 | 5.2 | Allergies and intolerances empty reason | Required | 0..1 | IECoreCompositionPatientSummary | `Composition.section:sectionAllergies.emptyReason` | Y | Aligned |  |
 | 5.3 | Allergies and intolerances (record entry) | Required | 0..* | IECoreCompositionPatientSummary | `Composition.section:sectionAllergies.entry` | Y | Aligned |  |
-| 5.3.1 | Allergies or intolerances status | Mandatory | 1..1 | IECoreAllergyIntolerance | `AllergyIntolerance.clinicalStatus` | Y | Aligned |  |
+| 5.3.1 | Allergies or intolerances status | Mandatory | 1..1 | IECoreAllergyIntolerance | `AllergyIntolerance.clinicalStatus` | Y | Aligned | enforced by invariant ie-allergy-1 (required unless entered-in-error; FHIR ait-2) |
 | 5.3.2 | Causative agent or allergen | Mandatory | 1..1 | IECoreAllergyIntolerance | `AllergyIntolerance.code` | Y | Aligned |  |
 | 5.3.3 | Onset date | Required | 0..1 | IECoreAllergyIntolerance | `AllergyIntolerance.onset[x]` | Y | Aligned |  |
 | 5.3.4 | End date | Required | 0..1 | IECoreAllergyIntolerance |  | N | Gap | end date: R4 has no abatement element |

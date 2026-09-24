@@ -344,7 +344,7 @@ The eIDAS cross-border patient identifier uses the format `Origin/Destination/Na
 
 | FHIR Element | Value | Notes |
 |-------------|-------|-------|
-| `Patient.identifier.system` | `urn:oid:1.3.6.1.4.1.12559.11.10.1.3.1.42.1` | eHDSI OID for cross-border PID |
+| `Patient.identifier.system` | `urn:oid:1.3.6.1.4.1.12559.11.10.1.3.1.42.1` (unverified, OI-026) | Cross-border PID system: confirm with the National Contact Point |
 | `Patient.identifier.value` | `IE/DE/1234567T` | `Origin/Destination/NationalID` |
 | `Patient.identifier.use` | `official` | Cross-border official identifier |
 

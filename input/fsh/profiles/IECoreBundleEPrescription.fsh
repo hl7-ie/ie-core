@@ -39,7 +39,7 @@ Description: "An Irish electronic prescription as exchanged: one patient (IECore
 * entry[organization].resource only IECoreOrganization
 * entry[medication].resource only IECoreMedicationEPrescription
 * entry[signature].resource only IECoreProvenanceEPrescriptionSignature
-* obeys ie-bnd-rx-1 and ie-bnd-rx-2 and ie-bnd-rx-3 and ie-bnd-rx-4
+* obeys ie-bnd-rx-1 and ie-bnd-rx-2 and ie-bnd-rx-3 and ie-bnd-rx-4 and ie-bnd-rx-5 and ie-bnd-rx-6
 
 
 Profile: IECoreBundleEPrescriptionCrossBorder
@@ -106,28 +106,38 @@ Description: "The prescriber's electronic signature over the prescription items 
 // ╰──────────────────────────────────────────────────────────────────────╯
 
 Invariant: ie-bnd-rx-1
-Description: "A multi-item prescription SHALL share one group identifier across all its items (HIQA EP 3.1)"
-Expression: "entry.resource.ofType(MedicationRequest).count() <= 1 or (entry.resource.ofType(MedicationRequest).all(groupIdentifier.exists()) and entry.resource.ofType(MedicationRequest).groupIdentifier.value.distinct().count() = 1)"
+Description: "A multi-item prescription SHALL share one group identifier (system and value) across all its items (HIQA EP 3.1)"
+Expression: "entry.resource.ofType(MedicationRequest).count() <= 1 or (entry.resource.ofType(MedicationRequest).all(groupIdentifier.exists()) and entry.resource.ofType(MedicationRequest).select(groupIdentifier.system + '|' + groupIdentifier.value).distinct().count() = 1)"
 Severity: #error
 
 Invariant: ie-bnd-rx-2
-Description: "Every prescription item SHALL reference the allergy statement in supportingInformation (HIQA EP 1.6.1 / 1.6.2)"
-Expression: "entry.resource.ofType(MedicationRequest).all(supportingInformation.where(resolve() is List).exists())"
+Description: "Every prescription item SHALL reference the allergy statement (a List coded LOINC 48765-2) in supportingInformation (HIQA EP 1.6.1 / 1.6.2)"
+Expression: "entry.resource.ofType(MedicationRequest).all(supportingInformation.where(resolve() is List and resolve().code.coding.where(system = 'http://loinc.org' and code = '48765-2').exists()).exists())"
 Severity: #error
 
 Invariant: ie-bnd-rx-3
-Description: "If the patient is under 12 years old at the date of prescribing, every prescription item SHALL record the patient's age (HIQA EP 1.4.2; a legal requirement)"
-Expression: "entry.resource.ofType(MedicationRequest).all(extension('https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient-age-at-prescribing').exists() or ((%resource.entry.resource.ofType(Patient).first().birthDate + 12 years).toString() <= authoredOn.toString().substring(0,10)))"
+Description: "If the patient is under 12 years old at the date of prescribing, or the date of birth is not a full date, every prescription item SHALL record the patient's age (HIQA EP 1.4.2; a legal requirement)"
+Expression: "entry.resource.ofType(MedicationRequest).all(extension('https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient-age-at-prescribing').exists() or ((%resource.entry.resource.ofType(Patient).first().birthDate.toString().length() = 10) and ((%resource.entry.resource.ofType(Patient).first().birthDate + 12 years).toString() <= authoredOn.toString().substring(0,10))))"
 Severity: #error
 
 Invariant: ie-bnd-rx-4
-Description: "The prescriber or the prescriber's facility SHALL have a telephone number (HIQA EP 2.10 / 2.10.1, Mandatory)"
-Expression: "entry.resource.where((($this is Practitioner) or ($this is PractitionerRole) or ($this is Organization)) and telecom.where(system = 'phone').exists()).exists()"
+Description: "The prescriber (the requester, its practitioner, or its organisation) SHALL have a telephone number (HIQA EP 2.10 / 2.10.1, Mandatory)"
+Expression: "entry.resource.ofType(MedicationRequest).all(requester.resolve().telecom.where(system = 'phone').exists() or requester.resolve().ofType(PractitionerRole).practitioner.resolve().telecom.where(system = 'phone').exists() or requester.resolve().ofType(PractitionerRole).organization.resolve().telecom.where(system = 'phone').exists())"
+Severity: #error
+
+Invariant: ie-bnd-rx-5
+Description: "Every prescription item, the allergy statement and every allergy SHALL be about the one Patient in the Bundle (patient safety: the allergy statement must be the patient's own)"
+Expression: "(entry.resource.ofType(MedicationRequest).subject.reference | entry.resource.ofType(List).subject.reference | entry.resource.ofType(AllergyIntolerance).patient.reference).all(($this = %resource.entry.where(resource is Patient).fullUrl) or ($this = ('Patient/' + %resource.entry.resource.ofType(Patient).id)))"
+Severity: #error
+
+Invariant: ie-bnd-rx-6
+Description: "Every allergy listed in the allergy statement SHALL be included in the Bundle (HIQA EP 1.6.2)"
+Expression: "entry.resource.ofType(List).entry.item.reference.all(($this in %resource.entry.fullUrl) or ($this.replace('AllergyIntolerance/', '') in %resource.entry.resource.ofType(AllergyIntolerance).id))"
 Severity: #error
 
 Invariant: ie-bnd-xb-1
-Description: "A cross-border prescription SHALL give a secure contact email for the prescriber or facility (HIQA EP 2.10.2; a legal requirement cross-border)"
-Expression: "entry.resource.where((($this is Practitioner) or ($this is PractitionerRole) or ($this is Organization)) and telecom.where(system = 'email').exists()).exists()"
+Description: "A cross-border prescription SHALL give a secure contact email for the prescriber (the requester, its practitioner, or its organisation) (HIQA EP 2.10.2; a legal requirement cross-border)"
+Expression: "entry.resource.ofType(MedicationRequest).all(requester.resolve().telecom.where(system = 'email').exists() or requester.resolve().ofType(PractitionerRole).practitioner.resolve().telecom.where(system = 'email').exists() or requester.resolve().ofType(PractitionerRole).organization.resolve().telecom.where(system = 'email').exists())"
 Severity: #error
 
 Invariant: ie-bnd-xb-2

@@ -138,7 +138,8 @@ for (const oo of outcomes) {
 }
 
 const results = examples.map(n => {
-  const rec = byFile[n] || { errors: [], warnings: 0 };
+  // An example with no validator outcome was not validated: that is a failure, not a pass (review R-11).
+  const rec = byFile[n] || { errors: ['(no validator outcome for this file)'], warnings: 0 };
   const status = rec.errors.length ? 'FAIL' : 'PASS';
   console.log(`  ${status}  ${n}${rec.warnings ? `  (${rec.warnings} warnings)` : ''}`);
   for (const m of rec.errors.slice(0, 5)) console.log(`        ${m.slice(0, 300)}`);

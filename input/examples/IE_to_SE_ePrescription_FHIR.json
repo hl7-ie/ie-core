@@ -159,21 +159,6 @@
         },
         "status": "active",
         "intent": "order",
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "411529005",
-              "display": "Insulin glargine"
-            },
-            {
-              "system": "http://www.whocc.no/atc",
-              "code": "A10AE04",
-              "display": "Insulin glargine"
-            }
-          ],
-          "text": "Insulin Glargine 100u/ml → SE: Insulin Glargine 100 E/ml Injektionsvätska (LMV: SE-LMV-00892345)"
-        },
         "subject": {
           "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
@@ -230,7 +215,11 @@
           {
             "text": "Cross-border ePrescription via MyHealth@EU (MPD). No substitution — insulin type must be maintained for dose continuity."
           }
-        ]
+        ],
+        "medicationReference": {
+          "reference": "urn:uuid:877787e3-8ffe-50fb-b11a-4d4da7eaf1b1",
+          "display": "Insulin Glargine 100u/ml → SE: Insulin Glargine 100 E/ml Injektionsvätska (LMV: SE-LMV-00892345)"
+        }
       }
     },
     {
@@ -259,21 +248,6 @@
         },
         "status": "active",
         "intent": "order",
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "325072002",
-              "display": "Insulin aspart"
-            },
-            {
-              "system": "http://www.whocc.no/atc",
-              "code": "A10AB05",
-              "display": "Insulin aspart"
-            }
-          ],
-          "text": "Insulin Aspart 100u/ml → SE: Insulin Aspart 100 E/ml Injektionsvätska (LMV: SE-LMV-00892346)"
-        },
         "subject": {
           "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
@@ -325,7 +299,93 @@
           "reason": {
             "text": "Reason not stated in the source example"
           }
+        },
+        "medicationReference": {
+          "reference": "urn:uuid:8b70e42c-1cf0-5375-8c8a-fa38fba0ff7a",
+          "display": "Insulin Aspart 100u/ml → SE: Insulin Aspart 100 E/ml Injektionsvätska (LMV: SE-LMV-00892346)"
         }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:877787e3-8ffe-50fb-b11a-4d4da7eaf1b1",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-rx-ie-se-insulin-glargine",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "411529005",
+              "display": "Insulin glargine"
+            },
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "A10AE04",
+              "display": "Insulin glargine"
+            }
+          ],
+          "text": "Insulin Glargine 100u/ml → SE: Insulin Glargine 100 E/ml Injektionsvätska (LMV: SE-LMV-00892345)"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "411529005",
+                  "display": "Insulin glargine"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8b70e42c-1cf0-5375-8c8a-fa38fba0ff7a",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-rx-ie-se-insulin-aspart",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "325072002",
+              "display": "Insulin aspart"
+            },
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "A10AB05",
+              "display": "Insulin aspart"
+            }
+          ],
+          "text": "Insulin Aspart 100u/ml → SE: Insulin Aspart 100 E/ml Injektionsvätska (LMV: SE-LMV-00892346)"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "325072002",
+                  "display": "Insulin aspart"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
       }
     }
   ]

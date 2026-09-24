@@ -182,7 +182,7 @@ Description: "Discharge disposition codes indicating patient destination upon di
 ValueSet: IECoreMedicationCodes
 Id: ie-core-medication-codes
 Title: "IE Core Medication Codes"
-Description: "Medication codes for the Irish healthcare system. NMPC (via the SNOMED CT Irish Edition hosted on the HSE Central Terminology Server) is the preferred primary medication code wherever available. SNOMED CT Irish Edition is the preferred secondary clinical terminology wherever available, and ATC (WHO) codes are included for international classification and EU cross-border interoperability (EHDS/MyHealth@EU). Use $SCT_IE with the NMPC supplement (useSupplement: $NMPC_SUPPLEMENT) when querying the CTS for real medication codes."
+Description: "Medication codes for the Irish healthcare system. NMPC (via the SNOMED CT Irish Edition hosted on the HSE Central Terminology Server) is the preferred primary medication code wherever available. SNOMED CT Irish Edition is the preferred secondary clinical terminology wherever available, and ATC (WHO) codes are included for international classification and EU cross-border interoperability (EHDS/MyHealth@EU). Query the HSE CTS with system http://snomed.info/sct and version http://snomed.info/sct/1601000220105 (the SNOMED CT Irish Edition) for real medication codes."
 * ^experimental = false
 * include codes from system $SCT|http://snomed.info/sct/1601000220105 where concept is-a #373873005 "Pharmaceutical / biologic product (product)"
 * include codes from system $NMPC
@@ -742,8 +742,8 @@ Description: "Extended HL7 v2 identifier type codes including Ireland-specific i
 ValueSet: IECoreNMPCActualMedicinalProductPack
 Id: ie-core-nmpc-ampp
 Title: "IE Core NMPC Actual Medicinal Product Pack (AMPP)"
-Description: "Actual Medicinal Product Pack (AMPP) concepts from the SNOMED CT Irish Edition (NMPC). These represent the dispensable, authorised, branded pack-level products as listed by the HPRA and catalogued in the NMPC. Query the HSE Central Terminology Server (CTS) at https://nmpc.hse.ie/production1/fhir using the NMPC supplement (useSupplement: https://nmpc.hse.ie/CodeSystem/nmpc-supplement) to access current membership. SNOMED CT refset ID: 660401000220107."
-* ^experimental = false
+Description: "Actual Medicinal Product Pack (AMPP) concepts from the SNOMED CT Irish Edition (NMPC). These represent the dispensable, authorised, branded pack-level products as listed by the HPRA and catalogued in the NMPC. Query the HSE Central Terminology Server (CTS) at https://nmpc.hse.ie/production1/fhir to access current membership (the NMPC supplement URI is not independently verified, OI-018). SNOMED CT refset ID: 660401000220107. The refset ID has not been independently verified (Requires Clarification, OI-018); this ValueSet is a placeholder until the HSE CTS confirms it."
+* ^experimental = true
 * include codes from system $SCT|http://snomed.info/sct/1601000220105 where concept in "^660401000220107"
 
 // ============================================================================
@@ -753,8 +753,8 @@ Description: "Actual Medicinal Product Pack (AMPP) concepts from the SNOMED CT I
 ValueSet: IECoreNMPCActualMedicinalProduct
 Id: ie-core-nmpc-amp
 Title: "IE Core NMPC Actual Medicinal Product (AMP)"
-Description: "Actual Medicinal Product (AMP) concepts from the SNOMED CT Irish Edition (NMPC). AMPs represent authorised, branded medicinal products at the product level (without specific pack size). SNOMED CT refset ID: 660381000220107."
-* ^experimental = false
+Description: "Actual Medicinal Product (AMP) concepts from the SNOMED CT Irish Edition (NMPC). AMPs represent authorised, branded medicinal products at the product level (without specific pack size). SNOMED CT refset ID: 660381000220107. The refset ID has not been independently verified (Requires Clarification, OI-018); this ValueSet is a placeholder until the HSE CTS confirms it."
+* ^experimental = true
 * include codes from system $SCT|http://snomed.info/sct/1601000220105 where concept in "^660381000220107"
 
 // ============================================================================
@@ -764,8 +764,8 @@ Description: "Actual Medicinal Product (AMP) concepts from the SNOMED CT Irish E
 ValueSet: IECoreNMPCVirtualMedicinalProductPack
 Id: ie-core-nmpc-vmpp
 Title: "IE Core NMPC Virtual Medicinal Product Pack (VMPP)"
-Description: "Virtual Medicinal Product Pack (VMPP) concepts from the SNOMED CT Irish Edition (NMPC). VMPPs represent generic (non-branded) pack-level products. SNOMED CT refset ID: 660391000220105."
-* ^experimental = false
+Description: "Virtual Medicinal Product Pack (VMPP) concepts from the SNOMED CT Irish Edition (NMPC). VMPPs represent generic (non-branded) pack-level products. SNOMED CT refset ID: 660391000220105. The refset ID has not been independently verified (Requires Clarification, OI-018); this ValueSet is a placeholder until the HSE CTS confirms it."
+* ^experimental = true
 * include codes from system $SCT|http://snomed.info/sct/1601000220105 where concept in "^660391000220105"
 
 // ============================================================================
@@ -775,8 +775,8 @@ Description: "Virtual Medicinal Product Pack (VMPP) concepts from the SNOMED CT 
 ValueSet: IECoreNMPCVirtualMedicinalProduct
 Id: ie-core-nmpc-vmp
 Title: "IE Core NMPC Virtual Medicinal Product (VMP)"
-Description: "Virtual Medicinal Product (VMP) concepts from the SNOMED CT Irish Edition (NMPC). VMPs represent generic, non-branded medicinal products at the product level. Use VMP codes for generic prescribing. SNOMED CT refset ID: 660371000220109."
-* ^experimental = false
+Description: "Virtual Medicinal Product (VMP) concepts from the SNOMED CT Irish Edition (NMPC). VMPs represent generic, non-branded medicinal products at the product level. Use VMP codes for generic prescribing. SNOMED CT refset ID: 660371000220109. The refset ID has not been independently verified (Requires Clarification, OI-018); this ValueSet is a placeholder until the HSE CTS confirms it."
+* ^experimental = true
 * include codes from system $SCT|http://snomed.info/sct/1601000220105 where concept in "^660371000220109"
 
 // ============================================================================

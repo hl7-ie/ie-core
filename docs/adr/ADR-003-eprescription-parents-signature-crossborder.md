@@ -102,3 +102,15 @@ MyHealth@EU will require (e.g. AdES). HIQA says only "electronic or digital sign
 - The invented cross-border tag is removed from all payloads (Phase 8).
 - CapabilityStatements gain the Bundle, List and Provenance profiles, plus the
   `MedicationDispense?prescription=` search that repeats-dispensed depends on.
+
+## Addendum (Phase 10, independent review)
+
+- **Medication by reference only.** `IECoreMedicationRequestEPrescription.medication[x]` is restricted to
+  `Reference(IECoreMedicationEPrescription)`. HIQA EP 4.7.2 makes the ingredient Mandatory, so HIQA already needs a
+  Medication resource, and the controlled-drug invariants read the MDA schedule from it (review R-01). MPD
+  MedicationDispense already required a reference. **BREAKING** for senders that coded the item inline.
+- **Controlled-drug rules follow the HIQA text:** words and figures for any controlled drug (`ie-rx-cd-1`); 14-day
+  validity, or two months for instalment prescriptions (`ie-rx-cd-2`); number of instalments and, when more than one,
+  the interval for Schedule 2/3/4 Part 1 (`ie-rx-cd-3`) (review R-02, R-03).
+- **Bundle integrity:** one patient across items, allergy statement and allergies (`ie-bnd-rx-5`); listed allergies
+  included (`ie-bnd-rx-6`); the prescriber contact rules start from `requester` (review R-04, R-10).

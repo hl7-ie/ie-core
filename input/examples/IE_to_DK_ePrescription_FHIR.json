@@ -212,21 +212,6 @@
         ],
         "status": "active",
         "intent": "order",
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "372756006",
-              "display": "Warfarin"
-            },
-            {
-              "system": "http://www.whocc.no/atc",
-              "code": "B01AA03",
-              "display": "Warfarin"
-            }
-          ],
-          "text": "Warfarin 5mg tablets → DK: Warfarin 5mg Tabletter"
-        },
         "subject": {
           "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
@@ -293,6 +278,51 @@
           },
           {
             "text": "⚠️ ANTICOAGULANT: No substitution. INR monitoring mandatory. Current INR: 2.4 (checked 2025-06-24)."
+          }
+        ],
+        "medicationReference": {
+          "reference": "urn:uuid:adab699a-7d19-5e5c-9869-cab4d94e8eaa",
+          "display": "Warfarin 5mg tablets → DK: Warfarin 5mg Tabletter"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:adab699a-7d19-5e5c-9869-cab4d94e8eaa",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-rx-ie-dk-warfarin",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372756006",
+              "display": "Warfarin"
+            },
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "B01AA03",
+              "display": "Warfarin"
+            }
+          ],
+          "text": "Warfarin 5mg tablets → DK: Warfarin 5mg Tabletter"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "372756006",
+                  "display": "Warfarin"
+                }
+              ]
+            },
+            "isActive": true
           }
         ]
       }

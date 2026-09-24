@@ -8,7 +8,8 @@ Description: "The IE Core AllergyIntolerance profile sets minimum expectations f
 * ^version = "0.1.0"
 * ^status = #draft
 
-* clinicalStatus 1..1 MS
+* clinicalStatus 0..1 MS
+* obeys ie-allergy-1
 * verificationStatus MS
 * category MS
 * code 1..1 MS
@@ -22,7 +23,7 @@ Description: "The IE Core AllergyIntolerance profile sets minimum expectations f
 
 // ── HIQA EP 1.6.2 / PS Section 5 ───────────────────────────────────────
 * code ^comment = "HIQA PS 5.3.2 Causative agent or allergen (Mandatory); EP 1.6.2.1 Allergies or intolerances (Required)."
-* clinicalStatus ^comment = "HIQA PS 5.3.1 Allergies or intolerances status (Mandatory)."
+* clinicalStatus ^comment = "HIQA PS 5.3.1 Allergies or intolerances status (Mandatory): required unless the record was entered in error (invariant ie-allergy-1; FHIR ait-2 forbids clinicalStatus when entered-in-error)."
 * verificationStatus ^comment = "HIQA PS 5.3.5 Certainty (Optional)."
 * onset[x] ^comment = "HIQA PS 5.3.3 Onset date (Required)."
 * reaction.substance MS
@@ -36,3 +37,8 @@ Description: "The IE Core AllergyIntolerance profile sets minimum expectations f
 * recordedDate ^comment = "HIQA EP 1.6.2.4.3 / PS 19.2.4 Record entry date (Mandatory within the provenance cluster)."
 * asserter ^comment = "HIQA EP 1.6.2.4.4 / PS 19.2.5 Record entry source (Optional): patient, contact person or health practitioner."
 * note ^comment = "HIQA EP 1.6.2.3 Additional information / PS 5.3.6 Note (Optional)."
+
+Invariant: ie-allergy-1
+Description: "An allergy or intolerance SHALL have a clinical status unless it was entered in error (HIQA PS 5.3.1, Mandatory; FHIR ait-2 forbids clinicalStatus when entered-in-error)"
+Expression: "verificationStatus.coding.where(code = 'entered-in-error').exists() or clinicalStatus.exists()"
+Severity: #error

@@ -252,21 +252,6 @@
             ]
           }
         ],
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "372567009",
-              "display": "Metformin"
-            },
-            {
-              "system": "http://www.whocc.no/atc",
-              "code": "A10BA02",
-              "display": "Metformin"
-            }
-          ],
-          "text": "Metformin 500mg tablets → ES: Metformina Cinfa 500mg comprimidos (CIMA: 60918)"
-        },
         "subject": {
           "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
@@ -318,7 +303,11 @@
           {
             "text": "Cross-border ePrescription via MyHealth@EU. Valid 90 days (Real Decreto 1718/2010)."
           }
-        ]
+        ],
+        "medicationReference": {
+          "reference": "urn:uuid:c566df55-464b-56ac-9935-01e7c984b57e",
+          "display": "Metformin 500mg tablets → ES: Metformina Cinfa 500mg comprimidos (CIMA: 60918)"
+        }
       }
     },
     {
@@ -357,21 +346,6 @@
             ]
           }
         ],
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "386873009",
-              "display": "Lisinopril"
-            },
-            {
-              "system": "http://www.whocc.no/atc",
-              "code": "C09AA03",
-              "display": "Lisinopril"
-            }
-          ],
-          "text": "Lisinopril 10mg tablets → ES: Lisinopril Kern Pharma 10mg comprimidos (CIMA: 57552)"
-        },
         "subject": {
           "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
@@ -411,6 +385,10 @@
         },
         "substitution": {
           "allowedBoolean": true
+        },
+        "medicationReference": {
+          "reference": "urn:uuid:8278392b-09c5-5323-8b1c-09b3cce56601",
+          "display": "Lisinopril 10mg tablets → ES: Lisinopril Kern Pharma 10mg comprimidos (CIMA: 57552)"
         }
       }
     },
@@ -450,21 +428,6 @@
             ]
           }
         ],
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "373444002",
-              "display": "Atorvastatin"
-            },
-            {
-              "system": "http://www.whocc.no/atc",
-              "code": "C10AA05",
-              "display": "Atorvastatin"
-            }
-          ],
-          "text": "Atorvastatin 20mg tablets → ES: Atorvastatina Cinfa 20mg comprimidos (CIMA: 72242)"
-        },
         "subject": {
           "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
@@ -504,7 +467,134 @@
         },
         "substitution": {
           "allowedBoolean": true
+        },
+        "medicationReference": {
+          "reference": "urn:uuid:edb539a2-3a8b-5bbd-ac9b-441e21a025ff",
+          "display": "Atorvastatin 20mg tablets → ES: Atorvastatina Cinfa 20mg comprimidos (CIMA: 72242)"
         }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c566df55-464b-56ac-9935-01e7c984b57e",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-rx-ie-es-metformin",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372567009",
+              "display": "Metformin"
+            },
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "A10BA02",
+              "display": "Metformin"
+            }
+          ],
+          "text": "Metformin 500mg tablets → ES: Metformina Cinfa 500mg comprimidos (CIMA: 60918)"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "372567009",
+                  "display": "Metformin"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8278392b-09c5-5323-8b1c-09b3cce56601",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-rx-ie-es-lisinopril",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "386873009",
+              "display": "Lisinopril"
+            },
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "C09AA03",
+              "display": "Lisinopril"
+            }
+          ],
+          "text": "Lisinopril 10mg tablets → ES: Lisinopril Kern Pharma 10mg comprimidos (CIMA: 57552)"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "386873009",
+                  "display": "Lisinopril"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:edb539a2-3a8b-5bbd-ac9b-441e21a025ff",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-rx-ie-es-atorvastatin",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "373444002",
+              "display": "Atorvastatin"
+            },
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "C10AA05",
+              "display": "Atorvastatin"
+            }
+          ],
+          "text": "Atorvastatin 20mg tablets → ES: Atorvastatina Cinfa 20mg comprimidos (CIMA: 72242)"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "373444002",
+                  "display": "Atorvastatin"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
       }
     }
   ]

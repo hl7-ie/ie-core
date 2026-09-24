@@ -440,7 +440,7 @@ Usage: #example
 Title: "Pharmacy – Apotheke am Brandenburger Tor, Berlin (DE)"
 Description: "German pharmacy in Berlin where Seán Murphy's Irish ePrescription for Metformin and Lisinopril was dispensed on 20 January 2025."
 
-* identifier[0].system = "http://fhir.de/sid/apothekenVerzeichnis"
+* identifier[0].assigner.display = "Issuing authority in Germany (illustrative)"
 * identifier[=].value = "DE-APO-10117-001"
 * active = true
 * type = http://terminology.hl7.org/CodeSystem/organization-type#prov "Healthcare Provider"
@@ -461,12 +461,12 @@ Usage: #example
 Title: "Scenario 1 (IE→DE) – Prescription: Metformin 500mg for Germany"
 Description: "Irish ePrescription for Metformin 500mg for Seán Murphy, transmitted via MyHealth@EU to Germany. Carries PCRS identifier and eIDAS cross-border identifier."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = $NePS
 * identifier[=].value = "PCRS-RX-2025-IE-DE-001"
 * identifier[+].system = "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier"
 * identifier[=].value = "IE/DE/1234567T"
 
-* groupIdentifier.system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/prescription-group"
+* groupIdentifier.system = $NePS
 * groupIdentifier.value = "IE-GP-RX-GROUP-20250120-DE"
 
 * status = #active
@@ -505,12 +505,12 @@ Usage: #example
 Title: "Scenario 1 (IE→DE) – Prescription: Lisinopril 10mg for Germany"
 Description: "Irish ePrescription for Lisinopril 10mg for Seán Murphy, transmitted via MyHealth@EU to Germany."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = $NePS
 * identifier[=].value = "PCRS-RX-2025-IE-DE-002"
 * identifier[+].system = "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier"
 * identifier[=].value = "IE/DE/1234567T"
 
-* groupIdentifier.system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/prescription-group"
+* groupIdentifier.system = $NePS
 * groupIdentifier.value = "IE-GP-RX-GROUP-20250120-DE"
 
 * status = #active
@@ -550,7 +550,7 @@ Usage: #example
 Title: "Scenario 1 (IE→DE) – German Dispensation: Metformin (PZN 04823246)"
 Description: "German pharmacy dispensation of Metformin 500mg Filmtabletten (Ratiopharm, PZN 04823246) against the Irish cross-border ePrescription. Generic substitution performed."
 
-* identifier[0].system = "http://fhir.de/sid/apothekenVerzeichnis"
+* identifier[0].assigner.display = "Issuing authority in Germany (illustrative)"
 * identifier[=].value = "DE-DISP-2025-XB-001-MET"
 * status = #completed
 * extension[recorded].valueDateTime = "2025-01-20T10:15:00+01:00"
@@ -581,7 +581,7 @@ Usage: #example
 Title: "Scenario 1 (IE→DE) – German Dispensation: Lisinopril (PZN 03990693)"
 Description: "German pharmacy dispensation of Lisinopril 10mg Tabletten (Hexal, PZN 03990693) against the Irish cross-border ePrescription. Generic substitution performed."
 
-* identifier[0].system = "http://fhir.de/sid/apothekenVerzeichnis"
+* identifier[0].assigner.display = "Issuing authority in Germany (illustrative)"
 * identifier[=].value = "DE-DISP-2025-XB-001-LIS"
 * status = #completed
 * extension[recorded].valueDateTime = "2025-01-20T10:15:00+01:00"
@@ -616,7 +616,7 @@ Usage: #example
 Title: "Pharmacy – Mēs atdot Aptieka, Riga (LV)"
 Description: "Latvian pharmacy in Riga where Seán Murphy's Irish ePrescription was dispensed (15 June 2025)."
 
-* identifier[0].system = "http://www.zva.gov.lv/fhir/sid/aptieka"
+* identifier[0].assigner.display = "Issuing authority in Latvia (illustrative)"
 * identifier[=].value = "LV-APT-RIGA-001"
 * active = true
 * type = http://terminology.hl7.org/CodeSystem/organization-type#prov "Healthcare Provider"
@@ -632,7 +632,7 @@ Usage: #example
 Title: "Scenario 5 (IE→LV) – Prescription: Metformin 500mg for Latvia"
 Description: "Irish ePrescription for Metformin 500mg for Seán Murphy, transmitted via MyHealth@EU to Latvia."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = $NePS
 * identifier[=].value = "PCRS-RX-2025-IE-LV-001"
 * identifier[+].system = "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier"
 * identifier[=].value = "IE/LV/1234567T"
@@ -663,7 +663,7 @@ Usage: #example
 Title: "Scenario 5 (IE→LV) – Latvian Dispensation: Metformin (ZRA-00098432)"
 Description: "Latvian pharmacy dispensation of Metformins 500mg tabletes (ZRA code ZRA-00098432) against the Irish cross-border ePrescription."
 
-* identifier[0].system = "http://www.zva.gov.lv/fhir/sid/dispensation"
+* identifier[0].assigner.display = "Issuing authority in Latvia (illustrative)"
 * identifier[=].value = "LV-DISP-2025-XB-001"
 * status = #completed
 * extension[recorded].valueDateTime = "2025-06-15T11:00:00+03:00"
@@ -692,7 +692,7 @@ Usage: #example
 Title: "Pharmacy – Farmácia Central, Lisbon (PT)"
 Description: "Portuguese pharmacy in Lisbon where Seán Murphy's Irish ePrescription for Sertraline and Omeprazole was dispensed (20 June 2025)."
 
-* identifier[0].system = "http://www.infarmed.pt/fhir/sid/farmacia"
+* identifier[0].assigner.display = "Issuing authority in Portugal (illustrative)"
 * identifier[=].value = "PT-FAR-LIS-001"
 * active = true
 * type = http://terminology.hl7.org/CodeSystem/organization-type#prov "Healthcare Provider"
@@ -708,12 +708,12 @@ Usage: #example
 Title: "Scenario 6 (IE→PT) – Prescription: Sertraline 50mg for Portugal"
 Description: "Irish ePrescription for Sertraline 50mg for Seán Murphy, transmitted via MyHealth@EU to Portugal."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = $NePS
 * identifier[=].value = "PCRS-RX-2025-IE-PT-001"
 * identifier[+].system = "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier"
 * identifier[=].value = "IE/PT/1234567T"
 
-* groupIdentifier.system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/prescription-group"
+* groupIdentifier.system = $NePS
 * groupIdentifier.value = "IE-GP-RX-GROUP-20250620-PT"
 
 * status = #active
@@ -743,7 +743,7 @@ Usage: #example
 Title: "Scenario 6 (IE→PT) – Portuguese Dispensation: Sertraline (INF-00012345)"
 Description: "Portuguese pharmacy dispensation of Sertralina 50mg Comprimidos (INFARMED code INF-00012345)."
 
-* identifier[0].system = "http://www.infarmed.pt/fhir/sid/dispensacao"
+* identifier[0].assigner.display = "Issuing authority in Portugal (illustrative)"
 * identifier[=].value = "PT-DISP-2025-XB-001"
 * status = #completed
 * extension[recorded].valueDateTime = "2025-06-20T10:30:00+01:00"
@@ -769,7 +769,7 @@ Usage: #example
 Title: "Pharmacy – Apoteket, Copenhagen (DK)"
 Description: "Danish pharmacy in Copenhagen where Seán Murphy's Irish ePrescription for Warfarin 5mg was dispensed (1 July 2025)."
 
-* identifier[0].system = "http://www.dkma.dk/fhir/sid/apotek"
+* identifier[0].assigner.display = "Issuing authority in Denmark (illustrative)"
 * identifier[=].value = "DK-APO-CPH-001"
 * active = true
 * type = http://terminology.hl7.org/CodeSystem/organization-type#prov "Healthcare Provider"
@@ -785,7 +785,7 @@ Usage: #example
 Title: "Scenario 7 (IE→DK) – Prescription: Warfarin 5mg for Denmark"
 Description: "Irish ePrescription for Warfarin 5mg for Seán Murphy, transmitted via MyHealth@EU to Denmark. Includes critical INR monitoring note."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = $NePS
 * identifier[=].value = "PCRS-RX-2025-IE-DK-001"
 * identifier[+].system = "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier"
 * identifier[=].value = "IE/DK/1234567T"
@@ -823,7 +823,7 @@ Usage: #example
 Title: "Pharmacy – Apoteket Hjärtat, Stockholm (SE)"
 Description: "Swedish pharmacy in Stockholm where Seán Murphy's Irish ePrescription for insulin was dispensed (10 July 2025)."
 
-* identifier[0].system = "http://www.lakemedelsverket.se/fhir/sid/apotek"
+* identifier[0].assigner.display = "Issuing authority in Sweden (illustrative)"
 * identifier[=].value = "SE-APT-STO-001"
 * active = true
 * type = http://terminology.hl7.org/CodeSystem/organization-type#prov "Healthcare Provider"
@@ -839,12 +839,12 @@ Usage: #example
 Title: "Scenario 8 (IE→SE) – Prescription: Insulin Glargine for Sweden"
 Description: "Irish ePrescription for Insulin Glargine 100u/ml for Seán Murphy, transmitted via MyHealth@EU to Sweden."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = $NePS
 * identifier[=].value = "PCRS-RX-2025-IE-SE-001"
 * identifier[+].system = "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier"
 * identifier[=].value = "IE/SE/1234567T"
 
-* groupIdentifier.system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/prescription-group"
+* groupIdentifier.system = $NePS
 * groupIdentifier.value = "IE-GP-RX-GROUP-20250710-SE"
 
 * status = #active
@@ -878,7 +878,7 @@ Usage: #example
 Title: "Pharmacy – Apotheke zur goldenen Kugel, Vienna (AT)"
 Description: "Austrian pharmacy in Vienna where Seán Murphy's Irish ePrescription was dispensed (15 July 2025)."
 
-* identifier[0].system = "http://www.basg.gv.at/fhir/sid/apotheke"
+* identifier[0].assigner.display = "Issuing authority in Austria (illustrative)"
 * identifier[=].value = "AT-APO-WIE-001"
 * active = true
 * type = http://terminology.hl7.org/CodeSystem/organization-type#prov "Healthcare Provider"
@@ -894,12 +894,12 @@ Usage: #example
 Title: "Scenario 9 (IE→AT) – Prescription: Atorvastatin 80mg for Austria"
 Description: "Irish ePrescription for Atorvastatin 80mg for Seán Murphy, transmitted via MyHealth@EU to Austria."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/pcrs-rx"
+* identifier[0].system = $NePS
 * identifier[=].value = "PCRS-RX-2025-IE-AT-001"
 * identifier[+].system = "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier"
 * identifier[=].value = "IE/AT/1234567T"
 
-* groupIdentifier.system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/prescription-group"
+* groupIdentifier.system = $NePS
 * groupIdentifier.value = "IE-GP-RX-GROUP-20250715-AT"
 
 * status = #active
@@ -932,7 +932,7 @@ Usage: #example
 Title: "Patient – Mikko Korhonen (Finnish citizen visiting Ireland)"
 Description: "Finnish patient Mikko Korhonen visiting Dublin. His Finnish prescription for Metformin 500mg is dispensed at Hickey's Pharmacy, O'Connell Street via NePS."
 
-* identifier[0].system = "http://www.kela.fi/fhir/sid/sotu"
+* identifier[0].assigner.display = "Issuing authority in Finland (illustrative)"
 * identifier[=].type = $V2-0203#NI "National unique individual identifier"
 * identifier[=].value = "FI-123456-7890"
 * identifier[+].system = "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier"
@@ -977,13 +977,12 @@ Usage: #example
 Title: "Scenario 10 (FI→IE via NePS) – Finnish Prescription: Metformin 500mg"
 Description: "Finnish ePrescription for Metformin 500mg for Mikko Korhonen, received via NePS for cross-border dispensation in Ireland."
 
-* identifier[0].system = "http://www.kela.fi/fhir/sid/prescription"
+* identifier[0].assigner.display = "Issuing authority in Finland (illustrative)"
 * identifier[=].value = "FI-RX-2025-NEPS-001"
 * status = #active
 * intent = #order
 * category = http://terminology.hl7.org/CodeSystem/medicationrequest-category#community "Community"
-* medicationCodeableConcept = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
-* medicationCodeableConcept.coding[+] = $SCT#372567009 "Metformin"
+* medicationReference = Reference(ie-core-medication-metformin-500)
 * subject = Reference(ie-patient-fi-mikko-korhonen) "Mikko Korhonen"
 * requester = Reference(ie-core-practitioner-aoife-obrien) "Dr. Aoife O'Brien"
 * authoredOn = "2025-07-20"
@@ -1006,9 +1005,9 @@ Usage: #example
 Title: "Scenario 10 (FI→IE via NePS) – Irish Dispensation for Finnish Patient"
 Description: "Hickey's Pharmacy, Dublin dispenses Metformin 500mg for Finnish patient Mikko Korhonen against a Finnish prescription received via NePS. The Finnish medication code (Kela/FIN) is mapped to an Irish NMPC code."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dispense-id"
-* identifier[=].value = "DISP-IE-NEPS-2025-FI-001"
-* identifier[+].system = "http://www.kela.fi/fhir/sid/prescription"
+* identifier[0].system = "urn:ietf:rfc:3986"
+* identifier[=].value = "urn:uuid:aeae5757-1e8e-5c6a-884d-c6ce6dfffc37"
+* identifier[+].assigner.display = "Issuing authority in Finland (illustrative)"
 * identifier[=].value = "FI-RX-2025-NEPS-001"
 * status = #completed
 * extension[recorded].valueDateTime = "2025-08-01T14:00:00+01:00"
@@ -1037,7 +1036,7 @@ Usage: #example
 Title: "Patient – Lars Janssen (Belgian citizen visiting Ireland)"
 Description: "Belgian patient Lars Janssen visiting Dublin. His Belgian prescription for Atorvastatin 40mg is dispensed at McCauley's Pharmacy via NePS."
 
-* identifier[0].system = "http://www.cnpv.be/fhir/sid/niss"
+* identifier[0].assigner.display = "Issuing authority in Belgium (illustrative)"
 * identifier[=].type = $V2-0203#NI "National unique individual identifier"
 * identifier[=].value = "BE-12345678901"
 * identifier[+].system = "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier"
@@ -1082,13 +1081,12 @@ Usage: #example
 Title: "Scenario 11 (BE→IE via NePS) – Belgian Prescription: Atorvastatin 40mg"
 Description: "Belgian ePrescription for Atorvastatin 40mg for Lars Janssen, received via NePS for cross-border dispensation in Ireland."
 
-* identifier[0].system = "http://www.cnpv.be/fhir/sid/prescription"
+* identifier[0].assigner.display = "Issuing authority in Belgium (illustrative)"
 * identifier[=].value = "BE-RX-2025-NEPS-001"
 * status = #active
 * intent = #order
 * category = http://terminology.hl7.org/CodeSystem/medicationrequest-category#community "Community"
-* medicationCodeableConcept = $NMPC#NMPC-ATV40TAB "Atorvastatin 40mg tablets"
-* medicationCodeableConcept.coding[+] = $SCT#373444002 "Atorvastatin"
+* medicationReference = Reference(ie-medication-atorvastatin-40)
 * subject = Reference(ie-patient-be-lars-janssen) "Lars Janssen"
 * requester = Reference(ie-core-practitioner-aoife-obrien) "Dr. Aoife O'Brien"
 * authoredOn = "2025-07-25"
@@ -1112,9 +1110,9 @@ Usage: #example
 Title: "Scenario 11 (BE→IE via NePS) – Irish Dispensation for Belgian Patient"
 Description: "McCauley's Pharmacy, Dublin dispenses Atorvastatin 40mg for Belgian patient Lars Janssen against a Belgian prescription received via NePS. Belgian CNPV medication code is mapped to an Irish NMPC code."
 
-* identifier[0].system = "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dispense-id"
-* identifier[=].value = "DISP-IE-NEPS-2025-BE-001"
-* identifier[+].system = "http://www.cnpv.be/fhir/sid/prescription"
+* identifier[0].system = "urn:ietf:rfc:3986"
+* identifier[=].value = "urn:uuid:586ef3ee-1f3f-5794-b912-88bfc8bd8a83"
+* identifier[+].assigner.display = "Issuing authority in Belgium (illustrative)"
 * identifier[=].value = "BE-RX-2025-NEPS-001"
 * status = #completed
 * extension[recorded].valueDateTime = "2025-08-05T11:30:00+01:00"
@@ -1138,9 +1136,6 @@ Usage: #example
 Title: "Medication – Metformin 500mg Filmtabletten (Ratiopharm) (as dispensed)"
 Description: "The product actually dispensed in ie-dispense-de-metformin. HL7 Europe MPD requires a dispense to reference a Medication resource."
 * code = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
-* code.coding[+].system = "http://fhir.de/CodeSystem/ifa/pzn"
-* code.coding[=].code = #04823246
-* code.coding[=].display = "Metformin 500mg Filmtabletten (Ratiopharm)"
 * code.text = "Metformin 500mg Filmtabletten (Ratiopharm)"
 * ingredient[0].itemCodeableConcept = $SCT#372567009 "Metformin"
 * ingredient[=].isActive = true
@@ -1152,9 +1147,6 @@ Usage: #example
 Title: "Medication – Lisinopril 10mg Tabletten (Hexal) (as dispensed)"
 Description: "The product actually dispensed in ie-dispense-de-lisinopril. HL7 Europe MPD requires a dispense to reference a Medication resource."
 * code = $NMPC#NMPC-LIS10TAB "Lisinopril 10mg tablets"
-* code.coding[+].system = "http://fhir.de/CodeSystem/ifa/pzn"
-* code.coding[=].code = #03990693
-* code.coding[=].display = "Lisinopril 10mg Tabletten (Hexal)"
 * code.text = "Lisinopril 10mg Tabletten (Hexal)"
 * ingredient[0].itemCodeableConcept = $SCT#386873009 "Lisinopril"
 * ingredient[=].isActive = true
@@ -1166,9 +1158,6 @@ Usage: #example
 Title: "Medication – Metformins 500mg tabletes (as dispensed)"
 Description: "The product actually dispensed in ie-dispense-lv-metformin. HL7 Europe MPD requires a dispense to reference a Medication resource."
 * code = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
-* code.coding[+].system = "http://www.zva.gov.lv/zalu-registrs"
-* code.coding[=].code = #ZRA-00098432
-* code.coding[=].display = "Metformins 500mg tabletes"
 * code.text = "Metformins 500mg tabletes"
 * ingredient[0].itemCodeableConcept = $SCT#372567009 "Metformin"
 * ingredient[=].isActive = true
@@ -1180,9 +1169,6 @@ Usage: #example
 Title: "Medication – Sertralina 50mg Comprimidos (as dispensed)"
 Description: "The product actually dispensed in ie-dispense-pt-sertraline. HL7 Europe MPD requires a dispense to reference a Medication resource."
 * code = $NMPC#NMPC-SER50TAB "Sertraline 50mg tablets"
-* code.coding[+].system = "http://www.infarmed.pt"
-* code.coding[=].code = #INF-00012345
-* code.coding[=].display = "Sertralina 50mg Comprimidos"
 * code.text = "Sertralina 50mg Comprimidos"
 * ingredient[0].itemCodeableConcept = $SCT#372594008 "Sertraline"
 * ingredient[=].isActive = true
@@ -1194,9 +1180,6 @@ Usage: #example
 Title: "Medication – Metformin 500mg tablets (as dispensed)"
 Description: "The product actually dispensed in ie-dispense-fi-to-ie-neps. HL7 Europe MPD requires a dispense to reference a Medication resource."
 * code = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
-* code.coding[+].system = "http://www.kela.fi"
-* code.coding[=].code = #FIN-XXXX
-* code.coding[=].display = "Metformin 500mg tablets (Kela/FIN)"
 * code.text = "Metformin 500mg tablets"
 * ingredient[0].itemCodeableConcept = $SCT#372567009 "Metformin"
 * ingredient[=].isActive = true
@@ -1208,9 +1191,21 @@ Usage: #example
 Title: "Medication – Atorvastatin 40mg tablets (as dispensed)"
 Description: "The product actually dispensed in ie-dispense-be-to-ie-neps. HL7 Europe MPD requires a dispense to reference a Medication resource."
 * code = $NMPC#NMPC-ATV40TAB "Atorvastatin 40mg tablets"
-* code.coding[+].system = "http://www.cnpv.be"
-* code.coding[=].code = #BE-CNPV-XXXX
-* code.coding[=].display = "Atorvastatin 40mg tablets (CNPV)"
 * code.text = "Atorvastatin 40mg tablets"
 * ingredient[0].itemCodeableConcept = $SCT#373444002 "Atorvastatin"
 * ingredient[=].isActive = true
+
+
+Instance: ie-medication-atorvastatin-40
+InstanceOf: IECoreMedicationEPrescription
+Usage: #example
+Title: "Medication – Atorvastatin 40mg tablets"
+Description: "The product prescribed in ie-rx-be-atorvastatin-neps. The NMPC code is an illustrative placeholder (IECoreNMPCPlaceholder, OI-018)."
+* code = $NMPC#NMPC-ATV40TAB "Atorvastatin 40mg tablets"
+* code.coding[+] = $SCT#373444002 "Atorvastatin"
+* code.text = "Atorvastatin 40mg tablets"
+* form = $SCT#385055001 "Tablet"
+* ingredient[0].itemCodeableConcept = $SCT#373444002 "Atorvastatin"
+* ingredient[=].isActive = true
+* ingredient[=].strength.numerator = 40 'mg' "mg"
+* ingredient[=].strength.denominator = 1 '{tablet}' "tablet"

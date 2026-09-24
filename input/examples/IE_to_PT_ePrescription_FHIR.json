@@ -216,21 +216,6 @@
         },
         "status": "active",
         "intent": "order",
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "372594008",
-              "display": "Sertraline"
-            },
-            {
-              "system": "http://www.whocc.no/atc",
-              "code": "N06AB06",
-              "display": "Sertraline"
-            }
-          ],
-          "text": "Sertraline 50mg tablets → PT: Sertralina 50mg Comprimidos"
-        },
         "subject": {
           "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
@@ -285,7 +270,11 @@
           {
             "text": "Cross-border ePrescription via MyHealth@EU (MPD format). Valid 90 days (Portaria nº 298/2019). No substitution — psychiatric medication."
           }
-        ]
+        ],
+        "medicationReference": {
+          "reference": "urn:uuid:7c6e2a45-a9af-5eef-870a-0cf9b619ddd6",
+          "display": "Sertraline 50mg tablets → PT: Sertralina 50mg Comprimidos"
+        }
       }
     },
     {
@@ -314,21 +303,6 @@
         },
         "status": "active",
         "intent": "order",
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "317291008",
-              "display": "Omeprazole 20 mg oral capsule"
-            },
-            {
-              "system": "http://www.whocc.no/atc",
-              "code": "A02BC01",
-              "display": "Omeprazole"
-            }
-          ],
-          "text": "Omeprazole 20mg capsules → PT: Omeprazol 20mg Cápsulas"
-        },
         "subject": {
           "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
@@ -368,7 +342,93 @@
         },
         "substitution": {
           "allowedBoolean": true
+        },
+        "medicationReference": {
+          "reference": "urn:uuid:b8fd8542-1863-50d9-9ba8-01bda03101c0",
+          "display": "Omeprazole 20mg capsules → PT: Omeprazol 20mg Cápsulas"
         }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7c6e2a45-a9af-5eef-870a-0cf9b619ddd6",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-rx-ie-pt-sertraline",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372594008",
+              "display": "Sertraline"
+            },
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "N06AB06",
+              "display": "Sertraline"
+            }
+          ],
+          "text": "Sertraline 50mg tablets → PT: Sertralina 50mg Comprimidos"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "372594008",
+                  "display": "Sertraline"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b8fd8542-1863-50d9-9ba8-01bda03101c0",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-rx-ie-pt-omeprazole",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "317291008",
+              "display": "Omeprazole 20 mg oral capsule"
+            },
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "A02BC01",
+              "display": "Omeprazole"
+            }
+          ],
+          "text": "Omeprazole 20mg capsules → PT: Omeprazol 20mg Cápsulas"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "387137007",
+                  "display": "Omeprazole"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
       }
     }
   ]

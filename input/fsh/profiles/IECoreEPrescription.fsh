@@ -33,8 +33,8 @@ Description: "One prescription item of an Irish electronic prescription (HIQA EP
 
 // ── 3.5.3 Medication ───────────────────────────────────────────────────
 * medication[x] 1..1 MS
-* medication[x] ^comment = "HIQA EP 3.5.3 Prescribed medication item (Mandatory 1..1); see Section 4 (IECoreMedicationEPrescription). NMPC coding where available."
-* medication[x] from IECoreMedicationCodes (extensible)
+* medication[x] only Reference(IECoreMedicationEPrescription)
+* medication[x] ^comment = "HIQA EP 3.5.3 Prescribed medication item (Mandatory 1..1); see Section 4 (IECoreMedicationEPrescription). A reference is required (not an inline CodeableConcept): HIQA EP 4.7.2 makes the ingredient Mandatory, and the controlled-drug rules (ie-rx-cd-1/2/3) read the MDA schedule from the Medication (independent review R-01). SNOMED CT Irish Edition / NMPC coding in Medication.code."
 
 // ── Section 1 Patient ──────────────────────────────────────────────────
 * subject 1..1 MS
@@ -103,19 +103,19 @@ Description: "One prescription item of an Irish electronic prescription (HIQA EP
 * dispenseRequest.extension contains
     IECoreNumberOfInstalments named numberOfInstalments 0..1 MS and
     IECoreDoNotExtend named doNotExtend 0..1
-* dispenseRequest.extension[numberOfInstalments] ^comment = "HIQA EP 3.5.12 Number of instalments (Required): a legal requirement for Schedule 2, 3 and 4 Part 1 controlled drugs (invariant ie-rx-cd-1)."
+* dispenseRequest.extension[numberOfInstalments] ^comment = "HIQA EP 3.5.12 Number of instalments (Required): a legal requirement for Schedule 2, 3 and 4 Part 1 controlled drugs (invariant ie-rx-cd-3)."
 * dispenseRequest.extension[doNotExtend] ^comment = "HIQA EP 3.5.9.2 'Do Not Extend' (Optional)."
 * dispenseRequest.quantity 1..1 MS
 * dispenseRequest.quantity ^comment = "Quantity to supply per dispense. IE Core requires it (1..1, stricter than HIQA EP 3.5.7 Required 0..1; OI-012)."
 * dispenseRequest.validityPeriod MS
-* dispenseRequest.validityPeriod ^comment = "HIQA EP 3.5.9.1 Validity period (Required). If no start is given, it is the date of issue. Up to 12 months for non-controlled drugs; 14 days for Schedule 2 and 3 controlled drugs (invariant ie-rx-cd-2)."
+* dispenseRequest.validityPeriod ^comment = "HIQA EP 3.5.9.1 Validity period (Required). If no start is given, it is the date of issue. Up to 12 months for non-controlled drugs. Schedule 2 and 3 controlled drugs: 14 days, or for instalment prescriptions the final instalment within two months (the first instalment within 14 days is checked at dispensing, OI-027) (invariant ie-rx-cd-2)."
 * dispenseRequest.numberOfRepeatsAllowed MS
 * dispenseRequest.numberOfRepeatsAllowed ^comment = "HIQA EP 3.5.11 Repeats of prescription item allowed (Optional); default 0. Repeats already dispensed are DERIVED from the completed MedicationDispense records that reference this request, not stored (ADR-003)."
 * dispenseRequest.dispenseInterval MS
-* dispenseRequest.dispenseInterval ^comment = "HIQA EP 3.5.13 Minimum dispense interval (Required); also the instalment interval for controlled drugs."
+* dispenseRequest.dispenseInterval ^comment = "HIQA EP 3.5.13 Minimum dispense interval (Required); also the instalment interval, which must be specified for Schedule 2, 3 and 4 Part 1 instalment prescriptions (invariant ie-rx-cd-3)."
 * extension contains IECoreQuantityInWordsAndFigures named quantityInWordsAndFigures 0..1 MS
-* extension[quantityInWordsAndFigures] ^comment = "HIQA EP 3.5.7.2 Quantity prescribed (free text, words and figures): a legal requirement for controlled drugs (invariant ie-rx-cd-1)."
-* obeys ie-rx-cd-1 and ie-rx-cd-2
+* extension[quantityInWordsAndFigures] ^comment = "HIQA EP 3.5.7.2 Quantity prescribed (free text, words and figures): must be recorded for any medication listed as a controlled drug under the Misuse of Drugs Regulations 2017 (invariant ie-rx-cd-1)."
+* obeys ie-rx-cd-1 and ie-rx-cd-2 and ie-rx-cd-3
 
 // ── 3.5.10 Substitution ────────────────────────────────────────────────
 * substitution MS
@@ -226,8 +226,8 @@ Description: "The medicinal product in an Irish ePrescription or eDispensation (
 // ╰──────────────────────────────────────────────────────────────────────╯
 
 Invariant: ie-rx-age-1
-Description: "If the patient is under 12 years old at the date of prescribing, the patient's age SHALL be recorded on the prescription (HIQA EP 1.4.2; a legal requirement in Ireland)"
-Expression: "subject.resolve().ofType(Patient).birthDate.empty() or authoredOn.empty() or ((subject.resolve().ofType(Patient).birthDate + 12 years).toString() <= authoredOn.toString().substring(0,10)) or extension('https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient-age-at-prescribing').exists()"
+Description: "If the patient is under 12 years old at the date of prescribing, or the date of birth is not a full date, the patient's age SHALL be recorded on the prescription (HIQA EP 1.4.2; a legal requirement in Ireland)"
+Expression: "subject.resolve().ofType(Patient).birthDate.empty() or authoredOn.empty() or ((subject.resolve().ofType(Patient).birthDate.toString().length() = 10) and ((subject.resolve().ofType(Patient).birthDate + 12 years).toString() <= authoredOn.toString().substring(0,10))) or extension('https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-patient-age-at-prescribing').exists()"
 Severity: #error
 
 Invariant: ie-rx-status-1
@@ -246,13 +246,18 @@ Expression: "substitution.allowed.ofType(boolean).where($this = false).exists() 
 Severity: #error
 
 Invariant: ie-rx-cd-1
-Description: "A prescription for a Schedule 2, 3 or 4 Part 1 controlled drug SHALL state the quantity in words and figures and the number of instalments (HIQA EP 3.5.7.2, 3.5.12; Misuse of Drugs Regulations 2017)"
-Expression: "(medication.ofType(Reference).resolve().extension('https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-classification').value.ofType(CodeableConcept).coding.where(system = 'https://hl7-ie.github.io/ie-core/fhir/ie/core/CodeSystem/ie-core-mda-schedule' and (code = 'schedule-2' or code = 'schedule-3' or code = 'schedule-4-part-1')).exists()) implies (extension('https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-quantity-in-words-and-figures').exists() and dispenseRequest.extension('https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-number-of-instalments').exists())"
+Description: "A prescription for a controlled drug (any schedule of the Misuse of Drugs Regulations 2017) SHALL state the quantity in words and figures (HIQA EP 3.5.7.2)"
+Expression: "(medication.ofType(Reference).resolve().extension('https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-classification').value.ofType(CodeableConcept).coding.where(system = 'https://hl7-ie.github.io/ie-core/fhir/ie/core/CodeSystem/ie-core-mda-schedule').exists()) implies extension('https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-quantity-in-words-and-figures').exists()"
 Severity: #error
 
 Invariant: ie-rx-cd-2
-Description: "A prescription for a Schedule 2 or 3 controlled drug SHALL have a validity period ending no later than 14 days after the date of issue (HIQA EP 3.5.9.1; Misuse of Drugs Regulations 2017)"
-Expression: "(medication.ofType(Reference).resolve().extension('https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-classification').value.ofType(CodeableConcept).coding.where(system = 'https://hl7-ie.github.io/ie-core/fhir/ie/core/CodeSystem/ie-core-mda-schedule' and (code = 'schedule-2' or code = 'schedule-3')).exists()) implies (dispenseRequest.validityPeriod.end.exists() and dispenseRequest.validityPeriod.end.toString().substring(0,10) <= (authoredOn + 14 days).toString().substring(0,10))"
+Description: "A prescription for a Schedule 2 or 3 controlled drug SHALL have a validity period ending no later than 14 days after the date of issue, or, for an instalment prescription, no later than two months after (the final instalment) (HIQA EP 3.5.9.1; Misuse of Drugs Regulations 2017)"
+Expression: "(medication.ofType(Reference).resolve().extension('https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-classification').value.ofType(CodeableConcept).coding.where(system = 'https://hl7-ie.github.io/ie-core/fhir/ie/core/CodeSystem/ie-core-mda-schedule' and (code = 'schedule-2' or code = 'schedule-3')).exists()) implies (dispenseRequest.validityPeriod.end.exists() and ((dispenseRequest.extension('https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-number-of-instalments').exists() and dispenseRequest.validityPeriod.end.toString().substring(0,10) <= (authoredOn + 2 months).toString().substring(0,10)) or (dispenseRequest.validityPeriod.end.toString().substring(0,10) <= (authoredOn + 14 days).toString().substring(0,10))))"
+Severity: #error
+
+Invariant: ie-rx-cd-3
+Description: "A prescription for a Schedule 2, 3 or 4 Part 1 controlled drug SHALL state the number of instalments and, when there is more than one, the interval between them (HIQA EP 3.5.12, 3.5.13; Misuse of Drugs Regulations 2017)"
+Expression: "(medication.ofType(Reference).resolve().extension('https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-classification').value.ofType(CodeableConcept).coding.where(system = 'https://hl7-ie.github.io/ie-core/fhir/ie/core/CodeSystem/ie-core-mda-schedule' and (code = 'schedule-2' or code = 'schedule-3' or code = 'schedule-4-part-1')).exists()) implies (dispenseRequest.extension('https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-number-of-instalments').exists() and ((dispenseRequest.extension('https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-number-of-instalments').value.ofType(positiveInt) > 1) implies dispenseRequest.dispenseInterval.exists()))"
 Severity: #error
 
 Invariant: ie-md-status-1

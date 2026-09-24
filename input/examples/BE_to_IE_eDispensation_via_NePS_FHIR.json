@@ -175,21 +175,6 @@
         ],
         "status": "active",
         "intent": "order",
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "373444002",
-              "display": "Atorvastatin"
-            },
-            {
-              "system": "http://www.whocc.no/atc",
-              "code": "C10AA05",
-              "display": "Atorvastatin"
-            }
-          ],
-          "text": "Atorvastatin 40mg tablets (BE → IE mapping via NePS)"
-        },
         "subject": {
           "reference": "urn:uuid:fdb2d4c0-4270-591e-a2ae-9b660da7854d",
           "display": "Lars Janssen"
@@ -226,7 +211,11 @@
           {
             "text": "Inbound cross-border prescription via MyHealth@EU/NePS. Belgian prescription (BE-RX-2025-NEPS-001) received and mapped to HPRA product."
           }
-        ]
+        ],
+        "medicationReference": {
+          "reference": "urn:uuid:0b9dd103-15ba-548e-8b09-84e43106e602",
+          "display": "Atorvastatin 40mg tablets (BE → IE mapping via NePS)"
+        }
       }
     },
     {
@@ -331,6 +320,47 @@
             }
           ],
           "text": "Atorvastatin 40mg tablets"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "373444002",
+                  "display": "Atorvastatin"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:0b9dd103-15ba-548e-8b09-84e43106e602",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-be-original-rx",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "373444002",
+              "display": "Atorvastatin"
+            },
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "C10AA05",
+              "display": "Atorvastatin"
+            }
+          ],
+          "text": "Atorvastatin 40mg tablets (BE → IE mapping via NePS)"
         },
         "ingredient": [
           {

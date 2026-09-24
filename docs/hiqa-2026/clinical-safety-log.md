@@ -137,3 +137,18 @@ been reviewed by a clinical safety officer.
   hypercholesterolaemia*. All IG examples validate with codes checked on tx.fhir.org (145/145).
 - **Residual:** Low. The legacy JSON payloads are illustrative and are not validated against the
   IE Core profiles; the eight HIQA scenario Bundles are the conformant references.
+
+## HZ-11. Allergy statement, prescriber contact or controlled-drug rules satisfied by the wrong data
+
+- **Status:** Mitigated (Phase 10, independent review R-01, R-02, R-04, R-07, R-10).
+- **Hazard:** a prescription passes validation although (a) its "no known allergies" statement belongs to a
+  different patient, or lists allergies that are not sent; (b) the only telephone number is the pharmacy's, not the
+  prescriber's; (c) a Schedule 2 drug is coded inline so the controlled-drug rules never run; (d) a year-only date of
+  birth hides that the patient is under 12. Or it fails validation although lawful (an instalment prescription valid
+  for two months).
+- **Mitigation:** `ie-bnd-rx-5` (one patient), `ie-bnd-rx-6` (listed allergies included), `ie-bnd-rx-2` (the List is
+  the allergy statement, LOINC 48765-2), `ie-bnd-rx-4` / `ie-bnd-xb-1` (contact on the requester), medication by
+  reference only, `ie-rx-cd-1/2/3` rewritten to the HIQA text, age required when the date of birth is partial. Each
+  has a negative BDD test.
+- **Residual:** Medium. The controlled-drug rules depend on a placeholder MDA schedule code (OI-007) and on the
+  Medication being resolvable; a standalone MedicationRequest cannot be checked (OI-027).

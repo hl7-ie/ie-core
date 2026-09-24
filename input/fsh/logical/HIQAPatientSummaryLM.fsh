@@ -453,7 +453,7 @@ Description: "How each HIQA PS element is represented in IE Core. GAP = not repr
 * allergiesAndIntolerances.generatedNarrative -> "IECoreCompositionPatientSummary: Composition.section:sectionAllergies.text" "Aligned"
 * allergiesAndIntolerances.allergiesAndIntolerancesEmptyReason -> "IECoreCompositionPatientSummary: Composition.section:sectionAllergies.emptyReason" "Aligned"
 * allergiesAndIntolerances.allergiesAndIntolerances -> "IECoreCompositionPatientSummary: Composition.section:sectionAllergies.entry" "Aligned"
-* allergiesAndIntolerances.allergiesAndIntolerances.allergiesOrIntolerancesStatus -> "IECoreAllergyIntolerance: AllergyIntolerance.clinicalStatus" "Aligned"
+* allergiesAndIntolerances.allergiesAndIntolerances.allergiesOrIntolerancesStatus -> "IECoreAllergyIntolerance: AllergyIntolerance.clinicalStatus" "Aligned. enforced by invariant ie-allergy-1 (required unless entered-in-error; FHIR ait-2)"
 * allergiesAndIntolerances.allergiesAndIntolerances.causativeAgentOrAllergen -> "IECoreAllergyIntolerance: AllergyIntolerance.code" "Aligned"
 * allergiesAndIntolerances.allergiesAndIntolerances.onsetDate -> "IECoreAllergyIntolerance: AllergyIntolerance.onset[x]" "Aligned"
 * allergiesAndIntolerances.allergiesAndIntolerances.endDate -> "GAP" "Gap. end date: R4 has no abatement element"

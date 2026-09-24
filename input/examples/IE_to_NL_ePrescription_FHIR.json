@@ -226,21 +226,6 @@
         },
         "status": "active",
         "intent": "order",
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "372567009",
-              "display": "Metformin"
-            },
-            {
-              "system": "http://www.whocc.no/atc",
-              "code": "A10BA02",
-              "display": "Metformin"
-            }
-          ],
-          "text": "Metformin 500mg tablets → NL: Metformine HCl 500mg tabletten (GNK: 1701410)"
-        },
         "subject": {
           "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
@@ -285,7 +270,11 @@
           {
             "text": "Cross-border ePrescription via MyHealth@EU. Valid 3 months (Geneesmiddelenwet)."
           }
-        ]
+        ],
+        "medicationReference": {
+          "reference": "urn:uuid:bc815d13-da26-5f27-8183-b715c33d66aa",
+          "display": "Metformin 500mg tablets → NL: Metformine HCl 500mg tabletten (GNK: 1701410)"
+        }
       }
     },
     {
@@ -314,16 +303,6 @@
         },
         "status": "active",
         "intent": "order",
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "386873009",
-              "display": "Lisinopril"
-            }
-          ],
-          "text": "Lisinopril 10mg tablets → NL: Lisinopril 10mg tabletten (GNK: 1701420)"
-        },
         "subject": {
           "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
@@ -363,6 +342,10 @@
         },
         "substitution": {
           "allowedBoolean": true
+        },
+        "medicationReference": {
+          "reference": "urn:uuid:4c684a3e-5bc0-5815-92e9-927219966fd4",
+          "display": "Lisinopril 10mg tablets → NL: Lisinopril 10mg tabletten (GNK: 1701420)"
         }
       }
     },
@@ -392,16 +375,6 @@
         },
         "status": "active",
         "intent": "order",
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "373444002",
-              "display": "Atorvastatin"
-            }
-          ],
-          "text": "Atorvastatin 20mg tablets → NL: Atorvastatine 20mg tabletten (GNK: 1701430)"
-        },
         "subject": {
           "reference": "urn:uuid:80858291-1d72-5f01-b5bf-3a1427320ba9",
           "display": "Seán Murphy"
@@ -441,7 +414,124 @@
         },
         "substitution": {
           "allowedBoolean": true
+        },
+        "medicationReference": {
+          "reference": "urn:uuid:9eea9190-5f97-5063-ba02-097d2cf3af96",
+          "display": "Atorvastatin 20mg tablets → NL: Atorvastatine 20mg tabletten (GNK: 1701430)"
         }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:bc815d13-da26-5f27-8183-b715c33d66aa",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-rx-ie-nl-metformin",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372567009",
+              "display": "Metformin"
+            },
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "A10BA02",
+              "display": "Metformin"
+            }
+          ],
+          "text": "Metformin 500mg tablets → NL: Metformine HCl 500mg tabletten (GNK: 1701410)"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "372567009",
+                  "display": "Metformin"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:4c684a3e-5bc0-5815-92e9-927219966fd4",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-rx-ie-nl-lisinopril",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "386873009",
+              "display": "Lisinopril"
+            }
+          ],
+          "text": "Lisinopril 10mg tablets → NL: Lisinopril 10mg tabletten (GNK: 1701420)"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "386873009",
+                  "display": "Lisinopril"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:9eea9190-5f97-5063-ba02-097d2cf3af96",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "med-rx-ie-nl-atorvastatin",
+        "meta": {
+          "profile": [
+            "https://hl7-ie.github.io/ie-core/fhir/ie/core/StructureDefinition/ie-core-medication-eprescription"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "373444002",
+              "display": "Atorvastatin"
+            }
+          ],
+          "text": "Atorvastatin 20mg tablets → NL: Atorvastatine 20mg tabletten (GNK: 1701430)"
+        },
+        "ingredient": [
+          {
+            "itemCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "373444002",
+                  "display": "Atorvastatin"
+                }
+              ]
+            },
+            "isActive": true
+          }
+        ]
       }
     }
   ]

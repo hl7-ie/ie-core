@@ -6,7 +6,7 @@ This page documents changes to the IE Core Implementation Guide.
 
 Aligns IE Core with the HIQA *Draft National Standard for Electronic Prescriptions and Electronic
 Dispensations* and the *Draft National Standard for a Patient Summary* (both public consultation
-drafts, September 2026). Decisions are recorded in ADR-001 to ADR-006 (`docs/adr/` in the source
+drafts, September 2026). Decisions are recorded in ADR-001 to ADR-007 (`docs/adr/` in the source
 repository). The HIQA element IDs are cited as EP x.y / PS x.y.
 
 #### BREAKING
@@ -57,9 +57,19 @@ repository). The HIQA element IDs are cited as EP x.y / PS x.y.
   identifiers use `urn:uuid`; CDA OIDs use the HL7 example arc (OI-020). Hypercholesterolaemia is
   ICD-10 E78.0 (was E78.5, *Hyperlipidaemia, unspecified*).
 
-- **Legacy payload Bundles conform (Phase 9).** The 22 JSON payloads in `input/examples` are published IG examples,
+- **Legacy payload Bundles validate (Phase 9).** The 22 JSON payloads in `input/examples` are published IG examples,
   but they had never validated (non-UUID `urn:uuid` fullUrls, `_comment`, missing dispense `recorded`, and so on).
-  `scripts/audit/conform_payloads.py` fixed them without inventing clinical content; all 22 now validate.
+  `scripts/audit/conform_payloads.py` fixed them without inventing clinical content; all 22 now validate. They are
+  plain `collection` Bundles: they do **not** claim `IECoreBundleEPrescription` and carry no allergy statement or
+  signature, so they are illustrative only; the HIQA scenario Bundles are the conformant references.
+- **Independent review fixes (Phase 10, `docs/audit/review-hiqa-2026.md`).** Prescription items must reference a
+  Medication (**BREAKING**); controlled-drug rules rewritten to the HIQA text (`ie-rx-cd-1/2/3`); new Bundle
+  invariants `ie-bnd-rx-5` (one patient) and `ie-bnd-rx-6` (listed allergies included); `ie-bnd-rx-2` requires the
+  allergy-statement List code; prescriber phone/email rules start from `requester`; the age is required when the date
+  of birth is partial; `AllergyIntolerance.clinicalStatus` 0..1 with `ie-allergy-1` so an allergy entered in error can
+  be retracted; group identifier compares system and value. NMPC ValueSets are marked experimental (refset IDs
+  unverified, OI-018); unused aliases with unverified URIs removed; FSH examples no longer use invented national
+  identifier or product code systems.
 - **R5 track frozen (ADR-005).** Banner on the R5 pages; IHI accepts 18 or 10 digits; the unsourced GMS slice and
   format invariant were removed. R5 is no longer a CI gate.
 - **Identifier pages (ADR-006).** HPI, DPS/LTI/HAA/GMS formats, IMN and CRN removed from the documentation; the IHI
