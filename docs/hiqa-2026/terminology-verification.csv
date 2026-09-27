@@ -55,7 +55,7 @@ http://loinc.org,71354-5,Edinburgh Postnatal Depression Scale [EPDS],yes,Edinbur
 http://loinc.org,72109-2,Alcohol Use Disorder Identification Test - Consumption,yes,Alcohol Use Disorder Identification Test - Consumption [AUDIT-C],False,ValueSets.fsh
 http://loinc.org,72166-2,Tobacco smoking status,yes,Tobacco smoking status,False,IECoreObservation.fsh;ValueSets.fsh
 http://loinc.org,73831-0,Adolescent depression screening assessment,yes,Adolescent depression screening assessment,False,ValueSets.fsh
-http://loinc.org,75311-1,Discharge medications,yes,Discharge medications note,False,IECoreHospitalDischarge.fsh
+http://loinc.org,75311-1,Discharge medications note,yes,Discharge medications note,False,IECoreHospitalDischarge.fsh
 http://loinc.org,75320-2,Advance directive,yes,Advance directive,False,ValueSets.fsh
 http://loinc.org,75773-2,"Goals, preferences, and priorities for medical treatment Narrative - Reported",yes,"Goals, preferences, and priorities for medical treatment Narrative - Reported",False,IECoreObservation.fsh
 http://loinc.org,76504-0,Total score [HARK],yes,Total score [HARK],False,ValueSets.fsh
@@ -75,7 +75,8 @@ http://loinc.org,8310-5,Body temperature,yes,Body temperature,False,IECoreVitalS
 http://loinc.org,8462-4,Diastolic blood pressure,yes,Diastolic blood pressure,False,Examples.fsh;IECoreVitalSigns.fsh;ValueSets.fsh
 http://loinc.org,8480-6,Systolic blood pressure,yes,Systolic blood pressure,False,Examples.fsh;IECoreVitalSigns.fsh;ValueSets.fsh
 http://loinc.org,85354-9,Blood pressure panel with all children optional,yes,Blood pressure panel with all children optional,False,Examples.fsh;IECoreVitalSigns.fsh;ValueSets.fsh
-http://loinc.org,8648-8,Hospital course,yes,Hospital course note,False,IECoreHospitalDischarge.fsh
+http://loinc.org,8648-8,Hospital course note,yes,Hospital course note,False,IECoreHospitalDischarge.fsh
+http://loinc.org,8650-4,Hospital discharge disposition note,yes,Hospital discharge disposition note,False,IECoreHospitalDischarge.fsh
 http://loinc.org,86533-7,Patient Living will,yes,Patient Living will,False,ValueSets.fsh
 http://loinc.org,86645-9,Pregnancy intention in the next year - Reported,yes,Pregnancy intention in the next year - Reported,False,IECoreObservation.fsh
 http://loinc.org,8867-4,Heart rate,yes,Heart rate,False,IECoreVitalSigns.fsh;ValueSets.fsh

@@ -1,9 +1,11 @@
-# IE Core 0.2.0 release notes (draft, 24 September 2026)
+# IE Core 0.2.0 "Nostalgic IE": release notes (draft, 24 September 2026)
 
-**Status:** draft. Not tagged, pushed or published. A proof of concept by Nithin Mohan; not affiliated with, or
+**Status:** draft. Merged to `main` (PR #26); not tagged, and not yet released on Simplifier.net. A proof of concept by Nithin Mohan; not affiliated with, or
 endorsed by, HIQA, the HSE, HL7 Ireland or the Department of Health. Not for clinical use.
 
 ## What this release is
+
+**Package:** `nostalgic-ie.fhir.core` (ADR-008; the `hl7.*` prefix is reserved for HL7). **Code name:** Nostalgic IE.
 
 IE Core 0.2.0 realigns the ePrescription, eDispensation and Patient Summary profiles with two HIQA **consultation
 drafts** (September 2026). It builds on HL7 Europe MPD 1.0.0 and the HL7 Europe Patient Summary (EPS 1.0.0-ballot).
@@ -45,6 +47,8 @@ settle a point, the IG uses a clearly named placeholder listed in `docs/hiqa-202
 | `AllergyIntolerance.clinicalStatus` 0..1 with `ie-allergy-1` | lets an allergy entered in error be retracted | review R-09 |
 | R5 track frozen; its GMS slice removed | not aligned with HIQA | ADR-005 |
 | Sample payload identifiers, fullUrls and CDA OIDs changed | invented URIs and OIDs removed | ADR-006/007 |
+| Package id `nostalgic-ie.fhir.core` (was `hl7.fhir.ie.core`, never published) | `hl7.*` is reserved for HL7 | ADR-008 |
+| Discharge-details section coded LOINC 8650-4 (was 8648-8, the hospital-course code) | wrong code; HL7 Europe HDR uses 8650-4 | ADR-007 |
 
 ## Quality at release
 
@@ -52,10 +56,10 @@ settle a point, the IG uses a clearly named placeholder listed in `docs/hiqa-202
 |---|---|---|
 | SUSHI | 0 errors | 0 errors, 0 warnings |
 | FHIR Validator, examples (codes on tx.fhir.org) | not run | 168 / 168 pass |
-| Validator QA, all resources | 48 errors | 35 errors (30 IG-parameter artefact, 5 Irish Edition ValueSets tx.fhir.org cannot check) |
+| Validator QA, all resources | 48 errors | 33 errors (28 IG-parameter artefact, 5 Irish Edition ValueSets tx.fhir.org cannot check) |
 | BDD scenarios | 120 | 176 pass |
 | Quality checks | — | 544 / 544 |
-| IG Publisher QA | not run | not available on the build host (OI-001); runs in CI |
+| IG Publisher QA (CI) | not run | first CI run: 23 errors, 2,359 broken links; the Simplifier iteration fixes the causes of the other 18 errors and the broken links (to be confirmed by the next CI run); the 5 Irish Edition ValueSet errors remain (OI-022) |
 
 ## Known limitations
 

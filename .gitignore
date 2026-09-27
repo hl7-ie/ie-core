@@ -36,3 +36,4 @@ docs/sources/hiqa-2026/*.pdf
 docs/sources/hiqa-2026/*.txt
 docs/sources/hiqa-2026/*-full.csv
 docs/audit/.*.log
+build/

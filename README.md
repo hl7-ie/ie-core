@@ -25,12 +25,18 @@
 > The concepts, patterns, and approaches described in this IG **may be replicated** and adapted freely. If you build upon this work, attribution to the original author is appreciated but not required.
 
 **Canonical URL**: `https://hl7-ie.github.io/ie-core/fhir/ie/core`  
-**Package**: `hl7.fhir.ie.core`  
+**Package**: `nostalgic-ie.fhir.core` (ADR-008; `hl7.*` is reserved for HL7)  
+**Release name**: Nostalgic IE (0.2.0)  
 **Version**: 0.2.0 (draft, aligned with the HIQA draft national standards, Sept 2026)  
 **FHIR Version**: R4 (4.0.1)  
 **Status**: Draft (CI Build)
 
-> **Naming provenance:** The package ID `hl7.fhir.ie.core` follows the standard HL7 FHIR package-naming convention `hl7.fhir.<ISO-3166-country-code>.core` used by every national Core IG (e.g. `hl7.fhir.us.core`, `hl7.fhir.au.core`, `hl7.fhir.uk.core`). It is not derived from, and has no relationship to, any third-party domain. The canonical URL above is a **GitHub Pages placeholder** hosted under the `hl7-ie` GitHub organization while this IG remains a Proof of Concept; it will be replaced with an HL7-registered namespace if and when a formal national governance body is established (see [Recommendations for Further National Alignment](#recommendations-for-further-national-alignment) and the [HL7 Registry & Publication Guidance](https://hl7-ie.github.io/ie-core/hl7-registry-guidance.html) page).
+> **Package id:** `nostalgic-ie.fhir.core`. The FHIR package specification reserves the `hl7.` prefix: "HL7 manages all the
+> packages that start with `hl7.`" ([FHIR packages](https://hl7.org/fhir/packages.html)). This proof of concept is not
+> an HL7 publication, so it uses the project code name `nostalgic-ie`, which cannot be mistaken for a national or HL7 package and leaves
+> the `ie.*` and `hl7.fhir.ie.*` names free for a future Irish governing body (ADR-008). The canonical URL above is a
+> **GitHub Pages placeholder** under the `hl7-ie` GitHub organization while this IG remains a proof of concept; it is
+> unchanged by the package id.
 
 [![Build IE Core FHIR IG](https://github.com/hl7-ie/ie-core/actions/workflows/build-ig.yml/badge.svg)](https://github.com/nithinmohantk/ie-core/actions/workflows/build-ig.yml)
 
@@ -50,6 +56,7 @@ clinical use.
 | Independent review and responses | `docs/audit/review-hiqa-2026.md`, `docs/audit/review-hiqa-2026-responses.md` |
 | Consultation feedback (individual submission) | `docs/hiqa-2026/consultation-feedback.md` |
 | Release notes | `docs/release-notes-0.2.0.md` |
+| Publishing on Simplifier.net (package `nostalgic-ie.fhir.core`, ADR-008) | `input/pagecontent/simplifier-publishing.md`; bundle: `python scripts/simplifier/build_bundle.py` |
 
 Checks (all run in CI): `python scripts/hiqa/generate_traceability.py --check`,
 `python scripts/hiqa/check_mapping_against_snapshots.py`, `python scripts/qa/check_ep_data_minimisation.py`,

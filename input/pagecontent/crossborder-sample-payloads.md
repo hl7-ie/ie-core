@@ -154,17 +154,17 @@ Use the [HL7 FHIR Validator](https://github.com/hapifhir/org.hl7.fhir.core/relea
 ```bash
 # Validate a single ePrescription bundle
 java -jar validator_cli.jar IE_to_DE_ePrescription_FHIR.json \
-  -ig hl7.fhir.ie.core#0.1.0 \
+  -ig nostalgic-ie.fhir.core#0.2.0 \
   -version 4.0.1
 
 # Validate all cross-border bundles
 java -jar validator_cli.jar input/examples/IE_to_*_ePrescription_FHIR.json \
-  -ig hl7.fhir.ie.core#0.1.0 \
+  -ig nostalgic-ie.fhir.core#0.2.0 \
   -version 4.0.1
 
 # Validate IPS bundle
 java -jar validator_cli.jar IE_Patient_IPS_FHIR.json \
-  -ig hl7.fhir.ie.core#0.1.0 \
+  -ig nostalgic-ie.fhir.core#0.2.0 \
   -ig hl7.fhir.uv.ips#1.1.0 \
   -version 4.0.1
 ```

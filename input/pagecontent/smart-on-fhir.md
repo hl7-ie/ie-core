@@ -1,10 +1,10 @@
 ### SMART on FHIR Obligations and Capabilities
 
-IE Core implementations **SHOULD** support [SMART App Launch Framework v2.2](http://hl7.org/fhir/smart-app-launch/2.2.0/) for authorization and authentication. This enables third-party applications to securely access patient data with appropriate consent. It also aligns with the SMART on FHIR conformance approach adopted by the HL7 Europe Health Data API IG for EHDS/XT-EHR data access.
+IE Core implementations **SHOULD** support [SMART App Launch Framework v2.2](http://hl7.org/fhir/smart-app-launch/STU2.2/) for authorization and authentication. This enables third-party applications to securely access patient data with appropriate consent. It also aligns with the SMART on FHIR conformance approach adopted by the HL7 Europe Health Data API IG for EHDS/XT-EHR data access.
 
 ### Authorization Scopes
 
-IE Core defines the following recommended authorization scopes using the **v2 granular scope syntax** (`.rs`/`.cruds`) defined by [SMART App Launch v2.2](http://hl7.org/fhir/smart-app-launch/2.2.0/scopes-and-launch-context.html#quick-start). Legacy v1 scopes (`.read`/`.write`) **SHOULD NOT** be used for new implementations. The v1 scope syntax is deprecated by SMART App Launch v2 and is being retired across 2026-era national Core IGs (e.g. US Core, AU Core):
+IE Core defines the following recommended authorization scopes using the **v2 granular scope syntax** (`.rs`/`.cruds`) defined by [SMART App Launch v2.2](http://hl7.org/fhir/smart-app-launch/STU2.2/scopes-and-launch-context.html#quick-start). Legacy v1 scopes (`.read`/`.write`) **SHOULD NOT** be used for new implementations. The v1 scope syntax is deprecated by SMART App Launch v2 and is being retired across 2026-era national Core IGs (e.g. US Core, AU Core):
 
 | Scope | Description |
 |-------|-------------|
@@ -23,7 +23,7 @@ IE Core defines the following recommended authorization scopes using the **v2 gr
 | `patient/Goal.rs` | Read and search access to clinical goals |
 | `patient/Coverage.rs` | Read and search access to insurance coverage |
 
-For fine-grained data segmentation (e.g. restricting access to sensitive categories under GDPR Article 9), servers **MAY** additionally support [SMART v2 search-parameter-scoped scopes](http://hl7.org/fhir/smart-app-launch/2.2.0/scopes-and-launch-context.html#finer-grained-resource-constraints) (e.g. `patient/Observation.rs?category=vital-signs`).
+For fine-grained data segmentation (e.g. restricting access to sensitive categories under GDPR Article 9), servers **MAY** additionally support [SMART v2 search-parameter-scoped scopes](http://hl7.org/fhir/smart-app-launch/STU2.2/scopes-and-launch-context.html#finer-grained-resource-constraints) (e.g. `patient/Observation.rs?category=vital-signs`).
 
 ### Server Obligations
 

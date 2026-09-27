@@ -57,7 +57,7 @@ Description: "Profile for hospital discharge reports in the Irish healthcare sys
 
 // ── Course of encounter (mandatory, diagnoses + procedures + pharmacotherapy + test results)
 // Per Xt-EHR v1.0.0 this section is the primary clinical narrative of the admission.
-* section[courseOfEncounter].code = $LOINC#8648-8 "Hospital course"
+* section[courseOfEncounter].code = $LOINC#8648-8 "Hospital course note"
 * section[courseOfEncounter].text MS
 * section[courseOfEncounter].entry MS
 * section[courseOfEncounter] ^short = "Course of encounter — diagnoses, procedures, medications, and key results (mandatory)"
@@ -110,7 +110,7 @@ Description: "Profile for hospital discharge reports in the Irish healthcare sys
 * section[patientHistory] ^definition = "Past problems, relevant prior procedures, and devices/implants from the patient's history that are important for continuity of care. Corresponds to EHDSDischargeReport.body.patientHistory in Xt-EHR v1.0.0."
 
 // ── Discharge details (optional) ──────────────────────────────────────────
-* section[dischargeDetails].code = $LOINC#8648-8 "Hospital discharge note"
+* section[dischargeDetails].code = $LOINC#8650-4 "Hospital discharge disposition note"
 * section[dischargeDetails].text MS
 * section[dischargeDetails].entry MS
 * section[dischargeDetails].entry only Reference(IECoreObservationClinicalResult or IECoreSimpleObservation)
@@ -118,7 +118,7 @@ Description: "Profile for hospital discharge reports in the Irish healthcare sys
 * section[dischargeDetails] ^definition = "Objective findings and functional status at the time of discharge. Corresponds to EHDSDischargeReport.body.dischargeDetails in Xt-EHR v1.0.0."
 
 // ── Alerts (optional, EHDSAlert → IECoreFlag) ─────────────────────────────
-* section[alerts].code = $LOINC#104605-1 "Alerts"
+* section[alerts].code = $LOINC#104605-1 "Alert"
 * section[alerts].text MS
 * section[alerts].entry MS
 * section[alerts].entry only Reference(IECoreFlag or IECoreAllergyIntolerance)
@@ -128,7 +128,7 @@ Description: "Profile for hospital discharge reports in the Irish healthcare sys
 // ── Medication summary at discharge (optional, EHDSMedicationUse) ─────────
 // NOTE: EHDSMedicationUse maps to MedicationStatement in FHIR R4.
 // When IECoreMedicationStatement is published, update the reference below.
-* section[medicationSummary].code = $LOINC#75311-1 "Discharge medications"
+* section[medicationSummary].code = $LOINC#75311-1 "Discharge medications note"
 * section[medicationSummary].text MS
 * section[medicationSummary].entry MS
 * section[medicationSummary].entry only Reference(IECoreMedicationStatement or IECoreMedicationRequestEPrescription or IECoreMedicationRequest)

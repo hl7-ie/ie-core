@@ -2,7 +2,7 @@
 
 This page documents changes to the IE Core Implementation Guide.
 
-### Version 0.2.0 (draft, 24 September 2026): HIQA draft national standards (Sept 2026)
+### Version 0.2.0 "Nostalgic IE" (draft, 24 September 2026): HIQA draft national standards (Sept 2026)
 
 Aligns IE Core with the HIQA *Draft National Standard for Electronic Prescriptions and Electronic
 Dispensations* and the *Draft National Standard for a Patient Summary* (both public consultation
@@ -13,6 +13,14 @@ Release notes: `docs/release-notes-0.2.0.md`. Consultation feedback prepared fro
 `docs/hiqa-2026/consultation-feedback.md`. Not tagged or published.
 
 #### BREAKING
+
+- **Package id `nostalgic-ie.fhir.core` (ADR-008).** The FHIR package specification reserves `hl7.*` for HL7, so
+  this proof of concept cannot publish `hl7.fhir.ie.core`; it uses the project code name `nostalgic-ie`. Releases get
+  code names: 0.2.0 is "Nostalgic IE". The canonical URL is unchanged. The R5 track becomes
+  `nostalgic-ie.fhir.core.r5`. A Simplifier.net bundle is built in CI (see [Publishing on Simplifier.net](simplifier-publishing.html)).
+- **Discharge report section code.** `dischargeDetails` used LOINC 8648-8 (*Hospital course note*), the same code as
+  the hospital-course section. It now uses 8650-4 (*Hospital discharge disposition note*), as HL7 Europe HDR does
+  (verified on tx.fhir.org).
 
 - **Context-specific patient profiles (ADR-002).** `IECorePatient` is now a permissive base:
   ethnicity, mother's maiden name, pronouns and interpreter-required are no longer MustSupport.
@@ -82,6 +90,11 @@ Release notes: `docs/release-notes-0.2.0.md`. Consultation feedback prepared fro
 
 #### Changed
 
+- IG Publisher QA (first run in CI): the "Operations" menu entry pointed to a section that does not exist (2,354
+  broken links); `hl7.fhir.eu.extensions` (an R5 package) replaced by `hl7.fhir.eu.extensions.r4`; SMART App Launch
+  2.2.0 declared as a dependency for the SMART page's links; the invalid `show-hierarchical-table` parameter and
+  outdated LOINC / IE code displays fixed; `input/ignoreWarnings.txt` added. The age-at-prescribing units are
+  checked by invariant `ie-age-units-1` (the terminology server could not expand UCUM in the Publisher).
 - New pages: [HIQA 2026 Alignment](hiqa-2026-alignment.html), [Data Minimisation](data-minimisation.html) and
   [Open Issues](open-issues.html) (generated from `docs/hiqa-2026/open-issues.md`), in a new HIQA 2026 menu.
 - The home page opens with an INFO notice (HIQA consultation drafts) and a WARNING (proof of concept, not for clinical
