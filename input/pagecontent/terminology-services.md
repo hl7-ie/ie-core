@@ -169,10 +169,26 @@ Authorization: ******
 }
 ```
 
-> **Note on existing examples**: some IE Core examples use placeholder NMPC codes (e.g., `NMPC-MET500TAB`) from the
-> code system `IECoreNMPCPlaceholder`, which is explicitly **not** the NMPC (OI-018). Real implementations must use
-> SNOMED CT Irish Edition concept IDs from the CTS (`system` `http://snomed.info/sct`, `version`
-> `http://snomed.info/sct/1601000220105`).
+> **Examples use real NMPC codes.** Every medicinal product in the IE Core examples carries its NMPC VMP code: a
+> SNOMED CT Irish Edition concept (`system` `http://snomed.info/sct`, `version` `http://snomed.info/sct/1601000220105`),
+> for example `718271000220105` *Metformin hydrochloride 500 mg oral tablet*. Each was checked in the NMPC Meds
+> Catalogue (base publication 21 September 2026) and is recorded in `docs/hiqa-2026/nmpc-verification.csv`.
+
+### Checking Irish codes
+
+Two public, authoritative places show Irish content:
+
+| Source | What it shows | Use it to check |
+|---|---|---|
+| [NMPC Meds Catalogue](https://nmpc.hse.ie/browser) (HSE) | The six NMPC levels (VTM, ATM, VMP, AMP, VMPP, AMPP) with their NMPC codes, active ingredients, pack sizes and shortages; search by name, code, ingredient, PCRS code or supplier | An NMPC code and its exact name |
+| [SNOMED International browser](https://snomedbrowser.org) (`snomed.org/browser`) | Member-country editions, including the Irish Edition (`MAIN/SNOMEDCT-IE`, release 2026-09-21) | Any Irish Edition concept, including Irish Extension concepts and refsets |
+{:.grid}
+
+NMPC codes are SNOMED CT concept IDs: NMPC VMP, AMP, VMPP and AMPP codes are Irish Extension concepts (their SCTID
+carries the Irish namespace `1000220`, e.g. `716141000220105`), while NMPC VTMs can be International concepts (e.g.
+`776338003` *Insulin aspart*). Both browsers are for reference use; neither offers an open API, so automated
+validation still needs the HSE CTS (OI-022). `scripts/terminology/verify_codes.py` checks Irish Extension codes
+against the catalogue-verified list instead of tx.fhir.org.
 
 ---
 

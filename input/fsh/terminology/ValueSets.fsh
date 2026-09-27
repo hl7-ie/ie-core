@@ -185,7 +185,6 @@ Title: "IE Core Medication Codes"
 Description: "Medication codes for the Irish healthcare system. NMPC (via the SNOMED CT Irish Edition hosted on the HSE Central Terminology Server) is the preferred primary medication code wherever available. SNOMED CT Irish Edition is the preferred secondary clinical terminology wherever available, and ATC (WHO) codes are included for international classification and EU cross-border interoperability (EHDS/MyHealth@EU). Query the HSE CTS with system http://snomed.info/sct and version http://snomed.info/sct/1601000220105 (the SNOMED CT Irish Edition) for real medication codes."
 * ^experimental = false
 * include codes from system $SCT|http://snomed.info/sct/1601000220105 where concept is-a #373873005 "Pharmaceutical / biologic product (product)"
-* include codes from system $NMPC
 * include codes from system $ATC
 
 // ============================================================================

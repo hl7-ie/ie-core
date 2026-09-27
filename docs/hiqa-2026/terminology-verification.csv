@@ -128,6 +128,9 @@ http://snomed.info/sct,225928004,Patient self-discharge against medical advice,y
 http://snomed.info/sct,228276006,Occasional drinker,yes,Occasional drinker,False,ValueSets.fsh
 http://snomed.info/sct,228277002,Light drinker,yes,Light drinker,False,ValueSets.fsh
 http://snomed.info/sct,228278007,Fairly heavy drinker,yes,Fairly heavy drinker,False,ValueSets.fsh
+http://snomed.info/sct,254311000220102,Atorvastatin 20 mg oral tablet,yes,Atorvastatin 20 mg oral tablet,,MedicationExamples.fsh
+http://snomed.info/sct,254331000220107,Atorvastatin 40 mg oral tablet,yes,Atorvastatin 40 mg oral tablet,,CrossBorderExamples.fsh
+http://snomed.info/sct,254341000220103,Atorvastatin 80 mg oral tablet,yes,Atorvastatin 80 mg oral tablet,,CrossBorderExamples.fsh
 http://snomed.info/sct,257622000,Healthcare facility,yes,Healthcare facility,False,ValueSets.fsh
 http://snomed.info/sct,261665006,Unknown,yes,Unknown,False,ValueSets.fsh
 http://snomed.info/sct,264372000,Pharmacy,yes,Pharmacy,False,ValueSets.fsh
@@ -135,6 +138,8 @@ http://snomed.info/sct,26643006,Oral route,yes,Oral route,False,CrossBorderExamp
 http://snomed.info/sct,266710000,Drugs not taken/completed,yes,Drugs not taken/completed,False,ValueSets.fsh
 http://snomed.info/sct,266919005,Never smoked tobacco,yes,Never smoked tobacco,False,ValueSets.fsh
 http://snomed.info/sct,266927001,Tobacco smoking consumption unknown,yes,Tobacco smoking consumption unknown,False,ValueSets.fsh
+http://snomed.info/sct,267451000220105,Amlodipine 5 mg oral tablet,yes,Amlodipine 5 mg oral tablet,,MedicationExamples.fsh
+http://snomed.info/sct,268301000220104,Sertraline 50 mg oral tablet,yes,Sertraline 50 mg oral tablet,,CrossBorderExamples.fsh
 http://snomed.info/sct,270427003,Patient-initiated encounter,yes,Patient-initiated encounter,False,ValueSets.fsh
 http://snomed.info/sct,275928001,Drugs - partial non-compliance,yes,Drugs - partial non-compliance,False,ValueSets.fsh
 http://snomed.info/sct,281036007,Follow-up consultation,yes,Follow-up consultation,False,ValueSets.fsh
@@ -148,6 +153,7 @@ http://snomed.info/sct,307988006,Medical technician,yes,Medical technician,False
 http://snomed.info/sct,309343006,Physician,yes,Physician,False,Examples.fsh;ValueSets.fsh
 http://snomed.info/sct,309898008,Psychogeriatric day hospital,yes,Psychogeriatric day hospital,False,ValueSets.fsh
 http://snomed.info/sct,3110003,Acute otitis media,yes,Acute otitis media,False,HIQAScenarios.fsh
+http://snomed.info/sct,313941000220100,Omeprazole 20 mg gastro-resistant oral capsule,yes,Omeprazole 20 mg gastro-resistant oral capsule,,CrossBorderExamples.fsh
 http://snomed.info/sct,317291008,Omeprazole 20 mg oral capsule,yes,Omeprazole 20 mg oral capsule,False,CrossBorderExamples.fsh
 http://snomed.info/sct,323510009,Amoxicillin 500 mg oral capsule,yes,Amoxicillin 500 mg oral capsule,False,HIQAScenarios.fsh
 http://snomed.info/sct,325072002,Insulin aspart,yes,Insulin aspart,False,CrossBorderExamples.fsh
@@ -155,6 +161,7 @@ http://snomed.info/sct,33791000087105,Identifies as nonbinary gender,yes,Identif
 http://snomed.info/sct,34206005,Subcutaneous route,yes,Subcutaneous route,False,CrossBorderExamples.fsh
 http://snomed.info/sct,3457005,Patient referral,yes,Patient referral,False,ValueSets.fsh
 http://snomed.info/sct,35489007,Depressive disorder,yes,Depressive disorder,False,CrossBorderExamples.fsh
+http://snomed.info/sct,363291000220101,Salbutamol 100 microgram/actuation pressurised suspension for inhalation,yes,Salbutamol 100 microgram/actuation pressurised suspension for inhalation,,HIQAScenarios.fsh
 http://snomed.info/sct,363679005,Imaging,yes,Imaging,False,ValueSets.fsh
 http://snomed.info/sct,36682004,Physiotherapist,yes,Physiotherapist,False,ValueSets.fsh
 http://snomed.info/sct,368208006,Left upper arm structure,yes,Left upper arm structure,False,Examples.fsh
@@ -199,14 +206,24 @@ http://snomed.info/sct,446151000124109,Identifies as male gender,yes,Identifies 
 http://snomed.info/sct,447694001,Respiratory tract route,yes,Respiratory tract route,False,HIQAScenarios.fsh
 http://snomed.info/sct,449868002,Smokes tobacco daily,yes,Smokes tobacco daily,False,ValueSets.fsh
 http://snomed.info/sct,46255001,Pharmacist,yes,Pharmacist,False,MedicationExamples.fsh;ValueSets.fsh
+http://snomed.info/sct,462991000220107,Amoxicillin 250 mg/5 mL powder for oral suspension,yes,Amoxicillin 250 mg/5 mL powder for oral suspension,,HIQAScenarios.fsh
 http://snomed.info/sct,49436004,Atrial fibrillation,yes,Atrial fibrillation,False,CrossBorderExamples.fsh
 http://snomed.info/sct,50849002,Emergency room admission,yes,Emergency room admission,False,ValueSets.fsh
+http://snomed.info/sct,525351000220105,Insulin aspart 100 units/1 mL solution for injection 3 mL cartridge,yes,Insulin aspart 100 units/1 mL solution for injection 3 mL cartridge,,CrossBorderExamples.fsh
+http://snomed.info/sct,529881000220106,Insulin glargine 100 units/1 mL solution for injection 3 mL pre-filled pen,yes,Insulin glargine 100 units/1 mL solution for injection 3 mL pre-filled pen,,CrossBorderExamples.fsh
 http://snomed.info/sct,55822004,Hyperlipidemia,yes,Hyperlipidemia,False,MedicationExamples.fsh
 http://snomed.info/sct,58000006,"Patient discharge, alive",yes,Patient discharge,False,ValueSets.fsh
 http://snomed.info/sct,60001007,Not pregnant,yes,Not pregnant,False,ValueSets.fsh
 http://snomed.info/sct,62247001,General practitioner,yes,Family medicine specialist,False,CrossBorderExamples.fsh;Examples.fsh;MedicationExamples.fsh
 http://snomed.info/sct,6736007,Moderate severity,yes,Moderate severity,False,CrossBorderExamples.fsh
 http://snomed.info/sct,702871004,Infertility clinic,yes,Infertility clinic,False,ValueSets.fsh
+http://snomed.info/sct,714701000220101,Lisinopril 10 mg oral tablet,yes,Lisinopril 10 mg oral tablet,,CrossBorderExamples.fsh
+http://snomed.info/sct,716141000220105,Amoxicillin 500 mg oral capsule,yes,Amoxicillin 500 mg oral capsule,,HIQAScenarios.fsh
+http://snomed.info/sct,716371000220101,Ramipril 5 mg oral capsule,yes,Ramipril 5 mg oral capsule,,MedicationExamples.fsh
+http://snomed.info/sct,718271000220105,Metformin hydrochloride 500 mg oral tablet,yes,Metformin hydrochloride 500 mg oral tablet,,CrossBorderExamples.fsh;Examples.fsh;MedicationExamples.fsh
+http://snomed.info/sct,718731000220101,Warfarin sodium 5 mg oral tablet,yes,Warfarin sodium 5 mg oral tablet,,CrossBorderExamples.fsh
+http://snomed.info/sct,720061000220100,Ramipril 10 mg oral capsule,yes,Ramipril 10 mg oral capsule,,CrossBorderExamples.fsh
+http://snomed.info/sct,720411000220105,Oxycodone hydrochloride 10 mg prolonged-release oral tablet,yes,Oxycodone hydrochloride 10 mg prolonged-release oral tablet,,HIQAScenarios.fsh
 http://snomed.info/sct,735128000,Ex-smoker for less than 1 year,yes,Ex-smoker for less than 1 year,False,ValueSets.fsh
 http://snomed.info/sct,764146007,Penicillin,yes,Penicillin,False,Examples.fsh
 http://snomed.info/sct,765706002,Oxycodone hydrochloride 10 mg prolonged-release oral tablet,yes,Oxycodone hydrochloride 10 mg prolonged-release oral tablet,False,HIQAScenarios.fsh

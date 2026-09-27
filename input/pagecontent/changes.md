@@ -90,6 +90,12 @@ Release notes: `docs/release-notes-0.2.0.md`. Consultation feedback prepared fro
 
 #### Changed
 
+- **Real NMPC codes (SNOMED CT Irish Edition).** The examples' placeholder `NMPC-…` codes are replaced by NMPC VMP codes
+  checked in the public [NMPC Meds Catalogue](https://nmpc.hse.ie/browser) (e.g. `718271000220105` *Metformin
+  hydrochloride 500 mg oral tablet*), coded `system` `http://snomed.info/sct`, `version`
+  `http://snomed.info/sct/1601000220105`; the HIQA scenario medicines gain their NMPC codes. The placeholder code system
+  `IECoreNMPCPlaceholder` is removed (ADR-007 addendum). The Terminology Services page names the NMPC catalogue and the
+  SNOMED International browser as the public places to check Irish codes.
 - IG Publisher QA (first run in CI): the "Operations" menu entry pointed to a section that does not exist (2,354
   broken links); `hl7.fhir.eu.extensions` (an R5 package) replaced by `hl7.fhir.eu.extensions.r4`; SMART App Launch
   2.2.0 declared as a dependency for the SMART page's links; the invalid `show-hierarchical-table` parameter and
