@@ -56,3 +56,14 @@ The audit also found:
 - Result: 277 external codes verified, 0 not found or inactive; 0 dangling bindings.
 - Some ValueSets outside the HIQA scope are now thin (e.g. pregnancy intent has only *Unknown*).
   They are flagged for a terminology review rather than padded with guessed codes.
+
+## Addendum (27 September 2026): real NMPC codes
+
+The NMPC Meds Catalogue (https://nmpc.hse.ie/browser) is public and shows NMPC codes, which are SNOMED CT Irish
+Extension concept IDs. The 13 `IECoreNMPCPlaceholder` codes are replaced by the matching NMPC VMP codes, and the four
+HIQA scenario medicines gain theirs, all coded `system` `http://snomed.info/sct` with `version`
+`http://snomed.info/sct/1601000220105`. Each code and name was checked in the catalogue (base publication 21 September
+2026) and recorded in `docs/hiqa-2026/nmpc-verification.csv`, which `verify_codes.py` uses for Irish Extension codes
+(tx.fhir.org does not host the Irish Edition). The placeholder code system and the `$NMPC` alias are removed. Two
+examples changed container to match an NMPC VMP: insulin aspart is a 3 mL cartridge, insulin glargine a 3 mL
+pre-filled pen.

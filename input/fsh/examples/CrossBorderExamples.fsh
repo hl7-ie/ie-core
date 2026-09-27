@@ -233,11 +233,12 @@ Instance: ie-medication-lisinopril-10
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Lisinopril 10mg Tablets (ATC: C09AA03)"
-Description: "Lisinopril 10mg tablets, ACE inhibitor for hypertension. NMPC is primary, SNOMED CT is secondary, and ATC code C09AA03 is included for classification."
+Description: "Lisinopril 10mg tablets, ACE inhibitor for hypertension. The NMPC VMP code (SNOMED CT Irish Edition) is primary, the International SNOMED CT substance is secondary, and ATC code C09AA03 is included for classification."
 
-* code.coding[0].system = $NMPC
-* code.coding[=].code = #NMPC-LIS10TAB
-* code.coding[=].display = "Lisinopril 10mg tablets"
+* code.coding[0].system = $SCT
+* code.coding[=].version = "http://snomed.info/sct/1601000220105"
+* code.coding[=].code = #714701000220101
+* code.coding[=].display = "Lisinopril 10 mg oral tablet"
 * code.coding[+].system = $SCT
 * code.coding[=].code = #386873009
 * code.coding[=].display = "Lisinopril"
@@ -258,11 +259,12 @@ Instance: ie-medication-warfarin-5
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Warfarin 5mg Tablets (ATC: B01AA03)"
-Description: "Warfarin sodium 5mg tablets, anticoagulant. NMPC is primary, SNOMED CT is secondary, and ATC code B01AA03 is included for classification. Requires INR monitoring."
+Description: "Warfarin sodium 5mg tablets, anticoagulant. The NMPC VMP code (SNOMED CT Irish Edition) is primary, the International SNOMED CT substance is secondary, and ATC code B01AA03 is included for classification. Requires INR monitoring."
 
-* code.coding[0].system = $NMPC
-* code.coding[=].code = #NMPC-WAR5TAB
-* code.coding[=].display = "Warfarin 5mg tablets"
+* code.coding[0].system = $SCT
+* code.coding[=].version = "http://snomed.info/sct/1601000220105"
+* code.coding[=].code = #718731000220101
+* code.coding[=].display = "Warfarin sodium 5 mg oral tablet"
 * code.coding[+].system = $SCT
 * code.coding[=].code = #372756006
 * code.coding[=].display = "Warfarin"
@@ -283,20 +285,21 @@ Instance: ie-medication-insulin-glargine
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Insulin Glargine 100u/ml Injection (ATC: A10AE04)"
-Description: "Insulin glargine 100 units/ml solution for injection, long-acting basal insulin. NMPC is primary, SNOMED CT is secondary, and ATC code A10AE04 is included for classification."
+Description: "Insulin glargine 100 units/ml solution for injection, long-acting basal insulin. The NMPC VMP code (SNOMED CT Irish Edition) is primary, the International SNOMED CT substance is secondary, and ATC code A10AE04 is included for classification."
 
-* code.coding[0].system = $NMPC
-* code.coding[=].code = #NMPC-INSGLAR100
-* code.coding[=].display = "Insulin glargine 100 units/ml solution for injection"
+* code.coding[0].system = $SCT
+* code.coding[=].version = "http://snomed.info/sct/1601000220105"
+* code.coding[=].code = #529881000220106
+* code.coding[=].display = "Insulin glargine 100 units/1 mL solution for injection 3 mL pre-filled pen"
 * code.coding[+].system = $SCT
 * code.coding[=].code = #411529005
 * code.coding[=].display = "Insulin glargine"
 * code.coding[+].system = $ATC
 * code.coding[=].code = #A10AE04
 * code.coding[=].display = "Insulin glargine"
-* code.text = "Insulin Glargine 100u/ml solution for injection"
+* code.text = "Insulin glargine 100 units/mL solution for injection 3 mL pre-filled pen"
 * form = $SCT#385219001 "Solution for injection"
-* amount.numerator = 5 '{cartridge}' "cartridges"
+* amount.numerator = 5 '{pen}' "pre-filled pens"
 * amount.denominator = 1 '{pack}' "pack"
 * ingredient[0].itemCodeableConcept = $SCT#411529005 "Insulin glargine"
 * ingredient[=].isActive = true
@@ -308,18 +311,19 @@ Instance: ie-medication-insulin-aspart
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Insulin Aspart 100u/ml Injection (ATC: A10AB05)"
-Description: "Insulin aspart 100 units/ml solution for injection, rapid-acting insulin. NMPC is primary, SNOMED CT is secondary, and ATC code A10AB05 is included for classification."
+Description: "Insulin aspart 100 units/ml solution for injection, rapid-acting insulin. The NMPC VMP code (SNOMED CT Irish Edition) is primary, the International SNOMED CT substance is secondary, and ATC code A10AB05 is included for classification."
 
-* code.coding[0].system = $NMPC
-* code.coding[=].code = #NMPC-INSASP100
-* code.coding[=].display = "Insulin aspart 100 units/ml solution for injection"
+* code.coding[0].system = $SCT
+* code.coding[=].version = "http://snomed.info/sct/1601000220105"
+* code.coding[=].code = #525351000220105
+* code.coding[=].display = "Insulin aspart 100 units/1 mL solution for injection 3 mL cartridge"
 * code.coding[+].system = $SCT
 * code.coding[=].code = #325072002
 * code.coding[=].display = "Insulin aspart"
 * code.coding[+].system = $ATC
 * code.coding[=].code = #A10AB05
 * code.coding[=].display = "Insulin aspart"
-* code.text = "Insulin Aspart 100u/ml solution for injection"
+* code.text = "Insulin aspart 100 units/mL solution for injection 3 mL cartridge"
 * form = $SCT#385219001 "Solution for injection"
 * amount.numerator = 5 '{cartridge}' "cartridges"
 * amount.denominator = 1 '{pack}' "pack"
@@ -333,11 +337,12 @@ Instance: ie-medication-sertraline-50
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Sertraline 50mg Tablets (ATC: N06AB06)"
-Description: "Sertraline hydrochloride 50mg tablets, SSRI antidepressant. NMPC is primary, SNOMED CT is secondary, and ATC code N06AB06 is included for classification."
+Description: "Sertraline hydrochloride 50mg tablets, SSRI antidepressant. The NMPC VMP code (SNOMED CT Irish Edition) is primary, the International SNOMED CT substance is secondary, and ATC code N06AB06 is included for classification."
 
-* code.coding[0].system = $NMPC
-* code.coding[=].code = #NMPC-SER50TAB
-* code.coding[=].display = "Sertraline 50mg tablets"
+* code.coding[0].system = $SCT
+* code.coding[=].version = "http://snomed.info/sct/1601000220105"
+* code.coding[=].code = #268301000220104
+* code.coding[=].display = "Sertraline 50 mg oral tablet"
 * code.coding[+].system = $SCT
 * code.coding[=].code = #372594008
 * code.coding[=].display = "Sertraline"
@@ -358,11 +363,12 @@ Instance: ie-medication-omeprazole-20
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Omeprazole 20mg Capsules (ATC: A02BC01)"
-Description: "Omeprazole 20mg gastro-resistant capsules, proton pump inhibitor. NMPC is primary, SNOMED CT is secondary, and ATC code A02BC01 is included for classification."
+Description: "Omeprazole 20mg gastro-resistant capsules, proton pump inhibitor. The NMPC VMP code (SNOMED CT Irish Edition) is primary, the International SNOMED CT substance is secondary, and ATC code A02BC01 is included for classification."
 
-* code.coding[0].system = $NMPC
-* code.coding[=].code = #NMPC-OME20CAP
-* code.coding[=].display = "Omeprazole 20mg gastro-resistant capsules"
+* code.coding[0].system = $SCT
+* code.coding[=].version = "http://snomed.info/sct/1601000220105"
+* code.coding[=].code = #313941000220100
+* code.coding[=].display = "Omeprazole 20 mg gastro-resistant oral capsule"
 * code.coding[+].system = $SCT
 * code.coding[=].code = #317291008
 * code.coding[=].display = "Omeprazole 20 mg oral capsule"
@@ -383,11 +389,12 @@ Instance: ie-medication-atorvastatin-80
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Atorvastatin 80mg Tablets (ATC: C10AA05)"
-Description: "Atorvastatin 80mg film-coated tablets (high-intensity statin). NMPC is primary, SNOMED CT is secondary, and ATC code C10AA05 is included for classification."
+Description: "Atorvastatin 80mg film-coated tablets (high-intensity statin). The NMPC VMP code (SNOMED CT Irish Edition) is primary, the International SNOMED CT substance is secondary, and ATC code C10AA05 is included for classification."
 
-* code.coding[0].system = $NMPC
-* code.coding[=].code = #NMPC-ATV80TAB
-* code.coding[=].display = "Atorvastatin 80mg tablets"
+* code.coding[0].system = $SCT
+* code.coding[=].version = "http://snomed.info/sct/1601000220105"
+* code.coding[=].code = #254341000220103
+* code.coding[=].display = "Atorvastatin 80 mg oral tablet"
 * code.coding[+].system = $SCT
 * code.coding[=].code = #373444002
 * code.coding[=].display = "Atorvastatin"
@@ -408,11 +415,12 @@ Instance: ie-medication-ramipril-10
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Ramipril 10mg Capsules (ATC: C09AA05)"
-Description: "Ramipril 10mg capsules, ACE inhibitor. NMPC is primary, SNOMED CT is secondary, and ATC code C09AA05 is included for classification."
+Description: "Ramipril 10mg capsules, ACE inhibitor. The NMPC VMP code (SNOMED CT Irish Edition) is primary, the International SNOMED CT substance is secondary, and ATC code C09AA05 is included for classification."
 
-* code.coding[0].system = $NMPC
-* code.coding[=].code = #NMPC-RAM10CAP
-* code.coding[=].display = "Ramipril 10mg capsules"
+* code.coding[0].system = $SCT
+* code.coding[=].version = "http://snomed.info/sct/1601000220105"
+* code.coding[=].code = #720061000220100
+* code.coding[=].display = "Ramipril 10 mg oral capsule"
 * code.coding[+].system = $SCT
 * code.coding[=].code = #386872004
 * code.coding[=].display = "Ramipril"
@@ -1135,7 +1143,8 @@ InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Metformin 500mg Filmtabletten (Ratiopharm) (as dispensed)"
 Description: "The product actually dispensed in ie-dispense-de-metformin. HL7 Europe MPD requires a dispense to reference a Medication resource."
-* code = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
+* code = $SCT#718271000220105 "Metformin hydrochloride 500 mg oral tablet"
+* code.coding[0].version = "http://snomed.info/sct/1601000220105"
 * code.text = "Metformin 500mg Filmtabletten (Ratiopharm)"
 * ingredient[0].itemCodeableConcept = $SCT#372567009 "Metformin"
 * ingredient[=].isActive = true
@@ -1146,7 +1155,8 @@ InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Lisinopril 10mg Tabletten (Hexal) (as dispensed)"
 Description: "The product actually dispensed in ie-dispense-de-lisinopril. HL7 Europe MPD requires a dispense to reference a Medication resource."
-* code = $NMPC#NMPC-LIS10TAB "Lisinopril 10mg tablets"
+* code = $SCT#714701000220101 "Lisinopril 10 mg oral tablet"
+* code.coding[0].version = "http://snomed.info/sct/1601000220105"
 * code.text = "Lisinopril 10mg Tabletten (Hexal)"
 * ingredient[0].itemCodeableConcept = $SCT#386873009 "Lisinopril"
 * ingredient[=].isActive = true
@@ -1157,7 +1167,8 @@ InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Metformins 500mg tabletes (as dispensed)"
 Description: "The product actually dispensed in ie-dispense-lv-metformin. HL7 Europe MPD requires a dispense to reference a Medication resource."
-* code = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
+* code = $SCT#718271000220105 "Metformin hydrochloride 500 mg oral tablet"
+* code.coding[0].version = "http://snomed.info/sct/1601000220105"
 * code.text = "Metformins 500mg tabletes"
 * ingredient[0].itemCodeableConcept = $SCT#372567009 "Metformin"
 * ingredient[=].isActive = true
@@ -1168,7 +1179,8 @@ InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Sertralina 50mg Comprimidos (as dispensed)"
 Description: "The product actually dispensed in ie-dispense-pt-sertraline. HL7 Europe MPD requires a dispense to reference a Medication resource."
-* code = $NMPC#NMPC-SER50TAB "Sertraline 50mg tablets"
+* code = $SCT#268301000220104 "Sertraline 50 mg oral tablet"
+* code.coding[0].version = "http://snomed.info/sct/1601000220105"
 * code.text = "Sertralina 50mg Comprimidos"
 * ingredient[0].itemCodeableConcept = $SCT#372594008 "Sertraline"
 * ingredient[=].isActive = true
@@ -1179,7 +1191,8 @@ InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Metformin 500mg tablets (as dispensed)"
 Description: "The product actually dispensed in ie-dispense-fi-to-ie-neps. HL7 Europe MPD requires a dispense to reference a Medication resource."
-* code = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
+* code = $SCT#718271000220105 "Metformin hydrochloride 500 mg oral tablet"
+* code.coding[0].version = "http://snomed.info/sct/1601000220105"
 * code.text = "Metformin 500mg tablets"
 * ingredient[0].itemCodeableConcept = $SCT#372567009 "Metformin"
 * ingredient[=].isActive = true
@@ -1190,7 +1203,8 @@ InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Atorvastatin 40mg tablets (as dispensed)"
 Description: "The product actually dispensed in ie-dispense-be-to-ie-neps. HL7 Europe MPD requires a dispense to reference a Medication resource."
-* code = $NMPC#NMPC-ATV40TAB "Atorvastatin 40mg tablets"
+* code = $SCT#254331000220107 "Atorvastatin 40 mg oral tablet"
+* code.coding[0].version = "http://snomed.info/sct/1601000220105"
 * code.text = "Atorvastatin 40mg tablets"
 * ingredient[0].itemCodeableConcept = $SCT#373444002 "Atorvastatin"
 * ingredient[=].isActive = true
@@ -1200,8 +1214,9 @@ Instance: ie-medication-atorvastatin-40
 InstanceOf: IECoreMedicationEPrescription
 Usage: #example
 Title: "Medication – Atorvastatin 40mg tablets"
-Description: "The product prescribed in ie-rx-be-atorvastatin-neps. The NMPC code is an illustrative placeholder (IECoreNMPCPlaceholder, OI-018)."
-* code = $NMPC#NMPC-ATV40TAB "Atorvastatin 40mg tablets"
+Description: "The product prescribed in ie-rx-be-atorvastatin-neps. The NMPC code is the NMPC VMP (SNOMED CT Irish Edition), verified in the NMPC Meds Catalogue."
+* code = $SCT#254331000220107 "Atorvastatin 40 mg oral tablet"
+* code.coding[0].version = "http://snomed.info/sct/1601000220105"
 * code.coding[+] = $SCT#373444002 "Atorvastatin"
 * code.text = "Atorvastatin 40mg tablets"
 * form = $SCT#385055001 "Tablet"

@@ -27,9 +27,6 @@ Alias: $ATC = http://www.whocc.no/atc
 //   VMP  → AMP  (medicinal product level)
 //   VMPP → AMPP (pack level — dispensable unit)
 //
-// Legacy/local NMPC placeholder (used in illustrative examples; real codes are SNOMED CT concepts):
-// Placeholder code system for illustrative example codes only (NOT the NMPC; OI-018)
-Alias: $NMPC = https://hl7-ie.github.io/ie-core/fhir/ie/core/CodeSystem/ie-core-nmpc-placeholder
 Alias: $V2-0203 = http://terminology.hl7.org/CodeSystem/v2-0203
 Alias: $V3-NullFlavor = http://terminology.hl7.org/CodeSystem/v3-NullFlavor
 Alias: $V3-ActCode = http://terminology.hl7.org/CodeSystem/v3-ActCode

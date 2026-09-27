@@ -364,7 +364,7 @@ sequenceDiagram
 | **Medications dispensed** | Metformin 500mg |
 | **Format** | FHIR (MPD via NePS) |
 | **Status** | ✅ Finnish prescription mapped through NePS |
-| **Code mapping** | Finnish Kela code → Irish NMPC code (`NMPC-MET500TAB`) |
+| **Code mapping** | Finnish product → Irish NMPC VMP `718271000220105` *Metformin hydrochloride 500 mg oral tablet* |
 
 FHIR Example: [FI→IE Dispensation via NePS](Bundle-fi-to-ie-neps-dispensation.html)
 
@@ -380,7 +380,7 @@ FHIR Example: [FI→IE Dispensation via NePS](Bundle-fi-to-ie-neps-dispensation.
 | **Medications dispensed** | Atorvastatin 40mg |
 | **Format** | FHIR (MPD via NePS) |
 | **Status** | ✅ Belgian prescription mapped through NePS |
-| **Code mapping** | Belgian CNPV code → Irish NMPC code (`NMPC-ATV40TAB`) |
+| **Code mapping** | Belgian product → Irish NMPC VMP `254331000220107` *Atorvastatin 40 mg oral tablet* |
 
 FHIR Example: [BE→IE Dispensation via NePS](Bundle-be-to-ie-neps-dispensation.html)
 

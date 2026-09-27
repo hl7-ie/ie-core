@@ -420,7 +420,8 @@ Description: "An example IE Core MedicationRequest representing a prescription f
 * status = #active
 * intent = #order
 
-* medicationCodeableConcept = $NMPC#NMPC-MET500TAB "Metformin hydrochloride 500mg film-coated tablets"
+* medicationCodeableConcept = $SCT#718271000220105 "Metformin hydrochloride 500 mg oral tablet"
+* medicationCodeableConcept.coding[0].version = "http://snomed.info/sct/1601000220105"
 * medicationCodeableConcept.coding[+] = $SCT#372567009 "Metformin"
 * medicationCodeableConcept.text = "Metformin 500mg tablets"
 

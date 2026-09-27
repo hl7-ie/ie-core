@@ -1,5 +1,9 @@
 """Verify every explicit SNOMED CT, LOINC and UCUM code used in the FSH sources against tx.fhir.org.
 
+SNOMED CT Irish Extension codes (namespace 1000220, e.g. NMPC products) are checked against
+docs/hiqa-2026/nmpc-verification.csv (verified in the NMPC Meds Catalogue, https://nmpc.hse.ie/browser),
+because tx.fhir.org does not host the Irish Edition.
+
 Scans input/fsh/**/*.fsh for $SCT#, $LOINC# and $UCUM# codes, looks each one up with $lookup
 (SNOMED CT: International edition; codes from national extensions are reported as not found),
 and writes docs/hiqa-2026/terminology-verification.csv:
@@ -97,7 +101,12 @@ IE_CANONICAL = 'https://hl7-ie.github.io/ie-core/'
 ANY_PAT = re.compile(r'(\$[\w\-]+|https?://[^\s#"]+)#([A-Za-z0-9\-\.\[\]/%{}_]+)(?:\s+"([^"]*)")?')
 
 
+IE_NAMESPACE = re.compile(r'1000220\d{3}$')  # SCTID with the Irish namespace: <item><1000220><partition><check>
+IRISH_VERIFIED = os.path.join(ROOT, 'docs', 'hiqa-2026', 'nmpc-verification.csv')
+
+
 def main():
+    irish_verified = {r['nmpc_code']: r['nmpc_name'] for r in csv.DictReader(open(IRISH_VERIFIED, encoding='utf-8'))}
     aliases = load_aliases()
     for a, url in aliases.items():
         # external code systems only; IE Core's own code systems are validated by SUSHI/the Publisher,
@@ -124,7 +133,12 @@ def main():
             entry['files'].add(rel.split('/')[-1])
     rows = []
     for (system, code), e in sorted(found.items()):
-        ok, disp, inactive = lookup(system, code)
+        if system == SYSTEMS['$SCT'] and IE_NAMESPACE.search(code):
+            # SNOMED CT Irish Extension (namespace 1000220, e.g. NMPC products): tx.fhir.org does not host the Irish
+            # Edition, so these are checked against the codes verified in the NMPC Meds Catalogue.
+            ok, disp, inactive = (code in irish_verified), irish_verified.get(code, ''), ''
+        else:
+            ok, disp, inactive = lookup(system, code)
         rows.append([system, code, e['display'], {True: 'yes', False: 'NO', None: 'error'}[ok], disp, inactive,
                      ';'.join(sorted(e['files']))])
     out = os.path.join(ROOT, 'docs', 'hiqa-2026', 'terminology-verification.csv')
