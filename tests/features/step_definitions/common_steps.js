@@ -125,6 +125,17 @@ Then('a profile should exist with id containing {string}', function (idFragment)
   expect(found, `No profile found with id containing "${idFragment}"`).to.be.true;
 });
 
+Then('the profile should have an optional identifier slice {string} with system {string}', function (slice, system) {
+  const els = this.resource.differential.element;
+  const path = `${this.resource.type}.identifier:${slice}`;
+  const root = els.find(e => e.id === path);
+  expect(root, `no slice ${path}`).to.exist;
+  expect(root.min || 0, `${path} should be optional`).to.equal(0);
+  expect(root.mustSupport, `${path} should not be MustSupport`).to.not.equal(true);
+  const sys = els.find(e => e.id === `${path}.system`);
+  expect(sys && (sys.fixedUri || sys.patternUri), `${path}.system`).to.equal(system);
+});
+
 Then('no profile should exist with id containing {string}', function (idFragment) {
   const found = this.profiles.filter(p => p.id && p.id.includes(idFragment)).map(p => p.id);
   expect(found, `Unexpected profiles: ${found.join(', ')}`).to.be.empty;

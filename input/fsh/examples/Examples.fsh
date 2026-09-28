@@ -150,7 +150,7 @@ Instance: ie-core-practitioner-example
 InstanceOf: IECorePractitioner
 Usage: #example
 Title: "IE Core Practitioner Example"
-Description: "An example IE Core Practitioner representing a General Practitioner with IMC registration and HPI identifier."
+Description: "An example IE Core Practitioner representing a General Practitioner with an IMC registration number."
 
 * identifier[IMC].system = $IMC
 * identifier[IMC].type = $V2-0203#MD "Medical License number"

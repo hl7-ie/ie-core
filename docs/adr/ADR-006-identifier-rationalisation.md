@@ -72,3 +72,27 @@ exception: it uses the external GS1 URI from HL7 Terminology.
 - `IECoreIndividualHealthcareIdentifier` and `IECoreMedicalRecordNumber` are kept (the latter
   without a fixed system).
 - The `ie-core-v2-0203-extended` ValueSet is reviewed in Phase 7.
+
+## Addendum (2026-09-28): Health Services Provider Identifier (HSP-I, HSP-O)
+
+The project owner asked for provider identifiers for individuals (HSP-I) and organisations (HSP-O). Unlike the
+removed HPI, these have an authoritative source:
+
+- **Health Identifiers Act 2014** (official revised text, Law Reform Commission): s.13(1) the Minister assigns a
+  *health services provider identifier*, "a unique number" (s.2(1): "an alphanumeric number"), to each health services
+  provider; s.14(1) the *National Register of Health Services Provider Identifiers*, Parts A (health practitioners),
+  B (relevant bodies), C (relevant employees), D (individual relevant agents), E (corporate relevant agents); s.26 the
+  functions can be delegated to the HSE.
+- **HIQA, FAQ on health identifiers (2017):** "often shortened to HSPI"; "given to both healthcare organisations and
+  healthcare professionals".
+
+Decision:
+
+| Identifier | Action | Modelling | Source |
+|---|---|---|---|
+| HSP-I (HSPI of an individual: register Parts A, C, D) | **Add** | Practitioner `identifier` slice `HSPI` 0..1, not MustSupport (not a HIQA element); `type` v2-0203 `PRN`; system `sid/hsp-i`; no format rule | Act s.13–14 |
+| HSP-O (HSPI of an organisation: register Parts B, E) | **Add** | Organization `identifier` slice `HSPO` 0..1, not MustSupport; `type` v2-0203 `XX`; system `sid/hsp-o`; no format rule | Act s.13–14 |
+
+"HSP-I" and "HSP-O" are this IG's labels for the two halves of one statutory identifier. The Act does not say whether
+individual and organisation numbers share a range, sets no format, and no FHIR system URI is published (OI-030,
+OI-003). The removed `sid/hpi` URI is not reused. Not breaking: both slices are optional.

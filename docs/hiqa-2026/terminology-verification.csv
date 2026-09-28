@@ -242,8 +242,10 @@ http://terminology.hl7.org/CodeSystem/v2-0203,MD,Medical License number,yes,Medi
 http://terminology.hl7.org/CodeSystem/v2-0203,MR,Medical record number,yes,Medical record number,False,Identifiers.fsh;ValueSets.fsh
 http://terminology.hl7.org/CodeSystem/v2-0203,NI,National unique individual identifier,yes,National unique individual identifier,False,Examples.fsh;HIQAScenarios.fsh;IECorePatient.fsh;Identifiers.fsh;ValueSets.fsh
 http://terminology.hl7.org/CodeSystem/v2-0203,PPN,Passport number,yes,Passport number,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0203,PRN,Provider number,yes,Provider number,False,IECorePractitioner.fsh
 http://terminology.hl7.org/CodeSystem/v2-0203,SS,Social Security number,yes,Social Security number,False,ValueSets.fsh
 http://terminology.hl7.org/CodeSystem/v2-0203,TAX,Tax ID number,yes,Tax ID number,False,ValueSets.fsh
+http://terminology.hl7.org/CodeSystem/v2-0203,XX,Organization identifier,yes,Organization identifier,False,IECoreOrganization.fsh
 http://terminology.hl7.org/CodeSystem/v2-0443,AP,Administering Provider,yes,Administering Provider,False,Examples.fsh
 http://terminology.hl7.org/CodeSystem/v3-ActCode,AMB,ambulatory,yes,ambulatory,False,Examples.fsh
 http://terminology.hl7.org/CodeSystem/v3-ActCode,EHCPOL,Extended healthcare,yes,extended healthcare,False,ValueSets.fsh

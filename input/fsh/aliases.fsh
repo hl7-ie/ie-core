@@ -142,3 +142,8 @@ Alias: $NMBI = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/nmbi
 Alias: $DentalCouncil = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/dental-council
 Alias: $PSIRPB = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/psi-rpb
 Alias: $GMSPanel = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/gms-panel
+
+// Health Services Provider Identifier (HSPI), Health Identifiers Act 2014 s.13-14 (ADR-006 addendum).
+// HSP-I: individual providers; HSP-O: organisations. PLACEHOLDER URIs (OI-003, OI-030).
+Alias: $HSPI-I = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/hsp-i
+Alias: $HSPI-O = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/hsp-o
