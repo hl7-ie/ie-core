@@ -53,8 +53,9 @@ IE Core Servers **SHOULD** support [paging](http://hl7.org/fhir/R4/http.html#pag
 
 ### Irish Healthcare Identifiers
 
-The identifiers below are those named in the HIQA draft national standards (September 2026). Identifiers without an
-authoritative source were removed (ADR-006). The `system` URIs are placeholders under this IG's canonical until the
+The identifiers below are those named in the HIQA draft national standards (September 2026), plus the Health Services
+Provider Identifier established by the Health Identifiers Act 2014. Identifiers without an authoritative source were
+removed (ADR-006). The `system` URIs are placeholders under this IG's canonical until the
 issuing bodies publish FHIR identifier systems (OI-003).
 
 | Identifier | HIQA element | Where in IE Core | Issuing authority |
@@ -68,6 +69,8 @@ issuing bodies publish FHIR identifier systems (OI-003).
 | Dental Council registration number | EP (prescriber definition) | `Practitioner.identifier:DentalCouncil` | Dental Council |
 | PSI Retail Pharmacy Business number | EP/PS 2.8 | `Organization.identifier:PSIRPB` | Pharmaceutical Society of Ireland |
 | GMS Panel ID | EP/PS 2.12 | `Organization.identifier:GMSPanel` | HSE PCRS |
+| HSP-I: Health Services Provider Identifier (HSPI) of an individual provider | not a HIQA element; Health Identifiers Act 2014 s.13–14 | `Practitioner.identifier:HSPI` (optional, no format enforced) | Minister for Health (delegable to the HSE, s.26) |
+| HSP-O: Health Services Provider Identifier (HSPI) of an organisation | not a HIQA element; Health Identifiers Act 2014 s.13–14 | `Organization.identifier:HSPO` (optional, no format enforced) | Minister for Health (delegable to the HSE, s.26) |
 | GLN (Global Location Number) | EP/PS 2.11 | `Location.identifier:GLN` (`http://www.gs1.org/gln`, check digit enforced) | GS1 |
 | NePS electronic prescription identifier | EP 3.1 | NamingSystem only; used on the prescription in IE Medication Events | HSE (NePS) |
 | Eircode | EP/PS 1.2.1 | `address.postalCode` | Eircode |
@@ -77,6 +80,18 @@ issuing bodies publish FHIR identifier systems (OI-003).
 HIQA EP/PS 1.3.1 describes the IHI as "a unique 18 or 10-digit number". IE Core accepts either form (invariant
 `ie-pat-1`). How the two forms relate, and whether either has a check digit, is not stated by HIQA and is Requires
 Clarification (OI-002), so IE Core enforces no check digit.
+
+#### Health Services Provider Identifier (HSP-I, HSP-O)
+
+The Health Identifiers Act 2014 assigns "a unique number" (alphanumeric, s.2(1)) to each health services provider
+(s.13) and keeps it in the National Register of Health Services Provider Identifiers (s.14). The register has Parts
+for individual providers (A health practitioners, C relevant employees, D individual relevant agents) and for
+organisations (B relevant bodies, E corporate relevant agents); HIQA's
+[health identifiers FAQ](https://www.hiqa.ie/sites/default/files/2017-02/Health-identifier_FAQ%20(1).pdf) calls it the
+HSPI. IE Core carries the individual form as HSP-I on Practitioner and the organisation form as HSP-O on Organization.
+The Act sets no format, so none is enforced. Whether the two forms share one number range, and the identifier system
+URI, are Requires Clarification (OI-030, OI-003). The HPI identifier removed by ADR-006 had no source and is not
+revived: HSP-I and HSP-O use new system URIs.
 
 #### PCRS scheme numbers
 

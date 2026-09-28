@@ -36,6 +36,16 @@ Feature: IE Core Profile Validation
     And the resource should have at least 1 identifier
     And the resource should have a name with a family component
 
+  @practitioner @identifiers
+  Scenario: Practitioner carries the HSP-I (Health Identifiers Act 2014 s.13-14; ADR-006 addendum)
+    Given I have the profile "StructureDefinition-ie-core-practitioner.json"
+    Then the profile should have an optional identifier slice "HSPI" with system "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/hsp-i"
+
+  @organization @identifiers
+  Scenario: Organization carries the HSP-O (Health Identifiers Act 2014 s.13-14; ADR-006 addendum)
+    Given I have the profile "StructureDefinition-ie-core-organization.json"
+    Then the profile should have an optional identifier slice "HSPO" with system "https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/hsp-o"
+
   @organization
   Scenario: IE Core Organization example validates against the profile
     Given I have the example resource "Organization-ie-core-organization-example.json"

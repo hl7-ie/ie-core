@@ -25,6 +25,12 @@ eDispensation profiles moved to [IE Medication Events](https://hl7-ie.github.io/
 - **Hospital Discharge Report:** the medication sections accept `IECoreMedicationStatement` or a base `MedicationRequest`.
 - **Dependencies removed:** `hl7.fhir.eu.mpd`, `ihe.pharm.mpd.r4`, `hl7.fhir.extensions.r5`.
 
+#### Added
+
+- **Health Services Provider Identifier (ADR-006 addendum).** Health Identifiers Act 2014 s.13–14 (HSPI): optional
+  `Practitioner.identifier:HSPI` (HSP-I, individual) and `Organization.identifier:HSPO` (HSP-O, organisation), with
+  NamingSystems `ie-core-ns-hsp-i` and `ie-core-ns-hsp-o`. Placeholder system URIs, no format rule (OI-003, OI-030).
+
 #### Unchanged
 
 - The HIQA Patient Summary alignment, `IECoreMedication`, `IECoreMedicationStatement`, and every NamingSystem and

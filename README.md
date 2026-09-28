@@ -85,7 +85,7 @@ The IE Core Implementation Guide defines the minimum constraints on FHIR resourc
 | **Vital Signs** | Base Vital Signs + 13 specific vital sign profiles |
 | **Documents** | DocumentReference, ADI DocumentReference, Provenance, QuestionnaireResponse |
 | **Financial** | Coverage, Implantable Device |
-| **Identifiers** | IHI, HPI, IMC, MRN, GMS, DPS, LTI, HAA, IMN, CRN |
+| **Identifiers** | Identifier profiles: IHI, MRN (local, facility-issued). NamingSystems (ADR-006, only authoritatively sourced identifiers): IHI, PPSN; PCRS scheme numbers GMS, DPS, LTI, HAA; NePS prescription identifier; registration numbers IMC, PSI, NMBI, Dental Council; PSI Retail Pharmacy Business, GMS Panel; Health Services Provider Identifier (HSPI, Health Identifiers Act 2014) as HSP-I (individual) and HSP-O (organisation). Location uses the GS1 GLN. HPI, IMN and CRN were removed in 0.2.0 (no authoritative source) |
 
 ### Extensions (12)
 
@@ -229,8 +229,8 @@ IE_CORE_BASE_URL=https://hl7-ie.github.io/ie-core
 This configuration affects all identifier systems and profile URLs:
 - `$IEBase` = `{IE_CORE_BASE_URL}/fhir/ie/core`
 - `$IHI` = `{IE_CORE_BASE_URL}/fhir/ie/core/sid/ihi`
-- `$HPI` = `{IE_CORE_BASE_URL}/fhir/ie/core/sid/hpi`
-- All other identifier and alias systems
+- `$HSPI-I` = `{IE_CORE_BASE_URL}/fhir/ie/core/sid/hsp-i`, `$HSPI-O` = `{IE_CORE_BASE_URL}/fhir/ie/core/sid/hsp-o`
+- All other identifier systems under `sid/` (PPSN, GMS, DPS, LTI, HAA, IMC, PSI, NMBI, Dental Council, PSI RPB, GMS Panel)
 
 ## Project Structure
 
@@ -277,7 +277,8 @@ hl7-fhir/
 │   │   ├── extensions/
 │   │   │   └── Extensions.fsh               # 12 extensions
 │   │   ├── identifiers/
-│   │   │   └── Identifiers.fsh              # 10 identifier profiles
+│   │   │   ├── Identifiers.fsh              # 2 identifier profiles (IHI, MRN)
+│   │   │   └── NamingSystems.fsh            # 15 NamingSystems (ADR-006)
 │   │   ├── terminology/
 │   │   │   ├── CodeSystems.fsh              # 10 code systems
 │   │   │   └── ValueSets.fsh                # 49 value sets
@@ -413,7 +414,7 @@ After ballot approval:
 The following recommendations would further strengthen this IG's alignment with legitimate national and international governance as it matures beyond Proof of Concept status:
 
 1. **Formal HL7 Ireland affiliate or working group** — Establish an HL7 International affiliate, or sponsor the IG through an existing HL7 Work Group, to obtain a governance mandate (see [HL7 Registry & Publication Guidance](https://hl7-ie.github.io/ie-core/hl7-registry-guidance.html)).
-2. **HIQA/HSE sign-off on identifier systems** — Confirm IHI, HPI, and GMS/DPS/LTI/HAA identifier `system` URIs and validation rules with HIQA's National Standards and Assurance function and HSE's national identifier custodians before any production use.
+2. **HIQA/HSE sign-off on identifier systems** — Confirm the IHI, PPSN, PCRS scheme (GMS/DPS/LTI/HAA), NePS, professional-register and HSPI (HSP-I/HSP-O) identifier `system` URIs (all placeholders, OI-003) and validation rules with HIQA's National Standards and Assurance function and HSE's national identifier custodians before any production use.
 3. **National terminology server dependency** — Formalize the relationship with the HSE NMPC Central Terminology Server (CTS) as the authoritative source for Irish SNOMED CT edition releases, rather than embedding value set snapshots.
 4. **Domain and canonical URL registration** — Register a durable national domain (e.g. under `gov.ie` or a future HL7 Ireland domain) before any non-PoC deployment, and update the canonical URL and package ID accordingly.
 5. **Independent conformance testing** — Run the IG through HL7 FHIR Connectathon testing and an independent conformance review before any claim of production readiness.
