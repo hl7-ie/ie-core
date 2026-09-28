@@ -2,6 +2,35 @@
 
 This page documents changes to the IE Core Implementation Guide.
 
+### Version 0.3.0 (draft, 28 September 2026): ePrescription and eDispensation moved to IE Medication Events
+
+IE Core now traces only the HIQA *Draft National Standard for a Patient Summary*. The HIQA ePrescription and
+eDispensation profiles moved to [IE Medication Events](https://hl7-ie.github.io/medication-events/)
+(`nostalgic-ie.fhir.medication-events`), which also profiles medication administration and medication statements
+(ADR-009). The release code name is to be chosen.
+
+#### BREAKING
+
+- **Removed profiles:** `IECoreMedicationRequest`, `IECoreMedicationDispense`, `IECoreMedicationRequestEPrescription`,
+  `IECoreMedicationDispenseEDispensation`, `IECoreMedicationEPrescription`, `IECorePatientEPrescription`,
+  `IECoreBundleEPrescription`, `IECoreBundleEPrescriptionCrossBorder`, `IECoreListAllergiesAtPrescribing`,
+  `IECoreProvenanceEPrescriptionSignature`, with their invariants. Use the `IEMpd*` profiles in IE Medication Events.
+- **Removed extensions and placeholders** used only by ePrescription (age at prescribing, quantity in words and
+  figures, number of instalments, do not extend, interchangeable, exempt item, dispense receiver; MDA schedule and
+  supply legal status code systems), the HIQA EP logical model and traceability, the MedicationRequest search
+  parameters, and the EP entries in the CapabilityStatements.
+- **Removed examples and pages:** HIQA scenarios 1–6, the medication and cross-border ePrescription examples and
+  payloads, the CDA ePrescription, the Postman collection, and the Cross-Border ePrescription and Irish ePrescription
+  Legislation pages.
+- **Hospital Discharge Report:** the medication sections accept `IECoreMedicationStatement` or a base `MedicationRequest`.
+- **Dependencies removed:** `hl7.fhir.eu.mpd`, `ihe.pharm.mpd.r4`, `hl7.fhir.extensions.r5`.
+
+#### Unchanged
+
+- The HIQA Patient Summary alignment, `IECoreMedication`, `IECoreMedicationStatement`, and every NamingSystem and
+  identifier system URI (IE Medication Events uses IE Core's).
+- Example patients and medicines still used elsewhere now claim the base `IECorePatient` / `IECoreMedication`.
+
 ### Version 0.2.0 "Nostalgic IE" (draft, 24 September 2026): HIQA draft national standards (Sept 2026)
 
 Aligns IE Core with the HIQA *Draft National Standard for Electronic Prescriptions and Electronic

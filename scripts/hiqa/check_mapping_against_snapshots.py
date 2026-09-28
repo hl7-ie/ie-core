@@ -18,7 +18,7 @@ import sys
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
 
-PACKAGES = ['hl7.fhir.r4.core#4.0.1', 'hl7.fhir.eu.base#2.0.0', 'hl7.fhir.uv.ips#2.0.0', 'hl7.fhir.eu.mpd#1.0.0', 'hl7.fhir.eu.eps#1.0.0-ballot',
+PACKAGES = ['hl7.fhir.r4.core#4.0.1', 'hl7.fhir.eu.base#2.0.0', 'hl7.fhir.uv.ips#2.0.0', 'hl7.fhir.eu.eps#1.0.0-ballot',
             'hl7.fhir.eu.laboratory#2.0.0']
 
 
@@ -85,7 +85,7 @@ def derived_status(conf, card, el):
 def main():
     snaps = load_snapshots()
     diffs, unresolved = [], []
-    for key in ['ep', 'ps']:
+    for key in ['ps']:
         facts = {r['id']: r for r in csv.DictReader(open(os.path.join(ROOT, f'docs/sources/hiqa-2026/{key}-elements.csv'), encoding='utf-8'))}
         for m in csv.DictReader(open(os.path.join(ROOT, f'docs/hiqa-2026/mapping/{key}-mapping.csv'), encoding='utf-8')):
             if not m['path'] or m['hiqa_id'].startswith('NA-') or m['hiqa_id'] not in facts:

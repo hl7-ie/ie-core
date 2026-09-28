@@ -1,22 +1,20 @@
 ### Medication List Guidance
 
-IE Core provides medication-related profiles to represent the full medication lifecycle, from prescribing through dispensing:
+IE Core provides generic medication profiles that other guides build on:
 
 | Profile | Use Case |
 |---------|----------|
-| [IE Core MedicationRequest](StructureDefinition-ie-core-medicationrequest.html) | Prescriptions and medication orders |
-| [IE Core MedicationDispense](StructureDefinition-ie-core-medicationdispense.html) | Dispensing records from pharmacies |
 | [IE Core Medication](StructureDefinition-ie-core-medication.html) | Medication definitions and details |
-| [IE Core MedicationRequest (ePrescription)](StructureDefinition-ie-core-medicationrequest-eprescription.html) | Cross-border electronic prescriptions (EHDS) |
-| [IE Core MedicationDispense (eDispensation)](StructureDefinition-ie-core-medicationdispense-edispensation.html) | Cross-border electronic dispensation (EHDS) |
-| [IE Core Medication (ePrescription)](StructureDefinition-ie-core-medication-eprescription.html) | Medication for ePrescription/eDispensation |
+| [IE Core MedicationStatement](StructureDefinition-ie-core-medicationstatement.html) | What a patient is taking or has taken (the medication list, HIQA PS 6.3) |
+
+Irish ePrescription and eDispensation (the HIQA *Draft National Standard for Electronic Prescriptions and Electronic Dispensations*, HL7 Europe MPD, cross-border ePrescription) are profiled in [IE Medication Events](https://hl7-ie.github.io/medication-events/) (`nostalgic-ie.fhir.medication-events`), not in IE Core (ADR-009). Prescriptions and dispense records are profiled there.
 
 ### Active Medication List
 
 To retrieve a patient's active medication list:
 
 ```
-GET [base]/MedicationRequest?patient=[id]&status=active
+GET [base]/MedicationStatement?patient=[id]&status=active
 ```
 
 ### Medication Terminology Standards (HIQA)
@@ -54,7 +52,7 @@ RxNorm is a US-specific drug terminology maintained by the National Library of M
 
 ### Irish Medication Schemes
 
-Ireland has several medication reimbursement schemes relevant to ePrescription:
+Ireland has several medication reimbursement schemes:
 
 | Scheme | Description | IE Core Support |
 |--------|-------------|----------------|
@@ -62,9 +60,9 @@ Ireland has several medication reimbursement schemes relevant to ePrescription:
 | **DPS (Drugs Payment Scheme)** | Limits monthly expenditure per household | `Patient.identifier`, type `dps` |
 | **LTI (Long-Term Illness)** | Covers medicines for specified long-term conditions | `Patient.identifier`, type `lti` |
 | **Health (Amendment) Act card** | Covers people who contracted Hepatitis C from blood products | `Patient.identifier`, type `haa` |
-| **PCRS (Primary Care Reimbursement Service)** | Processes claims for the community drug schemes | Scheme numbers as above; the prescription itself carries the NePS identifier (EP 3.1) |
+| **PCRS (Primary Care Reimbursement Service)** | Processes claims for the community drug schemes | Scheme numbers as above |
 
-Scheme numbers are HIQA EP/PS 1.3.3 "other identifiers". They are carried as `Patient.identifier` entries whose `type`
+Scheme numbers are HIQA PS 1.3.3 "other identifiers". They are carried as `Patient.identifier` entries whose `type`
 comes from `IECorePCRSSchemeType` (a placeholder code system, Requires Clarification). No number formats are enforced
 because HIQA gives none (ADR-006). Scheme membership for reimbursement can also be recorded as
 [IE Core Coverage](StructureDefinition-ie-core-coverage.html).
@@ -75,15 +73,3 @@ The [IE Core Medication Adherence Extension](StructureDefinition-ie-core-medicat
 
 - Whether the patient is adhering to the prescribed regimen
 - The source of the adherence information (patient self-report, pharmacy records, etc.)
-
-### EU Cross-Border ePrescription
-
-For cross-border prescription exchange via MyHealth@EU, the ePrescription profiles use:
-
-- **NMPC** as the primary Irish medication code wherever available
-- **SNOMED CT Irish Edition** as the preferred secondary medication code wherever available
-- **ATC** for anatomical-therapeutic-chemical classification where required by cross-border workflows
-- **Substitution** information per Irish pharmacy regulations
-- **groupIdentifier** for multi-item prescriptions
-
-See the [EHDS & EU Conformance](ehds-conformance.html) page for the full cross-border workflow.

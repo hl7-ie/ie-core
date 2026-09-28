@@ -55,7 +55,7 @@ jobs:
           retention-days: 3
 
   tests:
-    name: BDD, quality, HIQA traceability and data-minimisation guard
+    name: BDD, quality and HIQA traceability
     needs: sushi-r4
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -93,9 +93,6 @@ jobs:
       - name: HIQA mapping agrees with the profiles
         working-directory: .
         run: python scripts/hiqa/check_mapping_against_snapshots.py
-      - name: ePrescription data-minimisation guard
-        working-directory: .
-        run: python scripts/qa/check_ep_data_minimisation.py
       - name: Open-issues page is in sync
         working-directory: .
         run: python scripts/hiqa/sync_open_issues.py --check

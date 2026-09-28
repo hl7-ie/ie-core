@@ -14,7 +14,7 @@ Implementations must comply with:
 - **EHDS Regulation 2025/327**: European Health Data Space regulation (in force March 2025)
 - **Health Information and Patient Safety (HIPS) Bill**: Forthcoming Irish legislation for health information governance
 
-For full details of Irish ePrescription and eDispensation legislation, including the Medicinal Products Regulations 2003 (S.I. 540/2003), Health (Pricing and Supply of Medical Goods) Act 2013, and Pharmacy Act 2007, see the [Irish ePrescription Legislation](irish-legislation.html) page.
+ePrescription and eDispensation legislation (the Medicinal Products Regulations 2003 (S.I. 540/2003), the Health (Pricing and Supply of Medical Goods) Act 2013 and the Pharmacy Act 2007) and the related security requirements are covered by IE Medication Events (ADR-009).
 
 ---
 
@@ -85,8 +85,6 @@ Earlier drafts of this IG gave `urn:oid:1.3.6.1.4.1.12559.11.10.1.3.1.42.1` as t
 
 | Use Case | Required LoA | Basis |
 |----------|-------------|-------|
-| Cross-border ePrescription retrieval by patient | **High** | eIDAS 2.0 Article 8; eHDSI Security Policy |
-| Cross-border ePrescription retrieval by pharmacist | **Substantial** | eHDSI Security Policy |
 | Patient Summary access by patient (self-service) | **High** | eIDAS 2.0; EHDS Regulation 2025/327 |
 | Patient Summary access by authorized HCP | **Substantial** | EHDS Regulation 2025/327 |
 | National system-to-system (HSE internal) | Application-level (SMART on FHIR) | Irish National Framework |
@@ -108,11 +106,7 @@ Earlier drafts of this IG gave `urn:oid:1.3.6.1.4.1.12559.11.10.1.3.1.42.1` as t
 
 Under eIDAS 2.0 and the original eIDAS Regulation, a **Qualified Electronic Signature (QeS)** has the equivalent legal effect of a handwritten signature across all EU Member States. A **Qualified Electronic Seal (QeSeal)** authenticates the origin of a document by a legal person (e.g. an NCP or healthcare organization).
 
-For cross-border prescription exchange:
-
-- The **Irish NCPeH (HSE)** **SHALL** apply a **Qualified Electronic Seal** to outbound ePrescription bundles before transmission via MyHealth@EU
-- The **receiving NCPeH** **SHALL** verify the seal prior to presenting the prescription to the dispensing pharmacy
-- **Prescriber digital signatures** within the FHIR Bundle **SHOULD** use a **Qualified Electronic Signature** where required by Irish prescribing regulations
+Signing and sealing of cross-border ePrescriptions is covered by IE Medication Events (ADR-009).
 
 #### Signature Formats
 
@@ -204,14 +198,7 @@ IE Core implementations **SHOULD** support:
 
 #### Cross-Border Authentication (MyHealth@EU / EHDS)
 
-For cross-border ePrescription and eDispensation:
-
-| Actor | Authentication Method | LoA |
-|-------|----------------------|-----|
-| Patient presenting at EU pharmacy | EUDI Wallet (PID attestation) | High |
-| Pharmacist accessing NCP | National pharmacy registration + MFA | Substantial |
-| NCP-to-NCP (system-to-system) | mTLS with QCSeal certificate | N/A (system) |
-| HSE systems to Irish NCP | HSE identity federation + OAuth2 | Substantial |
+Authentication for cross-border ePrescription and eDispensation (patient at an EU pharmacy, pharmacist, NCP-to-NCP) is covered by IE Medication Events (ADR-009).
 
 ---
 
@@ -263,7 +250,6 @@ Patient consent for data sharing **SHALL** be:
 
 For cross-border data sharing under EHDS:
 
-- Patient consent for cross-border ePrescription and eDispensation is implied by the patient presenting their EUDI Wallet / eIDAS identity at the dispensing pharmacy, in accordance with the eHDSI consent model
 - Explicit opt-in consent is required for secondary use under EHDS Regulation 2025/327
 - Consent records **SHOULD** be represented using the FHIR `Consent` resource, with reference to the applicable legal basis
 
@@ -276,15 +262,11 @@ In accordance with GDPR's data minimization principle:
 - Only request the minimum data needed for the intended purpose
 - Use SMART on FHIR scopes to limit data access
 - Implement server-side filtering to exclude unnecessary data elements
-- For cross-border prescriptions, include only the EUDI PID attributes required by the receiving NCP (do not transmit full patient demographics beyond what is needed)
-- **ePrescription and eDispensation carry only the HIQA EP patient dataset.** Ethnicity, mother's maiden name,
-  nationality, citizenship, religion, marital status and similar data are prohibited by
-  [IE Core Patient (ePrescription)](StructureDefinition-ie-core-patient-eprescription.html) (ADR-002) and checked in CI by
-  `scripts/qa/check_ep_data_minimisation.py`. See [Data Minimisation](data-minimisation.html).
+- ePrescription and eDispensation carry only the HIQA EP patient dataset; that is enforced in IE Medication Events (ADR-009). See [Data Minimisation](data-minimisation.html).
 - The Patient Summary carries ethnicity (GDPR Art. 9 special-category data) because HIQA PS 1.4.10 requires it.
   Systems SHALL restrict and audit access to it, and SHALL NOT use it for patient identification.
 - Show sex assigned at birth only to users who need it for care; disclosing it without need can harm the patient
-  (HIQA EP 1.4.3 / PS 1.4.4 make it Mandatory to record; limiting display is a local safeguard).
+  (HIQA PS 1.4.4 makes it Mandatory to record; limiting display is a local safeguard).
 
 ---
 

@@ -1,6 +1,7 @@
 # ADR-002: Context-specific demographics and data minimisation
 
-- **Status:** Accepted (Checkpoint 1, 2026-09-24). **BREAKING.**
+- **Status:** Accepted (Checkpoint 1, 2026-09-24). **BREAKING.** The ePrescription patient part is superseded by
+  ADR-009 (2026-09-28): `IECorePatientEPrescription` moved to IE Medication Events.
 - **Date:** 2026-09-24
 - **Related:** baseline C-01, H-01, H-02, H-04, L-01; hazards HZ-01, HZ-02, HZ-04, HZ-06; ADR-006
   (identifiers)

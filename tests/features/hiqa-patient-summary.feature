@@ -55,3 +55,7 @@ Feature: HIQA Draft National Standard for a Patient Summary (Sept 2026)
   Scenario: The Patient Summary patient may carry the PS-only demographics
     Then example "Patient-hiqa-ps-patient-niamh.json" should carry extension "ie-core-ethnicity"
     And example "Patient-hiqa-ps-patient-niamh.json" should carry extension "patient-nationality"
+
+  Scenario: The HIQA Patient Summary traceability matrix is current
+    When I run the script "scripts/hiqa/generate_traceability.py --check"
+    Then the script should succeed

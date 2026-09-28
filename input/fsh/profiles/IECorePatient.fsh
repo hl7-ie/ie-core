@@ -3,8 +3,8 @@
 // │                                                                      │
 // │  ADR-002: the base profile is permissive. Use-case profiles decide  │
 // │  what is required and what is prohibited:                           │
-// │    IECorePatientEPrescription   (HIQA ePrescription/eDispensation)  │
 // │    IECorePatientSummaryPatient  (HIQA Patient Summary)              │
+// │    ePrescription patient: IE Medication Events (ADR-009)            │
 // │  ADR-006: only HIQA-sourced identifiers are sliced.                 │
 // ╰──────────────────────────────────────────────────────────────────────╯
 
@@ -12,7 +12,7 @@ Profile: IECorePatient
 Parent: $EUPatientCore
 Id: ie-core-patient
 Title: "IE Core Patient"
-Description: "Base Patient profile for the Irish health system, derived from the HL7 Europe Base Patient. It is deliberately permissive: special-category and identity-disambiguation data (for example ethnicity or mother's maiden name) are allowed but NOT MustSupport. Use-case profiles decide what must be sent and what must not be sent: IECorePatientEPrescription for ePrescription and eDispensation, and IECorePatientSummaryPatient for the Patient Summary (ADR-002, GDPR Art. 5(1)(c) data minimisation)."
+Description: "Base Patient profile for the Irish health system, derived from the HL7 Europe Base Patient. It is deliberately permissive: special-category and identity-disambiguation data (for example ethnicity or mother's maiden name) are allowed but NOT MustSupport. Use-case profiles decide what must be sent and what must not be sent: IECorePatientSummaryPatient for the Patient Summary, and, for ePrescription and eDispensation, the ePrescription patient in IE Medication Events (hl7-ie/medication-events; ADR-002, ADR-009, GDPR Art. 5(1)(c) data minimisation)."
 
 // ── Extensions ──────────────────────────────────────────────────────────
 // EU Base (patient-eu-core) already slices: birthPlace, sex-for-clinical-use, gender-identity,
@@ -32,7 +32,7 @@ Description: "Base Patient profile for the Irish health system, derived from the
 * extension[gender-identity] ^short = "Gender identity (HIQA gender cluster)"
 * extension[gender-identity] ^comment = "HIQA EP 1.4.4 / PS 1.4.5 Gender cluster (Required 0..1). 'Other gender identity' free text (EP 1.4.4.2 / PS 1.4.5.2) goes in valueCodeableConcept.text."
 * extension[ethnicity] ^short = "Ethnicity (special-category data; Patient Summary only)"
-* extension[ethnicity] ^comment = "GDPR Art. 9 special-category data. HIQA PS 1.4.10 (Required 0..*). Not part of the HIQA ePrescription dataset, and prohibited in IECorePatientEPrescription (ADR-002)."
+* extension[ethnicity] ^comment = "GDPR Art. 9 special-category data. HIQA PS 1.4.10 (Required 0..*). Not part of the HIQA ePrescription dataset, and prohibited in the IE Medication Events ePrescription patient (ADR-002)."
 * extension[mothersMaidenName] ^short = "Mother's maiden name (not MustSupport)"
 * extension[mothersMaidenName] ^comment = "Not part of the HIQA ePrescription dataset. The Patient Summary uses IECoreMothersFormerSurname (HIQA PS 1.4.6, 0..*)."
 * extension[pronouns] ^short = "Personal pronouns (not in either HIQA dataset)"
@@ -134,3 +134,8 @@ Invariant: ie-pat-1
 Description: "IHI SHALL be 18 or 10 digits (HIQA EP/PS 1.3.1: 'A unique 18 or 10-digit number')"
 Expression: "value.matches('^([0-9]{18}|[0-9]{10})$')"
 Severity: #error
+
+Invariant: ie-pat-ppsn-1
+Description: "PPSN format: seven numbers followed by one or two letters (HIQA EP/PS 1.3.2)"
+Expression: "value.matches('^[0-9]{7}[A-Za-z]{1,2}$')"
+Severity: #warning

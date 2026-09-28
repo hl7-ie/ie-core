@@ -145,8 +145,8 @@ Authorization: ******
 
 #### MedicationDispense (AMPP — dispensed pack)
 
-> HIQA EP 6.6 (dispensed medication) and ADR-003: the HL7 Europe MPD parent requires `medicationReference`, so
-> the coding below sits in the referenced `Medication.code`. It is shown inline here for brevity.
+> In the IE Medication Events eDispensation profile (HL7 Europe MPD parent) the medication is a `medicationReference`,
+> so the coding below sits in the referenced `Medication.code`. It is shown inline here for brevity.
 
 ```json
 {

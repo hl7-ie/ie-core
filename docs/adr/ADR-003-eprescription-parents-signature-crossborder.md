@@ -1,6 +1,7 @@
 # ADR-003: ePrescription/eDispensation parents, signature and cross-border flag
 
-- **Status:** Accepted (Checkpoint 1, 2026-09-24). **BREAKING.**
+- **Status:** Accepted (Checkpoint 1, 2026-09-24). **BREAKING.** **Superseded by ADR-009** (2026-09-28): the
+  ePrescription/eDispensation profiles moved to IE Medication Events (hl7-ie/medication-events).
 - **Date:** 2026-09-24
 - **Related:** baseline M-01, M-03, H-03, H-05, H-08; hazards HZ-03, HZ-05; ADR-002
 

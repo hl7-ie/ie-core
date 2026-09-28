@@ -25,7 +25,7 @@ IE Core maps them as follows (ADR-001):
 | **Mandatory** | minimum cardinality ≥ 1 **and** MustSupport | SHALL always be sent |
 | **Required** | MustSupport | SHALL be sent when the data is available |
 | **Optional** | allowed, no MustSupport | MAY be sent |
-| Not in the dataset for the use case | `0..0` in the use-case profile | SHALL NOT be sent (e.g. ethnicity in an ePrescription) |
+| Not in the dataset for the use case | `0..0` in the use-case profile | SHALL NOT be sent (e.g. religion in a Patient Summary) |
 {:.grid}
 
 Where HIQA marks an element Mandatory only *within* an optional group (for example the lines of the facility address),

@@ -1,7 +1,7 @@
 @ehds-profiles
 Feature: EHDS Priority Category Profiles
   As an EU Member State implementation
-  I want to verify that IE Core includes profiles for all 5 EHDS priority categories
+  I want to verify that IE Core includes profiles for the EHDS priority categories it covers
   So that cross-border interoperability is supported
 
   Background:
@@ -13,24 +13,6 @@ Feature: EHDS Priority Category Profiles
     Given I have the profile "StructureDefinition-ie-core-composition-patient-summary.json"
     Then the resource should have resourceType "StructureDefinition"
     And the profile should have type "Composition"
-
-  @eprescription
-  Scenario: IE Core ePrescription profile exists
-    Given I have the profile "StructureDefinition-ie-core-medicationrequest-eprescription.json"
-    Then the resource should have resourceType "StructureDefinition"
-    And the profile should have type "MedicationRequest"
-
-  @edispensation
-  Scenario: IE Core eDispensation profile exists
-    Given I have the profile "StructureDefinition-ie-core-medicationdispense-edispensation.json"
-    Then the resource should have resourceType "StructureDefinition"
-    And the profile should have type "MedicationDispense"
-
-  @eprescription-medication
-  Scenario: IE Core ePrescription Medication profile exists
-    Given I have the profile "StructureDefinition-ie-core-medication-eprescription.json"
-    Then the resource should have resourceType "StructureDefinition"
-    And the profile should have type "Medication"
 
   @laboratory-report
   Scenario: IE Core Laboratory Report profile exists
@@ -44,21 +26,17 @@ Feature: EHDS Priority Category Profiles
     Then the resource should have resourceType "StructureDefinition"
     And the profile should have type "Composition"
 
-  @eprescription-derives
-  Scenario: ePrescription profile derives from HL7 Europe MPD MedicationRequest (ADR-003)
-    Given I have the profile "StructureDefinition-ie-core-medicationrequest-eprescription.json"
-    Then the profile baseDefinition should be "http://hl7.eu/fhir/mpd/StructureDefinition/MedicationRequest-eu-mpd"
-
-  @edispensation-derives
-  Scenario: eDispensation profile derives from HL7 Europe MPD MedicationDispense (ADR-003)
-    Given I have the profile "StructureDefinition-ie-core-medicationdispense-edispensation.json"
-    Then the profile baseDefinition should be "http://hl7.eu/fhir/mpd/StructureDefinition/MedicationDispense-eu-mpd"
-
-  @all-five-categories
-  Scenario: All 5 EHDS priority categories have IE Core profiles
+  @ehds-categories
+  Scenario: IE Core covers the Patient Summary, laboratory and discharge categories
     Given I have all IE Core profile StructureDefinitions
     Then a profile should exist with id containing "patient-summary"
-    And a profile should exist with id containing "medicationrequest-eprescription"
-    And a profile should exist with id containing "medicationdispense-edispensation"
     And a profile should exist with id containing "laboratory-report"
     And a profile should exist with id containing "discharge-report"
+
+  @no-eprescription
+  Scenario: ePrescription and eDispensation are not in IE Core (ADR-009: IE Medication Events)
+    Given I have all IE Core profile StructureDefinitions
+    Then no profile should exist with id containing "eprescription"
+    And no profile should exist with id containing "edispensation"
+    And no profile should exist with id containing "medicationrequest"
+    And no profile should exist with id containing "medicationdispense"

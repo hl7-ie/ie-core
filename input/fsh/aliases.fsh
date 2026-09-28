@@ -85,12 +85,6 @@ Alias: $EUAddressDataType = http://hl7.eu/fhir/base/StructureDefinition/Address-
 // International Patient Summary (IPS)
 Alias: $IPSPatient = http://hl7.org/fhir/uv/ips/StructureDefinition/Patient-uv-ips
 
-// HL7 Europe MPD — ePrescription & eDispensation (hl7.fhir.eu.mpd 0.1.0-ballot)
-// https://hl7.eu/fhir/mpd
-Alias: $EUMPDMedicationRequest  = http://hl7.eu/fhir/mpd/StructureDefinition/MedicationRequest-eu-mpd
-Alias: $EUMPDMedicationDispense = http://hl7.eu/fhir/mpd/StructureDefinition/MedicationDispense-eu-mpd
-Alias: $EUMPDMedication         = http://hl7.eu/fhir/mpd/StructureDefinition/Medication-eu-mpd
-
 // HL7 Europe Hospital Discharge Report (hl7.fhir.eu.hdr 0.1.0-ballot)
 // https://hl7.eu/fhir/hdr
 Alias: $EUHDRComposition = http://hl7.eu/fhir/hdr/StructureDefinition/composition-eu-hdr
@@ -121,13 +115,6 @@ Alias: $EUExtMedicationPackageType = http://hl7.eu/fhir/StructureDefinition/medi
 //   See: https://digital-strategy.ec.europa.eu/en/policies/eudi-wallet-technical-specifications
 Alias: $EUDIWalletNamespace = https://identity.eudi.ec.europa.eu/claims
 
-// eHDSI / MyHealth@EU system identifiers
-//   NCPeH organisation identifier system (eHDSI OID)
-// removed (ADR-006): unverified OID alias
-
-// Irish National ePrescription Service (NePS) identifier system
-Alias: $NePS = https://hl7-ie.github.io/ie-core/fhir/ie/core/sid/neps
-
 // ── HL7 extensions used for HIQA demographics (ADR-002) ───────────────────────
 Alias: $RecordedSexOrGender = http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender
 Alias: $GenderIdentity = http://hl7.org/fhir/StructureDefinition/individual-genderIdentity
@@ -147,18 +134,6 @@ Alias: $EUBundleEPS = http://hl7.eu/fhir/eps/StructureDefinition/bundle-eu-eps
 // GS1 Global Location Number: preferred URI of HL7 Terminology NamingSystem/GLN (THO 7.4.0)
 Alias: $GLN = http://www.gs1.org/gln
 
-// ── IHE Pharmacy MPD extensions reused for HIQA EP (ADR-003) ───────────────
-Alias: $IHEOffLabel = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-offLabel
-Alias: $IHEPrescribedQuantity = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medicationrequest-prescribedQuantity
-Alias: $IHEMedClassification = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-classification
-Alias: $IHEMedProductName = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-productname
-Alias: $IHEMedUnitOfPresentation = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-unitofpresentation
-Alias: $IHEMedStrengthSubstance = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-strengthsubstance
-Alias: $IHEMedDevice = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-device
-Alias: $IHEMedCharacteristic = https://profiles.ihe.net/PHARM/MPD/StructureDefinition/ihe-ext-medication-characteristic
-// R5 cross-version extensions used by HL7 Europe MPD
-Alias: $R5DispenseRecorded = http://hl7.org/fhir/5.0/StructureDefinition/extension-MedicationDispense.recorded
-Alias: $R5EffectiveDosePeriod = http://hl7.org/fhir/5.0/StructureDefinition/extension-MedicationRequest.effectiveDosePeriod
 
 // HIQA-sourced professional registration and facility identifier systems (ADR-006).
 // PLACEHOLDER URIs pending authority-published URIs (OI-003); see NamingSystems.fsh.

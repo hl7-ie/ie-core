@@ -17,8 +17,7 @@ The following work items are required for full XT-EHR 1.0.0 alignment and are th
 3. **IECoreDeviceUseStatement** — New profile mapping to EHDSDeviceUse; needed for the `medicalDevices` section of the Patient Summary
 4. **IECoreConsent** — Formal FHIR Consent profile aligned with EHDSAdvanceDirective, supplementing the current ADI DocumentReference approach
 5. **XT-EHR Obligations compliance** — Formal verification that IE Core PS and HDR profiles satisfy all SHALL obligations in the XT-EHR 1.0.0 Obligations Framework
-6. **ePrescription enhancements** — Additional XT-EHR 1.0.0 elements: `presentedForm` (PDF attachment), `inpatientPrescription` flag
-7. **EUDI Wallet / eIDAS 2.0 integration** — Align cross-border patient authentication with EUDI Wallet PID attestations; implement EUDI PID→FHIR Patient mapping per eIDAS 2.0 ARF v2.x; update NCPeH signing guidance to include JAdES/XAdES and IHE DSG profile alignment
+6. **EUDI Wallet / eIDAS 2.0 integration** — Align cross-border patient authentication with EUDI Wallet PID attestations; implement EUDI PID→FHIR Patient mapping per eIDAS 2.0 ARF v2.x; update NCPeH signing guidance to include JAdES/XAdES and IHE DSG profile alignment
 
 ### Planned Enhancements
 
@@ -35,7 +34,7 @@ The following work items are required for full XT-EHR 1.0.0 alignment and are th
 
 #### Medium Term (2026-2027)
 
-- **EU Core 2.0 Re-parenting**: Re-base AllergyIntolerance, Condition, Procedure, Immunization, Medication, MedicationRequest, and DiagnosticReport profiles on HL7 Europe Core profiles when `hl7.fhir.eu.base` v2.0.0 is published
+- **EU Core 2.0 Re-parenting**: Re-base AllergyIntolerance, Condition, Procedure, Immunization, Medication, and DiagnosticReport profiles on HL7 Europe Core profiles when `hl7.fhir.eu.base` v2.0.0 is published
 - **FHIR R5 Migration Path**: Planning for FHIR R5 adoption aligned with HL7 Europe's R5 timeline. Key profile changes: `MedicationStatement→MedicationUsage`, `DeviceUseStatement→DeviceUsage`, Consent restructure, Encounter `reasonCode→reason`
 - **MyHealth@EU Integration**: Full cross-border patient summary exchange via MyHealth@EU infrastructure
 - **EU Patient Summary IG adoption**: Formal re-parenting once `hl7.fhir.eu.eps` STU is published

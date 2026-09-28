@@ -81,11 +81,11 @@ Description: "Profile for hospital discharge reports in the Irish healthcare sys
 * section[courseOfEncounter].section[procedures].entry only Reference(IECoreProcedure)
 * section[courseOfEncounter].section[procedures] ^short = "Procedures performed during encounter"
 
-// NOTE: EHDSMedicationUse maps to MedicationStatement in FHIR R4.
-// When IECoreMedicationStatement is published, update the reference below.
+// EHDSMedicationUse maps to MedicationStatement in FHIR R4. Discharge prescriptions are plain MedicationRequests;
+// Irish ePrescription profiles live in IE Medication Events (hl7-ie/medication-events), ADR-009.
 * section[courseOfEncounter].section[pharmacotherapy].code = $LOINC#10160-0 "History of Medication use Narrative"
 * section[courseOfEncounter].section[pharmacotherapy].entry MS
-* section[courseOfEncounter].section[pharmacotherapy].entry only Reference(IECoreMedicationStatement or IECoreMedicationRequestEPrescription or IECoreMedicationRequest)
+* section[courseOfEncounter].section[pharmacotherapy].entry only Reference(IECoreMedicationStatement or MedicationRequest)
 * section[courseOfEncounter].section[pharmacotherapy] ^short = "Significant pharmacotherapy during encounter (EHDSMedicationUse)"
 
 * section[courseOfEncounter].section[testResults].code = $LOINC#30954-2 "Relevant diagnostic tests/laboratory data note"
@@ -126,12 +126,12 @@ Description: "Profile for hospital discharge reports in the Irish healthcare sys
 * section[alerts] ^definition = "Substantial alerts or warnings that health professionals should be aware of, including allergies. Added in Xt-EHR EHDSDischargeReport v1.0.0."
 
 // ── Medication summary at discharge (optional, EHDSMedicationUse) ─────────
-// NOTE: EHDSMedicationUse maps to MedicationStatement in FHIR R4.
-// When IECoreMedicationStatement is published, update the reference below.
+// EHDSMedicationUse maps to MedicationStatement in FHIR R4. Discharge prescriptions are plain MedicationRequests;
+// Irish ePrescription profiles live in IE Medication Events (hl7-ie/medication-events), ADR-009.
 * section[medicationSummary].code = $LOINC#75311-1 "Discharge medications note"
 * section[medicationSummary].text MS
 * section[medicationSummary].entry MS
-* section[medicationSummary].entry only Reference(IECoreMedicationStatement or IECoreMedicationRequestEPrescription or IECoreMedicationRequest)
+* section[medicationSummary].entry only Reference(IECoreMedicationStatement or MedicationRequest)
 * section[medicationSummary] ^short = "Discharge medications (EHDSMedicationUse)"
 * section[medicationSummary] ^definition = "Medications recommended for the post-discharge period, including newly started, changed, and discontinued medications."
 

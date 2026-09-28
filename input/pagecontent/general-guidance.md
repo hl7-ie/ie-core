@@ -94,7 +94,7 @@ Implementers building systems for cross-border exchange via MyHealth@EU SHOULD c
 
 - **Patient Summary** (EHDSPatientSummaryObligations): Partial — all mandatory sections implemented, with remaining dependency on partial MedicationUse and Alert coverage
 - **Discharge Report** (EHDSDischargeReportObligations): Partial — all mandatory sections implemented, with remaining dependency on partial MedicationUse and Alert coverage
-- **ePrescription** (EHDSMedicationPrescriptionObligations): Partial — all required elements present, with remaining dependency on partial MedicationUse coverage
+- **ePrescription** (EHDSMedicationPrescriptionObligations): out of scope for IE Core; profiled in IE Medication Events (ADR-009)
 - **MedicationStatement** (EHDSMedicationUseObligations): Partial — `adherence` element obligation deferred (FHIR R4 limitation)
 - **Flag/Alert** (EHDSAlertObligations): Partial — `alertType` binding to be finalised
 - **DeviceUseStatement** (EHDSDeviceUseObligations): Not yet covered — profile planned

@@ -48,7 +48,7 @@ The IE Core Implementation Guide, based on [FHIR Version R4](http://hl7.org/fhir
 
 IE Core profiles are built on top of the [HL7 Europe Base and Core FHIR profiles](https://hl7.eu/fhir/base), ensuring conformance with the [European Health Data Space (EHDS)](https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space_en) regulation. This layered approach means that every IE Core resource instance automatically satisfies EU Core constraints and is interoperable with other EU Member State implementations. The profiles also align with the [International Patient Summary (IPS)](https://hl7.org/fhir/uv/ips/) standard for cross-border care scenarios via [MyHealth@EU](https://health.ec.europa.eu/ehealth-digital-health-and-care/electronic-cross-border-health-services_en).
 
-IE Core 0.2.0 is aligned with the HIQA draft national standards (September 2026); since v0.1.1 it has also been aligned with the **XT-EHR logical model v1.0.0**, which introduced a formal Obligations Framework, new base models (`EHDSDocument`, `EHDSDataSet`), mandatory section updates to the Patient Summary and Hospital Discharge Report, and additional ePrescription elements. See the [EHDS & EU Conformance](ehds-conformance.html) page for the full alignment matrix and FHIR R4/R5 compatibility analysis.
+IE Core is aligned with the HIQA draft Patient Summary standard (September 2026); since v0.1.1 it has also been aligned with the **XT-EHR logical model v1.0.0**, which introduced a formal Obligations Framework, new base models (`EHDSDocument`, `EHDSDataSet`), and mandatory section updates to the Patient Summary and Hospital Discharge Report. See the [EHDS & EU Conformance](ehds-conformance.html) page for the full alignment matrix and FHIR R4/R5 compatibility analysis.
 
 There are two ways to implement IE Core:
 
@@ -73,17 +73,12 @@ An IE Core Responder is a system that responds to the data access request provid
 
 Below is the list of IE Core Profiles. Each profile identifies which core elements, extensions, vocabularies, and ValueSets **SHALL** be present in the resource when using this profile. Together, they promote interoperability and adoption through common implementation and provide the floor for standards development for specific use cases.
 
-#### HIQA ePrescription, eDispensation and Patient Summary
+#### HIQA Patient Summary
+
+Irish ePrescription and eDispensation (the HIQA *Draft National Standard for Electronic Prescriptions and Electronic Dispensations*, HL7 Europe MPD, cross-border ePrescription) are profiled in [IE Medication Events](https://hl7-ie.github.io/medication-events/) (`nostalgic-ie.fhir.medication-events`), not in IE Core (ADR-009).
 
 | Profile | Description |
 |---------|-------------|
-| [IE Core Patient (ePrescription)](StructureDefinition-ie-core-patient-eprescription.html) | The HIQA EP patient dataset only (data minimisation, ADR-002) |
-| [IE Core MedicationRequest (ePrescription)](StructureDefinition-ie-core-medicationrequest-eprescription.html) | One prescription item (HIQA EP Sections 3–5), on HL7 Europe MPD |
-| [IE Core Medication (ePrescription/eDispensation)](StructureDefinition-ie-core-medication-eprescription.html) | The medicinal product (HIQA EP Section 4) |
-| [IE Core MedicationDispense (eDispensation)](StructureDefinition-ie-core-medicationdispense-edispensation.html) | Dispensation or non-dispensation (HIQA EP Section 6) |
-| [IE Core Bundle (ePrescription)](StructureDefinition-ie-core-bundle-eprescription.html) and [cross-border](StructureDefinition-ie-core-bundle-eprescription-crossborder.html) | The prescription as exchanged, with the allergy statement and (cross-border) the signature |
-| [IE Core Allergy Statement at Prescribing](StructureDefinition-ie-core-list-allergies-at-prescribing.html) | Allergies, or why none are recorded (HIQA EP 1.6.1/1.6.2) |
-| [IE Core Provenance (ePrescription signature)](StructureDefinition-ie-core-provenance-eprescription-signature.html) | Prescriber signature (HIQA EP 2.13) |
 | [IE Core Patient (Patient Summary)](StructureDefinition-ie-core-patient-summary-patient.html) | The HIQA PS patient dataset and nominated contact person |
 | [IE Core Composition (Patient Summary)](StructureDefinition-ie-core-composition-patient-summary.html) and [Bundle](StructureDefinition-ie-core-bundle-patient-summary.html) | The Patient Summary document (HIQA PS Sections 1–19), on HL7 Europe EPS |
 
@@ -123,8 +118,6 @@ Below is the list of IE Core Profiles. Each profile identifies which core elemen
 | Profile | Description |
 |---------|-------------|
 | [IE Core Medication](StructureDefinition-ie-core-medication.html) | Medication definitions |
-| [IE Core MedicationRequest](StructureDefinition-ie-core-medicationrequest.html) | Prescriptions and medication orders |
-| [IE Core MedicationDispense](StructureDefinition-ie-core-medicationdispense.html) | Medication dispensing records |
 | [IE Core MedicationStatement](StructureDefinition-ie-core-medicationstatement.html) | Medication use statements — maps to EHDSMedicationUse (XT-EHR 1.0.0) |
 | [IE Core Immunization](StructureDefinition-ie-core-immunization.html) | Immunization administration records |
 
@@ -175,7 +168,7 @@ Below is the list of IE Core Profiles. Each profile identifies which core elemen
 The IG profiles only the identifiers named in the HIQA draft standards (ADR-006): the IHI and PPSN on the patient;
 PCRS scheme numbers typed by `IECorePCRSSchemeType`; IMC, PSI, NMBI and Dental Council registration numbers on the
 practitioner; the PSI Retail Pharmacy Business number and GMS Panel ID on the organisation; the GLN on the location;
-and the NePS identifier on the prescription. See [General Requirements](general-requirements.html#irish-healthcare-identifiers).
+and the NePS identifier used by IE Medication Events. See [General Requirements](general-requirements.html#irish-healthcare-identifiers).
 
 | Identifier profile | Description |
 |------------|-------------|

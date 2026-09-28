@@ -9,7 +9,7 @@
 Extension: IECoreEthnicity
 Id: ie-core-ethnicity
 Title: "IE Core Ethnicity"
-Description: "A patient's ethnicity (repeat the extension for more than one ethnic background). GDPR Art. 9 special-category data. HIQA PS 1.4.10 (Required 0..*, coded). It is NOT part of the HIQA ePrescription/eDispensation dataset and is prohibited in IECorePatientEPrescription (ADR-002). HIQA: 'not used for patient identification'; collected with appropriate safeguards and consent."
+Description: "A patient's ethnicity (repeat the extension for more than one ethnic background). GDPR Art. 9 special-category data. HIQA PS 1.4.10 (Required 0..*, coded). It is NOT part of the HIQA ePrescription/eDispensation dataset and is prohibited in the IE Medication Events ePrescription patient (ADR-002, ADR-009). HIQA: 'not used for patient identification'; collected with appropriate safeguards and consent."
 Context: Patient
 * value[x] only CodeableConcept
 * value[x] 1..1
