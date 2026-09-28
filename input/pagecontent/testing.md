@@ -72,11 +72,8 @@ Behaviour-Driven Development (BDD) tests using [Cucumber.js](https://cucumber.io
 | `eu-conformance.feature` | EU Core profile derivation, canonical URL consistency |
 | `terminology.feature` | ValueSet composition, CodeSystem concepts, county codes, draft status |
 | `invariants.feature` | IHI (18 or 10 digits), PPSN, Eircode format (valid and invalid scenarios) |
-| `ehds-profiles.feature` | All 5 EHDS priority category profiles existence and derivation |
-| `crossborder-eprescription.feature` | All 11 cross-border ePrescription scenarios — bundles, eDispensations, NePS inbound, eIDAS identifiers, drug code mapping, allergy propagation |
-| `hiqa-eprescription.feature` | HIQA EP rules: the IG's own invariants evaluated with fhirpath.js on the eight HIQA scenarios, plus a deliberately broken copy for each rule (allergy statement, age under 12, controlled drugs, Do Not Substitute, non-dispensation, cross-border signature and email); traceability checks |
-| `hiqa-patient-summary.feature` | HIQA PS rules: empty-section reasons (`ie-ps-1`), attestation, section entries and narrative |
-| `data-minimisation.feature` | ADR-002: the ePrescription patient prohibits ethnicity, maiden name, nationality and similar data, in the profile and in every example; runs the guard script |
+| `ehds-profiles.feature` | The EHDS priority categories IE Core covers (Patient Summary, laboratory, discharge); no ePrescription profiles (ADR-009) |
+| `hiqa-patient-summary.feature` | HIQA PS rules: empty-section reasons (`ie-ps-1`), attestation, section entries and narrative; traceability matrix is current |
 
 #### R5 Feature Files (`r5/tests/features/`)
 
@@ -104,9 +101,8 @@ cd r5/tests && npm run test:bdd       # R5 BDD tests
 
 | Script | Fails the build when |
 |---|---|
-| `scripts/hiqa/generate_traceability.py --check` | the HIQA logical models, traceability matrix or page are out of date |
+| `scripts/hiqa/generate_traceability.py --check` | the HIQA Patient Summary logical model, traceability matrix or page are out of date |
 | `scripts/hiqa/check_mapping_against_snapshots.py` | a mapping claims a cardinality or MustSupport the profiles do not have |
-| `scripts/qa/check_ep_data_minimisation.py` | any ePrescription content mentions ethnicity, maiden name, nationality, citizenship, religion or marital status |
 | `scripts/terminology/verify_codes.py` | an explicit code does not exist or is inactive on tx.fhir.org (Irish Edition codes: OI-022) |
 | `scripts/qa/qa_gate.py` | validator QA errors rise above the recorded baseline (`scripts/qa/qa-baseline.json`) |
 | `scripts/qa/check_page_links.py` | a page links to an artefact the build does not produce |

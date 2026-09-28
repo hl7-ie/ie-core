@@ -85,7 +85,6 @@ jobs:
         working-directory: tests
       - run: python scripts/hiqa/generate_traceability.py --check
       - run: python scripts/hiqa/check_mapping_against_snapshots.py
-      - run: python scripts/qa/check_ep_data_minimisation.py
       - run: python scripts/hiqa/sync_open_issues.py --check
       - run: python scripts/qa/check_page_links.py
       - name: Simplifier.net bundle (ADR-008)

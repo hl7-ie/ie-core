@@ -25,7 +25,7 @@ const PATTERNS = {
   // HIQA EP/PS 1.3.1: "A unique 18 or 10-digit number" (ie-pat-1)
   IHI: () => invariantRegex('ie-core-patient', 'ie-pat-1'),
   // HIQA EP/PS 1.3.2: "seven numbers followed by either one or two letters" (ie-pat-ppsn-1)
-  PPSN: () => invariantRegex('ie-core-patient-eprescription', 'ie-pat-ppsn-1'),
+  PPSN: () => invariantRegex('ie-core-patient-summary-patient', 'ie-pat-ppsn-1'),
   // HIQA EP 1.2.1 guidance: Eircode format XXX XXXX (guidance only; not an IG invariant)
   Eircode: () => /^[A-Za-z]\d{2}\s?[A-Za-z0-9]{4}$/
 };

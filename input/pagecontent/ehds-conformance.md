@@ -39,7 +39,6 @@ The following EU IGs are formal dependencies of IE Core:
 | `hl7.fhir.uv.ips` | 1.1.0 | STU 1 | International Patient Summary |
 | `hl7.fhir.uv.extensions.r4` | 5.1.0 | Published | FHIR R4 extensions |
 | `hl7.fhir.eu.extensions` | 1.3.0 | STU 1.3 Published (Jun 2026) | HL7 Europe Extensions |
-| `hl7.fhir.eu.mpd` | 1.0.0 | STU 1.0 Published (Jun 2026) | ePrescription & eDispensation (MPD IG) |
 | `hl7.fhir.eu.hdr` | 0.1.0-ballot | Published ballot | Hospital Discharge Report |
 | `hl7.fhir.eu.imaging` | 1.0.0-ballot | Ballot (Jun 2026) | Imaging Report & Study |
 | `hl7.fhir.eu.health-data-api` | 1.0.0-ballot | Ballot (Jun 2026) | European Health Data API |
@@ -88,21 +87,7 @@ The IE Core Patient Summary profile structures essential clinical information us
 
 #### 2. ePrescription & eDispensation
 
-| IE Core Profile | Xt-EHR Logical Model | HL7 Europe IG |
-|----------------|---------------------|---------------|
-| [IE Core MedicationRequest (ePrescription)](StructureDefinition-ie-core-medicationrequest-eprescription.html) | EHDSMedicationPrescription | `hl7.fhir.eu.mpd` (1.0.0 STU) |
-| [IE Core MedicationDispense (eDispensation)](StructureDefinition-ie-core-medicationdispense-edispensation.html) | EHDSMedicationDispense | `hl7.fhir.eu.mpd` (1.0.0 STU) |
-| [IE Core Medication (ePrescription)](StructureDefinition-ie-core-medication-eprescription.html) | EHDSMedication | `hl7.fhir.eu.mpd` (1.0.0 STU) |
-
-These profiles support the full ePrescription and eDispensation lifecycle:
-
-- **Prescription creation** by an Irish GP or hospital prescriber, with PCRS claim reference and GMS scheme identifiers
-- **Cross-border prescription exchange** via MyHealth@EU ePharmacy services
-- **Dispensation recording** by an Irish community or hospital pharmacist
-- **Substitution tracking** under Irish pharmacy regulations
-- **Multi-item prescriptions** via `groupIdentifier` linking
-
-The profiles are formally aligned with and derived from the HL7 Europe MPD IG (`MedicationRequest-eu-mpd`, `MedicationDispense-eu-mpd`, `Medication-eu-mpd`). IE Core has a formal dependency on `hl7.fhir.eu.mpd@1.0.0`.
+Irish ePrescription and eDispensation (the HIQA *Draft National Standard for Electronic Prescriptions and Electronic Dispensations*, HL7 Europe MPD, cross-border ePrescription) are profiled in [IE Medication Events](https://hl7-ie.github.io/medication-events/) (`nostalgic-ie.fhir.medication-events`), not in IE Core (ADR-009).
 
 #### 3. Laboratory Results
 
@@ -158,9 +143,9 @@ The following table maps Xt-EHR EHDS logical information models (**v1.0.0**) to 
 | EHDSAllergyIntolerance | AllergyIntolerance | — | IECoreAllergyIntolerance | Implemented | ✅ |
 | EHDSProcedure | Procedure | — | IECoreProcedure | Implemented | ✅ |
 | EHDSImmunisation | Immunization | — | IECoreImmunization | Implemented | ✅ |
-| EHDSMedication | Medication | — | IECoreMedication, IECoreMedicationEPrescription | Implemented | ✅ |
-| EHDSMedicationPrescription | MedicationRequest | — | IECoreMedicationRequestEPrescription | Implemented | ✅ |
-| EHDSMedicationDispense | MedicationDispense | — | IECoreMedicationDispenseEDispensation | Implemented | ✅ |
+| EHDSMedication | Medication | — | IECoreMedication | Implemented | ✅ |
+| EHDSMedicationPrescription | MedicationRequest | — | IE Medication Events (ADR-009) | Out of scope | — |
+| EHDSMedicationDispense | MedicationDispense | — | IE Medication Events (ADR-009) | Out of scope | — |
 | EHDSMedicationUse | MedicationStatement | R5: renamed to `MedicationUsage`; `taken` removed; `adherence` added | IECoreMedicationStatement | Implemented | ✅ |
 | EHDSMedicationAdministration | MedicationAdministration | Minor R5 changes | — | Planned | ❌ |
 | EHDSDosage | Dosage | — | (used within medication profiles) | Implemented | ✅ |
@@ -220,8 +205,8 @@ The Obligations Framework defines ~30 Obligations models (e.g., `EHDSPatientSumm
 |------------------|-----------------|-------|
 | EHDSPatientSummaryObligations | ✅ Covered | PS profile implements all mandatory sections |
 | EHDSDischargeReportObligations | ✅ Covered | HDR profile implements all mandatory sections |
-| EHDSMedicationPrescriptionObligations | ✅ Covered | ePrescription profile includes all required elements |
-| EHDSMedicationDispenseObligations | ✅ Covered | eDispensation profile includes all required elements |
+| EHDSMedicationPrescriptionObligations | — Out of scope | IE Medication Events (ADR-009) |
+| EHDSMedicationDispenseObligations | — Out of scope | IE Medication Events (ADR-009) |
 | EHDSMedicationUseObligations | ✅ Covered | MedicationStatement profile satisfies obligations; `adherence` obligation deferred (R4 limitation) |
 | EHDSAlertObligations | ✅ Covered | Flag profile covers obligations; alert codes aligned with SNOMED CT |
 | EHDSLaboratoryReportObligations | ✅ Covered | Laboratory report profile meets obligations via HL7 EU Lab IG alignment |
@@ -258,16 +243,7 @@ The Obligations Framework defines ~30 Obligations models (e.g., `EHDSPatientSumm
 | IE Core Procedure | FHIR Procedure | `procedure-eu-core` |
 | IE Core Immunization | FHIR Immunization | `immunization-eu-core` |
 | IE Core Medication | FHIR Medication | `medication-eu-core` |
-| IE Core MedicationRequest | FHIR MedicationRequest | `medicationRequest-eu-core` |
 | IE Core DiagnosticReport (x2) | FHIR DiagnosticReport | `diagnosticReport-eu-core` |
-
-#### Planned Migration to EU Scoped IGs
-
-| IE Core Profile | Planned EU Parent | Current Status |
-|----------------|------------------|----------------|
-| IE Core MedicationRequest (ePrescription) | `MedicationRequest-eu-mpd` | Formally derived from `hl7.fhir.eu.mpd@1.0.0` STU |
-| IE Core MedicationDispense (eDispensation) | `MedicationDispense-eu-mpd` | Formally derived from `hl7.fhir.eu.mpd@1.0.0` STU |
-| IE Core Medication (ePrescription) | `Medication-eu-mpd` | Formally derived from `hl7.fhir.eu.mpd@1.0.0` STU |
 
 ---
 
@@ -278,37 +254,18 @@ Ireland participates in the [MyHealth@EU](https://health.ec.europa.eu/ehealth-di
 | MyHealth@EU Service | IE Core Profiles | Status |
 |--------------------|-----------------|--------|
 | Patient Summary (Country A → Country B) | IECoreCompositionPatientSummary | Ready |
-| ePrescription (Country A → Country B) | IECoreMedicationRequestEPrescription | Ready |
-| eDispensation (Country B → Country A) | IECoreMedicationDispenseEDispensation | Ready |
 | Laboratory Results | IECoreLaboratoryReport | Ready |
 | Hospital Discharge Report | IECoreCompositionDischargeReport | Ready |
 | Medical Images & Reports | IECoreDiagnosticReportNote | Partial |
 
-**Cross-border ePrescription/eDispensation flow:**
-
-```
-  Ireland (Country A)                    EU Member State (Country B)
-  ┌─────────────────┐                    ┌─────────────────────────┐
-  │ Irish Prescriber │                    │ Foreign Pharmacy         │
-  │ creates Rx using │──── MyHealth@EU ──→│ receives Rx via          │
-  │ IE Core ePrescr. │    ePrescription   │ EU MPD / NCP-B           │
-  └─────────────────┘                    └────────┬────────────────┘
-                                                  │ Dispenses
-  ┌─────────────────┐                    ┌────────▼────────────────┐
-  │ Irish system     │                    │ Foreign Pharmacy         │
-  │ receives eDisp.  │◄── MyHealth@EU ───│ sends eDispensation via  │
-  │ via IE Core      │    eDispensation  │ EU MPD / NCP-A           │
-  └─────────────────┘                    └─────────────────────────┘
-```
-
-For detailed worked examples covering 9 outbound destinations (Germany, Spain, France, Netherlands, Latvia, Portugal, Denmark, Sweden, Austria) and 2 inbound NePS scenarios (Finland → Ireland, Belgium → Ireland), see the [Cross-Border ePrescription](crossborder-eprescription.html) section. All FHIR bundles, CDA documents, and IPS samples are available on the [Sample Payloads & Downloads](crossborder-sample-payloads.html) page.
+Cross-border ePrescription and eDispensation are covered by IE Medication Events (ADR-009).
 
 ### EHDS Regulation Alignment
 
 #### Primary Use (Care Delivery)
 
 - **Patient Summary**: Structured IPS-compatible composition for unplanned and planned care
-- **ePrescription/eDispensation**: Full lifecycle from prescription to dispensation with substitution tracking
+- **ePrescription/eDispensation**: profiled in IE Medication Events (ADR-009)
 - **Laboratory Results**: Structured lab reports with EU Lab IG alignment
 - **Hospital Discharge**: Composition-based discharge summaries
 - **Imaging**: Baseline support via DiagnosticReport; full ImagingStudy planned
@@ -328,10 +285,10 @@ IE Core adds the following Ireland-specific elements on top of the EU profiles:
 | IHI (Individual Health Identifier) | Patient | National patient identifier (18 or 10 digits, HIQA EP/PS 1.3.1) |
 | Registration numbers (IMC, PSI, NMBI, Dental Council) | Practitioner | Prescriber and dispenser registration (HIQA 2.6.2) |
 | PCRS scheme numbers | Patient | Scheme eligibility, typed by `IECorePCRSSchemeType` (no format enforced) |
-| NePS prescription identifier | MedicationRequest (ePrescription) | Electronic prescription (group) identifier (HIQA EP 3.1) |
+| NePS prescription identifier | NamingSystem only (used by IE Medication Events) | Electronic prescription (group) identifier (HIQA EP 3.1) |
 | Eircode | Patient, Organization, Location | Irish postal code system |
 | Irish county ValueSet | Patient address | 26 Irish counties |
-| Ethnicity (CSO Data Standard for Ethnicity v1.0) | Patient (Patient Summary only; prohibited in ePrescription) | HIQA PS 1.4.10 |
+| Ethnicity (CSO Data Standard for Ethnicity v1.0) | Patient (Patient Summary only; prohibited in the IE Medication Events ePrescription patient) | HIQA PS 1.4.10 |
 | IMC registration number | Practitioner | Irish Medical Council number |
 
 These extensions ensure that cross-border systems can distinguish Irish-origin data and map identifiers appropriately.
@@ -384,12 +341,11 @@ FAPI 2.0 references:
 
 XT-EHR v1.0.0 was published in 2025. As the EHDS ecosystem evolves towards the March 2027 implementing acts deadline, IE Core will:
 
-1. **Complete MPD alignment** — IE Core profiles for ePrescription, eDispensation, and Medication are formally derived from `hl7.fhir.eu.mpd@1.0.0` STU (published Jun 2026). offLabel, statusReason, minimumDispenseInterval, and intendedUseType elements directly inherit from the EU MPD profile
-2. **Re-parent to EU Core v2.0** for AllergyIntolerance, Condition, Procedure, Immunization, Medication, MedicationRequest, DiagnosticReport (currently on EU Core v2.0)
-3. **Adopt EU Patient Summary IG** when `hl7.fhir.eu.eps@1.0.0` stabilizes — currently testing QA Preview 1.0.0-alpha (Xt-EHR Projectathon, Jun 2026); full re-parenting planned on STU publication
-4. **Adopt EU Hospital Discharge IG** when `hl7.fhir.eu.hdr@1.0.0` stabilizes — currently testing QA Preview 1.0.0-alpha (Xt-EHR Projectathon, Jun 2026); full re-parenting planned on STU publication
-5. **Add Imaging profiles** once `hl7.fhir.eu.imaging` is published (Ballot 1.0.0, Jun 2026); will add ImagingStudy and ImagingReport profiles and formal dependency to v1.0.0
-6. **Add Health Data API conformance** once `hl7.fhir.eu.health-data-api` is published (Ballot 1.0.0, Jun 2026); implement FAPI 2.0 requirements for EHDS secondary use
-7. **Implement XT-EHR Obligations compliance** — formally adopt the Obligations Framework from XT-EHR 1.0.0 as EU IGs incorporate them; near-term milestone is full obligation compliance for PS and HDR
-8. **Support FHIR R5** following HL7 Europe's R5 timeline — requires re-mapping `MedicationStatement→MedicationUsage`, `DeviceUseStatement→DeviceUsage`, and `Consent` restructure
-9. **Implement EUDI Wallet integration** — align cross-border patient authentication with EUDI Wallet PID attestations per eIDAS 2.0 (Regulation 2024/1183/EU) and EUDI ARF v2.x; targeted for 2026 MyHealth@EU integration
+1. **Re-parent to EU Core v2.0** for AllergyIntolerance, Condition, Procedure, Immunization, Medication, DiagnosticReport (currently on EU Core v2.0)
+2. **Adopt EU Patient Summary IG** when `hl7.fhir.eu.eps@1.0.0` stabilizes — currently testing QA Preview 1.0.0-alpha (Xt-EHR Projectathon, Jun 2026); full re-parenting planned on STU publication
+3. **Adopt EU Hospital Discharge IG** when `hl7.fhir.eu.hdr@1.0.0` stabilizes — currently testing QA Preview 1.0.0-alpha (Xt-EHR Projectathon, Jun 2026); full re-parenting planned on STU publication
+4. **Add Imaging profiles** once `hl7.fhir.eu.imaging` is published (Ballot 1.0.0, Jun 2026); will add ImagingStudy and ImagingReport profiles and formal dependency to v1.0.0
+5. **Add Health Data API conformance** once `hl7.fhir.eu.health-data-api` is published (Ballot 1.0.0, Jun 2026); implement FAPI 2.0 requirements for EHDS secondary use
+6. **Implement XT-EHR Obligations compliance** — formally adopt the Obligations Framework from XT-EHR 1.0.0 as EU IGs incorporate them; near-term milestone is full obligation compliance for PS and HDR
+7. **Support FHIR R5** following HL7 Europe's R5 timeline — requires re-mapping `MedicationStatement→MedicationUsage`, `DeviceUseStatement→DeviceUsage`, and `Consent` restructure
+8. **Implement EUDI Wallet integration** — align cross-border patient authentication with EUDI Wallet PID attestations per eIDAS 2.0 (Regulation 2024/1183/EU) and EUDI ARF v2.x; targeted for 2026 MyHealth@EU integration

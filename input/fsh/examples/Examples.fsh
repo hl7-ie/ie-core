@@ -7,7 +7,7 @@
 // ====================================================================
 
 Instance: ie-core-patient-example
-InstanceOf: IECorePatientEPrescription
+InstanceOf: IECorePatient
 Usage: #example
 Title: "IE Core Patient Example"
 Description: "An example IE Core Patient representing a male adult living in Dublin with an IHI and a medical card number; conforms to the HIQA ePrescription patient dataset."
@@ -224,7 +224,6 @@ Title: "IE Core Organization Example"
 Description: "An example IE Core Organization representing St. James's Hospital, Dublin — a major acute hospital under the HSE."
 
 
-
 * active = true
 * type = http://terminology.hl7.org/CodeSystem/organization-type#prov "Healthcare Provider"
 * name = "St. James's Hospital"
@@ -405,42 +404,6 @@ Description: "An example IE Core AllergyIntolerance representing a confirmed pen
 * reaction[0].substance = $SCT#764146007 "Penicillin"
 * reaction[=].manifestation = $SCT#126485001 "Urticaria"
 * reaction[=].severity = #moderate
-
-
-// ====================================================================
-// 12. MedicationRequest – Metformin Prescription
-// ====================================================================
-
-Instance: ie-core-medicationrequest-example
-InstanceOf: IECoreMedicationRequest
-Usage: #example
-Title: "IE Core MedicationRequest Example"
-Description: "An example IE Core MedicationRequest representing a prescription for Metformin 500mg tablets for the management of Type 2 Diabetes."
-
-* status = #active
-* intent = #order
-
-* medicationCodeableConcept = $SCT#718271000220105 "Metformin hydrochloride 500 mg oral tablet"
-* medicationCodeableConcept.coding[0].version = "http://snomed.info/sct/1601000220105"
-* medicationCodeableConcept.coding[+] = $SCT#372567009 "Metformin"
-* medicationCodeableConcept.text = "Metformin 500mg tablets"
-
-* subject = Reference(ie-core-patient-example) "John Murphy"
-* encounter = Reference(ie-core-encounter-example) "Ambulatory encounter 2024-06-15"
-* authoredOn = "2024-06-15"
-* requester = Reference(ie-core-practitioner-example) "Dr. Sarah O'Brien"
-
-* dosageInstruction[0].sequence = 1
-* dosageInstruction[=].text = "Take one 500mg tablet twice daily with meals"
-* dosageInstruction[=].timing.repeat.frequency = 2
-* dosageInstruction[=].timing.repeat.period = 1
-* dosageInstruction[=].timing.repeat.periodUnit = #d
-* dosageInstruction[=].route = $SCT#26643006 "Oral route"
-* dosageInstruction[=].doseAndRate[0].doseQuantity = 500 'mg' "mg"
-
-* dispenseRequest.numberOfRepeatsAllowed = 6
-* dispenseRequest.quantity = 60 '{tablet}' "tablets"
-* dispenseRequest.expectedSupplyDuration = 30 'd' "days"
 
 
 // ====================================================================

@@ -2,7 +2,7 @@
 
 Usage (from Python):
     from update_mapping import apply
-    apply('ep', {'1.1.2': ('IECorePatientEPrescription', 'Patient.name.given', 'Y', 'Aligned', 'note')})
+    apply('ps', {'1.1.2': ('IECorePatientSummaryPatient', 'Patient.name.given', 'Y', 'Aligned', 'note')})
 
 Rows are keyed by hiqa_id. A new NA-* id is appended. Writes with proper CSV quoting.
 """

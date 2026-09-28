@@ -26,8 +26,8 @@
 
 **Canonical URL**: `https://hl7-ie.github.io/ie-core/fhir/ie/core`  
 **Package**: `nostalgic-ie.fhir.core` (ADR-008; `hl7.*` is reserved for HL7)  
-**Release name**: Nostalgic IE (0.2.0)  
-**Version**: 0.2.0 (draft, aligned with the HIQA draft national standards, Sept 2026)  
+**Release name**: 0.2.0 was "Nostalgic IE"; the 0.3.0 name is to be chosen  
+**Version**: 0.3.0 (draft, aligned with the HIQA draft Patient Summary standard, Sept 2026)  
 **FHIR Version**: R4 (4.0.1)  
 **Status**: Draft (CI Build)
 
@@ -40,17 +40,21 @@
 
 [![Build IE Core FHIR IG](https://github.com/hl7-ie/ie-core/actions/workflows/build-ig.yml/badge.svg)](https://github.com/nithinmohantk/ie-core/actions/workflows/build-ig.yml)
 
-## HIQA 2026 alignment (version 0.2.0)
+## HIQA 2026 alignment
 
-Version 0.2.0 realigns IE Core with two HIQA **consultation drafts** (September 2026): *Electronic Prescriptions and
-Electronic Dispensations* and *Patient Summary*. It is a proof of concept, not endorsed by HIQA, and not for
-clinical use.
+IE Core is aligned with the HIQA **consultation draft** *Patient Summary* (September 2026). It is a proof of concept,
+not endorsed by HIQA, and not for clinical use.
+
+> **ePrescription and eDispensation moved (0.3.0, ADR-009).** The HIQA *Electronic Prescriptions and Electronic
+> Dispensations* draft is profiled in [IE Medication Events](https://github.com/hl7-ie/medication-events)
+> (`nostalgic-ie.fhir.medication-events`), which also covers medication administration and statements. IE Core keeps
+> the generic `IECoreMedication` and `IECoreMedicationStatement` and every Irish identifier system.
 
 | What | Where |
 |---|---|
-| Overview, diagrams and the eight scenario examples | `input/pagecontent/hiqa-2026-alignment.md` (IG page *HIQA 2026 Alignment*) |
-| Element-by-element traceability (548 HIQA elements) | `docs/hiqa-2026/traceability-matrix.csv`, IG page *HIQA Traceability* |
-| Design decisions | `docs/adr/` (ADR-001 to ADR-007) |
+| Overview, diagrams and the Patient Summary scenario examples | `input/pagecontent/hiqa-2026-alignment.md` (IG page *HIQA 2026 Alignment*) |
+| Element-by-element traceability (306 HIQA Patient Summary elements) | `docs/hiqa-2026/traceability-matrix.csv`, IG page *HIQA Traceability* |
+| Design decisions | `docs/adr/` (ADR-001 to ADR-009) |
 | Requires Clarification | `docs/hiqa-2026/open-issues.md` |
 | Clinical-safety hazards and mitigations | `docs/hiqa-2026/clinical-safety-log.md` |
 | Independent review and responses | `docs/audit/review-hiqa-2026.md`, `docs/audit/review-hiqa-2026-responses.md` |
@@ -59,7 +63,7 @@ clinical use.
 | Publishing on Simplifier.net (package `nostalgic-ie.fhir.core`, ADR-008) | `input/pagecontent/simplifier-publishing.md`; bundle: `python scripts/simplifier/build_bundle.py` |
 
 Checks (all run in CI): `python scripts/hiqa/generate_traceability.py --check`,
-`python scripts/hiqa/check_mapping_against_snapshots.py`, `python scripts/qa/check_ep_data_minimisation.py`,
+`python scripts/hiqa/check_mapping_against_snapshots.py`,
 `python scripts/terminology/verify_codes.py`, `python scripts/qa/check_page_links.py`, and in `tests/`:
 `npm run test:bdd`, `npm run test:quality`, `node validator/run-validation.js --tx`.
 
@@ -76,7 +80,7 @@ The IE Core Implementation Guide defines the minimum constraints on FHIR resourc
 | **Patient Demographics** | Patient, RelatedPerson |
 | **Provider & Organization** | Practitioner, PractitionerRole, Organization, Location |
 | **Clinical** | AllergyIntolerance, Condition (x2), Procedure, CarePlan, CareTeam, Goal, ServiceRequest, Encounter |
-| **Medication** | Medication, MedicationRequest, MedicationDispense, Immunization |
+| **Medication** | Medication, MedicationStatement, Immunization (ePrescription and eDispensation: IE Medication Events) |
 | **Diagnostics** | DiagnosticReport (x2), Observation Clinical Result, Lab Result, Simple Observation, Specimen |
 | **Vital Signs** | Base Vital Signs + 13 specific vital sign profiles |
 | **Documents** | DocumentReference, ADI DocumentReference, Provenance, QuestionnaireResponse |
@@ -259,8 +263,7 @@ hl7-fhir/
 │   │   │   ├── IECoreServiceRequest.fsh
 │   │   │   ├── IECoreRelatedPerson.fsh
 │   │   │   ├── IECoreMedication.fsh
-│   │   │   ├── IECoreMedicationRequest.fsh
-│   │   │   ├── IECoreMedicationDispense.fsh
+│   │   │   ├── IECoreMedicationStatement.fsh
 │   │   │   ├── IECoreImmunization.fsh
 │   │   │   ├── IECoreDiagnosticReport.fsh
 │   │   │   ├── IECoreDocumentReference.fsh

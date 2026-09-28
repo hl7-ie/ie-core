@@ -378,8 +378,6 @@ Feature files define scenarios in Gherkin syntax:
 | `profile-validation.feature` | Generic profile conformance |
 | `terminology.feature` | ValueSet / CodeSystem checks |
 | `invariants.feature` | Profile invariant rules |
-| `medication-scenarios.feature` | Medication workflows |
-| `crossborder-eprescription.feature` | Cross-border ePrescription (EHDS) |
 | `ehds-profiles.feature` | EHDS-aligned profile checks |
 | `eu-conformance.feature` | HL7 Europe / IPS conformance |
 

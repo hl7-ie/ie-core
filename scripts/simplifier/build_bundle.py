@@ -100,7 +100,7 @@ def main():
         'canonical': cfg['canonical'],
         'url': cfg['canonical'],
         'title': cfg.get('title', cfg['id']),
-        'description': 'IE (Ireland) Core FHIR R4 profiles aligned with the HIQA draft national standards (Sept 2026). '
+        'description': 'IE (Ireland) Core FHIR R4 profiles aligned with the HIQA draft Patient Summary standard (Sept 2026). '
                        'Proof of concept by Nithin Mohan; not affiliated with HIQA, the HSE, HL7 Ireland or the '
                        'Department of Health. Not for clinical use.',
         'fhirVersions': [cfg.get('fhirVersion', '4.0.1')],

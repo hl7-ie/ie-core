@@ -356,53 +356,6 @@ Description: "Search for Observations by effective date. Servers SHALL support s
 
 
 // ====================================================================
-// MedicationRequest Search Parameters
-// ====================================================================
-
-Instance: ie-core-medicationrequest-patient
-InstanceOf: SearchParameter
-Usage: #definition
-Title: "IE Core MedicationRequest Patient"
-Description: "Search for MedicationRequests by patient reference. Servers SHALL support searching medication requests by patient."
-
-* url = "https://hl7-ie.github.io/ie-core/fhir/ie/core/SearchParameter/ie-core-medicationrequest-patient"
-* version = "0.1.0"
-* name = "IECoreMedicationRequestPatient"
-* status = #draft
-* experimental = false
-* date = "2025-01-01"
-* publisher = "IE Core (Proof of Concept by Nithin Mohan T K)"
-* description = "Search for MedicationRequests by patient reference."
-* jurisdiction = urn:iso:std:iso:3166#IE "Ireland"
-* code = #patient
-* base = #MedicationRequest
-* type = #reference
-* expression = "MedicationRequest.subject.where(resolve() is Patient)"
-* target = #Patient
-
-
-Instance: ie-core-medicationrequest-group-identifier
-InstanceOf: SearchParameter
-Usage: #definition
-Title: "IE Core MedicationRequest Group Identifier"
-Description: "Search for all prescription items of one electronic prescription by its (NePS) group identifier (HIQA EP 3.1). R4 core has no search parameter on MedicationRequest.groupIdentifier."
-
-* url = "https://hl7-ie.github.io/ie-core/fhir/ie/core/SearchParameter/ie-core-medicationrequest-group-identifier"
-* version = "0.2.0"
-* name = "IECoreMedicationRequestGroupIdentifier"
-* status = #draft
-* experimental = false
-* date = "2026-09-24"
-* publisher = "IE Core (Proof of Concept by Nithin Mohan T K)"
-* description = "Search MedicationRequests by groupIdentifier (the electronic prescription identifier, HIQA EP 3.1)."
-* jurisdiction = urn:iso:std:iso:3166#IE "Ireland"
-* code = #group-identifier
-* base = #MedicationRequest
-* type = #token
-* expression = "MedicationRequest.groupIdentifier"
-
-
-// ====================================================================
 // DiagnosticReport Search Parameters
 // ====================================================================
 

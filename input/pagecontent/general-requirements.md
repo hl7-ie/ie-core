@@ -13,7 +13,7 @@ IE Core uses the concept of [Must Support](must-support.html) as defined on the 
 
 ### Conformance Obligations (XT-EHR Obligations Framework)
 
-In addition to the narrative Must Support rules above, IE Core profiles that derive from **XT-EHR-aligned** HL7 Europe artifacts (Patient Summary, Hospital Discharge Report, Laboratory Report, ePrescription/eDispensation) **SHOULD** be read together with the corresponding EU Base, EU Laboratory, and EU MPD CapabilityStatements. Those CapabilityStatements declare actor-specific `SHALL`/`SHOULD` obligations. These obligations use the [HL7 FHIR Obligations extension](http://hl7.org/fhir/extensions/StructureDefinition-obligation.html) (`http://hl7.org/fhir/tools/StructureDefinition/obligation`). This machine-readable obligations approach is the pattern adopted by the XT-EHR Obligations Framework. It has also been adopted by 2026-era national Core IGs (e.g. US Core, AU Core) as the successor to purely narrative must-support tables. It:
+In addition to the narrative Must Support rules above, IE Core profiles that derive from **XT-EHR-aligned** HL7 Europe artifacts (Patient Summary, Hospital Discharge Report, Laboratory Report) **SHOULD** be read together with the corresponding EU Base and EU Laboratory CapabilityStatements. Those CapabilityStatements declare actor-specific `SHALL`/`SHOULD` obligations. These obligations use the [HL7 FHIR Obligations extension](http://hl7.org/fhir/extensions/StructureDefinition-obligation.html) (`http://hl7.org/fhir/tools/StructureDefinition/obligation`). This machine-readable obligations approach is the pattern adopted by the XT-EHR Obligations Framework. It has also been adopted by 2026-era national Core IGs (e.g. US Core, AU Core) as the successor to purely narrative must-support tables. It:
 
 - Allows automated conformance testing tools (e.g. Touchstone, Inferno, XT-EHR test suites) to verify actor obligations directly from the CapabilityStatement rather than free-text guidance
 - Distinguishes obligations by actor (e.g. `send-data`, `receive-data`) rather than a single blanket Must Support rule
@@ -69,7 +69,7 @@ issuing bodies publish FHIR identifier systems (OI-003).
 | PSI Retail Pharmacy Business number | EP/PS 2.8 | `Organization.identifier:PSIRPB` | Pharmaceutical Society of Ireland |
 | GMS Panel ID | EP/PS 2.12 | `Organization.identifier:GMSPanel` | HSE PCRS |
 | GLN (Global Location Number) | EP/PS 2.11 | `Location.identifier:GLN` (`http://www.gs1.org/gln`, check digit enforced) | GS1 |
-| NePS electronic prescription identifier | EP 3.1 | `MedicationRequest.groupIdentifier` / `identifier` | HSE (NePS) |
+| NePS electronic prescription identifier | EP 3.1 | NamingSystem only; used on the prescription in IE Medication Events | HSE (NePS) |
 | Eircode | EP/PS 1.2.1 | `address.postalCode` | Eircode |
 
 #### IHI format

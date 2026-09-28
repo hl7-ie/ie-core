@@ -124,3 +124,8 @@ Then('a profile should exist with id containing {string}', function (idFragment)
   const found = this.profiles.some(p => p.id && p.id.includes(idFragment));
   expect(found, `No profile found with id containing "${idFragment}"`).to.be.true;
 });
+
+Then('no profile should exist with id containing {string}', function (idFragment) {
+  const found = this.profiles.filter(p => p.id && p.id.includes(idFragment)).map(p => p.id);
+  expect(found, `Unexpected profiles: ${found.join(', ')}`).to.be.empty;
+});

@@ -13,30 +13,14 @@ The following resources are available for download:
 - [JSON Examples](examples.json.zip) - All examples in JSON format
 - [XML Examples](examples.xml.zip) - All examples in XML format
 
-#### Cross-Border ePrescription Samples
+#### Patient Summary Samples
 
 | File | Description |
 |------|-------------|
-| `IE_to_DE_ePrescription_FHIR.json` | IE→Germany FHIR ePrescription Bundle (PZN codes) |
-| `IE_to_ES_ePrescription_FHIR.json` | IE→Spain FHIR ePrescription Bundle (CIMA codes) |
-| `IE_to_FR_ePrescription_FHIR.json` | IE→France FHIR ePrescription Bundle (CIP codes) |
-| `IE_to_NL_ePrescription_FHIR.json` | IE→Netherlands FHIR ePrescription Bundle (GNK codes) |
-| `IE_to_LV_ePrescription_FHIR.json` | IE→Latvia FHIR ePrescription Bundle (ZRA codes) |
-| `IE_to_PT_ePrescription_FHIR.json` | IE→Portugal FHIR ePrescription Bundle (INFARMED codes) |
-| `IE_to_DK_ePrescription_FHIR.json` | IE→Denmark FHIR ePrescription Bundle (VNR codes, INR note) |
-| `IE_to_SE_ePrescription_FHIR.json` | IE→Sweden FHIR ePrescription Bundle (LMV codes, insulins) |
-| `IE_to_AT_ePrescription_FHIR.json` | IE→Austria FHIR ePrescription Bundle (BASG codes) |
-| `DE_eDispensation_Response_FHIR.json` | German pharmacy eDispensation response |
-| `LV_to_IE_eDispensation_FHIR.json` | Latvian pharmacy eDispensation response |
-| `PT_to_IE_eDispensation_FHIR.json` | Portuguese pharmacy eDispensation response |
-| `FI_to_IE_eDispensation_via_NePS_FHIR.json` | Finnish patient dispensation via NePS |
-| `BE_to_IE_eDispensation_via_NePS_FHIR.json` | Belgian patient dispensation via NePS |
-| `DE_Patient_to_IE_NePS_Dispensation_FHIR.json` | German patient dispensation via NePS |
 | `IE_Patient_IPS_FHIR.json` | Irish Patient IPS (Seán Murphy) FHIR Bundle |
-| `IE_to_DE_ePrescription_CDA.xml` | IE→Germany CDA ePrescription (eHDSI format) |
 | `IPS_CDA_Sample.xml` | Generic IPS CDA document (MyHealth@EU format) |
 
-All cross-border samples are documented with full scenario context on the [Cross-Border ePrescription](crossborder-eprescription.html) pages.
+Cross-border ePrescription and eDispensation samples are in IE Medication Events (ADR-009).
 
 #### Schematrons
 
