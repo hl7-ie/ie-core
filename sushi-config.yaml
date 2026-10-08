@@ -20,10 +20,10 @@ description: >-
   access patient data. IE Core profiles derive from the HL7 Europe Base and Core profiles to ensure conformance
   with the European Health Data Space (EHDS) and cross-border interoperability via the International Patient Summary (IPS) standard.
 status: draft
-version: 0.3.0
+version: 0.2.1
 fhirVersion: 4.0.1
 copyrightYear: 2025+
-releaseLabel: draft
+releaseLabel: Nostalgic IE (draft)
 license: CC-BY-4.0
 jurisdiction: urn:iso:std:iso:3166#IE "Ireland"
 publisher:

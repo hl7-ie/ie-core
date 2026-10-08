@@ -56,7 +56,7 @@ Option C (project owner, 28 September 2026: "EP/ED only"; "generic base only").
 
 ## Consequences
 
-- IE Core 0.3.0 is breaking for anyone using the EP profiles, invariants or examples: use
+- IE Core 0.2.1 is breaking for anyone using the EP profiles, invariants or examples: use
   `nostalgic-ie.fhir.medication-events` (`IEMpd*` profiles, canonical `https://hl7-ie.github.io/medication-events/fhir`).
 - The EHDS ePrescription and eDispensation categories are out of scope for IE Core.
 - HIQA EP traceability, data minimisation and clinical-safety tracking continue in IE Medication Events.

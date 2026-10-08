@@ -45,3 +45,11 @@ first as a prerelease.
 - If a governing body adopts IE Core, it publishes under an official id; this package then points to it.
 - Simplifier guide rendering of the IG Publisher pages is untested (OI-029).
 - `docs/`, the README and the registry-guidance page describe the new id.
+
+## Addendum (2026-10-08): version numbering
+
+Project owner decision: versions advance by **patch** increments rather than jumping minor versions. `0.2.0` is
+already published on Simplifier.net (permanent), so IE Core continues as `0.2.1`, `0.2.2`, … A package version must
+always sort above the last published one, so the line does not restart at `0.1.x`. The release code name belongs to
+the minor line: every `0.2.x` release is **Nostalgic IE**. IE Medication Events (unpublished) starts at `0.1.0` and
+follows the same rule (`0.1.1`, `0.1.2`, …).

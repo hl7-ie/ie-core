@@ -2,12 +2,12 @@
 
 This page documents changes to the IE Core Implementation Guide.
 
-### Version 0.3.0 (draft, 28 September 2026): ePrescription and eDispensation moved to IE Medication Events
+### Version 0.2.1 "Nostalgic IE" (draft, 28 September 2026): ePrescription and eDispensation moved to IE Medication Events
 
 IE Core now traces only the HIQA *Draft National Standard for a Patient Summary*. The HIQA ePrescription and
 eDispensation profiles moved to [IE Medication Events](https://hl7-ie.github.io/medication-events/)
 (`nostalgic-ie.fhir.medication-events`), which also profiles medication administration and medication statements
-(ADR-009). The release code name is to be chosen.
+(ADR-009). Numbered 0.2.1 because 0.2.0 is already published and versions now advance by patch (ADR-008 addendum).
 
 #### BREAKING
 
