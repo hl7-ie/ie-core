@@ -207,7 +207,7 @@ Individual Cucumber HTML reports are also available:
 ### Running Tests Locally
 
 ```bash
-# Prerequisites: Node.js 20+, Java 17+ (for FHIR Validator and IG Publisher)
+# Prerequisites: Node.js 22+ (24 LTS recommended), Java 17+ (for FHIR Validator and IG Publisher)
 
 # ── R4 Tests ──
 sushi .                              # compile R4 FSH

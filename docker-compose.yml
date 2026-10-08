@@ -17,7 +17,7 @@ services:
   # IG Builder – SUSHI (FSH → FHIR JSON) + HL7 IG Publisher
   # ──────────────────────────────────────────────────────────
   ig-builder:
-    image: node:20
+    image: node:24
     container_name: ie-core-ig-builder
     working_dir: /workspace
     volumes:
@@ -61,7 +61,7 @@ services:
   # IG Test – Cucumber BDD + FHIR Validator test suite
   # ──────────────────────────────────────────────────────────
   ig-test:
-    image: node:20-alpine
+    image: node:24-alpine
     container_name: ie-core-ig-test
     working_dir: /workspace/tests
     volumes:
