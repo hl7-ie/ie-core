@@ -1,6 +1,6 @@
 > ### ℹ️ INFO: aligned with the HIQA draft national standards (September 2026)
 >
-> Release 0.2.0 **"Nostalgic IE"**, package `nostalgic-ie.fhir.core`.
+> Release 0.2.1 **"Nostalgic IE"** (draft), package `nostalgic-ie.fhir.core`. 0.2.0 is the published release.
 >
 > This release aligns IE Core with two HIQA **consultation drafts**: *Electronic Prescriptions and Electronic
 > Dispensations* and *Patient Summary*. The drafts will change after consultation, and IE Core will change with

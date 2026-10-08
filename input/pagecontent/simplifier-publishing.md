@@ -11,8 +11,8 @@ released package version can never be deleted, only unlisted.
 | Item | Value |
 |---|---|
 | Package id | `nostalgic-ie.fhir.core` (ADR-008: the FHIR package specification reserves `hl7.*` for HL7) |
-| Release name | Nostalgic IE (0.2.0); later releases "*Adjective* IE", alphabetically |
-| Version | from `sushi-config.yaml` (currently `0.2.0`, draft) |
+| Release name | Nostalgic IE (the 0.2.x line); a new minor line takes the next "*Adjective* IE", alphabetically |
+| Version | from `sushi-config.yaml` (currently `0.2.1`, draft; `0.2.0` is published). Releases advance by patch: 0.2.2, 0.2.3, … (ADR-008) |
 | FHIR version | 4.0.1 |
 | Canonical | `https://hl7-ie.github.io/ie-core/fhir/ie/core` (unchanged) |
 | Content | conformance resources (profiles, extensions, logical models, ValueSets, CodeSystems, NamingSystems, SearchParameters, CapabilityStatements) and every example |

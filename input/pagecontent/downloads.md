@@ -47,5 +47,5 @@ java -jar validator_cli.jar [resource-file] -ig nostalgic-ie.fhir.core#0.2.0
 For use in FHIR servers and tooling:
 
 ```bash
-npm --registry https://packages.simplifier.net install nostalgic-ie.fhir.core@0.2.0   # once published (see Publishing on Simplifier.net)
+npm --registry https://packages.simplifier.net install nostalgic-ie.fhir.core@0.2.0   # the published release; later versions once published
 ```

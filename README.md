@@ -26,8 +26,9 @@
 
 **Canonical URL**: `https://hl7-ie.github.io/ie-core/fhir/ie/core`  
 **Package**: `nostalgic-ie.fhir.core` (ADR-008; `hl7.*` is reserved for HL7)  
-**Release name**: 0.2.0 was "Nostalgic IE"; the 0.3.0 name is to be chosen  
-**Version**: 0.3.0 (draft, aligned with the HIQA draft Patient Summary standard, Sept 2026)  
+**Release name**: Nostalgic IE (the 0.2.x line; 0.2.0 is published on Simplifier)  
+**Version**: 0.2.1 (draft, aligned with the HIQA draft Patient Summary standard, Sept 2026). Versioning: patch
+increments (0.2.2, 0.2.3, …); see ADR-008  
 **FHIR Version**: R4 (4.0.1)  
 **Status**: Draft (CI Build)
 
@@ -45,7 +46,7 @@
 IE Core is aligned with the HIQA **consultation draft** *Patient Summary* (September 2026). It is a proof of concept,
 not endorsed by HIQA, and not for clinical use.
 
-> **ePrescription and eDispensation moved (0.3.0, ADR-009).** The HIQA *Electronic Prescriptions and Electronic
+> **ePrescription and eDispensation moved (0.2.1, ADR-009).** The HIQA *Electronic Prescriptions and Electronic
 > Dispensations* draft is profiled in [IE Medication Events](https://github.com/hl7-ie/medication-events)
 > (`nostalgic-ie.fhir.medication-events`), which also covers medication administration and statements. IE Core keeps
 > the generic `IECoreMedication` and `IECoreMedicationStatement` and every Irish identifier system.
