@@ -21,6 +21,6 @@
   },
   "devDependencies": {
     "chai-as-promised": "^8.0.2",
-    "fhirpath": "^5.2.0"
+    "fhirpath": "^5.2.1"
   }
 }
